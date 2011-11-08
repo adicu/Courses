@@ -3,7 +3,6 @@ class CreateDepartments < ActiveRecord::Migration
     create_table :departments do |t|
       t.string :title
       t.string :abbreviation
-      t.timestamps
     end
   end
 
