@@ -1,13 +1,13 @@
 class Directory
+  
   def self.crawl
     require 'open-uri'
 
-    subjects = Subject.order( "id" ).all
-    num_subjects = subjects.size
-
-    #Section.update_or_create "http://www.columbia.edu/cu/bulletin/uwb/subj/POLS/BC3118-20111-001/"
 
 #=begin
+    subjects = Subject.order( "id" )
+    num_subjects = subjects.size
+
     subjects.each_with_index do |s, index|
       unless s.abbreviation.nil?
         url = "http://www.columbia.edu/cu/bulletin/uwb/subj/" + s.abbreviation
