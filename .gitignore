@@ -6,3 +6,4 @@ Gemfile.lock
 *.swp
 *~
 *.sql
+db/sphinx/production/*
