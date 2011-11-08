@@ -1,0 +1,3 @@
+After updating the database, you need to run sphinx to update your indices so that searching works:
+	rake thinking_sphinx:index RAILS_ENV=production
+
