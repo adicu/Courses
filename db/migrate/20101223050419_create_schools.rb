@@ -3,7 +3,6 @@ class CreateSchools < ActiveRecord::Migration
     create_table :schools do |t|
       t.string :name
       t.string :abbreviation
-      t.timestamps
     end
   end
 
