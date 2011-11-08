@@ -6,21 +6,67 @@ body { font-family: "Myriad Pro", arial; padding: 20px 0; }
 #container { width: 960px; margin: 0 auto; position: relative; }
 header h1 { font-size: 1.5em; }
 header img { position: absolute; top: 200px; left: 410px; z-index: -1; opacity: 0.1; }
-footer p { text-align: right; }
+footer p { text-align: right; color: #999;}
+footer a { color: #999;}
 button:hover { cursor: pointer; }
 div.noscript{ margin: 40px 0; }
 strong { font-weight: bold; }
 #fb_share_link { position: absolute; top: 2px; right: 0; }
 
 /* Browser */
-#print { background: transparent; border: none; position: absolute; top: 2px; right: 110px; color: blue; }
-#print:hover { cursor: pointer; }
-#browser { width: 940px; background: #75B2DD; padding: 10px; position: relative; margin-bottom: 10px; }
-#browser .search input[type="text"] { width: 667px; margin-right: 5px; padding: 5px; font-size: 1.2em; }
-#browser .search select { margin: 0 10px; width: 130px; }
-#browser button { padding: 6px 20px; background: orange; border: 1px solid grey; color: white; font-size: 1.2em; }
+h1 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+#print { background: transparent; border: none; position: absolute; top: 2px; right: 110px; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
+#print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
+#browser {
+  width: 940px;
+  background: #75B2DD;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 10px;
+
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+
+  box-shadow: 2px 2px 5px #888;
+  -webkit-box-shadow: 2px 2px 5px #888;
+  -moz-box-shadow: 2px 2px 5px #888;
+}
+#browser .search input[type="text"] {
+  width: 65%;
+  margin: 0px 5px 0 0;
+  padding: 5px 5px 2px 5px;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  position: relative;
+  top: 0px;
+}
+
+#browser .search select {
+  margin: 0 10px;
+  width: 15%;
+  position: relative;
+  top: -2px;
+}
+
+#browser button {
+  width: 15%;
+  padding: 5px 20px 1px 20px;
+  background: orange;
+  border: 1px solid grey;
+  color: white;
+  font-size: 1.2em;
+  position: relative;
+  top: 0px;
+}
+
 #browser button:hover { background: darkorange; color: white; }
-#browser div.results { 
+#browser div.results {
 	position: absolute; left: 0; top: 50px; z-index: 1;
 	width: 940px;
 	border: 10px solid #75B2DD; }
@@ -51,26 +97,32 @@ div.errorMessage > div {
 #calendar #guides div { border-bottom: 1px solid #DFDFDF; }
 #calendar #daynames th { text-align: center; }
 #calendar td.dayColumn { width: 20%; }
-#calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; } 
-#calendar td.dayColumn .timeSlotWrapper { 
-	position: absolute; 
-	width: 100%; 
-	background: #D6D6D6; 
+#calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; }
+#calendar td.dayColumn .timeSlotWrapper {
+	position: absolute;
+	width: 100%;
+	background: #D6D6D6;
 	border-radius: 10px;
 	overflow: hidden;
 	-moz-border-radius: 10px; }
 #calendar div.timeSlotWrapper:hover { cursor: pointer; background: #555555; color: white; }
-#calendar .timeSlotWrapper button.remove_link, .timeslot_popup button.remove_link { 
+#calendar .timeSlotWrapper button.remove_link, .timeslot_popup button.remove_link {
 	position: absolute; top: 0; right: 2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.2em; padding: 0 5px;}
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
 #calendar .timeSlotWrapper button.remove_link { color: black; }
 #calendar .timeSlotWrapper:hover button.remove_link { color: lightgrey; }
 #calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
-#calendar td.hourColumn { 
-	width: 35px; 
+#calendar td.hourColumn {
+	width: 35px;
 	padding-right: 5px;
-	text-align: right; 
+	text-align: right;
 	font-size: 0.9em; }
+#calendar td.hourColumn div {
+  position: relative;
+  top: -0.6em;
+  background-color: #fff;
+  padding-right: 0.25em;
+}
 div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 div#fade {
 		display: none;
