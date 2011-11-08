@@ -84,7 +84,7 @@ daysToAbbreviation = function( days ){
   if ( days.contains( 'Monday' )){ abbreviation += "M"; }
   if ( days.contains( 'Tuesday' )){ abbreviation += "T"; }
   if ( days.contains( 'Wednesday' )){ abbreviation += "W"; }
-  if ( days.contains( 'Thursday' )){ abbreviation += "Th"; }
+  if ( days.contains( 'Thursday' )){ abbreviation += "R"; }
   if ( days.contains( 'Friday' )){ abbreviation += "F"; }
   return abbreviation;
 };
@@ -595,7 +595,7 @@ var App = new Class({
     this.browser.setCalendar( this.calendar );
   },
   render: function( parent_el ){
-    new Element( 'button', { id: 'print', html: 'print', events: { click: function(){ window.print(); }}}).inject( parent_el );
+    new Element( 'button', { id: 'print', html: 'Print', events: { click: function(){ window.print(); }}}).inject( parent_el );
     this.browser.render( parent_el );
     this.calendar.render( parent_el );
   },
