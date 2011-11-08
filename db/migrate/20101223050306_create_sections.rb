@@ -5,8 +5,8 @@ class CreateSections < ActiveRecord::Migration
       t.integer :call_number
       t.text :description
       t.string :days
-      t.time :start_time
-      t.time :end_time
+      t.float :start_time
+      t.float :end_time
       t.string :room
       t.string :building
       t.integer :instructor_id
@@ -19,8 +19,6 @@ class CreateSections < ActiveRecord::Migration
       t.string :url
       t.integer :enrollment
       t.integer :max_enrollment
-      
-      t.timestamps
     end
   end
 

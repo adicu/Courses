@@ -1,0 +1,93 @@
+/* Reset */
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
+
+/* Application */
+body { font-family: "Myriad Pro", arial; padding: 20px 0; }
+#container { width: 960px; margin: 0 auto; position: relative; }
+header h1 { font-size: 1.5em; }
+header img { position: absolute; top: 200px; left: 410px; z-index: -1; opacity: 0.1; }
+footer p { text-align: right; }
+button:hover { cursor: pointer; }
+div.noscript{ margin: 40px 0; }
+strong { font-weight: bold; }
+#fb_share_link { position: absolute; top: 2px; right: 0; }
+
+/* Browser */
+#print { background: transparent; border: none; position: absolute; top: 2px; right: 110px; color: blue; }
+#print:hover { cursor: pointer; }
+#browser { width: 940px; background: #75B2DD; padding: 10px; position: relative; margin-bottom: 10px; }
+#browser .search input[type="text"] { width: 667px; margin-right: 5px; padding: 5px; font-size: 1.2em; }
+#browser .search select { margin: 0 10px; width: 130px; }
+#browser button { padding: 6px 20px; background: orange; border: 1px solid grey; color: white; font-size: 1.2em; }
+#browser button:hover { background: darkorange; color: white; }
+#browser div.results { 
+	position: absolute; left: 0; top: 50px; z-index: 1;
+	width: 940px;
+	border: 10px solid #75B2DD; }
+#browser .results ul, #browser .results p.clear_results {	background: rgba( 255, 255, 255, 0.95); }
+#browser .results li { padding: 10px; font-size: 1.1em; }
+#browser .results li:hover { padding: 10px; font-size: 1.1em; background: beige; cursor: pointer; }
+#browser .results li p:first-child { font-weight: bold; font-size: 1em; }
+#browser .results li p.description { font-size: 0.9em; }
+#browser .results p.clear_results { text-align: right; font-weight: bold; padding: 5px 10px; }
+#browser .results p.clear_results:hover { cursor: pointer; color: grey; }
+
+/* Calendar */
+body { position: relative; }
+div.errorMessage {
+	position: absolute; top: 0; left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3; }
+div.errorMessage > div {
+	position: absolute; top: 40%; left: 50%;
+	margin-left: -200px;
+	padding: 10px 20px;
+	background: grey; width: 400px; }
+.errorMessage p { color: white; }
+.errorMessage button { margin: 10px 10px 0 0; }
+#calendar { position: relative; }
+#calendar #guides { position: absolute; top: 0; left: 0; width: 100%; max-width: 960px; z-index: -1; }
+#calendar #guides div { border-bottom: 1px solid #DFDFDF; }
+#calendar #daynames th { text-align: center; }
+#calendar td.dayColumn { width: 20%; }
+#calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; } 
+#calendar td.dayColumn .timeSlotWrapper { 
+	position: absolute; 
+	width: 100%; 
+	background: #D6D6D6; 
+	border-radius: 10px;
+	overflow: hidden;
+	-moz-border-radius: 10px; }
+#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #555555; color: white; }
+#calendar .timeSlotWrapper button.remove_link, .timeslot_popup button.remove_link { 
+	position: absolute; top: 0; right: 2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.2em; padding: 0 5px;}
+#calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
+#calendar .timeSlotWrapper button.remove_link { color: black; }
+#calendar .timeSlotWrapper:hover button.remove_link { color: lightgrey; }
+#calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
+#calendar td.hourColumn { 
+	width: 35px; 
+	padding-right: 5px;
+	text-align: right; 
+	font-size: 0.9em; }
+div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+div#fade {
+		display: none;
+		background: rgba( 0, 0, 0, 0.2 );
+		position: fixed; left: 0; top: 0;
+		width: 100%; height: 100%;
+		z-index: 1; }
+div.timeslot_popup div.box {
+		position: absolute; top: 200px; left: 50%;
+		margin-left: -200px;
+		padding: 10px 20px;
+		border: 5px solid #B6B6B6;
+		background: white; width: 400px;
+		z-index: 2; }
+div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
+div.timeslot_popup th { font-style: italic; }
+div.timeslot_popup div.box table { width: 100%; }
+div.timeslot_popup div.box td { padding: 0 10px 5px 0; vertical-align: top; }
+div.timeslot_popup div.box td:last-child { padding-right: 0; }
+div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }

@@ -4,10 +4,8 @@ class CreateCourses < ActiveRecord::Migration
       t.string :title
       t.string :course_key
       t.text :description
-      t.integer :subject_id
-      t.integer :department_id
       t.float :points
-      t.timestamps
+      t.datetime :updated_at
     end
   end
 
