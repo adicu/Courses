@@ -7,12 +7,12 @@ class CoursesController < ApplicationController
 
     output = {}
 
-logger.info 'here'
-logger.info semester.inspect
-logger.info params[:q].inspect
+    params[:q] = refine_query(params[:q])
 
-    output[:num_results] = Course.search_count params[:q], :with => { :semesters => semester }
-    results = Course.search params[:q], :with => { :semesters => semester }, :page => page, :per_page => per_page
+    output[:num_results] = Course.search_count params[:q],
+        :with => { :semesters => semester }
+    results = Course.search(params[:q], :with => { :semesters => semester },
+        :page => page, :per_page => per_page)
     output[:results] = results.select { |r|
       !r.nil?
     }.collect { |c|
@@ -83,6 +83,10 @@ logger.info params[:q].inspect
     end
 
     return year.to_s + (month/4+1).to_s
+  end
+
+  def refine_query(str)
+    str.gsub(/\bhum\b/, "humanities")
   end
 
 end
