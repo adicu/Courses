@@ -279,8 +279,9 @@ var Calendar = new Class({
           var o_section = this.sections[i];
           if ( section.overlaps( o_section ) ) {
             var error = new Error();
+            var other_title = o_section.title || "An existing section";
             var message = new Element( 'div', {
-              html: "<p>An existing section overlaps with the section you're attempting to add. Do you want to replace it?</p>" });
+              html: "<p>" + other_title + " overlaps with the section you're attempting to add. Do you want to replace it?</p>" });
             var stop = new Element( 'button', {
               html: "Stop", events: { click: function(){ error.destroy(); }}}).inject( message );
             var replace = new Element( 'button', {
