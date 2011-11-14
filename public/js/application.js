@@ -345,6 +345,14 @@ var Calendar = new Class({
     addSections: function( sections ){
       if ( sections.length === 1 ) { this.addSection( sections[0] ); }
       else {
+            var error = new Error();
+            var message = new Element( 'div', {
+              html: "<p>Multiple sections exist for this class. Please click on the section you like by clicking on it on the calendar.</p>" });
+            var stop = new Element( 'button', {
+              html: "Okay", events: { click: function(){ error.destroy(); }}}).inject( message );
+            error.setMessage( message );
+            error.render();
+
         var section_groups = new Array();
 				var sections_length = sections.length;
         for( var i = 0; i < sections_length; i++ ){

@@ -6,11 +6,8 @@ body { font-family: "Myriad Pro", arial; padding: 20px 0; }
 #container { width: 960px; margin: 0 auto; position: relative; }
 header h1 { font-size: 1.5em; }
 header img { position: absolute; top: 200px; left: 410px; z-index: -1; opacity: 0.1; }
-
 footer p { text-align: right; color: #999;}
 footer a { color: #999;}
-footer a:hover { color: #666;}
-
 button:hover { cursor: pointer; }
 div.noscript{ margin: 40px 0; }
 strong { font-weight: bold; }
@@ -163,6 +160,3 @@ div.timeslot_popup div.box td:last-child { padding-right: 0; }
 div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
 
 #adi-logo {display: block; position: relative; top: 3px;}
-
-.reportBug { float: right; }
-.byline { float: left; }
