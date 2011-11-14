@@ -265,8 +265,8 @@ var Calendar = new Class({
       var wrapper = new Element( 'div', {
         'class': 'timeSlotWrapper',
         styles: {
-          top: String.from(start_pixels)+'px',
-          height: String.from(height_pixels)+'px' }
+          top: String.from(Math.round(start_pixels)) + 'px',
+          height: String.from(Math.round(height_pixels)) + 'px' }
         });
       wrapper.setProperty( key, val );
       return wrapper;
