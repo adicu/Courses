@@ -80,7 +80,7 @@ h1 {
 
 #browser button:hover { background: darkorange; color: white; }
 #browser div.results {
-	position: absolute; left: 0; top: 50px; z-index: 1;
+	position: absolute; left: 0; top: 50px; z-index: 7;
 	width: 940px;
 	border: 10px solid #75B2DD; }
 #browser .results ul, #browser .results p.clear_results {	background: rgba( 255, 255, 255, 0.95); }
@@ -120,22 +120,25 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar #guides { position: absolute; top: 0; left: 0; width: 100%; max-width: 960px; z-index: -1; }
 #calendar #guides div { border-bottom: 1px solid #DFDFDF; }
 #calendar #daynames th { text-align: center; }
-#calendar td.dayColumn { width: 20%; }
+#calendar td.dayColumn { width: 20%; padding: 0 0 0 1px; }
 #calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; }
 #calendar td.dayColumn .timeSlotWrapper {
 	position: absolute;
 	width: 100%;
-	background: #D6D6D6;
-	border-radius: 10px;
+	background: #e9e9f5;
+	border-radius: 9px;
 	overflow: hidden;
-	-moz-border-radius: 10px; }
+	-moz-border-radius: 9px;
+  border:1px solid #222;}
 #calendar div.timeSlotWrapper:hover { cursor: pointer; background: #555555; color: white; }
-#calendar .timeSlotWrapper button.remove_link, .timeslot_popup button.remove_link {
-	position: absolute; top: 0; right: 2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.2em; padding: 0 5px;}
+#calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
+	position: absolute; top: -4px; right: -2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
+.timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
-#calendar .timeSlotWrapper button.remove_link { color: black; }
-#calendar .timeSlotWrapper:hover button.remove_link { color: lightgrey; }
+#calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; position:relative; }
+#calendar .timeSlotWrapper:hover .remove_link { color: #999; }
 #calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
+#calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
 #calendar td.hourColumn {
 	width: 35px;
 	padding-right: 5px;
@@ -143,9 +146,9 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 	font-size: 0.9em; }
 #calendar td.hourColumn div {
   position: relative;
-  top: -0.6em;
+  top: -0.7em;
   background-color: #fff;
-  padding-right: 0.25em;
+  padding-right: 0.3em;
 }
 div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 div#fade {
@@ -160,13 +163,15 @@ div.timeslot_popup div.box {
 		padding: 10px 20px;
 		border: 5px solid #B6B6B6;
 		background: white; width: 400px;
-		z-index: 2; }
+		z-index: 10; }
 div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
 div.timeslot_popup th { font-style: italic; }
 div.timeslot_popup div.box table { width: 100%; }
 div.timeslot_popup div.box td { padding: 0 10px 5px 0; vertical-align: top; }
 div.timeslot_popup div.box td:last-child { padding-right: 0; }
 div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
+.timeSlotTitle {width: 95%;}
+.timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
 
 #adi-logo {display: block; position: relative; top: 3px;}
 
