@@ -407,7 +407,7 @@ var Calendar = new Class({
           } else {
             var error = new Error();
             var message = new Element( 'div', {
-              html: "<p>The sections for these class don't have any times. " +
+              html: "<p>The sections for these classes don't have any times. " +
                 "This might be a placeholder class for registration, which we " +
                 "don't support. If this is an error, please report a bug by " +
                 "clicking the link at the bottom right of the page. </p>"
