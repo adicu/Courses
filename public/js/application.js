@@ -450,7 +450,7 @@ var Calendar = new Class({
           'class': 'timeSlotText timeSlotTitle'
       }).inject( canvas );
       var call_number = new Element( 'p', {
-        html: 'Call Number: ' + section.getCallNumber(),
+        html: 'Call #: ' + section.getCallNumber(),
         'class': 'timeSlotText timeSlotCallNumber'
       }).inject( canvas );
       var remove_link = new Element( 'button', {
@@ -474,7 +474,7 @@ var Calendar = new Class({
 
       var table = new Element( 'table' ).inject( box );
       new Element( 'tr', { 'class': 'title', html: '<td>Title:</td><td>' + section.getCourse().getFullTitle() + '; ' + section.getTitle() + '</td>' }).inject( table );
-      new Element( 'tr', { 'class': 'time_slot', html: '<td>Call Number:</td><td>' + section.getCallNumber() + '</td>' }).inject( table );
+      new Element( 'tr', { 'class': 'time_slot', html: '<td>Call #:</td><td>' + section.getCallNumber() + '</td>' }).inject( table );
       new Element( 'tr', {
         html: '<td>Time slot:</td><td>'+
           daysToAbbreviation( section.getDays() ) + ', ' +
