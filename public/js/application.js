@@ -27,11 +27,71 @@ if(f.length>2083){this.fireEvent("error",f);}var a=this.getScript(f).inject(c.in
 },isRunning:function(){return !!this.running;},clear:function(){if(this.script){this.script.destroy();}this.running=false;return this;}});Request.JSONP.counter=0;
 Request.JSONP.request_map={};
 
+/*
+ * Title Caps
+ *
+ * Ported to JavaScript By John Resig - http://ejohn.org/ - 21 May 2008
+ * Original by John Gruber - http://daringfireball.net/ - 10 May 2008
+ * License: http://www.opensource.org/licenses/mit-license.php
+ */
+
+(function(){
+	var small = "(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)";
+	var punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)";
+
+	this.titleCaps = function(title){
+		var parts = [], split = /[:.;?!] |(?: |^)["Ò]/g, index = 0;
+
+		while (true) {
+			var m = split.exec(title);
+
+			parts.push( title.substring(index, m ? m.index : title.length)
+				.replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, function(all){
+					return /[A-Za-z]\.[A-Za-z]/.test(all) ? all : upper(all);
+				})
+				.replace(RegExp("\\b" + small + "\\b", "ig"), lower)
+				.replace(RegExp("^" + punct + small + "\\b", "ig"), function(all, punct, word){
+					return punct + upper(word);
+				})
+				.replace(RegExp("\\b" + small + punct + "$", "ig"), upper));
+
+			index = split.lastIndex;
+
+			if ( m ) parts.push( m[0] );
+			else break;
+		}
+
+		return parts.join("").replace(/ V(s?)\. /ig, " v$1. ")
+			.replace(/(['Õ])S\b/ig, "$1s")
+			.replace(/\b(AT&T|Q&A)\b/ig, function(all){
+				return all.toUpperCase();
+			});
+	};
+
+	function lower(word){
+		return word.toLowerCase();
+	}
+
+	function upper(word){
+	  return word.substr(0,1).toUpperCase() + word.substr(1);
+	}
+})();
+
 window.addEvent( 'domready', function() {
   var app = new App();
   app.render( $('app') );
   app.preload();
 });
+
+var downcaseLong = function(str) {
+  var split = str.split(' ');
+  for (var i = 0; i < split.length; i++) {
+    if (split[i].length > 2) {
+      split[i] = split[i].toLowerCase();
+    }
+  }
+  return split.join(' ');
+};
 
 var data_api_url = "http://courses.adicu.com";
 
@@ -149,7 +209,7 @@ var Instructor = new Class({
 var Section = new Class({
   initialize: function( data, course ){
     this.call_number = data.call_number;
-    this.title = data.title;
+    this.title = titleCaps(downcaseLong(data.title));
     this.instructor = new Instructor( data.instructor );
     this.building = data.building;
     this.room = data.room;
@@ -445,6 +505,10 @@ var Calendar = new Class({
     },
     buildSectionTimeSlot: function( section ){
       var canvas = new Element( 'div', { class: 'timeSlot' } );
+      var remove_link = new Element( 'button', {
+          'class': "remove_link",
+          html: "x"
+      }).inject( canvas );
       var title = new Element( 'p', {
           html: section.getTitle(),
           'class': 'timeSlotText timeSlotTitle'
@@ -452,10 +516,6 @@ var Calendar = new Class({
       var call_number = new Element( 'p', {
         html: 'Call #: ' + section.getCallNumber(),
         'class': 'timeSlotText timeSlotCallNumber'
-      }).inject( canvas );
-      var remove_link = new Element( 'button', {
-          'class': "remove_link",
-          html: "x"
       }).inject( canvas );
       remove_link.addEvent( 'click', function() {
         this.removeSection( section );
@@ -469,7 +529,7 @@ var Calendar = new Class({
         'class': "box", html: "<h2>Section details</h2>" }).inject( canvas );
       new Element( 'div', {
         'class': "backdrop", events: { click: function(){ canvas.setStyle( 'display', 'none' ); }}}).inject( canvas );
-      new Element( 'button', {
+      new Element( 'span', {
         'class': "remove_link", html: "x", events: { click: function(){ canvas.setStyle( 'display', 'none' ); hideFade(); }}}).inject( box );
 
       var table = new Element( 'table' ).inject( box );
