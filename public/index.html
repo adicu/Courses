@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <meta property="og:title" content="Schedule Builder"/>
+ <meta property="og:image" content="http://courses.adicu.com/images/schedule-builder-logo.png"/>
+ <meta property="og:description" content="The easiest way to pick classes at Columbia."/>
+
   <title>Schedule Builder</title>
+
   <link href="css/application.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="css/print.css" media="print" rel="stylesheet" type="text/css" />
   <script src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.0/mootools-yui-compressed.js"></script>
@@ -10,9 +15,12 @@
 <body>
   <div id="container">
     <header>
-      <h1>Schedule Builder</h1>
-      <img src="images/seal.png" alt="Seal of Columbia University" />
-<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcourses.adicu.com&amp;layout=button_count&amp;show_faces=false&amp;width=95&amp;action=recommend&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:95px; height:21px;" allowTransparency="true" id="fb_share_link"></iframe>
+  <iframe
+    src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcourses.adicu.com&amp;layout=button_count&amp;show_faces=false&amp;width=95&amp;action=recommend&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21"
+    scrolling="no" frameborder="0"  allowTransparency="true" id="fb_share_link"></iframe>
+      <h1>Schedule Builder <span id="byline"><a
+            href="http://adicu.com/">from <img src="images/adi-logo-small.png" alt="ADI" /></a></span></h1>
+      <img src="images/seal.png" alt="Seal of Columbia University" id="seal" />
     </header>
     <div id="app"></div>
     <noscript>
@@ -23,7 +31,7 @@
     <footer>
     <p>
     <span class="byline">
-        by <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
+        By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
         href="http://hansh.org/">Hans Hyttinen</a>, and <a
         href="http://www.github.com/sidnair09">Sid Nair</a>.
     </span>

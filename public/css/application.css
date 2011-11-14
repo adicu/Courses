@@ -5,7 +5,12 @@ html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pr
 body { font-family: "Myriad Pro", arial; padding: 20px 0; }
 #container { width: 960px; margin: 0 auto; position: relative; }
 header h1 { font-size: 1.5em; }
-header img { position: absolute; top: 200px; left: 410px; z-index: -1; opacity: 0.1; }
+header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opacity: 0.1; }
+
+span#byline {color: #999; opacity: 0.5;}
+span#byline a {text-decoration: none; color: #999;}
+span#byline a img {position: relative; top: 3px;}
+span#byline:hover {opacity: 1.0;}
 
 footer p { text-align: right; color: #999;}
 footer a { color: #999;}
@@ -14,7 +19,8 @@ footer a:hover { color: #666;}
 button:hover { cursor: pointer; }
 div.noscript{ margin: 40px 0; }
 strong { font-weight: bold; }
-#fb_share_link { position: absolute; top: 2px; right: 0; }
+
+#fb_share_link { border:none; overflow:hidden; width: 120px; height:21px; position: relative; top: 12px; float: right;}
 
 /* Browser */
 h1 {
@@ -27,7 +33,7 @@ h1 {
   line-height: 47px;
 }
 
-#print { background: transparent; border: none; position: absolute; top: 2px; right: 110px; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
+#print { background: transparent; border: none; position: absolute; top: 12px; right: 130px; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
 #print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
 #browser {
   width: 940px;
