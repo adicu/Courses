@@ -1,3 +1,4 @@
 production:
   bin_path: '/usr/local/bin'
   searchd_binary_name: 'searchd'
+  min_infix_len: 4

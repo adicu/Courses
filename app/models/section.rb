@@ -3,7 +3,7 @@ class Section < ActiveRecord::Base
   belongs_to :instructor
   belongs_to :department
   belongs_to :subject
-  
+
   def self.update_or_create( url )
     require 'open-uri'
 
@@ -19,10 +19,10 @@ class Section < ActiveRecord::Base
     # initialize section by section key
     match = html.match(/Section key\s*([^\n]+)/)
     section = Section.find_or_create_by_section_key( match[1].strip )
-    
+
     # only update section if it has not been touch in the last 12 hours
     # return section unless section.call_number.nil?
-    
+
     # section number
     match = doc.css("title").first.content.strip.match( /section\s*0*([0-9]+)/ )
     section.section_number = match[1].strip
@@ -31,7 +31,7 @@ class Section < ActiveRecord::Base
     full_title = doc.css( 'td[colspan="2"]' )[1].to_html.gsub(/<\/?[^>]*>/, " ").strip
     title = doc.css("title").first.content.strip
     section.title = full_title.gsub( title, "" ).gsub( /\s+/, " " ).gsub( "&amp;", "&" ).strip
-  
+
     # subject
     match = section.section_key.match( /^[0-9]+([A-Z]+)/ )
     section.subject = Subject.find_or_create_by_abbreviation( match[1].strip )
@@ -40,7 +40,7 @@ class Section < ActiveRecord::Base
     section.url = url
     section.semester = doc.css('meta[name="semes"]').first.attribute("content")
     section.description = doc.css('meta[name="description"]').first.attribute("content")
-    
+
     instructor_name = doc.css('meta[name="instr"]').first.attribute("content").value.split( ", " )[0]
     section.instructor = Instructor.find_or_create_by_name( instructor_name )
 

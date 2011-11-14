@@ -18,6 +18,10 @@ h1 {
   margin-bottom: 10px;
   font-weight: 700;
   color: #333;
+  padding-left: 68px;
+  background: url('../images/schedule-builder-logo.png') no-repeat left center;
+  height: 47px;
+  line-height: 47px;
 }
 
 #print { background: transparent; border: none; position: absolute; top: 2px; right: 110px; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
