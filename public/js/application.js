@@ -38,15 +38,15 @@ var data_api_url = "http://courses.adicu.com";
 
 /* Extensions */
 
-decimalToDate = function( decimal ){
+var decimalToDate = function( decimal ){
 	return new Date( 0,0,0,Math.floor( decimal ),(decimal-Math.floor( decimal ))*60,0,0 );
 };
 
-dateToDecimal = function( date ){
+var dateToDecimal = function( date ){
 	return date.getHours() + date.getMinutes()/60.0;
 };
 
-decimalToTime = function( decimal ){
+var decimalToTime = function( decimal ){
   var date = decimalToDate( decimal );
   var time = String.from( date.get12HourHour() ) + ":";
   if ( date.getMinutes() < 10 ) time += "0";
@@ -69,17 +69,17 @@ String.implement( 'pluralize', function( count, plural ){
 
 /* General functions */
 
-is_null_or_undefined = function( val ){
+var is_null_or_undefined = function( val ){
   return val === null || val === undefined;
 };
 
-hourToLabel = function( hour ){
+var hourToLabel = function( hour ){
   if ( hour < 12 ) {  return String.from( hour ) + "am" }
   else if ( hour === 12 ) { return "noon" }
   else { return String.from( hour%12 ) + "pm" }
 };
 
-daysToAbbreviation = function( days ){
+var daysToAbbreviation = function( days ){
   var abbreviation = "";
   if ( days.contains( 'Monday' )){ abbreviation += "M"; }
   if ( days.contains( 'Tuesday' )){ abbreviation += "T"; }
@@ -89,7 +89,7 @@ daysToAbbreviation = function( days ){
   return abbreviation;
 };
 
-abbreviationToDays = function( abbrev ){
+var abbreviationToDays = function( abbrev ){
   var days = new Array();
   var str = abbrev.toLowerCase();
 
@@ -101,17 +101,17 @@ abbreviationToDays = function( abbrev ){
   return days;
 };
 
-sortSections = function(a, b){
+var sortSections = function(a, b){
   if ( a.id < b.id ){ return -1; }
   else if ( a.id > b.id ){ return 1; }
   else { return 0; }
 };
 
-showFade = function(){
+var showFade = function(){
   $('fade').setStyle( 'display', 'block' );
 };
 
-hideFade = function(){
+var hideFade = function(){
   $('fade').setStyle( 'display', 'none' );
 };
 
@@ -335,11 +335,28 @@ var Calendar = new Class({
         url: data_api_url + '/courses/get',
         callbackKey: 'callback',
         data: { course_key: course.getCourseKey(), s: semester },
-        onComplete: function(data){
-          var sections = new Array();
-          data.sections.each( function( section_data, index ){
-            if ( section_data.days ) sections.include( new Section( section_data, course ))});
-          this.addSections( sections );
+        onComplete: function(data) {
+          var sections = [];
+          data.sections.each( function( section_data, index ) {
+            if (section_data.days) {
+              sections.include( new Section( section_data, course ));
+            }
+          });
+          if (sections.length > 0) {
+            this.addSections( sections );
+          } else {
+            var error = new Error();
+            var message = new Element( 'div', {
+              html: "<p>The sections for these class don't have any times. " +
+                "This might be a placeholder class for registration, which we " +
+                "don't support. If this is an error, please report a bug by " +
+                "clicking the link at the bottom right of the page. </p>"
+              });
+            var stop = new Element( 'button', {
+              html: "Okay", events: { click: function(){ error.destroy(); }}}).inject( message );
+            error.setMessage( message );
+            error.render();
+          }
         }.bind(this)
       }, this).send();
     },
@@ -427,11 +444,22 @@ var Calendar = new Class({
       }
     },
     buildSectionTimeSlot: function( section ){
-      var canvas = new Element( 'div' );
-      var title = new Element( 'p', { html: section.getTitle() } ).inject( canvas );
-      var call_number = new Element( 'p', { html: 'Call Number: ' + section.getCallNumber() }).inject( canvas );
-      var remove_link = new Element( 'button', { 'class': "remove_link", html: "x" }).inject( canvas );
-      remove_link.addEvent( 'click', function(){ this.removeSection( section ); }.bind(this));
+      var canvas = new Element( 'div', { class: 'timeSlot' } );
+      var title = new Element( 'p', {
+          html: section.getTitle(),
+          'class': 'timeSlotText timeSlotTitle'
+      }).inject( canvas );
+      var call_number = new Element( 'p', {
+        html: 'Call Number: ' + section.getCallNumber(),
+        'class': 'timeSlotText timeSlotCallNumber'
+      }).inject( canvas );
+      var remove_link = new Element( 'button', {
+          'class': "remove_link",
+          html: "x"
+      }).inject( canvas );
+      remove_link.addEvent( 'click', function() {
+        this.removeSection( section );
+      }.bind(this));
       return canvas;
     },
     buildSectionPopup: function( section ){
