@@ -2,7 +2,6 @@ class CreateDepartments < ActiveRecord::Migration
   def self.up
     create_table :departments do |t|
       t.string :title
-      t.string :abbreviation
     end
   end
 

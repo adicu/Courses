@@ -1,7 +1,8 @@
 class Department < ActiveRecord::Base
   has_many :sections
   has_many :courses
-  
+
+=begin
   BASE_URL = "http://www.college.columbia.edu/unify/bulletinText/"
 
   def get_bulletin
@@ -16,4 +17,6 @@ class Department < ActiveRecord::Base
       return nil
     end
   end
+=end
+
 end

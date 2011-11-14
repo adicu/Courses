@@ -32,18 +32,18 @@ window.addEvent( 'domready', function() {
   app.render( $('app') );
   app.preload();
 });
-  
+
 var data_api_url = "http://courses.adicu.com";
 
 
 /* Extensions */
 
-decimalToDate = function( decimal ){ 
-	return new Date( 0,0,0,Math.floor( decimal ),(decimal-Math.floor( decimal ))*60,0,0 ); 
+decimalToDate = function( decimal ){
+	return new Date( 0,0,0,Math.floor( decimal ),(decimal-Math.floor( decimal ))*60,0,0 );
 };
 
-dateToDecimal = function( date ){ 
-	return date.getHours() + date.getMinutes()/60.0; 
+dateToDecimal = function( date ){
+	return date.getHours() + date.getMinutes()/60.0;
 };
 
 decimalToTime = function( decimal ){
@@ -92,7 +92,7 @@ daysToAbbreviation = function( days ){
 abbreviationToDays = function( abbrev ){
   var days = new Array();
   var str = abbrev.toLowerCase();
-  
+
   if ( str.contains( 'm' ) ){ days.include( 'Monday' );  }
   if ( str.contains( 't' ) ){ days.include( 'Tuesday' ); }
   if ( str.contains( 'w' ) ){ days.include( 'Wednesday' ); }
@@ -119,7 +119,7 @@ hideFade = function(){
 /* Classes */
 
 var Error = new Class({
-  initialize: function( message ){ 
+  initialize: function( message ){
     this.setMessage( message );
     this.root_message; },
   options: { class_name: "errorMessage"  },
@@ -131,7 +131,7 @@ var Error = new Class({
     var container = new Element( 'div', { 'class': "box" });
     backdrop.inject( this.root_element );
     container.inject( this.root_element );
-    this.message.inject( container );  
+    this.message.inject( container );
     showFade();
     this.root_element.inject( document.body );
   }
@@ -181,30 +181,43 @@ var Section = new Class({
   getCourse: function(){ return this.course; },
   setCourse: function( course ){ this.course = course; },
   overlaps: function( other ){
-    if ( 
-      (other.getStart() >= this.start && other.getStart() < this.end) || 
-      (other.getEnd() > this.start && other.getEnd() < this.end) || 
+    if (
+      (other.getStart() >= this.start && other.getStart() < this.end) ||
+      (other.getEnd() > this.start && other.getEnd() < this.end) ||
       (other.getStart() <= this.start && other.getEnd() >= this.end) ) {
 				var days_length = this.days.length;
-        for( var i = 0; i < days_length; i++ ) { if ( other.getDays().contains( this.days[i] ) ) return true; } 
+        for( var i = 0; i < days_length; i++ ) { if ( other.getDays().contains( this.days[i] ) ) return true; }
     }
     else { return false; }
   }
 });
 
+/* Don't allow too many words in a description. */
+var trimDescription = function(description, cutoff) {
+  cutoff = cutoff || 100;
+  var splitDescription = description.split(' ');
+  if (splitDescription.length > cutoff) {
+    return splitDescription.slice(0, cutoff).join(' ') + '...';
+  }
+  return description;
+};
+
 var Course = new Class({
-  initialize: function( data ){ 
+  initialize: function( data ){
     this.id = data.id;
-    this.title = data.title;
+    this.title = data.title || '';
+    this.description = trimDescription(data.description || '');
     this.course_key = data.course_key;
-    this.description = data.description;
     this.num_sections = data.num_sections;
   },
   getId: function(){ return this.id; },
   getTitle: function(){ return this.title; },
-  getFullTitle: function(){ return this.course_key + ' ' + this.title; },
+  getFullTitle: function() {
+      return this.course_key + (this.title ? ' ' + this.title : '');
+  },
   getDescription: function(){ return this.description; },
-  getCourseKey: function(){ return this.course_key; }
+  getCourseKey: function(){ return this.course_key; },
+  isValid: function() { return this.id }
 });
 
 var SectionGroup = new Class({
@@ -226,7 +239,7 @@ var SectionGroup = new Class({
         if ( !this.days.contains( day ) ) { return false; }
         }, this);
       return true;
-    } 
+    }
     else { return false; }
   }
 });
@@ -249,7 +262,7 @@ var Calendar = new Class({
     getTimeSlotWrapper: function( start, end, key, val ){
       var start_pixels = (start-this.options.start_hour) * this.options.pixels_per_hour;
       var height_pixels = Math.abs(end-start)*this.options.pixels_per_hour;
-      var wrapper = new Element( 'div', { 
+      var wrapper = new Element( 'div', {
         'class': 'timeSlotWrapper',
         styles: {
           top: String.from(start_pixels)+'px',
@@ -282,7 +295,7 @@ var Calendar = new Class({
 
         // no conflict; add section to calendar
         this.sections.include( section );
-        this.updateURL();        
+        this.updateURL();
         var section_popup = this.buildSectionPopup( section ).inject( document.body );
         section.getDays().each( function( day, index ){
           var section_wrapper = this.getTimeSlotWrapper( section.getStart(), section.getEnd(), 'sectionid', section.getId() ).inject( $(day) );
@@ -304,18 +317,18 @@ var Calendar = new Class({
       for( var i = 0; i < sections_length; i++ ){
         if ( this.sections[i].getCourse().getId() === course.getId() ){
           var error = new Error();
-          var message = new Element( 'div', { 
+          var message = new Element( 'div', {
             html: "<p>You have already added a section for this course. Do you want to replace the existing section with this one?</p>" });
-          var stop = new Element( 'button', { 
+          var stop = new Element( 'button', {
             html: "Stop", events: { click: function(){ error.destroy(); }}}).inject( message );
-          var replace = new Element( 'button', { 
+          var replace = new Element( 'button', {
             html: "Replace", events: { click: function(){ this.removeSection( this.sections[i] ); error.destroy(); this.addCourse( course, semester )}.bind(this)}}, this).inject( message );
           error.setMessage( message );
           error.render();
           return;
         }
       }
-      
+
       // no conflict, load course
       var request = new Request.JSONP({
         url: data_api_url + '/courses/get',
@@ -323,7 +336,7 @@ var Calendar = new Class({
         data: { course_key: course.getCourseKey(), s: semester },
         onComplete: function(data){
           var sections = new Array();
-          data.sections.each( function( section_data, index ){ 
+          data.sections.each( function( section_data, index ){
             if ( section_data.days ) sections.include( new Section( section_data, course ))});
           this.addSections( sections );
         }.bind(this)
@@ -350,7 +363,7 @@ var Calendar = new Class({
           sg.getDays().each( function( day, index ){
             var sg_wrapper = this.getTimeSlotWrapper( sg.getStart(), sg.getEnd(), 'courseid', sg.getSections()[0].getCourse().getId() ).inject( $(day) );
             this.buildSectionGroupTimeSlot( sg ).inject( sg_wrapper );
-            sg_wrapper.addEvent( 'click', function( event ){ 
+            sg_wrapper.addEvent( 'click', function( event ){
               if ( sg.getSections().length > 1 ){
                 $$( 'div.timeslot_popup' ).each( function( element, index ){ element.setStyle( 'display', 'none' ); });
                 sg_popup.setStyle( 'display', 'block' );
@@ -387,7 +400,7 @@ var Calendar = new Class({
       var daybodies = new Element( 'tbody', { id: 'daybodies' } ).inject( table );
       var daybodies_tr = new Element( 'tr' ).inject( daybodies );
       var hours_td = new Element( 'td', { id: 'hours', 'class': 'hourColumn' } ).inject( daybodies_tr );
-      
+
       // build day names and bodies
       var dayname_th = new Element( 'th', { style: 'height:' + this.options.pixels_per_hour + 'px' } ).inject( daynames_tr );
       Array.each( this.options.days, function( day, index ){
@@ -413,22 +426,22 @@ var Calendar = new Class({
       return canvas;
     },
     buildSectionPopup: function( section ){
-      var canvas = new Element( 'div', { 
+      var canvas = new Element( 'div', {
         'class': "timeslot_popup", sectionid: section.getId(), styles: { display: 'none' }}, this);
-      var box = new Element( 'div', { 
+      var box = new Element( 'div', {
         'class': "box", html: "<h2>Section details</h2>" }).inject( canvas );
-      new Element( 'div', { 
+      new Element( 'div', {
         'class': "backdrop", events: { click: function(){ canvas.setStyle( 'display', 'none' ); }}}).inject( canvas );
-      new Element( 'button', { 
+      new Element( 'button', {
         'class': "remove_link", html: "x", events: { click: function(){ canvas.setStyle( 'display', 'none' ); hideFade(); }}}).inject( box );
-      
+
       var table = new Element( 'table' ).inject( box );
       new Element( 'tr', { 'class': 'title', html: '<td>Title:</td><td>' + section.getCourse().getFullTitle() + '; ' + section.getTitle() + '</td>' }).inject( table );
       new Element( 'tr', { 'class': 'time_slot', html: '<td>Call Number:</td><td>' + section.getCallNumber() + '</td>' }).inject( table );
-      new Element( 'tr', { 
-        html: '<td>Time slot:</td><td>'+ 
-          daysToAbbreviation( section.getDays() ) + ', ' + 
-          decimalToTime( section.getStart() ) + "-" + 
+      new Element( 'tr', {
+        html: '<td>Time slot:</td><td>'+
+          daysToAbbreviation( section.getDays() ) + ', ' +
+          decimalToTime( section.getStart() ) + "-" +
           decimalToTime( section.getEnd() ) + '</td>'}).inject( table );
       new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td>' + section.getInstructor().getName() + '</td>' }).inject( table );
       new Element( 'tr', { 'class': 'location', html: '<td>Location:</td><td>' + section.getLocation() + '</td>' }, this).inject( table );
@@ -478,25 +491,25 @@ var Browser = new Class({
     this.results_element = new Element( 'div', { 'class': 'results', styles: { display: 'none' }}).inject( this.root_element );
     this.results_container = new Element( 'ul' ).inject( this.results_element );
     new Element( 'p', { 'class': 'clear_results', html: "Clear results", events: { click: function(){ this.clearResults() }.bind(this)}}, this).inject( this.results_element );
-    
-    this.search_input = new Element( 'input', { 
-      type: 'text', 
-      name: 'search_input', 
-      value: 'Type a course title to begin...', 
+
+    this.search_input = new Element( 'input', {
+      type: 'text',
+      name: 'search_input',
+      value: 'Type a course title to begin...',
       styles: { color: '#BCBCBC' }}).inject( this.search_element );
     this.semester_element = new Element( 'select', { 'class': 'semester' }).inject( this.search_element );
     this.search_submit = new Element( 'button', { html: 'Search', events: { click: function(){ this.submitSearch(); }.bind(this)}}, this).inject( this.search_element );
 
-    var clear_on_click = function(){  
-      this.setProperty( 'value', '' ); 
+    var clear_on_click = function(){
+      this.setProperty( 'value', '' );
       this.setStyle( 'color', 'black' );
-      this.removeEvent( 'focus', clear_on_click );      
+      this.removeEvent( 'focus', clear_on_click );
     }
 
-    this.search_input.addEvent( 'focus', clear_on_click );      
+    this.search_input.addEvent( 'focus', clear_on_click );
     this.search_input.addEvent('keydown', function( event ) { if( event.key === "enter") { this.submitSearch(); }}.bind(this));
 
-    var month = new Date().getMonth() + 1;
+    var month = new Date().getMonth() + 1 + 2;
     var year = new Date().getFullYear();
 
     for( var i = 0; i < 3; i++ ){
@@ -519,23 +532,23 @@ var Browser = new Class({
       month += 4;
     }
   },
-  buildCourseLI: function( course ){ 
+  buildCourseLI: function( course ){
     var li = new Element( 'li', { 'class': 'course' });
     new Element( 'p', { 'class': "title", html: course.getFullTitle()}).inject( li );
-    new Element( 'p', { 'class': "description", html: course.getDescription()}).inject( li );      
+    new Element( 'p', { 'class': "description", html: course.getDescription()}).inject( li );
     return li;
     },
   render: function( parent_el ){
     this.root_element.inject( parent_el );
   },
-  setSemester: function( semester ){ 
+  setSemester: function( semester ){
     this.semester_element.getChildren().each(function(el){
       if ($(el).getProperty( 'value' ) === semester) $(el).setProperty( 'selected', true );
     });
   },
   getSemester: function(){ return this.semester_element.getSelected()[0].getProperty( 'value' ); },
   getSearchTerm: function(){ return this.search_input.getProperty( 'value' ); },
-  submitSearch: function(){ 
+  submitSearch: function(){
     this.results_container.empty();
     this.loadResults();
   },
@@ -546,8 +559,8 @@ var Browser = new Class({
     var request = new Request.JSONP({
       url: data_api_url + '/courses/search',
       callbackKey: 'callback',
-      data: { 
-        q: this.getSearchTerm(), 
+      data: {
+        q: this.getSearchTerm(),
         s: semester,
         l: limit,
         p: page
@@ -555,14 +568,16 @@ var Browser = new Class({
       onComplete: function( data ){
         if ( $('more_results') ){ $('more_results').destroy(); }
         if ( data.results.length > 0 ){
-          data.results.each( function( course_data, index ){ 
+          data.results.each( function( course_data, index ){
             var course = new Course( course_data );
-            this.buildCourseLI( course ).addEvent( 'click', function( event ){ 
-              this.calendar.addCourse( course, semester ); 
-              this.results_element.setStyle( 'display', 'none' );
-            }.bind(this)).inject( this.results_container );
+            if (course.isValid()) {
+              this.buildCourseLI( course ).addEvent( 'click', function( event ){
+                this.calendar.addCourse( course, semester );
+                this.results_element.setStyle( 'display', 'none' );
+              }.bind(this)).inject( this.results_container );
+            }
           }, this);
-          if( data.num_results > page*limit ) {
+          if( data.num_results > page * limit ) {
             var remaining_results = data.num_results - page*limit;
             var string = remaining_results + ' more ' + String.from('result').pluralize(remaining_results);
             string += ( remaining_results <= limit )? ' (view all)' : ' (view ' + limit + ' more)';
@@ -614,7 +629,7 @@ var App = new Class({
           data: { "call_number": call_numbers, "s": semester },
           onComplete: function( data ){
             data.each( function( data_item, index ){
-              this.calendar.addSection( new Section( data_item, new Course( data_item.course ) ) ); 
+              this.calendar.addSection( new Section( data_item, new Course( data_item.course ) ) );
             }.bind(this));
           }.bind(this)
         }, this).send();
