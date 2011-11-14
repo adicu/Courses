@@ -97,7 +97,7 @@ div.errorMessage {
 	position: absolute; top: 0; left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 3; }
+	z-index: 10; }
 div.errorMessage > div {
 	position: absolute; top: 40%; left: 50%;
 	margin-left: -200px;
@@ -156,14 +156,18 @@ div#fade {
 		background: rgba( 0, 0, 0, 0.2 );
 		position: fixed; left: 0; top: 0;
 		width: 100%; height: 100%;
-		z-index: 1; }
+		z-index: 6; }
+
+.box {
+  z-index: 10;
+}
 div.timeslot_popup div.box {
 		position: absolute; top: 200px; left: 50%;
 		margin-left: -200px;
 		padding: 10px 20px;
 		border: 5px solid #B6B6B6;
 		background: white; width: 400px;
-		z-index: 10; }
+		}
 div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
 div.timeslot_popup th { font-style: italic; }
 div.timeslot_popup div.box table { width: 100%; }
