@@ -2,7 +2,7 @@
 html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var,optgroup{font-style:inherit;font-weight:inherit;}del,ins{text-decoration:none;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:baseline;}sub{vertical-align:baseline;}legend{color:#000;}input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}input,button,textarea,select{*font-size:100%;}
 
 /* Application */
-body { font-family: "Myriad Pro", arial; padding: 20px 0; }
+body { font-family: "Myriad Pro", Arial, sans-serif; padding: 20px 0; background: url('/images/share-url.png') 15% 1px no-repeat; }
 #container { width: 960px; margin: 0 auto; position: relative; }
 header h1 { font-size: 1.5em; }
 header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opacity: 0.1; }
@@ -12,6 +12,7 @@ span#byline a {text-decoration: none; color: #999;}
 span#byline a img {position: relative; top: 3px;}
 span#byline:hover {opacity: 1.0;}
 
+footer { padding-bottom: 1em; }
 footer p { text-align: right; color: #999;}
 footer a { color: #999;}
 footer a:hover { color: #666;}
@@ -27,11 +28,15 @@ h1 {
   margin-bottom: 10px;
   font-weight: 700;
   color: #333;
-  padding-left: 68px;
-  background: url('../images/schedule-builder-logo.png') no-repeat left center;
+  padding-left: 0px;
+  /*background: url('../images/schedule-builder-logo.png') no-repeat left center; */
   height: 47px;
   line-height: 47px;
+  position: relative;
+  top: -15px;
 }
+
+h1 img { position: relative; top: 15px; }
 
 #print { background: transparent; border: none; position: absolute; top: 12px; right: 0; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
 #print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
@@ -85,7 +90,7 @@ h1 {
 	border: 10px solid #75B2DD; }
 #browser .results ul, #browser .results p.clear_results {	background: rgba( 255, 255, 255, 0.95); }
 #browser .results li { padding: 10px; font-size: 1.1em; }
-#browser .results li:hover { padding: 10px; font-size: 1.1em; background: beige; cursor: pointer; }
+#browser .results li:hover { padding: 10px; font-size: 1.1em; background: #dddde9; cursor: pointer; }
 #browser .results li p:first-child { font-weight: bold; font-size: 1em; }
 #browser .results li p.description { font-size: 0.9em; }
 #browser .results p.clear_results { text-align: right; font-weight: bold; padding: 5px 10px; }
@@ -98,14 +103,14 @@ div.errorMessage {
 	width: 100%;
 	height: 100%;
 	z-index: 10; }
-div.errorMessage > div {
+div.errorMessage > div.box {
 	position: absolute; top: 40%; left: 50%;
 	margin-left: -200px;
 	padding: 20px 20px;
-  background: #ddf;
-  /*
-	background: grey;
-  */
+  background: #ddddf0;
+  box-shadow:         1px 1px 5px #333;
+  -moz-box-shadow:    1px 1px 5px #333;
+  -webkit-box-shadow: 1px 1px 5px #333;
   width: 400px; }
 .errorMessage p { color: #222; }
 .errorMessage button { padding: 5px 10px; margin: 10px 10px 0 0; }
@@ -114,7 +119,6 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-
 
 #calendar { position: relative; }
 #calendar #guides { position: absolute; top: 0; left: 0; width: 100%; max-width: 960px; z-index: -1; }
@@ -130,13 +134,13 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 	overflow: hidden;
 	-moz-border-radius: 9px;
   border:1px solid #222;}
-#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #555555; color: white; }
+#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #333350; color: white; }
 #calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
 	position: absolute; top: -4px; right: -2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
 .timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
 #calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; position:relative; }
-#calendar .timeSlotWrapper:hover .remove_link { color: #999; }
+#calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
 #calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
 #calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
 #calendar td.hourColumn {
@@ -165,7 +169,7 @@ div.timeslot_popup div.box {
 		position: absolute; top: 200px; left: 50%;
 		margin-left: -200px;
 		padding: 10px 20px;
-		border: 5px solid #B6B6B6;
+		border: 5px solid #75B2DD;
 		background: white; width: 400px;
 		}
 div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
@@ -174,6 +178,7 @@ div.timeslot_popup div.box table { width: 100%; }
 div.timeslot_popup div.box td { padding: 0 10px 5px 0; vertical-align: top; }
 div.timeslot_popup div.box td:last-child { padding-right: 0; }
 div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
+.timeslot_popup td a:hover { color: #666; }
 .timeSlotTitle {width: 95%;}
 .timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
 
