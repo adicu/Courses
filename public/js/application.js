@@ -209,6 +209,14 @@ var Instructor = new Class({
 var Section = new Class({
   initialize: function( data, course ){
     this.call_number = data.call_number;
+
+    var cn_len = this.call_number.toString().length;
+    var prepend = '';
+    for (var i = cn_len; i < 5; i++) {
+      prepend += '0';
+    }
+    this.call_number = prepend + this.call_number.toString();
+
     this.title = titleCaps(downcaseLong(data.title));
     this.instructor = new Instructor( data.instructor );
     this.building = data.building;
@@ -504,7 +512,7 @@ var Calendar = new Class({
       }
     },
     buildSectionTimeSlot: function( section ){
-      var canvas = new Element( 'div', { class: 'timeSlot' } );
+      var canvas = new Element( 'div', { 'class': 'timeSlot' } );
       var remove_link = new Element( 'button', {
           'class': "remove_link",
           html: "x"
