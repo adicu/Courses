@@ -302,11 +302,14 @@ var SectionGroup = new Class({
   getSections: function(){ return this.sections; },
   contains: function( other ){
     if (this.start <= other.getStart() && this.end >= other.getEnd()) {
-      if ( this.days.length < other.getDays().length ) { return false; }
+      if ( this.days.length < other.getDays().length ) {
+        return false;
+      }
+      var days_match = true;
       other.getDays().each( function( day, index ){
-        if ( !this.days.contains( day ) ) { return false; }
+        if ( !this.days.contains( day ) ) { days_match = false; }
         }, this);
-      return true;
+      return days_match;
     }
     else { return false; }
   }
