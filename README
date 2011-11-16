@@ -1,18 +1,9 @@
-After updating the database, you need to run sphinx to update your indices so that searching works:
-	rake thinking_sphinx:index RAILS_ENV=production
-
 ===================
 Course Crawler
 ==================
 
-This crawl program successfully aggregated Columbia course and related
-information as of Sunday, February 20, 2011. Columbia's data formats are
-subject to change, and I can not guarantee that this program will be
-compatible with future formats. 
-
-Questions, comments, and concerns should be directed at:
-Ryan Bubinski. ryanbubinski <at> gmail <dot> com.
-
+Columbia's data formats are subject to change, and we cannot guarantee that this
+program will be compatible with future formats.
 
 Binary Dependencies
 ------------
@@ -51,3 +42,8 @@ in SQL format using the command:
 `rake db:export`
 
 The result is stored in the local directory in a file named "data.sql"
+
+Searching
+----------
+After updating the database, you need to run sphinx to update your indices so
+that searching works: rake thinking_sphinx:index RAILS_ENV=production
