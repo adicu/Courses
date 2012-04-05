@@ -20,7 +20,7 @@ class Course < ActiveRecord::Base
 
     set_property :field_weights => {
       :course_key => 10,
-      :title => 2,
+      :title => 5,
       :section_titles => 2
     }
   end

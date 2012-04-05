@@ -564,12 +564,13 @@ var Calendar = new Class({
       new Element( 'button', { 'class': "remove_link", html: "x", events: { click: function(){ canvas.setStyle( 'display', 'none' ); }}}).inject( box );
 
       var table = new Element( 'table' ).inject( box );
-      new Element( 'thead', { html: '<tr><th>Instructor</th><th>Location</th></tr>'}).inject( table );
+      new Element( 'thead', { html: '<tr><th>Instructor</th><th>Location</th><th>Section #</th></tr>'}).inject( table );
       var tbody = new Element( 'tbody' ).inject( table );
       sg.getSections().each( function( section, index ){
         var s_row = new Element( 'tr' ).inject( tbody );
         new Element( 'td', { html: section.getInstructor().getName()}).inject( s_row );
         new Element( 'td', { html: section.getLocation() }).inject( s_row );
+        new Element( 'td', { html: section.section_number }).inject( s_row );
         var s_selector_td = new Element( 'td' ).inject( s_row );
         new Element( 'button', { html: "Add", events: { click: function(){ this.removeCourse( section.getCourse() ); this.addSection( section ) }.bind(this)}}, this).inject( s_selector_td );
       }.bind(this));
