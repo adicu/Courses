@@ -617,12 +617,19 @@ var Browser = new Class({
     this.search_input.addEvent( 'focus', clear_on_click );
     this.search_input.addEvent('keydown', function( event ) { if( event.key === "enter") { this.submitSearch(); }}.bind(this));
 
-    var month = new Date().getMonth() + 1 + 2;
+    var month = new Date().getMonth() + 1;
     var year = new Date().getFullYear();
 
+    // So that the current semester doesn't show up if it's the end of the
+    // semester.
+    var effectiveMonth = month + 2;
+
     for( var i = 0; i < 3; i++ ){
-      if ( month > 11 ){ month %= 12; year++; }
-      var semester = String.from(Math.floor(month/4)+1);
+      if ( effectiveMonth > 11 ) {
+        effectiveMonth %= 12;
+        year++;
+      }
+      var semester = String.from(Math.floor(effectiveMonth/4)+1);
       var string;
       switch( semester ) {
         case '1':
@@ -635,9 +642,17 @@ var Browser = new Class({
           string = 'Autumn';
           break;
       }
-      if ( i === 0 ) new Element( 'option', { value: String.from(year)+semester, html: string + ' ' + String.from(year), selected: 'selected' }).inject( this.semester_element );
-      else new Element( 'option', { value: String.from(year)+semester, html: string + ' ' + String.from(year) }).inject( this.semester_element );
-      month += 4;
+      // Select the next semester unless it's the summer, in which case you
+      // should select the spring
+      if ((i === 0 && semester !== '2') || (i === 1 && semester === '3')) {
+        new Element( 'option', { value: String.from(year)+semester, html: string
+            + ' ' + String.from(year), selected: 'selected' }).inject(
+            this.semester_element );
+      } else {
+        new Element( 'option', { value: String.from(year)+semester, html: string
+            + ' ' + String.from(year) }).inject( this.semester_element );
+      }
+      effectiveMonth += 4;
     }
   },
   buildCourseLI: function( course ){
@@ -726,7 +741,9 @@ var App = new Class({
   preload: function(){
     var params = window.location.hash.replace( '#', '' ).split( ';' );
     var semester = params[0];
-    if ( semester ) this.browser.setSemester( semester );
+    if ( semester ) {
+      this.browser.setSemester( semester );
+    }
 
     if ( params[1] != undefined ) {
       var call_numbers = params[1].split( ',' ).filter( function( item, index ){ return ( item.trim() != "" )});
