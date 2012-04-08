@@ -42,6 +42,7 @@ class Section < ActiveRecord::Base
     section.description = doc.css('meta[name="description"]').first.attribute("content")
 
     instructor_name = doc.css('meta[name="instr"]').first.attribute("content").value.split( ", " )[0]
+
     section.instructor = Instructor.find_or_create_by_name( instructor_name )
 
     if html =~ /Department/
