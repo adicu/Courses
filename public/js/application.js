@@ -94,6 +94,7 @@ var downcaseLong = function(str) {
 };
 
 var data_api_url = "http://courses.adicu.com";
+var culpa_search_url = "http://culpa.info/search/results?search=";
 
 
 /* Extensions */
@@ -203,7 +204,8 @@ var Instructor = new Class({
     this.rank = data.culpa_rank;
     this.link = data.culpa_link;
   },
-  getName: function(){ return ( is_null_or_undefined( this.name ) ) ? 'Unknown' : this.name; }
+  getName: function(){ return ( is_null_or_undefined( this.name ) ) ? 'Unknown' : this.name; },
+  getLink: function(){ return ( is_null_or_undefined( this.link ) ) ? culpa_search_url + encodeURI(this.name) : this.link; }
 });
 
 var Section = new Class({
@@ -551,7 +553,13 @@ var Calendar = new Class({
           daysToAbbreviation( section.getDays() ) + ', ' +
           decimalToTime( section.getStart() ) + "-" +
           decimalToTime( section.getEnd() ) + '</td>'}).inject( table );
-      new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td>' + section.getInstructor().getName() + '</td>' }).inject( table );
+      // Add a link to CULPA unless the instructor's name isn't known
+      if ( section.getInstructor().getName() === 'Unknown' ) {
+        new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td>' + section.getInstructor().getName() + '</td>' }).inject( table );
+      } else {
+        new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td><a href="'
+          + section.getInstructor().getLink() + '" target="_blank">' + section.getInstructor().getName() + '</a></td>' }).inject( table );
+      }
       new Element( 'tr', { 'class': 'location', html: '<td>Location:</td><td>' + section.getLocation() + '</td>' }, this).inject( table );
       new Element( 'tr', { 'class': 'section_description', html: '<td>Description:</td><td>' + section.getDescription() + '</td>' }, this).inject( table );
       new Element( 'tr', { 'class': 'url', html: '<td></td><td>' + '<a target="_blank" href="' + section.getURL() + '">Directory listing</a>' + '</td>'}).inject( table );
