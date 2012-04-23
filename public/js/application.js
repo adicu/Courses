@@ -340,8 +340,27 @@ var Calendar = new Class({
         styles: {
           top: String.from(Math.round(start_pixels)) + 'px',
           height: String.from(Math.round(height_pixels)) + 'px' }
-        });
+      });
       wrapper.setProperty( key, val );
+
+      // adjust wrapper height if course info has been clipped
+      wrapper.onmouseover = function(){
+        if ( this.childNodes[0].offsetHeight > this.offsetHeight && !this.expanded ) {
+          this.expanded = true;
+          this.style.height = "";
+
+          // one greater than .remove_link's z-index
+          this.style.zIndex = 6;
+        }
+      }
+      wrapper.onmouseout = function(){
+        if ( this.expanded ) {
+          this.expanded = false;
+          this.style.height = String.from(Math.round(height_pixels)) + 'px';
+          this.style.zIndex = "";
+        }
+      }
+      wrapper.expanded = false;
       return wrapper;
     },
     addSection: function( section ){
