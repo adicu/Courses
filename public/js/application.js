@@ -332,8 +332,8 @@ var Calendar = new Class({
     options: {
       pixels_per_hour: 42,
       calendar_id: 'calendar',
-      start_hour: 9,
-      num_hours: 14,
+      start_hour: 8,
+      num_hours: 16,
       days: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
       day_pixel_width: 200
     },
