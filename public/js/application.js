@@ -93,6 +93,9 @@ var downcaseLong = function(str) {
   return split.join(' ');
 };
 
+var total_points = 0;
+var unknown_points = 0;
+
 var data_api_url = "http://courses.adicu.com";
 var culpa_search_url = "http://culpa.info/search/results?search=";
 
@@ -248,6 +251,9 @@ var Section = new Class({
   getDescription: function(){ return this.description; },
   getTitle: function(){ return this.title; },
   getURL: function(){ return this.url; },
+  getPoints: function() {
+    var points = this.description.match(/\d points/);
+    return points ? parseInt(points[0].substring(0,1)) : "Unknown" },
   getCourse: function(){ return this.course; },
   setCourse: function( course ){ this.course = course; },
   overlaps: function( other ){
@@ -399,6 +405,13 @@ var Calendar = new Class({
             });
           section_timeslot = this.buildSectionTimeSlot( section ).inject( section_wrapper );
         }.bind(this));
+
+        var points = section.getPoints();
+        if ( points != "Unknown" ) {
+          total_points += points;
+        } else {
+          unknown_points++;
+        }
       }
     },
     addCourse: function( course, semester ){
@@ -500,6 +513,12 @@ var Calendar = new Class({
       $$( '*[sectionid="' + section.getId() + '"]' ).each( function( element, index ){ element.destroy(); });
       this.sections.each( function( o_section, index ) { if ( section.getId() === o_section.getId() ) { this.sections.erase( section )}}.bind(this));
       this.updateURL();
+      var points = section.getPoints();
+      if ( points != "Unknown" ) {
+        total_points -= points;
+      } else {
+        unknown_points--;
+      }
     },
     removeCourse: function( course ){
       $$( '*[courseid="' + course.getId() + '"]' ).each( function( element, index ){ element.destroy(); });
@@ -549,6 +568,10 @@ var Calendar = new Class({
         html: 'Call #: ' + section.getCallNumber(),
         'class': 'timeSlotText timeSlotCallNumber'
       }).inject( canvas );
+      var points = new Element( 'p', {
+        html: 'Points: ' + section.getPoints(),
+        'class': 'timeSlotText timeSlotPoints'
+      }).inject( canvas );
       remove_link.addEvent( 'click', function() {
         this.removeSection( section );
       }.bind(this));
@@ -567,6 +590,7 @@ var Calendar = new Class({
       var table = new Element( 'table' ).inject( box );
       new Element( 'tr', { 'class': 'title', html: '<td>Title:</td><td>' + section.getCourse().getFullTitle() + '; ' + section.getTitle() + '</td>' }).inject( table );
       new Element( 'tr', { 'class': 'time_slot', html: '<td>Call #:</td><td>' + section.getCallNumber() + '</td>' }).inject( table );
+      new Element( 'tr', { 'class': 'points', html: '<td>Points:</td><td>' + section.getPoints() + '</td>' }).inject( table );
       new Element( 'tr', {
         html: '<td>Time slot:</td><td>'+
           daysToAbbreviation( section.getDays() ) + ', ' +
