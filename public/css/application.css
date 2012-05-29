@@ -181,6 +181,7 @@ div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
 .timeslot_popup td a:hover { color: #666; }
 .timeSlotTitle {width: 95%;}
 .timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
+.timeSlotPoints {margin-top: 3px; font-size: .85em; }
 
 #adi-logo {display: block; position: relative; top: 3px;}
 
