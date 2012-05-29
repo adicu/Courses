@@ -93,7 +93,11 @@ var downcaseLong = function(str) {
   return split.join(' ');
 };
 
+var total_points = 0;
+var unknown_points = 0;
+
 var data_api_url = "http://courses.adicu.com";
+var culpa_search_url = "http://culpa.info/search/results?search=";
 
 
 /* Extensions */
@@ -203,7 +207,8 @@ var Instructor = new Class({
     this.rank = data.culpa_rank;
     this.link = data.culpa_link;
   },
-  getName: function(){ return ( is_null_or_undefined( this.name ) ) ? 'Unknown' : this.name; }
+  getName: function(){ return ( is_null_or_undefined( this.name ) ) ? 'Unknown' : this.name; },
+  getLink: function(){ return ( is_null_or_undefined( this.link ) ) ? culpa_search_url + encodeURI(this.name) : this.link; }
 });
 
 var Section = new Class({
@@ -246,6 +251,9 @@ var Section = new Class({
   getDescription: function(){ return this.description; },
   getTitle: function(){ return this.title; },
   getURL: function(){ return this.url; },
+  getPoints: function() {
+    var points = this.description.match(/\d points/);
+    return points ? parseInt(points[0].substring(0,1)) : "Unknown" },
   getCourse: function(){ return this.course; },
   setCourse: function( course ){ this.course = course; },
   overlaps: function( other ){
@@ -324,8 +332,8 @@ var Calendar = new Class({
     options: {
       pixels_per_hour: 42,
       calendar_id: 'calendar',
-      start_hour: 9,
-      num_hours: 14,
+      start_hour: 8,
+      num_hours: 16,
       days: [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ],
       day_pixel_width: 200
     },
@@ -338,8 +346,27 @@ var Calendar = new Class({
         styles: {
           top: String.from(Math.round(start_pixels)) + 'px',
           height: String.from(Math.round(height_pixels)) + 'px' }
-        });
+      });
       wrapper.setProperty( key, val );
+
+      // adjust wrapper height if course info has been clipped
+      wrapper.onmouseover = function(){
+        if ( this.childNodes[0].offsetHeight > this.offsetHeight && !this.expanded ) {
+          this.expanded = true;
+          this.style.height = "";
+
+          // one greater than .remove_link's z-index
+          this.style.zIndex = 6;
+        }
+      }
+      wrapper.onmouseout = function(){
+        if ( this.expanded ) {
+          this.expanded = false;
+          this.style.height = String.from(Math.round(height_pixels)) + 'px';
+          this.style.zIndex = "";
+        }
+      }
+      wrapper.expanded = false;
       return wrapper;
     },
     addSection: function( section ){
@@ -378,6 +405,13 @@ var Calendar = new Class({
             });
           section_timeslot = this.buildSectionTimeSlot( section ).inject( section_wrapper );
         }.bind(this));
+
+        var points = section.getPoints();
+        if ( points != "Unknown" ) {
+          total_points += points;
+        } else {
+          unknown_points++;
+        }
       }
     },
     addCourse: function( course, semester ){
@@ -479,6 +513,12 @@ var Calendar = new Class({
       $$( '*[sectionid="' + section.getId() + '"]' ).each( function( element, index ){ element.destroy(); });
       this.sections.each( function( o_section, index ) { if ( section.getId() === o_section.getId() ) { this.sections.erase( section )}}.bind(this));
       this.updateURL();
+      var points = section.getPoints();
+      if ( points != "Unknown" ) {
+        total_points -= points;
+      } else {
+        unknown_points--;
+      }
     },
     removeCourse: function( course ){
       $$( '*[courseid="' + course.getId() + '"]' ).each( function( element, index ){ element.destroy(); });
@@ -528,6 +568,10 @@ var Calendar = new Class({
         html: 'Call #: ' + section.getCallNumber(),
         'class': 'timeSlotText timeSlotCallNumber'
       }).inject( canvas );
+      var points = new Element( 'p', {
+        html: 'Points: ' + section.getPoints(),
+        'class': 'timeSlotText timeSlotPoints'
+      }).inject( canvas );
       remove_link.addEvent( 'click', function() {
         this.removeSection( section );
       }.bind(this));
@@ -546,12 +590,19 @@ var Calendar = new Class({
       var table = new Element( 'table' ).inject( box );
       new Element( 'tr', { 'class': 'title', html: '<td>Title:</td><td>' + section.getCourse().getFullTitle() + '; ' + section.getTitle() + '</td>' }).inject( table );
       new Element( 'tr', { 'class': 'time_slot', html: '<td>Call #:</td><td>' + section.getCallNumber() + '</td>' }).inject( table );
+      new Element( 'tr', { 'class': 'points', html: '<td>Points:</td><td>' + section.getPoints() + '</td>' }).inject( table );
       new Element( 'tr', {
         html: '<td>Time slot:</td><td>'+
           daysToAbbreviation( section.getDays() ) + ', ' +
           decimalToTime( section.getStart() ) + "-" +
           decimalToTime( section.getEnd() ) + '</td>'}).inject( table );
-      new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td>' + section.getInstructor().getName() + '</td>' }).inject( table );
+      // Add a link to CULPA unless the instructor's name isn't known
+      if ( section.getInstructor().getName() === 'Unknown' ) {
+        new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td>' + section.getInstructor().getName() + '</td>' }).inject( table );
+      } else {
+        new Element( 'tr', { 'class': 'instructor', html: '<td>Instructor:</td><td><a href="'
+          + section.getInstructor().getLink() + '" target="_blank">' + section.getInstructor().getName() + '</a></td>' }).inject( table );
+      }
       new Element( 'tr', { 'class': 'location', html: '<td>Location:</td><td>' + section.getLocation() + '</td>' }, this).inject( table );
       new Element( 'tr', { 'class': 'section_description', html: '<td>Description:</td><td>' + section.getDescription() + '</td>' }, this).inject( table );
       new Element( 'tr', { 'class': 'url', html: '<td></td><td>' + '<a target="_blank" href="' + section.getURL() + '">Directory listing</a>' + '</td>'}).inject( table );
