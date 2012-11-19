@@ -252,8 +252,8 @@ var Section = new Class({
   getTitle: function(){ return this.title; },
   getURL: function(){ return this.url; },
   getPoints: function() {
-    var points = this.description.match(/\d points/);
-    return points ? parseInt(points[0].substring(0,1)) : "Unknown" },
+    var points = this.description.match(/[\d.]+ points/);
+    return points ? parseFloat(points) : "Unknown" },
   getCourse: function(){ return this.course; },
   setCourse: function( course ){ this.course = course; },
   overlaps: function( other ){
