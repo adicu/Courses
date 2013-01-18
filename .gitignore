@@ -9,3 +9,5 @@ Gemfile.lock
 *.sql
 db/sphinx/production/*
 .*log
+.DS_Store
+config/database.yml
