@@ -1,19 +1,45 @@
 <!doctype html>
-<html lang="en" ng-app="myApp">
+<html lang="en" ng-app="Courses">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <meta property="og:title" content="Schedule Builder"/>
+  <meta property="og:image" content="http://courses.adicu.com/img/schedule-builder-logo.png"/>
+  <meta property="og:description" content="The easiest way to pick classes at Columbia."/>
+
+  <title>Courses by ADi</title>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
 
-  <div ng-view></div>
+  <div id="container">
+    <header>
+      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcourses.adicu.com&amp;layout=button_count&amp;show_faces=false&amp;width=95&amp;action=recommend&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0"  allowTransparency="true" id="fb_share_link"></iframe>
+      <h1>
+        <img src="img/schedule-builder-logo.png" alt="Schedule Builder
+        beta" /> Schedule Builder <span id="byline">
+        <a href="http://adicu.com/">from <img src="img/adi-logo-small.png" alt="ADI" /></a></span>
+      </h1>
+      <img src="img/seal.png" alt="Seal of Columbia University" id="seal" />
+    </header>
 
-  <div>Angular seed app: v<span app-version></span></div>
+    <div id="app" ng-view></div>
+    <noscript>
+      <div class="noscript">
+        <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
+      </div>
+    </noscript>
+    <footer>
+      <p>
+        <span class="byline">
+          By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
+          href="http://hansh.org/">Hans Hyttinen</a>, and <a
+          href="http://www.github.com/sidnair09">Sid Nair</a>.
+        </span>
+        <span class="reportBug"><a href="mailto:infrastructure@adicu.com?subject=[Bug Report] Schedule Builder">Report a bug</a></span>
+      </p>
+    </footer>
+  </div>
+  <div id="fade"></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
@@ -24,5 +50,18 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18504951-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 </body>
 </html>
