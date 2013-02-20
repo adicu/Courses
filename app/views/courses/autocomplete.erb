@@ -1,7 +1,0 @@
-[
-<% 
-  @rows = []
-  @results.each { |c| @rows << '{ "text": "' + c.course_key + ' ' + c.title + '", "value": ' + c.id.to_s + ' }' }
--%>
-<%=raw @rows.join( ', ' ) %>
-]

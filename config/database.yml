@@ -1,7 +1,0 @@
-production:
-  adapter: mysql
-  database: adicu_courses_2011_fall
-  username: adicu_courses
-  password: ANRTHBWaZEj4H1VjyiG8WW
-  host: localhost
-
