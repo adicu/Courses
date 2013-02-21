@@ -2,11 +2,7 @@
 <div id="browser">
 <div class="search">
   <input type="text" name="search_input" style="color: rgb(188, 188, 188);">
-  <select class="semester">
-    <option value="20131">Spring 2013</option>
-    <option value="20132">Summer 2013</option>
-    <option value="20133">Autumn 2013</option>
-  </select>
+  <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
   <button>Search</button>
 </div>
 <div class="results" style="display: none;">
@@ -19,67 +15,21 @@
   <thead id="daynames">
     <tr>
       <th style="height: 42px;"></th>
-      <th style="height: 42px;">Monday</th>
-      <th style="height: 42px;">Tuesday</th>
-      <th style="height: 42px;">Wednesday</th>
-      <th style="height: 42px;">Thursday</th>
-      <th style="height: 42px;">Friday</th>
+      <th style="height: 42px;" ng-repeat="day in days">{{day}}</th>
     </tr>
   </thead>
   <tbody id="daybodies">
     <tr>
       <td id="hours" class="hourColumn">
-        <div style="height: 42px;">8am</div>
-        <div style="height: 42px;">9am</div>
-        <div style="height: 42px;">10am</div>
-        <div style="height: 42px;">11am</div>
-        <div style="height: 42px;">noon</div>
-        <div style="height: 42px;">1pm</div>
-        <div style="height: 42px;">2pm</div>
-        <div style="height: 42px;">3pm</div>
-        <div style="height: 42px;">4pm</div>
-        <div style="height: 42px;">5pm</div>
-        <div style="height: 42px;">6pm</div>
-        <div style="height: 42px;">7pm</div>
-        <div style="height: 42px;">8pm</div>
-        <div style="height: 42px;">9pm</div>
-        <div style="height: 42px;">10pm</div>
-        <div style="height: 42px;">11pm</div>
+        <div style="height: 42px;" ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
       </td>
-      <td class="dayColumn" style="height: 672px;">
-        <div id="Monday"></div>
-      </td>
-      <td class="dayColumn" style="height: 672px;">
-        <div id="Tuesday"></div>
-      </td>
-      <td class="dayColumn" style="height: 672px;">
-        <div id="Wednesday"></div>
-      </td>
-      <td class="dayColumn" style="height: 672px;">
-        <div id="Thursday"></div>
-      </td>
-      <td class="dayColumn" style="height: 672px;">
-        <div id="Friday"></div>
+      <td class="dayColumn" style="height: 672px;" ng-repeat="day in days">
+        <div id="{{day}}"></div>
       </td>
     </tr>
   </tbody>
 </table>
 <div id="guides">
-  <div id="8-guide" style="height: 41px;"></div>
-  <div id="9-guide" style="height: 41px;"></div>
-  <div id="10-guide" style="height: 41px;"></div>
-  <div id="11-guide" style="height: 41px;"></div>
-  <div id="12-guide" style="height: 41px;"></div>
-  <div id="13-guide" style="height: 41px;"></div>
-  <div id="14-guide" style="height: 41px;"></div>
-  <div id="15-guide" style="height: 41px;"></div>
-  <div id="16-guide" style="height: 41px;"></div>
-  <div id="17-guide" style="height: 41px;"></div>
-  <div id="18-guide" style="height: 41px;"></div>
-  <div id="19-guide" style="height: 41px;"></div>
-  <div id="20-guide" style="height: 41px;"></div>
-  <div id="21-guide" style="height: 41px;"></div>
-  <div id="22-guide" style="height: 41px;"></div>
-  <div id="23-guide" style="height: 41px;"></div>
+  <div style="height: 41px;" ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
 </div>
 </div>
