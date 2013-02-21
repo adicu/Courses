@@ -1,13 +1,17 @@
 <button id="print">Print</button>
 <div id="browser">
 <div class="search">
-  <input type="text" name="search_input" style="color: rgb(188, 188, 188);">
+  <input type="text" name="search_input" ng-model="searchQuery" placeholder="Type a course title to begin...">
   <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
-  <button>Search</button>
+  <button ng-click="search()">Search</button>
 </div>
-<div class="results" style="display: none;">
-  <ul></ul>
-  <p class="clear_results">Clear results</p>
+<div class="results" ng-show="searchResults">
+  <ul>
+    <li class="course" ng-repeat="result in searchResults" ng-click="courseSelect(result)">
+      <p class="title">{{result.title}}</p><p class="description">{{result.description}}</p>
+    </li>
+  </ul>
+  <p class="clear_results" ng-click="clearResults()">Clear results</p>
 </div>
 </div>
 <div id="calendar">
@@ -24,7 +28,18 @@
         <div style="height: 42px;" ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
       </td>
       <td class="dayColumn" style="height: 672px;" ng-repeat="day in days">
-        <div id="{{day}}"></div>
+        <div id="{{day}}">
+          <div ng-repeat="section in courseCalendar[$index]" class="timeSlotWrapper {{section.id}}" ng-style="section.computedCss">
+            <div class="timeSlot">
+              <button class="remove_link" ng-hide="section.overlaps">x</button>
+              <p class="timeSlotText timeSlotTitle">{{section.title}}</p>
+              <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">Call #: {{section.id}}</p>
+              <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">Points: {{section.points}}</p>
+              <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p>
+              <p 
+            </div>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>
