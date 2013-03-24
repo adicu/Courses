@@ -26,6 +26,4 @@ rootCtrl = ($scope, Course, Calendar) ->
         if course.sections.length > 1
           calendar.showAllSections(course)
 
-
-
 #rootCtrl.$inject = []

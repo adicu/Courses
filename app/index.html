@@ -1,4 +1,11 @@
 <!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9" lang="en" itemscope itemtype="http://schema.org/Product"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"> <!--<![endif]-->
 <html lang="en" ng-app="Courses">
 <head>
   <meta charset="utf-8">
@@ -8,40 +15,59 @@
 
   <title>Courses by ADi</title>
   <link rel="stylesheet" href="css/app.css"/>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Foundation -->
+  <link rel="stylesheet" href="css/foundation.css"/>
+  <link rel="stylesheet" href="css/normalize.css">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <script src="lib/modernizr-2.0.6.min.js"></script>
 </head>
 <body>
+  <div class="contain-to-grid">
+    <nav class="top-bar">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#/">Courses</a></h1>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="right">
+          <li class="active"><a href="#/schedule">Schedule</a></li>
+          <li class="divider hide-for-small"></li>
+          <li><a href="#/friends">Friends</a></li>
+          <li class="divider hide-for-small"></li>
+          <li><a href="#/degree">Degree</a></li>
+        </ul>
+      </section>
+    </nav>
+  </div>
 
-  <div id="container">
-    <header>
-      <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcourses.adicu.com&amp;layout=button_count&amp;show_faces=false&amp;width=95&amp;action=recommend&amp;font=lucida+grande&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0"  allowTransparency="true" id="fb_share_link"></iframe>
-      <h1>
-        <img src="img/schedule-builder-logo.png" alt="Schedule Builder
-        beta" /> Schedule Builder <span id="byline">
-        <a href="http://adicu.com/">from <img src="img/adi-logo-small.png" alt="ADI" /></a></span>
-      </h1>
-      <img src="img/adi-logo-small.png" alt="ADi" id="seal"/>
-    </header>
-
-    <div id="app" ng-view></div>
-    <noscript>
-      <div class="noscript">
-        <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
-      </div>
-    </noscript>
-    <footer>
-      <p>
-        <span class="byline">
-          By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
-          href="http://hansh.org/">Hans Hyttinen</a>, and <a
-          href="http://www.github.com/sidnair09">Sid Nair</a>.
-        </span>
-        <span class="reportBug"><a href="mailto:infrastructure@adicu.com?subject=[Bug Report] Schedule Builder">Report a bug</a></span>
-      </p>
-    </footer>
+  <div class="row">
+    <div class="large-12 columns">
+      <div id="app" ng-view></div>
+      <noscript>
+        <div class="noscript">
+          <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
+        </div>
+      </noscript>
+      <footer>
+        <p>
+          <span class="byline">
+            By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
+            href="http://hansh.org/">Hans Hyttinen</a>, and <a
+            href="http://www.github.com/sidnair09">Sid Nair</a>.
+          </span>
+          <span class="reportBug"><a href="mailto:infrastructure@adicu.com?subject=[Bug Report] Schedule Builder">Report a bug</a></span>
+        </p>
+      </footer>
+    </div>
   </div>
   <div id="fade"></div>
 
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
   -->
@@ -51,6 +77,10 @@
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
+  <script src="lib/foundation/foundation.min.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
 
   <script type="text/javascript">
     var _gaq = _gaq || [];
