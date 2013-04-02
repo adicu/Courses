@@ -1,26 +1,10 @@
-<div class="row">
-  <div class="large-10 columns">
-    <h1>Schedule</h1>
-  </div>
-  <div class="large-2 columns">
-    <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
-  </div>
-  <hr>
-</div>
-
+<button id="print">Print</button>
+<div id="browser">
 <div class="search">
-    <form ng-submit="search()">
-      <div class="row collapse">
-        <div class="small-10 columns">
-          <input type="text" name="search_input" ng-model="searchQuery" placeholder="Type a course title to begin...">
-        </div>
-        <div class="small-2 columns">
-          <button class="prefix">Search</button>
-        </div>
-      </div>
-    </form>
+  <input type="text" name="search_input" ng-model="searchQuery" placeholder="Type a course title to begin...">
+  <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
+  <button ng-click="search()">Search</button>
 </div>
-
 <div class="results" ng-show="searchResults">
   <ul>
     <li class="course" ng-repeat="result in searchResults" ng-click="courseSelect(result)">
