@@ -21,11 +21,12 @@ rootCtrl = ($scope, Course, Calendar) ->
 
   $scope.courseSelect = (course) ->
     $scope.clearResults()
-    course.getInfo()
-      .then () ->
-        if course.sections.length > 1
-          calendar.showAllSections(course)
+    # course.getInfo()
+    #   .then () ->
+    calendar.addCourse course
 
+  $scope.removeCourse = (section) ->
+    calendar.removeCourse section
 
 
 #rootCtrl.$inject = []

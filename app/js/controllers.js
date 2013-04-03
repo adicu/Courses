@@ -21,12 +21,11 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.clearResults = function() {
     return $scope.searchResults = [];
   };
-  return $scope.courseSelect = function(course) {
+  $scope.courseSelect = function(course) {
     $scope.clearResults();
-    return course.getInfo().then(function() {
-      if (course.sections.length > 1) {
-        return calendar.showAllSections(course);
-      }
-    });
+    return calendar.addCourse(course);
+  };
+  return $scope.removeCourse = function(section) {
+    return calendar.removeCourse(section);
   };
 };

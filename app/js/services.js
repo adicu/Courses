@@ -7,32 +7,48 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
   var Course;
   return Course = (function() {
 
-    function Course(id, title, description, course_key, num_sections, semester) {
-      this.id = id;
-      this.title = title;
-      this.description = description;
-      this.course_key = course_key;
-      this.num_sections = num_sections;
-      this.semester = semester;
+    Course.api_url = 'http://data.adicu.com/courses';
+
+    Course.api_token = '515abdcf27200000029ca515';
+
+    function Course(data) {
+      this.data = data;
       this.getInfo = __bind(this.getInfo, this);
 
-      this.sectionRefs = [];
+      if (!(data.MeetsOn1 != null)) {
+        return;
+      }
+      this.id = data.CallNumber;
+      this.title = data.CourseSubtitle;
+      this.description = data.Description;
+      this.course_key = data.Course;
+      this.semester = data.Term;
+      this.points = data.NumFixedUnits / 10.0;
+      this.sections = [];
+      this.sections[0] = {
+        parentId: this.id,
+        title: this.title,
+        days: Course.parseDays(this.data.MeetsOn1),
+        points: this.points,
+        start: Course.parseTime(this.data.StartTime1),
+        end: Course.parseTime(this.data.EndTime1)
+      };
     }
 
     Course.prototype.getInfo = function() {
       var d,
         _this = this;
-      if (this.sections) {
-        return;
-      }
       d = $q.defer();
+      if (this.sections) {
+        return d.promise;
+      }
       $http({
         method: 'JSONP',
-        url: 'http://courses.adicu.com/courses/get',
+        url: Course.api_url,
         params: {
           course_key: this.course_key,
-          s: this.semester,
-          callback: 'JSON_CALLBACK'
+          term: this.semester,
+          jsonp: 'JSON_CALLBACK'
         }
       }).success(function(data, status, headers, config) {
         _this.points = data.points;
@@ -49,26 +65,25 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
       d = $q.defer();
       $http({
         method: 'JSONP',
-        url: 'http://courses.adicu.com/courses/search',
+        url: Course.api_url,
         params: {
-          q: query,
-          s: semester,
-          l: length,
-          p: page,
-          callback: 'JSON_CALLBACK'
+          description: query,
+          term: semester,
+          limit: length,
+          page: page,
+          jsonp: 'JSON_CALLBACK',
+          api_token: Course.api_token
         }
       }).success(function(data, status, headers, config) {
         var out, result, _i, _len, _ref;
-        if (!data || !data.results) {
+        if (!data.data) {
           return;
         }
         out = [];
-        _ref = data.results;
+        _ref = data.data;
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           result = _ref[_i];
-          if (result.title) {
-            out.push(new Course(result.id, result.title, result.description, result.course_key, result.num_sections, semester));
-          }
+          out.push(new Course(result));
         }
         return d.resolve(out);
       }).error(function(data, status) {
@@ -77,18 +92,24 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
       return d.promise;
     };
 
-    Course.getDays = function(section) {
-      var day, days, daysAbbr, daysStr, _i, _len;
+    Course.parseDays = function(days) {
+      var day, daysAbbr, daysInt, _i, _len;
       daysAbbr = "MTWRF";
-      days = [];
-      daysStr = section.days;
-      for (_i = 0, _len = daysStr.length; _i < _len; _i++) {
-        day = daysStr[_i];
+      daysInt = [];
+      for (_i = 0, _len = days.length; _i < _len; _i++) {
+        day = days[_i];
         if (daysAbbr.indexOf(day !== -1)) {
-          days.push(daysAbbr.indexOf(day));
+          daysInt.push(daysAbbr.indexOf(day));
         }
       }
-      return days;
+      return daysInt;
+    };
+
+    Course.parseTime = function(time) {
+      var hour, intTime, minute;
+      hour = parseInt(time.slice(0, 2));
+      minute = parseInt(time.slice(3, 5));
+      return intTime = hour + minute / 60.0;
     };
 
     return Course;
@@ -102,12 +123,31 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
       this.showAllSections = __bind(this.showAllSections, this);
 
       var i, _i;
-      this.courses = [];
+      this.courses = {};
       this.courseCalendar = [];
       for (i = _i = 0; _i <= 6; i = ++_i) {
         this.courseCalendar[i] = [];
       }
     }
+
+    Calendar.prototype.addCourse = function(course) {
+      var day, section, sectionNum, _i, _len, _ref, _results;
+      if (this.courses[course.id] != null) {
+        return;
+      }
+      this.courses[course.id] = course;
+      sectionNum = 0;
+      section = course.sections[sectionNum];
+      section.computedCss = Calendar.computeCss(section.start, section.end);
+      _ref = section.days;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        day = _ref[_i];
+        console.log('day: ' + day);
+        _results.push(this.courseCalendar[day].push(section));
+      }
+      return _results;
+    };
 
     Calendar.prototype.showAllSections = function(course) {
       var day, newSection, overlap, overlapCheck, section, _i, _j, _len, _len1, _ref, _ref1, _results;
@@ -173,9 +213,9 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
     Calendar.getValidSemesters = function() {
       var effectiveMonth, i, month, semester, semesters, year, _i;
       semesters = [];
-      month = new Date().getMonth() + 1;
+      month = new Date().getMonth();
       year = new Date().getFullYear();
-      effectiveMonth = month + 1;
+      effectiveMonth = month + 2;
       for (i = _i = 0; _i <= 2; i = ++_i) {
         if (effectiveMonth > 11) {
           effectiveMonth %= 12;
@@ -185,7 +225,9 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
         effectiveMonth += 4;
         semesters.push(year + '' + semester);
       }
-      return semesters;
+      semesters;
+
+      return semesters = ['20133', '20141'];
     };
 
     Calendar.hours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];

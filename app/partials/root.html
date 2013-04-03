@@ -1,9 +1,11 @@
 <button id="print">Print</button>
 <div id="browser">
 <div class="search">
-  <input type="text" name="search_input" ng-model="searchQuery" placeholder="Type a course title to begin...">
-  <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
-  <button ng-click="search()">Search</button>
+  <form ng-submit="search()">
+    <input type="text" name="search_input" ng-model="searchQuery" placeholder="Type a course title to begin...">
+    <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
+    <button type="submit">Search</button>
+  </form>
 </div>
 <div class="results" ng-show="searchResults">
   <ul>
@@ -31,7 +33,7 @@
         <div id="{{day}}">
           <div ng-repeat="section in courseCalendar[$index]" class="timeSlotWrapper {{section.id}}" ng-style="section.computedCss">
             <div class="timeSlot">
-              <button class="remove_link" ng-hide="section.overlaps">x</button>
+              <button class="remove_link" ng-click="removeCourse(section)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotTitle">{{section.title}}</p>
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">Call #: {{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">Points: {{section.points}}</p>
