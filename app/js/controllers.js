@@ -13,7 +13,11 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.searchResults = [];
   $scope.courseCalendar = calendar.courseCalendar;
   $scope.search = function() {
-    return Course.search($scope.searchQuery, $scope.selectedSemester, '10', '1').then(function(data) {
+    if ($scope.searchQuery.length === 0) {
+      $scope.clearResults();
+      return;
+    }
+    return Course.search($scope.searchQuery, $scope.selectedSemester).then(function(data) {
       console.log(data);
       return $scope.searchResults = data;
     });
@@ -23,9 +27,25 @@ rootCtrl = function($scope, Course, Calendar) {
   };
   $scope.courseSelect = function(course) {
     $scope.clearResults();
-    return calendar.addCourse(course);
+    if (calendar.courses[course.id]) {
+      return;
+    }
+    return course.getSections().then(function(status) {
+      if (!status) {
+        return;
+      }
+      return calendar.addCourse(course);
+    });
   };
-  return $scope.removeCourse = function(section) {
-    return calendar.removeCourse(section);
+  $scope.removeCourse = function(id) {
+    return calendar.removeCourse(id);
+  };
+  return $scope.sectionSelect = function(subsection) {
+    var section;
+    section = subsection.parent;
+    if (!section.parent.status) {
+      return;
+    }
+    return calendar.sectionChosen(section);
   };
 };

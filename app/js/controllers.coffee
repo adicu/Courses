@@ -10,8 +10,11 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
 
-  $scope.search = ->  
-    Course.search($scope.searchQuery, $scope.selectedSemester, '10', '1')
+  $scope.search = ->
+    if $scope.searchQuery.length == 0
+      $scope.clearResults()
+      return
+    Course.search($scope.searchQuery, $scope.selectedSemester)
       .then (data) ->
         console.log data
         $scope.searchResults = data
@@ -21,12 +24,18 @@ rootCtrl = ($scope, Course, Calendar) ->
 
   $scope.courseSelect = (course) ->
     $scope.clearResults()
-    # course.getInfo()
-    #   .then () ->
-    calendar.addCourse course
+    return if calendar.courses[course.id]
+    course.getSections().then (status) ->
+      return if not status
+      calendar.addCourse course
 
-  $scope.removeCourse = (section) ->
-    calendar.removeCourse section
+  $scope.removeCourse = (id) ->
+    calendar.removeCourse id
+
+  $scope.sectionSelect = (subsection) ->
+    section = subsection.parent
+    return if not section.parent.status
+    calendar.sectionChosen section
 
 
 #rootCtrl.$inject = []

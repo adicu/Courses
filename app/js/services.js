@@ -3,118 +3,201 @@
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-angular.module('Courses.services', []).factory('Course', function($http, $q) {
+angular.module('Courses.services', []).factory('Course', function($http, $q, ejsResource, Section) {
   var Course;
   return Course = (function() {
 
-    Course.api_url = 'http://data.adicu.com/courses';
+    Course.api_url = 'http://data.adicu.com/courses/v2/';
 
     Course.api_token = '515abdcf27200000029ca515';
 
-    function Course(data) {
-      this.data = data;
-      this.getInfo = __bind(this.getInfo, this);
+    Course.ejs = ejsResource('http://db.data.adicu.com:9200');
 
-      if (!(data.MeetsOn1 != null)) {
-        return;
-      }
-      this.id = data.CallNumber;
-      this.title = data.CourseSubtitle;
-      this.description = data.Description;
-      this.course_key = data.Course;
-      this.semester = data.Term;
-      this.points = data.NumFixedUnits / 10.0;
-      this.sections = [];
-      this.sections[0] = {
-        parentId: this.id,
-        title: this.title,
-        days: Course.parseDays(this.data.MeetsOn1),
-        points: this.points,
-        start: Course.parseTime(this.data.StartTime1),
-        end: Course.parseTime(this.data.EndTime1)
-      };
+    window.ej = Course.ejs;
+
+    Course.request = ejs.Request().indices('jdbc');
+
+    function Course(data, semester) {
+      this.data = data;
+      this.semester = semester;
+      this.id = data.course;
+      this.title = data.coursetitle;
+      this.description = data.description;
+      this.points = data.numfixedunits / 10.0;
     }
 
-    Course.prototype.getInfo = function() {
+    Course.prototype.getSections = function() {
       var d,
         _this = this;
-      d = $q.defer();
-      if (this.sections) {
-        return d.promise;
+      if (this.sections && this.sections.length >= 1) {
+        return;
       }
+      d = $q.defer();
       $http({
         method: 'JSONP',
-        url: Course.api_url,
+        url: Course.api_url + 'sections',
         params: {
-          course_key: this.course_key,
+          course: this.id,
           term: this.semester,
-          jsonp: 'JSON_CALLBACK'
+          jsonp: 'JSON_CALLBACK',
+          api_token: Course.api_token
         }
       }).success(function(data, status, headers, config) {
-        _this.points = data.points;
-        _this.sections = data.sections;
-        return d.resolve(_this);
+        var section, _i, _len, _ref;
+        if (!data.data) {
+          return;
+        }
+        _this.sections = [];
+        _ref = data.data;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          section = _ref[_i];
+          _this.sections.push(new Section(section, _this));
+        }
+        return d.resolve(true);
       }).error(function(data, status) {
-        return d.reject(status);
+        return d.resolve(false);
       });
       return d.promise;
     };
 
     Course.search = function(query, semester, length, page) {
-      var d;
-      d = $q.defer();
-      $http({
-        method: 'JSONP',
-        url: Course.api_url,
-        params: {
-          description: query,
-          term: semester,
-          limit: length,
-          page: page,
-          jsonp: 'JSON_CALLBACK',
-          api_token: Course.api_token
-        }
-      }).success(function(data, status, headers, config) {
-        var out, result, _i, _len, _ref;
-        if (!data.data) {
+      return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).must(ejs.QueryStringQuery(query).fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle']))).doSearch().then(function(data) {
+        var hit, hits, _i, _len, _results;
+        if (!(data.hits != null) && (data.hits.hits != null)) {
           return;
         }
-        out = [];
-        _ref = data.data;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          result = _ref[_i];
-          out.push(new Course(result));
+        hits = data.hits.hits;
+        _results = [];
+        for (_i = 0, _len = hits.length; _i < _len; _i++) {
+          hit = hits[_i];
+          _results.push(new Course(hit._source, semester));
         }
-        return d.resolve(out);
-      }).error(function(data, status) {
-        return d.reject(status);
+        return _results;
       });
-      return d.promise;
     };
 
-    Course.parseDays = function(days) {
-      var day, daysAbbr, daysInt, _i, _len;
-      daysAbbr = "MTWRF";
-      daysInt = [];
+    return Course;
+
+  })();
+}).factory('Section', function() {
+  var Section;
+  return Section = (function() {
+
+    function Section(data, parent) {
+      var i, _i;
+      this.data = data;
+      this.parent = parent;
+      this.id = data.Course;
+      this.subsections = [];
+      for (i = _i = 0; _i <= 6; i = ++_i) {
+        this.subsections[i] = [];
+      }
+      this.parseDayAndTime();
+    }
+
+    Section.prototype.parseDayAndTime = function() {
+      var day, end, i, start, _i, _results;
+      _results = [];
+      for (i = _i = 1; _i <= 2; i = ++_i) {
+        if (!this.data['MeetsOn' + i]) {
+          continue;
+        }
+        _results.push((function() {
+          var _j, _len, _ref, _results1;
+          _ref = Section.parseDays(this.data['MeetsOn' + i]);
+          _results1 = [];
+          for (_j = 0, _len = _ref.length; _j < _len; _j++) {
+            day = _ref[_j];
+            start = Section.parseTime(this.data['StartTime' + i]);
+            end = Section.parseTime(this.data['EndTime' + i]);
+            _results1.push(this.subsections[day].push({
+              id: this.id,
+              title: this.parent.title,
+              instructor: this.data.Instructor1Name,
+              parent: this,
+              day: day,
+              start: start,
+              end: end,
+              css: Section.computeCss(start, end)
+            }));
+          }
+          return _results1;
+        }).call(this));
+      }
+      return _results;
+    };
+
+    Section.prototype.overlapCheck = function(calendar, dayNum) {
+      var count, day, days, entry, subsection, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
+      days = dayNum || [0, 1, 2, 3, 4, 5, 6];
+      count = 0;
+      for (_i = 0, _len = days.length; _i < _len; _i++) {
+        day = days[_i];
+        _ref = this.subsections[day];
+        for (_j = 0, _len1 = _ref.length; _j < _len1; _j++) {
+          subsection = _ref[_j];
+          _ref1 = calendar[day];
+          for (_k = 0, _len2 = _ref1.length; _k < _len2; _k++) {
+            entry = _ref1[_k];
+            if (subsection.start <= entry.end && subsection.end >= entry.start) {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    };
+
+    Section.parseDays = function(days) {
+      var day, daysAbbr, _i, _len, _results;
+      if (!(days != null)) {
+        return;
+      }
+      daysAbbr = Section.options.daysAbbr;
+      _results = [];
       for (_i = 0, _len = days.length; _i < _len; _i++) {
         day = days[_i];
         if (daysAbbr.indexOf(day !== -1)) {
-          daysInt.push(daysAbbr.indexOf(day));
+          _results.push(daysAbbr.indexOf(day));
+        } else {
+          _results.push(void 0);
         }
       }
-      return daysInt;
+      return _results;
     };
 
-    Course.parseTime = function(time) {
+    Section.parseTime = function(time) {
       var hour, intTime, minute;
+      if (!(time != null)) {
+        return;
+      }
       hour = parseInt(time.slice(0, 2));
       minute = parseInt(time.slice(3, 5));
       return intTime = hour + minute / 60.0;
     };
 
-    return Course;
+    Section.computeCss = function(start, end) {
+      var height_pixels, top_pixels;
+      if (!(start != null)) {
+        return;
+      }
+      top_pixels = Math.abs(start - Section.options.start_hour) * Section.options.pixels_per_hour;
+      height_pixels = Math.abs(end - start) * Section.options.pixels_per_hour;
+      return {
+        "top": top_pixels,
+        "height": height_pixels
+      };
+    };
 
-  }).call(this);
+    Section.options = {
+      pixels_per_hour: 42,
+      start_hour: 8,
+      daysAbbr: "MTWRF"
+    };
+
+    return Section;
+
+  })();
 }).factory('Calendar', function(Course) {
   var Calendar;
   return Calendar = (function() {
@@ -131,63 +214,32 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
     }
 
     Calendar.prototype.addCourse = function(course) {
-      var day, section, sectionNum, _i, _len, _ref, _results;
-      if (this.courses[course.id] != null) {
+      if (this.courses[course.id] || course.sections.length < 1) {
         return;
       }
-      this.courses[course.id] = course;
-      sectionNum = 0;
-      section = course.sections[sectionNum];
-      section.computedCss = Calendar.computeCss(section.start, section.end);
-      _ref = section.days;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        day = _ref[_i];
-        console.log('day: ' + day);
-        _results.push(this.courseCalendar[day].push(section));
+      if (course.sections.length > 1) {
+        return this.showAllSections(course);
+      } else {
+        return this.addSection(course.sections[0]);
       }
-      return _results;
     };
 
-    Calendar.prototype.showAllSections = function(course) {
-      var day, newSection, overlap, overlapCheck, section, _i, _j, _len, _len1, _ref, _ref1, _results;
-      course.sectionRefs = [];
-      overlapCheck = {};
-      _ref = course.sections;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        section = _ref[_i];
-        newSection = {
-          'id': section.id,
-          'computedCss': Calendar.computeCss(section.start, section.end),
-          'title': section.title,
-          'points': course.points,
-          'days': Course.getDays(section)
-        };
-        overlap = overlapCheck[section.start + '' + section.end + section.days];
-        if (!overlap) {
-          course.sectionRefs.push(newSection);
-          overlapCheck[section.start + '' + section.end + section.days] = newSection;
-        } else {
-          if (!overlap.overlaps) {
-            overlap.overlaps = [];
-          }
-          overlap.overlaps.push(newSection);
-        }
+    Calendar.prototype.addSection = function(section) {
+      var day, i, subsection, _i, _len, _ref, _results;
+      this.courses[section.id] = section.parent;
+      if (section.overlapCheck(this.courseCalendar)) {
+        console.log('Overlap');
       }
-      console.log(course.sectionRefs);
-      console.log(overlapCheck);
-      this.courses.push(course);
-      _ref1 = course.sectionRefs;
+      _ref = section.subsections;
       _results = [];
-      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-        section = _ref1[_j];
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        day = _ref[i];
         _results.push((function() {
-          var _k, _len2, _ref2, _results1;
-          _ref2 = section.days;
+          var _j, _len1, _results1;
           _results1 = [];
-          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-            day = _ref2[_k];
-            _results1.push(this.courseCalendar[day].push(section));
+          for (_j = 0, _len1 = day.length; _j < _len1; _j++) {
+            subsection = day[_j];
+            _results1.push(this.courseCalendar[i].push(subsection));
           }
           return _results1;
         }).call(this));
@@ -195,19 +247,37 @@ angular.module('Courses.services', []).factory('Course', function($http, $q) {
       return _results;
     };
 
-    Calendar.computeCss = function(start, end) {
-      var height_pixels, start_pixels;
-      start_pixels = (start - Calendar.options.start_hour) * Calendar.options.pixels_per_hour;
-      height_pixels = Math.abs(end - start) * Calendar.options.pixels_per_hour;
-      return {
-        "top": start_pixels,
-        "height": height_pixels
-      };
+    Calendar.prototype.removeCourse = function(id) {
+      var day, i, _i, _len, _ref;
+      _ref = this.courseCalendar;
+      for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+        day = _ref[i];
+        this.courseCalendar[i] = this.courseCalendar[i].filter(function(subsection) {
+          if (subsection.id === id) {
+            return false;
+          }
+          return true;
+        });
+      }
+      return this.courses[id] = false;
     };
 
-    Calendar.options = {
-      pixels_per_hour: 42,
-      start_hour: 8
+    Calendar.prototype.sectionChosen = function(section) {
+      this.removeCourse(section.id);
+      return this.addSection(section);
+    };
+
+    Calendar.prototype.showAllSections = function(course) {
+      var section, _i, _len, _ref, _results;
+      console.log('showAll');
+      course.status = "overlapping";
+      _ref = course.sections;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        section = _ref[_i];
+        _results.push(this.addSection(section));
+      }
+      return _results;
     };
 
     Calendar.getValidSemesters = function() {
