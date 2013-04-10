@@ -13,7 +13,7 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.searchResults = [];
   $scope.courseCalendar = calendar.courseCalendar;
   $scope.search = function() {
-    if ($scope.searchQuery.length === 0) {
+    if (!$scope.searchQuery || $scope.searchQuery.length === 0) {
       $scope.clearResults();
       return;
     }

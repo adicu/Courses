@@ -11,7 +11,7 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.courseCalendar = calendar.courseCalendar
 
   $scope.search = ->
-    if $scope.searchQuery.length == 0
+    if not $scope.searchQuery or $scope.searchQuery.length == 0
       $scope.clearResults()
       return
     Course.search($scope.searchQuery, $scope.selectedSemester)
