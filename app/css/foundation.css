@@ -1,160 +1,3 @@
-/* Application */
-body { font-family: "Myriad Pro", Arial, sans-serif; padding: 20px 0; background: url('/images/share-url.png') 15% 1px no-repeat; }
-#container { width: 960px; margin: 0 auto; position: relative; }
-header h1 { font-size: 1.5em; }
-header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opacity: 0.1; }
-
-span#byline {color: #999; opacity: 0.5;}
-span#byline a {text-decoration: none; color: #999;}
-span#byline a img {position: relative; top: 3px;}
-span#byline:hover {opacity: 1.0;}
-
-footer { padding-bottom: 1em; }
-footer p { text-align: right; color: #999;}
-footer a { color: #999;}
-footer a:hover { color: #666;}
-
-div.noscript{ margin: 40px 0; }
-strong { font-weight: bold; }
-
-#fb_share_link { border:none; overflow:hidden; width: 175px; height:21px; position: relative; top: 12px; float: right;}
-
-/* Browser */
-h1 {
-  margin-bottom: 10px;
-  font-weight: 700;
-  color: #333;
-  padding-left: 0px;
-  /*background: url('../images/schedule-builder-logo.png') no-repeat left center; */
-  height: 47px;
-  line-height: 47px;
-  position: relative;
-  top: -15px;
-}
-
-h1 img { position: relative; top: 15px; }
-
-#print { background: transparent; border: none; position: absolute; top: 12px; right: 0; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
-#print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
-#browser {
-  width: 940px;
-  padding: 10px;
-  position: relative;
-  margin-bottom: 10px;
-}
-
-#browser div.results {
-  position: absolute; left: 0; top: 50px; z-index: 7;
-  width: 940px;
-  border: 10px solid #75B2DD; 
-  background: white;
-}
-#browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
-#browser .results li { padding: 10px; font-size: 1.1em; }
-#browser .results li:hover { padding: 10px; font-size: 1.1em; background: #dddde9; cursor: pointer; }
-#browser .results li p:first-child { font-weight: bold; font-size: 1em; }
-#browser .results li p.description { font-size: 0.9em; }
-#browser .results p.clear_results { text-align: right; font-weight: bold; padding: 5px 10px; }
-#browser .results p.clear_results:hover { cursor: pointer; color: grey; }
-
-body { position: relative; }
-
-div.errorMessage {
-  position: absolute; top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10; }
-div.errorMessage > div.box {
-  position: absolute; top: 40%; left: 50%;
-  margin-left: -200px;
-  padding: 20px 20px;
-  background: #ddddf0;
-  box-shadow:         1px 1px 5px #333;
-  -moz-box-shadow:    1px 1px 5px #333;
-  -webkit-box-shadow: 1px 1px 5px #333;
-  width: 400px; }
-.errorMessage p { color: #222; }
-.errorMessage button { padding: 5px 10px; margin: 10px 10px 0 0; }
-div.errorMessage > div.box, div.errorMessage > div.backdrop {
-  border-radius: 10px;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-}
-
-#calendar { position: relative; }
-#calendar table {
-  background: none;
-}
-#calendar #guides { position: absolute; top: 20px; left: 0; width: 100%; max-width: 960px; z-index: -1; }
-#calendar #guides div { border-bottom: 1px solid #DFDFDF; height: 42px; }
-#calendar #daynames th { text-align: center; }
-#calendar td.dayColumn { width: 20%; padding: 0 0 0 1px; }
-#calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; }
-#calendar td.dayColumn .timeSlotWrapper {
-  position: absolute;
-  width: 100%;
-  background: #e9e9f5;
-  border-radius: 9px;
-  overflow: hidden;
-  -moz-border-radius: 9px;
-  border:1px solid #222;}
-#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #333350; color: white; }
-#calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
-  position: absolute; top: -4px; right: -2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
-.timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
-#calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
-#calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; position:relative; }
-#calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
-#calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
-#calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
-#calendar td.hourColumn {
-  width: 35px;
-  padding: 15px 5px 13px 9px;
-  text-align: right;
-  font-size: 0.9em; 
-}
-#calendar td.hourColumn div {
-  position: relative;
-  padding-right: 0.3em;
-  line-height: normal;
-  height: 42px;
-}
-div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
-div#fade {
-    display: none;
-    background: rgba( 0, 0, 0, 0.2 );
-    position: fixed; left: 0; top: 0;
-    width: 100%; height: 100%;
-    z-index: 6; }
-
-.box {
-  z-index: 10;
-}
-div.timeslot_popup div.box {
-    position: absolute; top: 200px; left: 50%;
-    margin-left: -200px;
-    padding: 10px 20px;
-    border: 5px solid #75B2DD;
-    background: white; width: 400px;
-    }
-div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
-div.timeslot_popup th { font-style: italic; }
-div.timeslot_popup div.box table { width: 100%; }
-div.timeslot_popup div.box td { padding: 0 10px 5px 0; vertical-align: top; }
-div.timeslot_popup div.box td:last-child { padding-right: 0; }
-div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
-.timeslot_popup td a:hover { color: #666; }
-.timeSlotTitle {width: 95%;}
-.timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
-.timeSlotPoints {margin-top: 3px; font-size: .85em; }
-
-#adi-logo {display: block; position: relative; top: 3px;}
-
-.reportBug { float: right; }
-.byline { float: left; }
-
-/*Foundation*/
-
 *,
 *:before,
 *:after {
@@ -3843,7 +3686,7 @@ table {
     border-radius: 3px; }
 
 /* Tooltips */
-/*.has-tip {
+.has-tip {
   border-bottom: dotted 1px #cccccc;
   cursor: help;
   font-weight: bold;
@@ -3852,7 +3695,7 @@ table {
     border-bottom: dotted 1px #196177;
     color: #2ba6cb; }
   .has-tip.tip-left, .has-tip.tip-right {
-    float: none !important; }*/
+    float: none !important; }
 
 .tooltip {
   display: none;

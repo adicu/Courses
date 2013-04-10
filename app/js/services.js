@@ -181,7 +181,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       if (!(start != null)) {
         return;
       }
-      top_pixels = Math.abs(start - Section.options.start_hour) * Section.options.pixels_per_hour;
+      top_pixels = Math.abs(start - Section.options.start_hour) * Section.options.pixels_per_hour + Section.options.top_padding;
       height_pixels = Math.abs(end - start) * Section.options.pixels_per_hour;
       return {
         "top": top_pixels,
@@ -192,6 +192,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     Section.options = {
       pixels_per_hour: 42,
       start_hour: 8,
+      top_padding: 31,
       daysAbbr: "MTWRF"
     };
 

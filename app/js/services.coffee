@@ -107,7 +107,8 @@ angular.module('Courses.services', [])
       @computeCss: (start, end) ->
         return if not start?
         top_pixels = Math.abs(start - 
-            Section.options.start_hour) * Section.options.pixels_per_hour
+            Section.options.start_hour) * Section.options.pixels_per_hour +
+            Section.options.top_padding
         height_pixels = Math.abs(end-start) * Section.options.pixels_per_hour
 
         return {
@@ -118,6 +119,7 @@ angular.module('Courses.services', [])
       @options:
         pixels_per_hour: 42
         start_hour: 8
+        top_padding: 31
         daysAbbr: "MTWRF"
 
 

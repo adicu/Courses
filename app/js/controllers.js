@@ -23,7 +23,8 @@ rootCtrl = function($scope, Course, Calendar) {
     });
   };
   $scope.clearResults = function() {
-    return $scope.searchResults = [];
+    $scope.searchResults = [];
+    return $scope.searchQuery = "";
   };
   $scope.courseSelect = function(course) {
     $scope.clearResults();

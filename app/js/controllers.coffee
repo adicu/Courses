@@ -21,6 +21,7 @@ rootCtrl = ($scope, Course, Calendar) ->
 
   $scope.clearResults = ->
     $scope.searchResults = []
+    $scope.searchQuery = ""
 
   $scope.courseSelect = (course) ->
     $scope.clearResults()

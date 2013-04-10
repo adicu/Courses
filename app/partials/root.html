@@ -1,44 +1,61 @@
 <button id="print">Print</button>
 <div id="browser">
-<div class="search">
-  <form ng-submit="search()">
-    <input type="text" name="search_input" ng-model="searchQuery" ng-change="search()" ng-click="search()" placeholder="Type a course title to begin...">
-    <select ng-model="selectedSemester" ng-options="semester | readableSemester for semester in semesters"></select>
-    <button type="submit">Search</button>
-  </form>
+<div class="search" ui-jq="foundation">
+  <form ng-submit="search()" class="custom"
+  >
+    <div class="row collapse">
+      <div class="small-9 columns">
+        <input type="text" name="search_input"
+        ng-model="searchQuery" 
+        ng-change="search()"
+        ng-click="search()" 
+        placeholder="Type a course title to begin...">
+      </div>
+      <div class="small-1 columns">
+        <button class="prefix" ng-click="clearResults()">Clear</button>
+      </div>
+      <div class="small-2 columns">
+        <select 
+        id="customDropdown"
+        ng-model="selectedSemester" 
+        ng-options="semester | readableSemester for semester in semesters"
+        ></select>
+      </div>
 </div>
 <div class="results" ng-show="searchResults">
-  <p class="clear_results" ng-click="clearResults()">Clear results</p>
-  <ul>
+  <ul class="no-bullet">
     <li class="course" ng-repeat="result in searchResults" ng-click="courseSelect(result)">
       <p class="title">{{result.title}}</p><p class="description">{{result.description}}</p>
     </li>
   </ul>
 </div>
 </div>
-<div id="calendar">
+<div id="calendar" ui-jq="foundation">
 <table>
   <thead id="daynames">
     <tr>
-      <th style="height: 42px;"></th>
-      <th style="height: 42px;" ng-repeat="day in days">{{day}}</th>
+      <th></th>
+      <th ng-repeat="day in days">{{day}}</th>
     </tr>
   </thead>
   <tbody id="daybodies">
     <tr>
       <td id="hours" class="hourColumn">
-        <div style="height: 42px;" ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
+        <div ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
       </td>
       <td class="dayColumn" style="height: 672px;" ng-repeat="day in days">
         <div id="{{day}}">
-          <div ng-repeat="section in courseCalendar[$index]" class="timeSlotWrapper {{section.id}}" ng-style="section.css" ng-click="sectionSelect(section)">
+          <div 
+          ng-repeat="section in courseCalendar[$index]" 
+          class="timeSlotWrapper {{section.id}}" 
+          ng-style="section.css" 
+          ng-click="sectionSelect(section)">
             <div class="timeSlot">
               <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotTitle">{{section.title}}</p>
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">{{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">{{section.instructor}}</p>
-              <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p>
-              <p 
+              <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p> 
             </div>
           </div>
         </div>
@@ -47,6 +64,6 @@
   </tbody>
 </table>
 <div id="guides">
-  <div style="height: 41px;" ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
+  <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
 </div>
 </div>

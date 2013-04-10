@@ -1,8 +1,8 @@
 "use strict"
 
-# Declare app level module which depends on filters, and services
+# Elasticjs library, AngularUI
 angular.module("Courses", ["Courses.filters", "Courses.services", 
-      "Courses.directives", "elasticjs.service"])
+      "Courses.directives", "elasticjs.service", 'ui'])
     .config ["$routeProvider", ($routeProvider) ->
       $routeProvider.when "/",
         templateUrl: "partials/root.html"
