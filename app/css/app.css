@@ -22,6 +22,8 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
 div.noscript{ margin: 40px 0; }
 strong { font-weight: bold; }
 
+p.description { font-size: 0.75em; }
+
 #fb_share_link { border:none; overflow:hidden; width: 175px; height:21px; position: relative; top: 12px; float: right;}
 
 /* Browser */
