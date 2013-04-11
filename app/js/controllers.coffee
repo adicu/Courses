@@ -10,6 +10,7 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
+  calendar.fillFromURL($scope.selectedSemester)
 
   $scope.search = ->
     if not $scope.searchQuery or $scope.searchQuery.length == 0
@@ -17,7 +18,7 @@ rootCtrl = ($scope, Course, Calendar) ->
       return
     Course.search($scope.searchQuery, $scope.selectedSemester)
       .then (data) ->
-        console.log data
+        # console.log data
         $scope.searchResults = data
 
   $scope.clearResults = ->
@@ -54,5 +55,6 @@ rootCtrl = ($scope, Course, Calendar) ->
     closeModal()
     course = section.parent
     calendar.changeSections course
+
 
 #rootCtrl.$inject = []

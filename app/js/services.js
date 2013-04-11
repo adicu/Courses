@@ -23,8 +23,91 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       this.id = data.course;
       this.title = data.coursetitle;
       this.description = data.description;
+      if (this.description === null) {
+        this.description = "No description given";
+      }
       this.points = data.numfixedunits / 10.0;
     }
+
+    Course.CUITCaseToUnderscore = function(cuitcase) {
+      cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1);
+      return cuitcase.replace(/([A-Z])/g, function($1) {
+        return "" + $1.toLowerCase();
+      });
+    };
+
+    Course.convertAPItoEJS = function(coursedata) {
+      var k, v;
+      for (k in coursedata) {
+        v = coursedata[k];
+        coursedata[Course.CUITCaseToUnderscore(k)] = v;
+      }
+      return coursedata;
+    };
+
+    Course.addSectionFromCallNumber = function(call, semester, cal) {
+      var d;
+      d = $q.defer();
+      $http({
+        method: 'JSONP',
+        url: Course.api_url + 'sections',
+        params: {
+          call_number: call,
+          term: semester,
+          jsonp: 'JSON_CALLBACK',
+          api_token: Course.api_token
+        }
+      }).success(function(data, status, headers, config) {
+        var d2, section;
+        if (!data.data) {
+          return null;
+        }
+        section = Course.convertAPItoEJS(data.data[0]);
+        d2 = $q.defer();
+        $http({
+          method: 'JSONP',
+          url: Course.api_url + 'courses',
+          params: {
+            course: section.Course,
+            term: section.term,
+            jsonp: 'JSON_CALLBACK',
+            api_token: Course.api_token
+          }
+        }).success(function(data2, status, headers, config) {
+          var c, coursedata;
+          if (!data.data) {
+            return null;
+          }
+          coursedata = Course.convertAPItoEJS(data2.data[0]);
+          c = new Course(coursedata, section.term);
+          c.getSections().then(function(status) {
+            var sec, _i, _len, _ref, _results;
+            if (!status) {
+              return;
+            }
+            _ref = c.sections;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              sec = _ref[_i];
+              if (sec.data.CallNumber.toString() === call.toString()) {
+                _results.push(cal.sectionChosen(sec, false));
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          });
+          return d2.resolve(true);
+        }).error(function(data, status) {
+          return d2.resolve(false);
+        });
+        d2.promise;
+        return d.resolve(true);
+      }).error(function(data, status) {
+        return d.resolve(false);
+      });
+      return d.promise;
+    };
 
     Course.prototype.getSections = function() {
       var d,
@@ -199,7 +282,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     return Section;
 
   })();
-}).factory('Calendar', function(Course) {
+}).factory('Calendar', function($http, $q, Course, $location) {
   var Calendar;
   return Calendar = (function() {
 
@@ -208,11 +291,41 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
 
       var i, _i;
       this.courses = {};
+      this.sections = {};
       this.courseCalendar = [];
       for (i = _i = 0; _i <= 6; i = ++_i) {
         this.courseCalendar[i] = [];
       }
     }
+
+    Calendar.prototype.fillFromURL = function(semester) {
+      var callnum, callnums, _i, _len, _results;
+      console.log($location.hash());
+      callnums = $location.hash().split(',');
+      _results = [];
+      for (_i = 0, _len = callnums.length; _i < _len; _i++) {
+        callnum = callnums[_i];
+        if (callnum !== '') {
+          _results.push(Course.addSectionFromCallNumber(callnum, semester, this));
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    };
+
+    Calendar.prototype.updateURL = function() {
+      var key, section, str, _ref;
+      str = "";
+      _ref = this.sections;
+      for (key in _ref) {
+        section = _ref[key];
+        if (section !== false) {
+          str = str + section.data['CallNumber'] + ",";
+        }
+      }
+      return $location.hash(str);
+    };
 
     Calendar.prototype.addCourse = function(course) {
       if (this.courses[course.id] || course.sections.length < 1) {
@@ -221,7 +334,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       if (course.sections.length > 1) {
         return this.showAllSections(course);
       } else {
-        return this.addSection(course.sections[0]);
+        return this.sectionChosen(course.sections[0]);
       }
     };
 
@@ -231,6 +344,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         canoverlap = true;
       }
       this.courses[section.id] = section.parent;
+      console.log(section);
       if (section.overlapCheck(this.courseCalendar)) {
         if (!canoverlap) {
           alert('Warning: this overlaps with a course you have already selected');
@@ -259,13 +373,23 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
           return true;
         });
       }
-      return this.courses[id] = false;
+      this.courses[id] = false;
+      this.sections[id] = false;
+      return this.updateURL();
     };
 
-    Calendar.prototype.sectionChosen = function(section) {
+    Calendar.prototype.sectionChosen = function(section, updateurl) {
+      if (updateurl == null) {
+        updateurl = true;
+      }
       section.parent.status = null;
       this.removeCourse(section.id);
-      return this.addSection(section, false);
+      this.sections[section.id] = section;
+      this.addSection(section, false);
+      console.log(section);
+      if (updateurl) {
+        return this.updateURL();
+      }
     };
 
     Calendar.prototype.showAllSections = function(course) {

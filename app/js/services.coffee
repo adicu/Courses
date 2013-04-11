@@ -1,8 +1,7 @@
 'use strict'
 
 # Services
-
-
+  
 angular.module('Courses.services', [])
   .factory 'Course', ($http, $q, ejsResource, Section) ->
     class Course
@@ -17,7 +16,65 @@ angular.module('Courses.services', [])
         @id = data.course
         @title = data.coursetitle
         @description = data.description
+        if @description == null
+          @description = "No description given"
         @points = data.numfixedunits / 10.0
+
+      @CUITCaseToUnderscore: (cuitcase) ->
+        cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1)
+        return cuitcase.replace /([A-Z])/g, ($1) ->
+          return "" + $1.toLowerCase()
+
+      @convertAPItoEJS: (coursedata) ->
+        for k,v of coursedata
+          coursedata[Course.CUITCaseToUnderscore k] = v
+        return coursedata
+
+      @addSectionFromCallNumber: (call, semester, cal) ->
+        d = $q.defer() # Override $http promise
+        $http
+          method: 'JSONP'
+          url: Course.api_url + 'sections'
+          params:
+            call_number: call
+            term: semester
+            jsonp: 'JSON_CALLBACK'
+            api_token: Course.api_token
+        .success (data, status, headers, config) ->
+          return null if not data.data
+          section = Course.convertAPItoEJS data.data[0]
+
+          # do more derpy stuff to get the course num
+          d2 = $q.defer()
+          $http
+            method: 'JSONP'
+            url: Course.api_url + 'courses'
+            params:
+              course: section.Course
+              term: section.term
+              jsonp: 'JSON_CALLBACK'
+              api_token: Course.api_token
+          .success (data2, status, headers, config) ->
+            return null if not data.data
+            
+            coursedata = Course.convertAPItoEJS data2.data[0]
+            
+            c = new Course coursedata, section.term
+            c.getSections().then (status) ->
+              return if not status
+              for sec in c.sections
+                if sec.data.CallNumber.toString() == call.toString()
+                  cal.sectionChosen sec, false
+
+            d2.resolve true
+          .error (data, status) ->
+            d2.resolve false
+          d2.promise
+
+          d.resolve true
+        .error (data, status) ->
+          d.resolve false
+        d.promise
 
       getSections: ->
         return if @sections and @sections.length >= 1
@@ -122,14 +179,28 @@ angular.module('Courses.services', [])
         top_padding: 31
         daysAbbr: "MTWRF"
 
-
-  .factory 'Calendar', (Course) ->
+  .factory 'Calendar', ($http, $q, Course, $location) ->
     class Calendar
       constructor: () ->
         @courses = {}
+        @sections = {}
         @courseCalendar = []
         for i in [0..6]
           @courseCalendar[i] = []
+
+      fillFromURL: (semester) ->
+        console.log $location.hash()
+        callnums = $location.hash().split ','
+        for callnum in callnums
+          if callnum != ''
+            Course.addSectionFromCallNumber callnum, semester, @
+
+      updateURL: () ->
+        str = ""
+        for key,section of @sections
+          if section != false
+            str = str + section.data['CallNumber'] + ","
+        $location.hash str
 
       addCourse: (course) ->
         return if @courses[course.id] or course.sections.length < 1
@@ -137,11 +208,12 @@ angular.module('Courses.services', [])
         if course.sections.length > 1
           @showAllSections course
         else
-          @addSection course.sections[0]
+          @sectionChosen course.sections[0]
 
       addSection: (section, canoverlap=true) ->
         @courses[section.id] = section.parent
 
+        console.log section
         if section.overlapCheck @courseCalendar
           if !canoverlap
             alert 'Warning: this overlaps with a course you have already selected'
@@ -158,11 +230,17 @@ angular.module('Courses.services', [])
               return false
             return true
         @courses[id] = false
+        @sections[id] = false
+        @updateURL() 
 
-      sectionChosen: (section) ->
+      sectionChosen: (section, updateurl=true) ->
         section.parent.status = null
         @removeCourse section.id
+        @sections[section.id] = section
         @addSection(section, false)
+        console.log section
+        if updateurl
+          @updateURL() 
 
       showAllSections: (course) =>
         course.status = "overlapping"

@@ -13,13 +13,13 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.searchResults = [];
   $scope.courseCalendar = calendar.courseCalendar;
   $scope.modalSection = {};
+  calendar.fillFromURL($scope.selectedSemester);
   $scope.search = function() {
     if (!$scope.searchQuery || $scope.searchQuery.length === 0) {
       $scope.clearResults();
       return;
     }
     return Course.search($scope.searchQuery, $scope.selectedSemester).then(function(data) {
-      console.log(data);
       return $scope.searchResults = data;
     });
   };
