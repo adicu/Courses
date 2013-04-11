@@ -51,9 +51,13 @@
           ng-repeat="section in courseCalendar[$index]" 
           class="timeSlotWrapper {{section.id}}" 
           ng-style="section.css" 
-          ng-click="sectionSelect(section)">
-            <div class="timeSlot">
-                <p class="timeSlotText timeSlotTitle"><strong>{{section.id}}</strong>: {{section.title}}</p>
+          ng-click="sectionSelect(section)"
+          title="{{section.id}}: {{section.title}}">
+          <div class="timeSlot">
+                <p class="timeSlotText
+                timeSlotTitle"><strong>{{section.id}}</strong>:
+                {{section.parent.parent.points}} pts<br />
+                {{section.title}}</p>
 <!--               <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">{{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">{{section.instructor}}</p>
