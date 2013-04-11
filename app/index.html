@@ -25,7 +25,6 @@
         beta" /> Schedule Builder <span id="byline">
         <a href="http://adicu.com/">by <img src="img/adi-logo-small.png" alt="ADI" /></a></span>
       </h1>
-      <img src="img/adi-logo-small.png" alt="ADi" id="seal"/>
     </header>
 
     <div id="app" ng-view></div>
@@ -35,15 +34,17 @@
       </div>
     </noscript>
     <footer>
-      <p>
-        <span class="byline">
+      <div class="row">
+        <div class="byline small-10 columns">
           By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
           href="http://hansh.org/">Hans Hyttinen</a>, <a
           href="http://www.github.com/sidnair09">Sid Nair</a>, and
           <a href="http://www.brishin.com/">Brian Shin</a>.
         </span>
-        <span class="reportBug"><a href="mailto:infrastructure@adicu.com?subject=[Bug Report] Schedule Builder">Report a bug</a></span>
-      </p>
+      </div>
+      <div class="small-2 columns" id="reportBug">
+        <a href="mailto:infrastructure@adicu.com?subject=[Bug Report] Schedule Builder">Report a bug</a>
+      </div>
     </footer>
   </div>
   <div id="fade"></div>

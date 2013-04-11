@@ -190,7 +190,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     };
 
     Section.options = {
-      pixels_per_hour: 42,
+      pixels_per_hour: 38,
       start_hour: 8,
       top_padding: 31,
       daysAbbr: "MTWRF"

@@ -1,5 +1,5 @@
 /* Application */
-body { font-family: "Myriad Pro", Arial, sans-serif; padding: 20px 0; background: url('/images/share-url.png') 15% 1px no-repeat; }
+body { font-family: "Myriad Pro", Arial, sans-serif; padding: 20px 0;}
 #container { width: 960px; margin: 0 auto; position: relative; }
 header h1 { font-size: 1.5em; }
 header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opacity: 0.1; }
@@ -9,10 +9,15 @@ span#byline a {text-decoration: none; color: #999;}
 span#byline a img {position: relative; top: 3px;}
 span#byline:hover {opacity: 1.0;}
 
-footer { padding-bottom: 1em; }
-footer p { text-align: right; color: #999;}
-footer a { color: #999;}
+footer {
+  padding-bottom: 1em; 
+  color: #888;
+}
+footer a {
+  color: #888;
+}
 footer a:hover { color: #666;}
+footer div#reportBug { text-align: right; padding-right: 30px; }
 
 div.noscript{ margin: 40px 0; }
 strong { font-weight: bold; }
@@ -52,10 +57,15 @@ h1 img { position: relative; top: 15px; }
 #browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
 #browser .results li { padding: 10px; font-size: 1.1em; }
 #browser .results li:hover { padding: 10px; font-size: 1.1em; background: #dddde9; cursor: pointer; }
-#browser .results li p:first-child { font-weight: bold; font-size: 1em; }
-#browser .results li p.description { font-size: 0.9em; }
-#browser .results p.clear_results { text-align: right; font-weight: bold; padding: 5px 10px; }
-#browser .results p.clear_results:hover { cursor: pointer; color: grey; }
+#browser p.course-title {
+  margin-bottom: 0em;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+#browser .results li p.description { 
+  font-size: 0.8em; 
+  margin-bottom: 0em;
+}
 
 body { position: relative; }
 
@@ -85,10 +95,10 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar table {
   background: none;
 }
-#calendar #guides { position: absolute; top: 20px; left: 0; width: 100%; max-width: 960px; z-index: -1; }
-#calendar #guides div { border-bottom: 1px solid #DFDFDF; height: 42px; }
+#calendar #guides { position: absolute; top: 32px; left: 0; width: 100%; max-width: 960px; z-index: -1; }
+#calendar #guides div { border-bottom: 1px solid #DFDFDF; height: 38px; }
 #calendar #daynames th { text-align: center; }
-#calendar td.dayColumn { width: 20%; padding: 0 0 0 1px; }
+#calendar td.dayColumn { width: 20%; padding: 0 0 0 1px; height: 642px;}
 #calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; }
 #calendar td.dayColumn .timeSlotWrapper {
   position: absolute;
@@ -102,6 +112,9 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
   position: absolute; top: -4px; right: -2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
 .timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
+#calendar .timeSlotWrapper {
+  text-align: center;
+}
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
 #calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; position:relative; }
 #calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
@@ -109,7 +122,7 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
 #calendar td.hourColumn {
   width: 35px;
-  padding: 15px 5px 13px 9px;
+  padding: 8px 5px 0px 9px;
   text-align: right;
   font-size: 0.9em; 
 }
@@ -117,7 +130,7 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   position: relative;
   padding-right: 0.3em;
   line-height: normal;
-  height: 42px;
+  height: 38px;
 }
 div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 div#fade {
@@ -149,9 +162,6 @@ div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
 .timeSlotPoints {margin-top: 3px; font-size: .85em; }
 
 #adi-logo {display: block; position: relative; top: 3px;}
-
-.reportBug { float: right; }
-.byline { float: left; }
 
 /*Foundation*/
 
