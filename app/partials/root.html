@@ -81,7 +81,10 @@
   <p>Course: {{modalSection.id}}</p>
   <p>Points: {{modalSection.parent.points}}</p>
   <p ng-show="modalSection.data.Instructor1Name"
-  >Instructor: {{modalSection.data.Instructor1Name}}</p>
+  >Instructor: <a
+      href="http://www.culpa.info/search/results?search={{modalSection.instructor}}&commit=search"
+      target="_blank">
+      {{modalSection.data.Instructor1Name}}</a></p>
   <p class="description">{{modalSection.parent.description}}</p>
   <button ng-click="changeSections(modalSection)" class="small success"
     ng-show="modalSection.parent.status"

@@ -117,6 +117,7 @@ angular.module('Courses.services', [])
       constructor: (@data, @parent) ->
         @id = data.Course
         @subsections = []
+        @instructor = @data.Instructor1Name.split(',')[0]
         for i in [0..6]
           @subsections[i] = []
         @parseDayAndTime()
@@ -193,7 +194,6 @@ angular.module('Courses.services', [])
         for key,course of @courses
           if course
             points += course.points
-        console.log points
         return points
 
       fillFromURL: (semester) ->
@@ -243,16 +243,13 @@ angular.module('Courses.services', [])
             return true
         @courses[id] = false
         @sections[id] = false
-        # @updateURL() 
 
       sectionChosen: (section, updateurl=true) ->
         section.parent.status = null
         @removeCourse section.id
         @sections[section.id] = section
         @addSection(section, false)
-        # console.log section
-        # if updateurl
-        # @updateURL() 
+        console.log section
 
       showAllSections: (course) =>
         course.status = "overlapping"

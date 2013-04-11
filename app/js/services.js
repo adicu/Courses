@@ -172,6 +172,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       this.parent = parent;
       this.id = data.Course;
       this.subsections = [];
+      this.instructor = this.data.Instructor1Name.split(',')[0];
       for (i = _i = 0; _i <= 6; i = ++_i) {
         this.subsections[i] = [];
       }
@@ -308,7 +309,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
           points += course.points;
         }
       }
-      console.log(points);
       return points;
     };
 
@@ -403,7 +403,8 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       section.parent.status = null;
       this.removeCourse(section.id);
       this.sections[section.id] = section;
-      return this.addSection(section, false);
+      this.addSection(section, false);
+      return console.log(section);
     };
 
     Calendar.prototype.showAllSections = function(course) {
