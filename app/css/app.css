@@ -147,6 +147,9 @@ div#fade {
 div.timeSlot {
   height: 100%;
 }
+div.timeSlot p {
+  margin: 0;
+}
 .timeSlotTitle { vertical-align: middle; width: 95%;}
 .timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
 .timeSlotPoints {margin-top: 3px; font-size: .85em; }

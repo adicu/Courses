@@ -45,7 +45,7 @@ angular.module('Courses.services', [])
           .query(
             ejs.BoolQuery()
             .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
-            .must(ejs.QueryStringQuery(query)
+            .must(ejs.QueryStringQuery(query + '*')
               .fields(['coursetitle^3', 'course^4', 'description',
                 'coursesubtitle']))
           )
