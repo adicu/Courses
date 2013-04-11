@@ -139,15 +139,17 @@ angular.module('Courses.services', [])
         else
           @addSection course.sections[0]
 
-      addSection: (section) ->
+      addSection: (section, canoverlap=true) ->
         @courses[section.id] = section.parent
 
         if section.overlapCheck @courseCalendar
-          console.log 'Overlap'
-          # return
+          if !canoverlap
+            alert 'Warning: this overlaps with a course you have already selected'
+            # return false
         for day, i in section.subsections
           for subsection in day
             @courseCalendar[i].push subsection
+        return true
 
       removeCourse: (id) ->
         for day, i in @courseCalendar
@@ -160,7 +162,7 @@ angular.module('Courses.services', [])
       sectionChosen: (section) ->
         section.parent.status = null
         @removeCourse section.id
-        @addSection section
+        @addSection(section, false)
 
       showAllSections: (course) =>
         course.status = "overlapping"

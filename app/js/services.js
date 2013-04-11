@@ -225,27 +225,26 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       }
     };
 
-    Calendar.prototype.addSection = function(section) {
-      var day, i, subsection, _i, _len, _ref, _results;
+    Calendar.prototype.addSection = function(section, canoverlap) {
+      var day, i, subsection, _i, _j, _len, _len1, _ref;
+      if (canoverlap == null) {
+        canoverlap = true;
+      }
       this.courses[section.id] = section.parent;
       if (section.overlapCheck(this.courseCalendar)) {
-        console.log('Overlap');
+        if (!canoverlap) {
+          alert('Warning: this overlaps with a course you have already selected');
+        }
       }
       _ref = section.subsections;
-      _results = [];
       for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
         day = _ref[i];
-        _results.push((function() {
-          var _j, _len1, _results1;
-          _results1 = [];
-          for (_j = 0, _len1 = day.length; _j < _len1; _j++) {
-            subsection = day[_j];
-            _results1.push(this.courseCalendar[i].push(subsection));
-          }
-          return _results1;
-        }).call(this));
+        for (_j = 0, _len1 = day.length; _j < _len1; _j++) {
+          subsection = day[_j];
+          this.courseCalendar[i].push(subsection);
+        }
       }
-      return _results;
+      return true;
     };
 
     Calendar.prototype.removeCourse = function(id) {
@@ -266,7 +265,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     Calendar.prototype.sectionChosen = function(section) {
       section.parent.status = null;
       this.removeCourse(section.id);
-      return this.addSection(section);
+      return this.addSection(section, false);
     };
 
     Calendar.prototype.showAllSections = function(course) {
