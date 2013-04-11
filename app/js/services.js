@@ -61,7 +61,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     };
 
     Course.search = function(query, semester, length, page) {
-      return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).must(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle']))).doSearch().then(function(data) {
+      return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).must(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle', 'instructor^2']))).doSearch().then(function(data) {
         var hit, hits, _i, _len, _results;
         if (!(data.hits != null) && (data.hits.hits != null)) {
           return;

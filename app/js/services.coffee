@@ -47,7 +47,7 @@ angular.module('Courses.services', [])
             .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
             .must(ejs.QueryStringQuery(query + '*')
               .fields(['coursetitle^3', 'course^4', 'description',
-                'coursesubtitle']))
+                'coursesubtitle', 'instructor^2']))
           )
           .doSearch().then (data) ->
             return if not data.hits? and data.hits.hits?
