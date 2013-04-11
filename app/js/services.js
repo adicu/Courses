@@ -320,9 +320,12 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       _ref = this.sections;
       for (key in _ref) {
         section = _ref[key];
-        if (section !== false) {
+        if (section) {
           str = str + section.data['CallNumber'] + ",";
         }
+      }
+      if (str && str.charAt(str.length - 1) === ',') {
+        str = str.slice(0, -1);
       }
       if ($location.hash() !== str) {
         return $location.hash(str);

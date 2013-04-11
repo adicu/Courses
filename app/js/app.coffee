@@ -4,10 +4,11 @@
 angular.module("Courses", ["Courses.filters", "Courses.services", 
       "Courses.directives", "elasticjs.service", 'ui'])
     .config ["$routeProvider", ($routeProvider) ->
-      $routeProvider.when "/",
+      $routeProvider.when "/schedule",
         templateUrl: "partials/root.html"
         controller: rootCtrl
-      $routeProvider.otherwise redirectTo: "/"
+        reloadOnSearch: false
+      $routeProvider.otherwise redirectTo: "/schedule"
 ]
 
 # Array.filter prototype

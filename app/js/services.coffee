@@ -198,8 +198,10 @@ angular.module('Courses.services', [])
       updateURL: () ->
         str = ""
         for key,section of @sections
-          if section != false
+          if section
             str = str + section.data['CallNumber'] + ","
+        if str and str.charAt(str.length - 1) == ','
+          str = str.slice(0, -1)
         if $location.hash() != str
           $location.hash str
 

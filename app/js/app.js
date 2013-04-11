@@ -3,12 +3,13 @@
 
 angular.module("Courses", ["Courses.filters", "Courses.services", "Courses.directives", "elasticjs.service", 'ui']).config([
   "$routeProvider", function($routeProvider) {
-    $routeProvider.when("/", {
+    $routeProvider.when("/schedule", {
       templateUrl: "partials/root.html",
-      controller: rootCtrl
+      controller: rootCtrl,
+      reloadOnSearch: false
     });
     return $routeProvider.otherwise({
-      redirectTo: "/"
+      redirectTo: "/schedule"
     });
   }
 ]);
