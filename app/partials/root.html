@@ -27,7 +27,7 @@
 <div class="results" ng-show="searchResults">
   <ul class="no-bullet">
     <li class="course" ng-repeat="result in searchResults" ng-click="courseSelect(result)">
-      <p class="course-title">{{result.title}}</p><p class="description">{{result.description}}</p>
+      <p class="course-title">{{result.id}}: {{result.title}}</p><p class="description">{{result.description}}</p>
     </li>
   </ul>
 </div>
@@ -53,7 +53,7 @@
           ng-style="section.css" 
           ng-click="sectionSelect(section)">
             <div class="timeSlot">
-              <p class="timeSlotText timeSlotTitle">{{section.title}}</p>
+                <p class="timeSlotText timeSlotTitle"><strong>{{section.id}}</strong>: {{section.title}}</p>
 <!--               <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">{{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">{{section.instructor}}</p>
@@ -72,7 +72,8 @@
 </div>
 <div id="sectionModal" class="reveal-modal large">
   <h3>{{modalSection.parent.title}}</h3>
-  <p>ID: {{modalSection.id}}</p>
+  <p>Call Number: {{modalSection.data["CallNumber"]}}</p>
+  <p>Course: {{modalSection.id}}</p>
   <p>Points: {{modalSection.parent.points}}</p>
   <p ng-show="modalSection.data.Instructor1Name"
   >Instructor: {{modalSection.data.Instructor1Name}}</p>
