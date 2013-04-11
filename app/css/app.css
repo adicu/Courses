@@ -42,10 +42,7 @@ h1 img { position: relative; top: 15px; }
 #print { background: transparent; border: none; position: absolute; top: 12px; right: 0; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
 #print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
 #browser {
-  width: 940px;
-  padding: 10px;
   position: relative;
-  margin-bottom: 10px;
 }
 
 #browser div.results {
@@ -120,6 +117,10 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
 #calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
 #calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
+p.timeSlotSections {
+  font-style: italic;
+}
+
 #calendar td.hourColumn {
   width: 35px;
   padding: 8px 5px 0px 9px;
@@ -132,7 +133,6 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   line-height: normal;
   height: 38px;
 }
-div.timeslot_popup { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 div#fade {
     display: none;
     background: rgba( 0, 0, 0, 0.2 );
@@ -143,21 +143,10 @@ div#fade {
 .box {
   z-index: 10;
 }
-div.timeslot_popup div.box {
-    position: absolute; top: 200px; left: 50%;
-    margin-left: -200px;
-    padding: 10px 20px;
-    border: 5px solid #75B2DD;
-    background: white; width: 400px;
-    }
-div.timeslot_popup div.box h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 10px; }
-div.timeslot_popup th { font-style: italic; }
-div.timeslot_popup div.box table { width: 100%; }
-div.timeslot_popup div.box td { padding: 0 10px 5px 0; vertical-align: top; }
-div.timeslot_popup div.box td:last-child { padding-right: 0; }
-div.timeslot_popup div.box tr:last-child td { padding-bottom: 0; }
-.timeslot_popup td a:hover { color: #666; }
-.timeSlotTitle {width: 95%;}
+div.timeSlot {
+  height: 100%;
+}
+.timeSlotTitle { vertical-align: middle; width: 95%;}
 .timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
 .timeSlotPoints {margin-top: 3px; font-size: .85em; }
 

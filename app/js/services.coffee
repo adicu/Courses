@@ -158,15 +158,19 @@ angular.module('Courses.services', [])
         @courses[id] = false
 
       sectionChosen: (section) ->
+        section.parent.status = null
         @removeCourse section.id
         @addSection section
 
       showAllSections: (course) =>
-        console.log 'showAll'
-
         course.status = "overlapping"
         for section in course.sections
           @addSection section
+
+      changeSections: (course) ->
+        console.log course
+        @removeCourse course.id
+        @showAllSections course
         
       @getValidSemesters: ->
         semesters = []

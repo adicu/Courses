@@ -21,6 +21,8 @@
         ng-options="semester | readableSemester for semester in semesters"
         ></select>
       </div>
+    </div>
+  </form>
 </div>
 <div class="results" ng-show="searchResults">
   <ul class="no-bullet">
@@ -51,11 +53,13 @@
           ng-style="section.css" 
           ng-click="sectionSelect(section)">
             <div class="timeSlot">
-              <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotTitle">{{section.title}}</p>
+<!--               <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">{{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">{{section.instructor}}</p>
-              <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p> 
+              <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p>  -->
+              <p class="timeSlotSections" ng-show="section.parent.parent.status">Multiple sections</p>
+              <p class="timeSlotSections" ng-hide="section.parent.parent.status">Click for information</p>
             </div>
           </div>
         </div>
@@ -66,4 +70,16 @@
 <div id="guides">
   <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
 </div>
+<div id="sectionModal" class="reveal-modal large">
+  <h3>{{modalSection.parent.title}}</h3>
+  <p>ID: {{modalSection.id}}</p>
+  <p>Points: {{modalSection.parent.points}}</p>
+  <p ng-show="modalSection.data.Instructor1Name"
+  >Instructor: {{modalSection.data.Instructor1Name}}</p>
+  <button ng-click="changeSections(modalSection)" class="small success"
+    ng-show="modalSection.parent.status"
+    >Change Section</button>
+  <button ng-click="removeCourse(modalSection.id)" 
+  class="small alert">Remove Course</button>
+  <a class="close-reveal-modal">&#215;</a>
 </div>

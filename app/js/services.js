@@ -264,13 +264,13 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     };
 
     Calendar.prototype.sectionChosen = function(section) {
+      section.parent.status = null;
       this.removeCourse(section.id);
       return this.addSection(section);
     };
 
     Calendar.prototype.showAllSections = function(course) {
       var section, _i, _len, _ref, _results;
-      console.log('showAll');
       course.status = "overlapping";
       _ref = course.sections;
       _results = [];
@@ -279,6 +279,12 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         _results.push(this.addSection(section));
       }
       return _results;
+    };
+
+    Calendar.prototype.changeSections = function(course) {
+      console.log(course);
+      this.removeCourse(course.id);
+      return this.showAllSections(course);
     };
 
     Calendar.getValidSemesters = function() {

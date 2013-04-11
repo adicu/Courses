@@ -4,7 +4,7 @@
 var rootCtrl;
 
 rootCtrl = function($scope, Course, Calendar) {
-  var calendar;
+  var calendar, closeModal, openModal;
   calendar = new Calendar;
   $scope.hours = Calendar.hours;
   $scope.days = Calendar.days;
@@ -12,6 +12,7 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.selectedSemester = $scope.semesters[0];
   $scope.searchResults = [];
   $scope.courseCalendar = calendar.courseCalendar;
+  $scope.modalSection = {};
   $scope.search = function() {
     if (!$scope.searchQuery || $scope.searchQuery.length === 0) {
       $scope.clearResults();
@@ -39,14 +40,29 @@ rootCtrl = function($scope, Course, Calendar) {
     });
   };
   $scope.removeCourse = function(id) {
+    closeModal();
     return calendar.removeCourse(id);
   };
-  return $scope.sectionSelect = function(subsection) {
+  $scope.sectionSelect = function(subsection) {
     var section;
     section = subsection.parent;
-    if (!section.parent.status) {
-      return;
+    if (section.parent.status) {
+      return calendar.sectionChosen(section);
+    } else {
+      openModal();
+      return $scope.modalSection = section;
     }
-    return calendar.sectionChosen(section);
+  };
+  closeModal = function() {
+    return $('#sectionModal').foundation('reveal', 'close');
+  };
+  openModal = function() {
+    return $('#sectionModal').foundation('reveal', 'open');
+  };
+  return $scope.changeSections = function(section) {
+    var course;
+    closeModal();
+    course = section.parent;
+    return calendar.changeSections(course);
   };
 };

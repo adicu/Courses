@@ -9,6 +9,7 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.selectedSemester = $scope.semesters[0]
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
+  $scope.modalSection = {}
 
   $scope.search = ->
     if not $scope.searchQuery or $scope.searchQuery.length == 0
@@ -31,12 +32,27 @@ rootCtrl = ($scope, Course, Calendar) ->
       calendar.addCourse course
 
   $scope.removeCourse = (id) ->
+    closeModal()
     calendar.removeCourse id
 
   $scope.sectionSelect = (subsection) ->
     section = subsection.parent
-    return if not section.parent.status
-    calendar.sectionChosen section
+    if section.parent.status
+      calendar.sectionChosen section
+    else
+      openModal()
+      $scope.modalSection = section
 
+  closeModal = () ->
+    # Shouldn't be doing this!
+    $('#sectionModal').foundation('reveal', 'close')
+  openModal = () ->
+    # Shouldn't be doing this!
+    $('#sectionModal').foundation('reveal', 'open')
+
+  $scope.changeSections = (section) ->
+    closeModal()
+    course = section.parent
+    calendar.changeSections course
 
 #rootCtrl.$inject = []
