@@ -324,7 +324,9 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
           str = str + section.data['CallNumber'] + ",";
         }
       }
-      return $location.hash(str);
+      if ($location.hash() !== str) {
+        return $location.hash(str);
+      }
     };
 
     Calendar.prototype.addCourse = function(course) {
@@ -334,7 +336,8 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       if (course.sections.length > 1) {
         return this.showAllSections(course);
       } else {
-        return this.sectionChosen(course.sections[0]);
+        this.sectionChosen(course.sections[0]);
+        return this.updateURL();
       }
     };
 
@@ -374,8 +377,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         });
       }
       this.courses[id] = false;
-      this.sections[id] = false;
-      return this.updateURL();
+      return this.sections[id] = false;
     };
 
     Calendar.prototype.sectionChosen = function(section, updateurl) {
@@ -386,10 +388,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       this.removeCourse(section.id);
       this.sections[section.id] = section;
       this.addSection(section, false);
-      console.log(section);
-      if (updateurl) {
-        return this.updateURL();
-      }
+      return console.log(section);
     };
 
     Calendar.prototype.showAllSections = function(course) {

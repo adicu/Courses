@@ -41,13 +41,16 @@ rootCtrl = function($scope, Course, Calendar) {
   };
   $scope.removeCourse = function(id) {
     closeModal();
-    return calendar.removeCourse(id);
+    calendar.removeCourse(id);
+    return calendar.updateURL();
   };
   $scope.sectionSelect = function(subsection) {
     var section;
     section = subsection.parent;
     if (section.parent.status) {
-      return calendar.sectionChosen(section);
+      calendar.sectionChosen(section);
+      calendar.updateURL();
+      return console.log('updating url');
     } else {
       openModal();
       return $scope.modalSection = section;

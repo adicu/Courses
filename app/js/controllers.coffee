@@ -35,11 +35,14 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.removeCourse = (id) ->
     closeModal()
     calendar.removeCourse id
+    calendar.updateURL()
 
   $scope.sectionSelect = (subsection) ->
     section = subsection.parent
     if section.parent.status
       calendar.sectionChosen section
+      calendar.updateURL()
+      console.log 'updating url'
     else
       openModal()
       $scope.modalSection = section

@@ -200,7 +200,8 @@ angular.module('Courses.services', [])
         for key,section of @sections
           if section != false
             str = str + section.data['CallNumber'] + ","
-        $location.hash str
+        if $location.hash() != str
+          $location.hash str
 
       addCourse: (course) ->
         return if @courses[course.id] or course.sections.length < 1
@@ -209,6 +210,7 @@ angular.module('Courses.services', [])
           @showAllSections course
         else
           @sectionChosen course.sections[0]
+          @updateURL()
 
       addSection: (section, canoverlap=true) ->
         @courses[section.id] = section.parent
@@ -231,7 +233,7 @@ angular.module('Courses.services', [])
             return true
         @courses[id] = false
         @sections[id] = false
-        @updateURL() 
+        # @updateURL() 
 
       sectionChosen: (section, updateurl=true) ->
         section.parent.status = null
@@ -239,8 +241,8 @@ angular.module('Courses.services', [])
         @sections[section.id] = section
         @addSection(section, false)
         console.log section
-        if updateurl
-          @updateURL() 
+        # if updateurl
+        # @updateURL() 
 
       showAllSections: (course) =>
         course.status = "overlapping"
