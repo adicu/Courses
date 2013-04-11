@@ -188,6 +188,14 @@ angular.module('Courses.services', [])
         for i in [0..6]
           @courseCalendar[i] = []
 
+      totalPoints: () ->
+        points = 0
+        for key,course of @courses
+          if course
+            points += course.points
+        console.log points
+        return points
+
       fillFromURL: (semester) ->
         console.log $location.hash()
         callnums = $location.hash().split ','
@@ -217,7 +225,7 @@ angular.module('Courses.services', [])
       addSection: (section, canoverlap=true) ->
         @courses[section.id] = section.parent
 
-        console.log section
+        # console.log section
         if section.overlapCheck @courseCalendar
           if !canoverlap
             alert 'Warning: this overlaps with a course you have already selected'
@@ -242,7 +250,7 @@ angular.module('Courses.services', [])
         @removeCourse section.id
         @sections[section.id] = section
         @addSection(section, false)
-        console.log section
+        # console.log section
         # if updateurl
         # @updateURL() 
 
@@ -252,7 +260,7 @@ angular.module('Courses.services', [])
           @addSection section
 
       changeSections: (course) ->
-        console.log course
+        # console.log course
         @removeCourse course.id
         @showAllSections course
         

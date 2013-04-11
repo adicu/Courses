@@ -14,6 +14,9 @@ rootCtrl = function($scope, Course, Calendar) {
   $scope.courseCalendar = calendar.courseCalendar;
   $scope.modalSection = {};
   calendar.fillFromURL($scope.selectedSemester);
+  $scope.getTotalPoints = function() {
+    return calendar.totalPoints();
+  };
   $scope.search = function() {
     if (!$scope.searchQuery || $scope.searchQuery.length === 0) {
       $scope.clearResults();

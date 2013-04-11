@@ -32,11 +32,12 @@
   </ul>
 </div>
 </div>
+
 <div id="calendar" ui-jq="foundation">
 <table>
   <thead id="daynames">
     <tr>
-      <th></th>
+        <th>{{getTotalPoints()}}</th>
       <th ng-repeat="day in days">{{day}}</th>
     </tr>
   </thead>

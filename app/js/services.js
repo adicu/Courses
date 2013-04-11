@@ -298,6 +298,20 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       }
     }
 
+    Calendar.prototype.totalPoints = function() {
+      var course, key, points, _ref;
+      points = 0;
+      _ref = this.courses;
+      for (key in _ref) {
+        course = _ref[key];
+        if (course) {
+          points += course.points;
+        }
+      }
+      console.log(points);
+      return points;
+    };
+
     Calendar.prototype.fillFromURL = function(semester) {
       var callnum, callnums, _i, _len, _results;
       console.log($location.hash());
@@ -350,7 +364,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         canoverlap = true;
       }
       this.courses[section.id] = section.parent;
-      console.log(section);
       if (section.overlapCheck(this.courseCalendar)) {
         if (!canoverlap) {
           alert('Warning: this overlaps with a course you have already selected');
@@ -390,8 +403,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       section.parent.status = null;
       this.removeCourse(section.id);
       this.sections[section.id] = section;
-      this.addSection(section, false);
-      return console.log(section);
+      return this.addSection(section, false);
     };
 
     Calendar.prototype.showAllSections = function(course) {
@@ -407,7 +419,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
     };
 
     Calendar.prototype.changeSections = function(course) {
-      console.log(course);
       this.removeCourse(course.id);
       return this.showAllSections(course);
     };

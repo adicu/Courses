@@ -11,6 +11,8 @@ rootCtrl = ($scope, Course, Calendar) ->
   $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
   calendar.fillFromURL($scope.selectedSemester)
+  $scope.getTotalPoints = ->
+    calendar.totalPoints()
 
   $scope.search = ->
     if not $scope.searchQuery or $scope.searchQuery.length == 0
