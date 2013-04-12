@@ -100,11 +100,14 @@ angular.module('Courses.services', [])
       @search: (query, semester, length, page) ->
         Course.request
           .query(
-            ejs.BoolQuery()
-            .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
-            .must(ejs.QueryStringQuery(query + '*')
-              .fields(['coursetitle^3', 'course^4', 'description',
-                'coursesubtitle', 'instructor^2']))
+              ejs.BoolQuery()
+              .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
+              .should(ejs.QueryStringQuery(query + '*')
+                .fields(['coursetitle^3', 'description',
+                  'coursesubtitle', 'instructor^2']))
+              .should(ejs.QueryStringQuery('*' + query + '*')
+                .fields(['course^4']))
+              .minimumNumberShouldMatch(1)
           )
           .doSearch().then (data) ->
             return if not data.hits? and data.hits.hits?
