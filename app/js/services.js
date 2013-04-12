@@ -151,7 +151,7 @@
       };
 
       Course.search = function(query, semester, length, page) {
-        return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).should(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'description', 'coursesubtitle', 'instructor^2'])).should(ejs.QueryStringQuery('*' + query + '*').fields(['course^4'])).minimumNumberShouldMatch(1)).doSearch().then(function(data) {
+        return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).should(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle', 'instructor^2'])).should(ejs.QueryStringQuery('*' + query + '*').fields(['course'])).minimumNumberShouldMatch(1)).doSearch().then(function(data) {
           var hit, hits, _i, _len, _results;
 
           if ((data.hits == null) && (data.hits.hits != null)) {

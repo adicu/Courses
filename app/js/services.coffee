@@ -103,10 +103,10 @@ angular.module('Courses.services', [])
               ejs.BoolQuery()
               .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
               .should(ejs.QueryStringQuery(query + '*')
-                .fields(['coursetitle^3', 'description',
+                .fields(['coursetitle^3', 'course^4', 'description',
                   'coursesubtitle', 'instructor^2']))
               .should(ejs.QueryStringQuery('*' + query + '*')
-                .fields(['course^4']))
+                .fields(['course']))
               .minimumNumberShouldMatch(1)
           )
           .doSearch().then (data) ->
