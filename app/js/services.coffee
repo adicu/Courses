@@ -106,7 +106,7 @@ angular.module('Courses.services', [])
                 .fields(['coursetitle^3', 'course^4', 'description',
                   'coursesubtitle', 'instructor^2']))
               .should(ejs.QueryStringQuery('*' + query + '*')
-                .fields(['course']))
+                .fields(['course', 'coursefull']))
               .minimumNumberShouldMatch(1)
           )
           .doSearch().then (data) ->
