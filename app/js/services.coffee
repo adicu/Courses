@@ -124,6 +124,14 @@ angular.module('Courses.services', [])
         for i in [0..6]
           @subsections[i] = []
         @parseDayAndTime()
+        @urlFromSectionFull @data.SectionFull
+
+      urlFromSectionFull: (sectionfull) ->
+        # COMS3216W001
+        re = /([a-zA-Z]{1,4})(\d{1,4})([a-zA-Z])(\d{1,3})/g
+        cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
+        @url = sectionfull.replace re, cu_base + '$1/$3$2-'+ @data.Term + '-$4'
+        @sectionNum = sectionfull.replace re, '$4'
 
       parseDayAndTime: ->
         for i in [1..2]

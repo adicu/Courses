@@ -78,7 +78,7 @@
 <div id="sectionModal" class="reveal-modal large">
   <h3>{{modalSection.parent.title}}</h3>
   <p>Call Number: {{modalSection.data["CallNumber"]}}</p>
-  <p>Course: {{modalSection.id}}</p>
+  <p>Course: <a href="{{modalSection.url}}" target="_blank">{{modalSection.id}} section {{modalSection.sectionNum}}</a></p>
   <p>Points: {{modalSection.parent.points}}</p>
   <p ng-show="modalSection.data.Instructor1Name"
   >Instructor: <a
