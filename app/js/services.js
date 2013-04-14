@@ -159,29 +159,18 @@
 
       Course.search = function(query, semester, length, page) {
         return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).should(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle', 'instructor^2'])).should(ejs.QueryStringQuery('*' + query + '*').fields(['course', 'coursefull'])).minimumNumberShouldMatch(1)).doSearch().then(function(data) {
-          var courses, hit, hits;
+          var hit, hits, _i, _len, _results;
 
           if ((data.hits == null) && (data.hits.hits != null)) {
             return;
           }
           hits = data.hits.hits;
-          courses = (function() {
-            var _i, _len, _results;
-
-            _results = [];
-            for (_i = 0, _len = hits.length; _i < _len; _i++) {
-              hit = hits[_i];
-              _results.push(new Course(hit._source, semester));
-            }
-            return _results;
-          })();
-          return $q.all(courses.map(function(course) {
-            return course.getSections();
-          })).then(function(courses) {
-            return courses.filter(function(course) {
-              return course.sections.length > 0;
-            });
-          });
+          _results = [];
+          for (_i = 0, _len = hits.length; _i < _len; _i++) {
+            hit = hits[_i];
+            _results.push(new Course(hit._source, semester));
+          }
+          return _results;
         });
       };
 
@@ -233,7 +222,7 @@
               day = _ref[_j];
               start = Section.parseTime(this.data['StartTime' + i]);
               end = Section.parseTime(this.data['EndTime' + i]);
-              if (day >= 0 && day <= 5) {
+              if (day >= 0 && day <= 6) {
                 _results1.push(this.subsections[day].push({
                   id: this.id,
                   title: this.parent.title,
@@ -397,7 +386,12 @@
       };
 
       Calendar.prototype.addCourse = function(course) {
-        if (this.courses[course.id] || course.sections.length < 1) {
+        if (this.courses[course.id]) {
+          alert('Warning: you have already selected this course');
+          return;
+        }
+        if (course.sections.length < 1) {
+          alert('Warning: this course has no scheduled sections');
           return;
         }
         if (course.sections.length > 1) {

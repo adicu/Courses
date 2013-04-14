@@ -29,8 +29,9 @@ window.rootCtrl = ($scope, Course, Calendar) ->
 
   $scope.courseSelect = (course) ->
     $scope.clearResults()
-    return if calendar.courses[course.id]
-    calendar.addCourse course
+    course.getSections().then (status) ->
+      return if not status
+      calendar.addCourse course
 
   $scope.removeCourse = (id) ->
     closeModal()

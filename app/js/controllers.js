@@ -30,10 +30,12 @@
     };
     $scope.courseSelect = function(course) {
       $scope.clearResults();
-      if (calendar.courses[course.id]) {
-        return;
-      }
-      return calendar.addCourse(course);
+      return course.getSections().then(function(status) {
+        if (!status) {
+          return;
+        }
+        return calendar.addCourse(course);
+      });
     };
     $scope.removeCourse = function(id) {
       closeModal();

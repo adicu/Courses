@@ -115,10 +115,7 @@ angular.module('Courses.services', [])
           .doSearch().then (data) ->
             return if not data.hits? and data.hits.hits?
             hits = data.hits.hits
-            courses = (new Course hit._source, semester for hit in hits)
-            $q.all(courses.map (course) -> course.getSections())
-            .then (courses) -> courses.filter (course) -> 
-              course.sections.length > 0
+            new Course hit._source, semester for hit in hits
 
 
   .factory 'Section', () ->
@@ -144,7 +141,7 @@ angular.module('Courses.services', [])
           for day in Section.parseDays @data['MeetsOn' + i]
             start = Section.parseTime @data['StartTime' + i]
             end = Section.parseTime @data['EndTime' + i]
-            if day >= 0 and day <= 5
+            if day >= 0 and day <= 6
               @subsections[day].push
                 id: @id
                 title: @parent.title
@@ -231,7 +228,12 @@ angular.module('Courses.services', [])
           $location.hash str
 
       addCourse: (course) ->
-        return if @courses[course.id] or course.sections.length < 1
+        if @courses[course.id]
+          alert 'Warning: you have already selected this course'
+          return
+        if course.sections.length < 1
+          alert 'Warning: this course has no scheduled sections'
+          return
 
         if course.sections.length > 1
           @showAllSections course
