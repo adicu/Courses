@@ -1,7 +1,7 @@
 "use strict"
 
 # Controllers 
-rootCtrl = ($scope, Course, Calendar) ->
+window.rootCtrl = ($scope, Course, Calendar) ->
   calendar = new Calendar
   $scope.hours = Calendar.hours
   $scope.days = Calendar.days
