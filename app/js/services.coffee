@@ -92,9 +92,12 @@ angular.module('Courses.services', [])
           @sections = []
           for section in data.data
             @sections.push new Section section, @
-          d.resolve true
+            @sections = @sections.filter (section) ->
+              ((section.subsections.map (day) -> day.length)
+              .reduce (a, b) -> a + b) > 0
+          d.resolve @
         .error (data, status) ->
-          d.resolve false
+          d.reject @
         d.promise
 
       @search: (query, semester, length, page) ->
@@ -112,7 +115,10 @@ angular.module('Courses.services', [])
           .doSearch().then (data) ->
             return if not data.hits? and data.hits.hits?
             hits = data.hits.hits
-            new Course hit._source, semester for hit in hits
+            courses = (new Course hit._source, semester for hit in hits)
+            $q.all(courses.map (course) -> course.getSections())
+            .then (courses) -> courses.filter (course) -> 
+              course.sections.length > 0
 
 
   .factory 'Section', () ->
@@ -138,15 +144,16 @@ angular.module('Courses.services', [])
           for day in Section.parseDays @data['MeetsOn' + i]
             start = Section.parseTime @data['StartTime' + i]
             end = Section.parseTime @data['EndTime' + i]
-            @subsections[day].push
-              id: @id
-              title: @parent.title
-              instructor: @data.Instructor1Name
-              parent: @
-              day: day
-              start: start
-              end: end
-              css: Section.computeCss start, end
+            if day >= 0 and day <= 5
+              @subsections[day].push
+                id: @id
+                title: @parent.title
+                instructor: @data.Instructor1Name
+                parent: @
+                day: day
+                start: start
+                end: end
+                css: Section.computeCss start, end
 
       overlapCheck: (calendar, dayNum) ->
         days = dayNum or [0..6]

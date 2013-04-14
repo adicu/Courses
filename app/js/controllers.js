@@ -33,12 +33,7 @@
       if (calendar.courses[course.id]) {
         return;
       }
-      return course.getSections().then(function(status) {
-        if (!status) {
-          return;
-        }
-        return calendar.addCourse(course);
-      });
+      return calendar.addCourse(course);
     };
     $scope.removeCourse = function(id) {
       closeModal();

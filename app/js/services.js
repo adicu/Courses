@@ -142,28 +142,46 @@
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             section = _ref[_i];
             _this.sections.push(new Section(section, _this));
+            _this.sections = _this.sections.filter(function(section) {
+              return ((section.subsections.map(function(day) {
+                return day.length;
+              })).reduce(function(a, b) {
+                return a + b;
+              })) > 0;
+            });
           }
-          return d.resolve(true);
+          return d.resolve(_this);
         }).error(function(data, status) {
-          return d.resolve(false);
+          return d.reject(this);
         });
         return d.promise;
       };
 
       Course.search = function(query, semester, length, page) {
         return Course.request.query(ejs.BoolQuery().must(ejs.WildcardQuery('term', '*' + semester + '*')).should(ejs.QueryStringQuery(query + '*').fields(['coursetitle^3', 'course^4', 'description', 'coursesubtitle', 'instructor^2'])).should(ejs.QueryStringQuery('*' + query + '*').fields(['course', 'coursefull'])).minimumNumberShouldMatch(1)).doSearch().then(function(data) {
-          var hit, hits, _i, _len, _results;
+          var courses, hit, hits;
 
           if ((data.hits == null) && (data.hits.hits != null)) {
             return;
           }
           hits = data.hits.hits;
-          _results = [];
-          for (_i = 0, _len = hits.length; _i < _len; _i++) {
-            hit = hits[_i];
-            _results.push(new Course(hit._source, semester));
-          }
-          return _results;
+          courses = (function() {
+            var _i, _len, _results;
+
+            _results = [];
+            for (_i = 0, _len = hits.length; _i < _len; _i++) {
+              hit = hits[_i];
+              _results.push(new Course(hit._source, semester));
+            }
+            return _results;
+          })();
+          return $q.all(courses.map(function(course) {
+            return course.getSections();
+          })).then(function(courses) {
+            return courses.filter(function(course) {
+              return course.sections.length > 0;
+            });
+          });
         });
       };
 
@@ -215,16 +233,20 @@
               day = _ref[_j];
               start = Section.parseTime(this.data['StartTime' + i]);
               end = Section.parseTime(this.data['EndTime' + i]);
-              _results1.push(this.subsections[day].push({
-                id: this.id,
-                title: this.parent.title,
-                instructor: this.data.Instructor1Name,
-                parent: this,
-                day: day,
-                start: start,
-                end: end,
-                css: Section.computeCss(start, end)
-              }));
+              if (day >= 0 && day <= 5) {
+                _results1.push(this.subsections[day].push({
+                  id: this.id,
+                  title: this.parent.title,
+                  instructor: this.data.Instructor1Name,
+                  parent: this,
+                  day: day,
+                  start: start,
+                  end: end,
+                  css: Section.computeCss(start, end)
+                }));
+              } else {
+                _results1.push(void 0);
+              }
             }
             return _results1;
           }).call(this));
