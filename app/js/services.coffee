@@ -127,8 +127,7 @@ angular.module('Courses.services', [])
         @urlFromSectionFull @data.SectionFull
 
       urlFromSectionFull: (sectionfull) ->
-        # COMS3216W001
-        re = /([a-zA-Z]{1,4})(\d{1,4})([a-zA-Z])(\d{1,3})/g
+        re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
         cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
         @url = sectionfull.replace re, cu_base + '$1/$3$2-'+ @data.Term + '-$4'
         @sectionNum = sectionfull.replace re, '$4'

@@ -182,7 +182,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
 
     Section.prototype.urlFromSectionFull = function(sectionfull) {
       var cu_base, re;
-      re = /([a-zA-Z]{1,4})(\d{1,4})([a-zA-Z])(\d{1,3})/g;
+      re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g;
       cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/';
       this.url = sectionfull.replace(re, cu_base + '$1/$3$2-' + this.data.Term + '-$4');
       return this.sectionNum = sectionfull.replace(re, '$4');
