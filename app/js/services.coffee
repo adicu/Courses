@@ -187,7 +187,7 @@ angular.module('Courses.services', [])
       @options:
         pixels_per_hour: 38
         start_hour: 8
-        top_padding: 31
+        top_padding: 38
         daysAbbr: "MTWRF"
 
   .factory 'Calendar', ($http, $q, Course, $location) ->
