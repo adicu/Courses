@@ -1,7 +1,7 @@
 "use strict"
 
 # Elasticjs library, AngularUI
-angular.module("Courses", ["Courses.filters", "Courses.services", 
+angular.module("Courses", ["Courses.filters", "Courses.services",
       "Courses.directives", "elasticjs.service", 'ui'])
     .config ["$routeProvider", ($routeProvider) ->
       $routeProvider.when "/schedule",
