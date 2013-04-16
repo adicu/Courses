@@ -1,7 +1,7 @@
 'use strict'
 
 # Services
-  
+ 
 angular.module('Courses.services', [])
   .factory 'Course', ($http, $q, ejsResource, Section) ->
     class Course
@@ -12,14 +12,40 @@ angular.module('Courses.services', [])
       @request = ejs.Request()
                     .indices('jdbc')
 
-      constructor: (@data, @semester) ->
-        @id = data.course
-        @title = data.coursetitle
-        @description = data.description
-        if @description == null
-          @description = "No description given"
-        @points = data.numfixedunits / 10.0
+      constructor: (@id, @semester, @ejs=null) ->
+        @id = @id
+        @semester = @semester
+        if @ejs != null
+          @title = @ejs.coursetitle
+          @description = @ejs.description
+          @points = @ejs.numfixedunits / 10.0
+      
+      fillData: () ->
+        ptr = @
+        d = $q.defer()
+        $http
+          method: 'JSONP'
+          url: Course.api_url + 'courses'
+          params:
+            course: @id
+            term: @semester
+            jsonp: 'JSON_CALLBACK'
+            api_token: Course.api_token
+        .success (datarecv, status, headers, config) ->
+          return null if not datarecv.data
+          ptr.data = Course.convertAPItoEJS datarecv.data[0]
 
+          ptr.title = ptr.data.coursetitle
+          ptr.description = ptr.data.description
+          if ptr.description == null
+            ptr.description = "No description given"
+          ptr.points = ptr.data.numfixedunits / 10.0
+
+          d.resolve true
+        .error (data, status) ->
+          d.resolve false
+        d.promise
+        
       @CUITCaseToUnderscore: (cuitcase) ->
         cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1)
         return cuitcase.replace /([A-Z])/g, ($1) ->
@@ -30,74 +56,23 @@ angular.module('Courses.services', [])
           coursedata[Course.CUITCaseToUnderscore k] = v
         return coursedata
 
-      @addSectionFromCallNumber: (call, semester, cal) ->
-        d = $q.defer() # Override $http promise
-        $http
-          method: 'JSONP'
-          url: Course.api_url + 'sections'
-          params:
-            call_number: call
-            term: semester
-            jsonp: 'JSON_CALLBACK'
-            api_token: Course.api_token
-        .success (data, status, headers, config) ->
-          return null if not data.data
-          section = Course.convertAPItoEJS data.data[0]
-
-          # do more derpy stuff to get the course num
-          d2 = $q.defer()
-          $http
-            method: 'JSONP'
-            url: Course.api_url + 'courses'
-            params:
-              course: section.Course
-              term: section.term
-              jsonp: 'JSON_CALLBACK'
-              api_token: Course.api_token
-          .success (data2, status, headers, config) ->
-            return null if not data.data
-            
-            coursedata = Course.convertAPItoEJS data2.data[0]
-            
-            c = new Course coursedata, section.term
-            c.getSections().then (status) ->
-              return if not status
-              for sec in c.sections
-                if sec.data.CallNumber.toString() == call.toString()
-                  cal.sectionChosen sec, false
-
-            d2.resolve true
-          .error (data, status) ->
-            d2.resolve false
-          d2.promise
-
-          d.resolve true
-        .error (data, status) ->
-          d.resolve false
-        d.promise
-
-      getSections: ->
+      getSections: () ->
         return if @sections and @sections.length >= 1
-        d = $q.defer() # Override $http promise
-        $http
-         method: 'JSONP'
-         url: Course.api_url + 'sections'
-         params:
-          course: @id
-          term: @semester
-          jsonp: 'JSON_CALLBACK'
-          api_token: Course.api_token
-        .success (data, status, headers, config) =>
-          return if not data.data
-          @sections = []
-          for section in data.data
-            @sections.push new Section section, @
-            @sections = @sections.filter (section) ->
-              ((section.subsections.map (day) -> day.length)
-              .reduce (a, b) -> a + b) > 0
-          d.resolve @
-        .error (data, status) ->
-          d.reject @
+        ptr = @
+        d = $q.defer()
+        ptr.sections = []
+
+        for sec in ptr.data.sections
+          if sec.Term == ptr.semester
+            s = new Section sec.CallNumber, ptr.semester, ptr
+            ptr.sections.push s
+
+        promises = []
+        for sec in ptr.sections
+          promises.push sec.fillData()
+
+        $q.all(promises).then () ->
+          d.resolve true
         d.promise
 
       @search: (query, semester, length, page) ->
@@ -115,20 +90,61 @@ angular.module('Courses.services', [])
           .doSearch().then (data) ->
             return if not data.hits? and data.hits.hits?
             hits = data.hits.hits
-            new Course hit._source, semester for hit in hits
+            new Course hit._source.course, semester, hit._source for hit in hits
 
-
-  .factory 'Section', () ->
+  .factory 'Section', ($http, $q) ->
     class Section
-      constructor: (@data, @parent) ->
-        @id = data.Course
-        @subsections = []
-        @instructor = @data.Instructor1Name.split(',')[0]
-        for i in [0..6]
-          @subsections[i] = []
-        @parseDayAndTime()
-        @urlFromSectionFull @data.SectionFull
+      @api_url = 'http://data.adicu.com/courses/v2/'
+      @api_token = '515abdcf27200000029ca515'
 
+      constructor: (callnum, @semester, @parent=null) ->
+        @call = callnum
+        @semester = @semester
+        @parent = @parent
+
+      fillParent: (Course) ->
+        d = $q.defer()
+        if @parent == null
+          @parent = new Course @data.Course, @semester
+          @parent.fillData().then (status) ->
+            d.resolve true
+        else
+          d.resolve true
+        d.promise
+
+      fillData: (Course=null) ->
+        return if @subsections and @subsections.length >= 1
+        ptr = @
+        d = $q.defer()
+        $http
+          method: 'JSONP'
+          url: Section.api_url + 'sections'
+          params:
+            call_number: @call
+            term: @semester
+            jsonp: 'JSON_CALLBACK'
+            api_token: Section.api_token
+        .success (data, status, headers, config) ->
+          return d.resolve false if not data.data
+          ptr.data = data.data[0]
+
+          ptr.call = ptr.call
+          ptr.id = ptr.data.Course
+          
+          ptr.fillParent(Course).then ->
+            ptr.subsections = []
+            for i in [0..6]
+              ptr.subsections[i] = []
+            ptr.parseDayAndTime()
+            console.log 'filling subsections for ' + ptr.call
+            console.log ptr.subsections
+            ptr.urlFromSectionFull ptr.data.SectionFull
+            
+            d.resolve true
+        .error (data, status) ->
+          d.reject false
+        d.promise
+        
       urlFromSectionFull: (sectionfull) ->
         re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
         cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
@@ -194,7 +210,7 @@ angular.module('Courses.services', [])
         top_padding: 38
         daysAbbr: "MTWRF"
 
-  .factory 'Calendar', ($http, $q, Course, $location) ->
+  .factory 'Calendar', ($http, $q, Course, Section, $location) ->
     class Calendar
       constructor: () ->
         @courses = {}
@@ -211,11 +227,25 @@ angular.module('Courses.services', [])
         return points
 
       fillFromURL: (semester) ->
+        ptr = @
         console.log $location.hash()
         callnums = $location.hash().split ','
+
+        arr = []
         for callnum in callnums
           if callnum != ''
-            Course.addSectionFromCallNumber callnum, semester, @
+            j = new Section callnum, semester
+            if j != null
+              arr.push j
+
+        arr2 = []
+        for sec in arr
+          arr2.push sec.fillData(Course)
+
+        $q.all(arr2).then ->
+          for sec in arr
+            console.log 'choosing ' + sec.call
+            ptr.sectionChosen sec
 
       updateURL: () ->
         str = ""
