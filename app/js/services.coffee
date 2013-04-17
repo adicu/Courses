@@ -1,7 +1,7 @@
 'use strict'
 
 # Services
- 
+
 angular.module('Courses.services', [])
   .factory 'Course', ($http, $q, ejsResource, Section) ->
     class Course
@@ -19,7 +19,7 @@ angular.module('Courses.services', [])
           @title = @ejs.coursetitle
           @description = @ejs.description
           @points = @ejs.numfixedunits / 10.0
-      
+
       fillData: () ->
         ptr = @
         d = $q.defer()
@@ -45,7 +45,7 @@ angular.module('Courses.services', [])
         .error (data, status) ->
           d.resolve false
         d.promise
-        
+
       @CUITCaseToUnderscore: (cuitcase) ->
         cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1)
         return cuitcase.replace /([A-Z])/g, ($1) ->
@@ -72,6 +72,12 @@ angular.module('Courses.services', [])
           promises.push sec.fillData()
 
         $q.all(promises).then () ->
+          ptr.sections = ptr.sections.filter (el) ->
+            for subsec in el.subsections
+              if subsec.length > 0
+                return true
+            return false
+
           d.resolve true
         d.promise
 
@@ -130,21 +136,19 @@ angular.module('Courses.services', [])
 
           ptr.call = ptr.call
           ptr.id = ptr.data.Course
-          
+
           ptr.fillParent(Course).then ->
             ptr.subsections = []
             for i in [0..6]
               ptr.subsections[i] = []
             ptr.parseDayAndTime()
-            console.log 'filling subsections for ' + ptr.call
-            console.log ptr.subsections
             ptr.urlFromSectionFull ptr.data.SectionFull
-            
+
             d.resolve true
         .error (data, status) ->
           d.reject false
         d.promise
-        
+
       urlFromSectionFull: (sectionfull) ->
         re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
         cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
@@ -194,7 +198,7 @@ angular.module('Courses.services', [])
 
       @computeCss: (start, end) ->
         return if not start?
-        top_pixels = Math.abs(start - 
+        top_pixels = Math.abs(start -
             Section.options.start_hour) * Section.options.pixels_per_hour +
             Section.options.top_padding
         height_pixels = Math.abs(end-start) * Section.options.pixels_per_hour
@@ -244,7 +248,6 @@ angular.module('Courses.services', [])
 
         $q.all(arr2).then ->
           for sec in arr
-            console.log 'choosing ' + sec.call
             ptr.sectionChosen sec
 
       updateURL: () ->
@@ -274,7 +277,6 @@ angular.module('Courses.services', [])
       addSection: (section, canoverlap=true) ->
         @courses[section.id] = section.parent
 
-        # console.log section
         if section.overlapCheck @courseCalendar
           if !canoverlap
             alert 'Warning: this overlaps with a course you have already selected'
@@ -298,7 +300,6 @@ angular.module('Courses.services', [])
         @removeCourse section.id
         @sections[section.id] = section
         @addSection(section, false)
-        console.log section
 
       showAllSections: (course) =>
         course.status = "overlapping"
@@ -306,10 +307,9 @@ angular.module('Courses.services', [])
           @addSection section
 
       changeSections: (course) ->
-        # console.log course
         @removeCourse course.id
         @showAllSections course
-        
+
       @getValidSemesters: ->
         semesters = []
         month = new Date().getMonth()

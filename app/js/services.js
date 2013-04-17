@@ -100,6 +100,17 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         promises.push(sec.fillData());
       }
       $q.all(promises).then(function() {
+        ptr.sections = ptr.sections.filter(function(el) {
+          var subsec, _k, _len2, _ref2;
+          _ref2 = el.subsections;
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            subsec = _ref2[_k];
+            if (subsec.length > 0) {
+              return true;
+            }
+          }
+          return false;
+        });
         return d.resolve(true);
       });
       return d.promise;
@@ -187,8 +198,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
             ptr.subsections[i] = [];
           }
           ptr.parseDayAndTime();
-          console.log('filling subsections for ' + ptr.call);
-          console.log(ptr.subsections);
           ptr.urlFromSectionFull(ptr.data.SectionFull);
           return d.resolve(true);
         });
@@ -368,7 +377,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
         _results = [];
         for (_k = 0, _len2 = arr.length; _k < _len2; _k++) {
           sec = arr[_k];
-          console.log('choosing ' + sec.call);
           _results.push(ptr.sectionChosen(sec));
         }
         return _results;
@@ -455,8 +463,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       section.parent.status = null;
       this.removeCourse(section.id);
       this.sections[section.id] = section;
-      this.addSection(section, false);
-      return console.log(section);
+      return this.addSection(section, false);
     };
 
     Calendar.prototype.showAllSections = function(course) {

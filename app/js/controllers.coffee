@@ -1,6 +1,6 @@
 "use strict"
 
-# Controllers 
+# Controllers
 window.rootCtrl = ($scope, Course, Calendar) ->
   calendar = new Calendar
   $scope.hours = Calendar.hours
