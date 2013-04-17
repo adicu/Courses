@@ -64,7 +64,7 @@ angular.module('Courses.services', [])
 
         for sec in ptr.data.sections
           if sec.Term == ptr.semester
-            s = new Section sec.CallNumber, ptr.semester, ptr
+            s = new Section sec.CallNumber, ptr.semester, sec, ptr
             ptr.sections.push s
 
         promises = []
@@ -103,9 +103,10 @@ angular.module('Courses.services', [])
       @api_url = 'http://data.adicu.com/courses/v2/'
       @api_token = '515abdcf27200000029ca515'
 
-      constructor: (callnum, @semester, @parent=null) ->
+      constructor: (callnum, @semester, @data=null, @parent=null) ->
         @call = callnum
         @semester = @semester
+        @data = @data
         @parent = @parent
 
       fillParent: (Course) ->
@@ -118,22 +119,35 @@ angular.module('Courses.services', [])
           d.resolve true
         d.promise
 
+      getData: () ->
+        return if @subsections and @subsections.length >= 1
+        ptr = @
+        d = $q.defer()
+        if not ptr.data
+          $http
+            method: 'JSONP'
+            url: Section.api_url + 'sections'
+            params:
+              call_number: @call
+              term: @semester
+              jsonp: 'JSON_CALLBACK'
+              api_token: Section.api_token
+          .success (data, status, headers, config) ->
+            return d.resolve false if not data.data
+            ptr.data = data.data[0]
+
+            d.resolve true
+          .error (data, status) ->
+            d.reject false
+        else
+          d.resolve true
+        d.promise
+        
       fillData: (Course=null) ->
         return if @subsections and @subsections.length >= 1
         ptr = @
         d = $q.defer()
-        $http
-          method: 'JSONP'
-          url: Section.api_url + 'sections'
-          params:
-            call_number: @call
-            term: @semester
-            jsonp: 'JSON_CALLBACK'
-            api_token: Section.api_token
-        .success (data, status, headers, config) ->
-          return d.resolve false if not data.data
-          ptr.data = data.data[0]
-
+        ptr.getData().then ->
           ptr.call = ptr.call
           ptr.id = ptr.data.Course
 
@@ -143,10 +157,7 @@ angular.module('Courses.services', [])
               ptr.subsections[i] = []
             ptr.parseDayAndTime()
             ptr.urlFromSectionFull ptr.data.SectionFull
-
             d.resolve true
-        .error (data, status) ->
-          d.reject false
         d.promise
 
       urlFromSectionFull: (sectionfull) ->

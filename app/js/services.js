@@ -89,7 +89,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         sec = _ref[_i];
         if (sec.Term === ptr.semester) {
-          s = new Section(sec.CallNumber, ptr.semester, ptr);
+          s = new Section(sec.CallNumber, ptr.semester, sec, ptr);
           ptr.sections.push(s);
         }
       }
@@ -143,11 +143,13 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
 
     Section.api_token = '515abdcf27200000029ca515';
 
-    function Section(callnum, semester, parent) {
+    function Section(callnum, semester, data, parent) {
       this.semester = semester;
+      this.data = data != null ? data : null;
       this.parent = parent != null ? parent : null;
       this.call = callnum;
       this.semester = this.semester;
+      this.data = this.data;
       this.parent = this.parent;
     }
 
@@ -165,6 +167,38 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       return d.promise;
     };
 
+    Section.prototype.getData = function() {
+      var d, ptr;
+      if (this.subsections && this.subsections.length >= 1) {
+        return;
+      }
+      ptr = this;
+      d = $q.defer();
+      if (!ptr.data) {
+        $http({
+          method: 'JSONP',
+          url: Section.api_url + 'sections',
+          params: {
+            call_number: this.call,
+            term: this.semester,
+            jsonp: 'JSON_CALLBACK',
+            api_token: Section.api_token
+          }
+        }).success(function(data, status, headers, config) {
+          if (!data.data) {
+            return d.resolve(false);
+          }
+          ptr.data = data.data[0];
+          return d.resolve(true);
+        }).error(function(data, status) {
+          return d.reject(false);
+        });
+      } else {
+        d.resolve(true);
+      }
+      return d.promise;
+    };
+
     Section.prototype.fillData = function(Course) {
       var d, ptr;
       if (Course == null) {
@@ -175,20 +209,7 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
       }
       ptr = this;
       d = $q.defer();
-      $http({
-        method: 'JSONP',
-        url: Section.api_url + 'sections',
-        params: {
-          call_number: this.call,
-          term: this.semester,
-          jsonp: 'JSON_CALLBACK',
-          api_token: Section.api_token
-        }
-      }).success(function(data, status, headers, config) {
-        if (!data.data) {
-          return d.resolve(false);
-        }
-        ptr.data = data.data[0];
+      ptr.getData().then(function() {
         ptr.call = ptr.call;
         ptr.id = ptr.data.Course;
         return ptr.fillParent(Course).then(function() {
@@ -201,8 +222,6 @@ angular.module('Courses.services', []).factory('Course', function($http, $q, ejs
           ptr.urlFromSectionFull(ptr.data.SectionFull);
           return d.resolve(true);
         });
-      }).error(function(data, status) {
-        return d.reject(false);
       });
       return d.promise;
     };
