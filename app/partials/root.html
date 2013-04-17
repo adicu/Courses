@@ -59,7 +59,8 @@
                 timeSlotTitle"><strong>{{section.id}}</strong>:
                 {{section.parent.parent.points}} pts<br />
                 {{section.title}}</p>
-<!--               <button class="remove_link" ng-click="removeCourse(section.id)"ng-hide="section.overlaps">x</button>
+               <button class="remove_link" ng-click="removeCourse(section.id)" ng-hide="section.overlaps">x</button>
+               <!--
               <p class="timeSlotText timeSlotCallNumber" ng-hide="section.overlaps">{{section.id}}</p>
               <p class="timeSlotText timeSlotPoints" ng-hide="section.overlaps">{{section.instructor}}</p>
               <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p>  -->
@@ -72,6 +73,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 <div id="guides">
   <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
 </div>
