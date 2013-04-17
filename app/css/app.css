@@ -108,13 +108,13 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   border:1px solid #222;}
 #calendar div.timeSlotWrapper:hover { cursor: pointer; background: #333350; color: white; }
 #calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
-  position: absolute; top: -4px; right: -2px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
+  position: absolute; top: 0px; right: 3px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
 .timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
 #calendar .timeSlotWrapper {
   text-align: center;
 }
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
-#calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; position:relative; }
+#calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; }
 #calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
 #calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
 #calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
