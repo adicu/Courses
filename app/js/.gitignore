@@ -1,4 +1,4 @@
-app.js
 services.js
+filters.js
 controllers.js
-filters.coffee
+app.js
