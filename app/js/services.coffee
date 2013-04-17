@@ -173,8 +173,8 @@ angular.module('Courses.services', [])
 
       @parseTime: (time) ->
         return if not time?
-        hour = parseInt time.slice 0, 2
-        minute = parseInt time.slice 3, 5
+        hour = parseInt (time.slice 0, 2), 10
+        minute = parseInt (time.slice 3, 5), 10
         intTime = hour + minute / 60.0
 
       @computeCss: (start, end) ->

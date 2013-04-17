@@ -291,8 +291,8 @@
         if (time == null) {
           return;
         }
-        hour = parseInt(time.slice(0, 2));
-        minute = parseInt(time.slice(3, 5));
+        hour = parseInt(time.slice(0, 2), 10);
+        minute = parseInt(time.slice(3, 5), 10);
         return intTime = hour + minute / 60.0;
       };
 
