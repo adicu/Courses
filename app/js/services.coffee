@@ -159,7 +159,7 @@ angular.module('Courses.services', [])
             ptr.urlFromSectionFull ptr.data.SectionFull
             d.resolve true
         d.promise
-
+        
       urlFromSectionFull: (sectionfull) ->
         re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
         cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
@@ -259,6 +259,7 @@ angular.module('Courses.services', [])
 
         $q.all(arr2).then ->
           for sec in arr
+            console.log 'choosing ' + sec.call
             ptr.sectionChosen sec
 
       updateURL: () ->
@@ -320,7 +321,7 @@ angular.module('Courses.services', [])
       changeSections: (course) ->
         @removeCourse course.id
         @showAllSections course
-
+        
       @getValidSemesters: ->
         semesters = []
         month = new Date().getMonth()
