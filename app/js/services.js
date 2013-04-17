@@ -129,6 +129,7 @@
             course: this.id,
             term: this.semester,
             jsonp: 'JSON_CALLBACK',
+            limit: 150,
             api_token: Course.api_token
           }
         }).success(function(data, status, headers, config) {

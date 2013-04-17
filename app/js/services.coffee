@@ -86,6 +86,7 @@ angular.module('Courses.services', [])
           course: @id
           term: @semester
           jsonp: 'JSON_CALLBACK'
+          limit: 150 # There are 131 UWriting sections for f2013
           api_token: Course.api_token
         .success (data, status, headers, config) =>
           return if not data.data
