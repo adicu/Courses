@@ -81,22 +81,30 @@ angular.module('Courses.services', [])
           d.resolve true
         d.promise
 
-      @search: (query, semester, length, page) ->
-        Course.request
-          .query(
-              ejs.BoolQuery()
-              .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
-              .should(ejs.QueryStringQuery(query + '*')
-                .fields(['coursetitle^3', 'course^4', 'description',
-                  'coursesubtitle', 'instructor^2']))
-              .should(ejs.QueryStringQuery('*' + query + '*')
-                .fields(['course', 'coursefull']))
-              .minimumNumberShouldMatch(1)
-          )
-          .doSearch().then (data) ->
-            return if not data.hits? and data.hits.hits?
-            hits = data.hits.hits
-            new Course hit._source.course, semester, hit._source for hit in hits
+      @search: (query, semester, calendar, clearResults) ->
+        if query.match /^\d{5}$/
+          callnum = parseInt query, 10
+          s = new Section callnum, semester
+          s.fillData(Course).then (status) ->
+            calendar.sectionChosen s
+            calendar.updateURL()
+            clearResults()
+        else
+          Course.request
+            .query(
+                ejs.BoolQuery()
+                .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
+                .should(ejs.QueryStringQuery(query + '*')
+                  .fields(['coursetitle^3', 'course^4', 'description',
+                    'coursesubtitle', 'instructor^2']))
+                .should(ejs.QueryStringQuery('*' + query + '*')
+                  .fields(['course', 'coursefull']))
+                .minimumNumberShouldMatch(1)
+            )
+            .doSearch().then (data) ->
+              return if not data.hits? and data.hits.hits?
+              hits = data.hits.hits
+              new Course hit._source.course, semester, hit._source for hit in hits
 
   .factory 'Section', ($http, $q) ->
     class Section
