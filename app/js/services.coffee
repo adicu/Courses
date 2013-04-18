@@ -251,8 +251,12 @@ angular.module('Courses.services', [])
 
       fillFromURL: (semester) ->
         ptr = @
-        console.log $location.hash()
-        callnums = $location.hash().split ','
+        if $location.search().hasOwnProperty('sections')
+          callnum_string = ($location.search()).sections
+        else
+          # hash rather than empty to support legacy routes
+          callnum_string = $location.hash()
+        callnums = callnum_string.split ','
 
         arr = []
         for callnum in callnums
@@ -269,6 +273,7 @@ angular.module('Courses.services', [])
           for sec in arr
             console.log 'choosing ' + sec.call
             ptr.sectionChosen sec
+          ptr.updateURL()
 
       updateURL: () ->
         str = ""
@@ -277,8 +282,8 @@ angular.module('Courses.services', [])
             str = str + section.data['CallNumber'] + ","
         if str and str.charAt(str.length - 1) == ','
           str = str.slice(0, -1)
-        if $location.hash() != str
-          $location.hash str
+        $location.hash ''
+        $location.search('sections', str)
 
       addCourse: (course) ->
         if @courses[course.id]
