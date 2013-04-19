@@ -165,6 +165,7 @@ angular.module('Courses.services', [])
               ptr.subsections[i] = []
             ptr.parseDayAndTime()
             ptr.urlFromSectionFull ptr.data.SectionFull
+            ptr.instructor = ptr.data.Instructor1Name.split(',')[0]
             d.resolve true
         d.promise
         
