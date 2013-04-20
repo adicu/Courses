@@ -13,15 +13,12 @@ angular.module('Courses.services', [])
                     .indices('jdbc')
 
       constructor: (@id, @semester, @ejs=null) ->
-        @id = @id
-        @semester = @semester
-        if @ejs != null
+        if @ejs
           @title = @ejs.coursetitle
           @description = @ejs.description
           @points = @ejs.numfixedunits / 10.0
 
       fillData: () ->
-        ptr = @
         d = $q.defer()
         $http
           method: 'JSONP'
@@ -31,15 +28,15 @@ angular.module('Courses.services', [])
             term: @semester
             jsonp: 'JSON_CALLBACK'
             api_token: Course.api_token
-        .success (datarecv, status, headers, config) ->
-          return null if not datarecv.data
-          ptr.data = Course.convertAPItoEJS datarecv.data[0]
+        .success (datarecv, status, headers, config) =>
+          d.resolve false if not datarecv.data
+          @data = Course.convertAPItoEJS datarecv.data[0]
 
-          ptr.title = ptr.data.coursetitle
-          ptr.description = ptr.data.description
-          if ptr.description == null
-            ptr.description = "No description given"
-          ptr.points = ptr.data.numfixedunits / 10.0
+          @title = @data.coursetitle
+          @description = @data.description
+          if @description == null
+            @description = "No description given"
+          @points = @data.numfixedunits / 10.0
 
           d.resolve true
         .error (data, status) ->
@@ -58,21 +55,20 @@ angular.module('Courses.services', [])
 
       getSections: () ->
         return if @sections and @sections.length >= 1
-        ptr = @
         d = $q.defer()
-        ptr.sections = []
+        @sections = []
 
-        for sec in ptr.data.sections
-          if sec.Term == ptr.semester
-            s = new Section sec.CallNumber, ptr.semester, sec, ptr
-            ptr.sections.push s
+        for sec in @data.sections
+          if sec.Term == @semester
+            s = new Section sec.CallNumber, @semester, sec, @
+            @sections.push s
 
         promises = []
-        for sec in ptr.sections
+        for sec in @sections
           promises.push sec.fillData()
 
-        $q.all(promises).then () ->
-          ptr.sections = ptr.sections.filter (el) ->
+        $q.all(promises).then () =>
+          @sections = @sections.filter (el) ->
             for subsec in el.subsections
               if subsec.length > 0
                 return true
@@ -129,9 +125,8 @@ angular.module('Courses.services', [])
 
       getData: () ->
         return if @subsections and @subsections.length >= 1
-        ptr = @
         d = $q.defer()
-        if not ptr.data
+        if not @data
           $http
             method: 'JSONP'
             url: Section.api_url + 'sections'
@@ -140,9 +135,9 @@ angular.module('Courses.services', [])
               term: @semester
               jsonp: 'JSON_CALLBACK'
               api_token: Section.api_token
-          .success (data, status, headers, config) ->
+          .success (data, status, headers, config) =>
             return d.resolve false if not data.data
-            ptr.data = data.data[0]
+            @data = data.data[0]
 
             d.resolve true
           .error (data, status) ->
@@ -153,19 +148,18 @@ angular.module('Courses.services', [])
         
       fillData: (Course=null) ->
         return if @subsections and @subsections.length >= 1
-        ptr = @
         d = $q.defer()
-        ptr.getData().then ->
-          ptr.call = ptr.call
-          ptr.id = ptr.data.Course
+        @getData().then =>
+          @call = @call
+          @id = @data.Course
 
-          ptr.fillParent(Course).then ->
-            ptr.subsections = []
+          @fillParent(Course).then =>
+            @subsections = []
             for i in [0..6]
-              ptr.subsections[i] = []
-            ptr.parseDayAndTime()
-            ptr.urlFromSectionFull ptr.data.SectionFull
-            ptr.instructor = ptr.data.Instructor1Name.split(',')[0]
+              @subsections[i] = []
+            @parseDayAndTime()
+            @urlFromSectionFull @data.SectionFull
+            @instructor = @data.Instructor1Name.split(',')[0]
             d.resolve true
         d.promise
         
@@ -251,7 +245,6 @@ angular.module('Courses.services', [])
         return points
 
       fillFromURL: (semester) ->
-        ptr = @
         if $location.search().hasOwnProperty('sections')
           callnum_string = ($location.search()).sections
         else
@@ -259,22 +252,20 @@ angular.module('Courses.services', [])
           callnum_string = $location.hash()
         callnums = callnum_string.split ','
 
-        arr = []
-        for callnum in callnums
-          if callnum != ''
-            j = new Section callnum, semester
-            if j != null
-              arr.push j
+        arr = for callnum in callnums
+          if callnum?
+            new Section callnum, semester
+          else
+            continue
 
-        arr2 = []
-        for sec in arr
-          arr2.push sec.fillData(Course)
+        arr2 = for sec in arr
+          sec.fillData(Course) if sec?
 
-        $q.all(arr2).then ->
+        $q.all(arr2).then =>
           for sec in arr
             console.log 'choosing ' + sec.call
-            ptr.sectionChosen sec
-          ptr.updateURL()
+            @sectionChosen sec
+          @updateURL()
 
       updateURL: () ->
         str = ""
