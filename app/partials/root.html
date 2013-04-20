@@ -77,7 +77,7 @@
     <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
   </div>
 </div>
-<div id="sectionModal" class="reveal-modal large">
+<div id="sectionModal" class="reveal-modal large" ui-jq="foundation">
   <h3>{{modalSection.parent.title}}</h3>
   <p>Call Number: {{modalSection.data["CallNumber"]}}</p>
   <p>Course: <a href="{{modalSection.url}}" target="_blank">{{modalSection.id}} section {{modalSection.sectionNum}}</a></p>
