@@ -34,14 +34,14 @@
 </div>
 
 <div id="calendar" ui-jq="foundation">
-<table>
-  <thead id="daynames">
-    <tr>
+  <table>
+    <thead id="daynames">
+      <tr>
         <th>{{getTotalPoints()}}</th>
-      <th ng-repeat="day in days">{{day}}</th>
-    </tr>
-  </thead>
-  <tbody id="daybodies">
+        <th ng-repeat="day in days">{{day}}</th>
+      </tr>
+    </thead>
+    <tbody id="daybodies">
     <tr>
       <td id="hours" class="hourColumn">
         <div ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
@@ -71,10 +71,11 @@
         </div>
       </td>
     </tr>
-  </tbody>
-</table>
-<div id="guides">
-  <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
+    </tbody>
+  </table>
+  <div id="guides">
+    <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
+  </div>
 </div>
 <div id="sectionModal" class="reveal-modal large">
   <h3>{{modalSection.parent.title}}</h3>
