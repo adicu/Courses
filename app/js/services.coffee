@@ -33,25 +33,15 @@ angular.module('Courses.services', [])
           @data = Course.convertAPItoEJS datarecv.data[0]
 
           @title = @data.coursetitle
-          @description = @data.description
-          if @description == null
-            @description = "No description given"
+          @description = @data.description or "No description given"
           @points = @data.numfixedunits / 10.0
+          @hasMultipleSections = @data.sections.length > 1
 
-          d.resolve true
+          @getSections().then ->
+            d.resolve true
         .error (data, status) ->
           d.resolve false
         d.promise
-
-      @CUITCaseToUnderscore: (cuitcase) ->
-        cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1)
-        return cuitcase.replace /([A-Z])/g, ($1) ->
-          return "" + $1.toLowerCase()
-
-      @convertAPItoEJS: (coursedata) ->
-        for k,v of coursedata
-          coursedata[Course.CUITCaseToUnderscore k] = v
-        return coursedata
 
       getSections: () ->
         return if @sections and @sections.length >= 1
@@ -73,18 +63,29 @@ angular.module('Courses.services', [])
               if subsec.length > 0
                 return true
             return false
-
           d.resolve true
         d.promise
 
-      @search: (query, semester, calendar, clearResults) ->
+      @CUITCaseToUnderscore: (cuitcase) ->
+        cuitcase = cuitcase.charAt(0).toLowerCase() + cuitcase.slice(1)
+        return cuitcase.replace /([A-Z])/g, ($1) ->
+          return "" + $1.toLowerCase()
+
+      @convertAPItoEJS: (coursedata) ->
+        for k,v of coursedata
+          coursedata[Course.CUITCaseToUnderscore k] = v
+        return coursedata
+
+      @search: (query, semester, calendar) ->
+        d = $q.defer()
         if query.match /^\d{5}$/
           callnum = parseInt query, 10
           s = new Section callnum, semester
           s.fillData(Course).then (status) ->
             calendar.sectionChosen s
             calendar.updateURL()
-            clearResults()
+          d.resolve 'callnum'
+          d.promise
         else
           Course.request
             .query(
@@ -98,7 +99,7 @@ angular.module('Courses.services', [])
                 .minimumNumberShouldMatch(1)
             )
             .doSearch().then (data) ->
-              return if not data.hits? and data.hits.hits?
+              return if not data? and not data.hits? and data.hits.hits?
               hits = data.hits.hits
               new Course hit._source.course, semester, hit._source for hit in hits
 
@@ -146,7 +147,7 @@ angular.module('Courses.services', [])
           d.resolve true
         d.promise
         
-      fillData: (Course=null) ->
+      fillData: (Course) ->
         return if @subsections and @subsections.length >= 1
         d = $q.defer()
         @getData().then =>
@@ -252,18 +253,17 @@ angular.module('Courses.services', [])
           callnum_string = $location.hash()
         callnums = callnum_string.split ','
 
-        arr = for callnum in callnums
+        sections = for callnum in callnums
           if callnum?
-            new Section callnum, semester
+            sec = new Section callnum, semester
           else
             continue
 
-        arr2 = for sec in arr
-          sec.fillData(Course) if sec?
+        promises = for sec in sections
+          sec.fillData Course
 
-        $q.all(arr2).then =>
-          for sec in arr
-            console.log 'choosing ' + sec.call
+        $q.all(promises).then =>
+          for sec in sections
             @sectionChosen sec
           @updateURL()
 
@@ -313,7 +313,8 @@ angular.module('Courses.services', [])
         @sections[id] = false
 
       sectionChosen: (section, updateurl=true) ->
-        section.parent.status = null
+        if section.parent
+          section.parent.status = null
         @removeCourse section.id
         @sections[section.id] = section
         @addSection(section, false)
@@ -344,4 +345,4 @@ angular.module('Courses.services', [])
         semesters
         semesters = ['20133', '20141']
       @hours: [8..23]
-      @days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']\
+      @days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']

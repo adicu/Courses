@@ -89,7 +89,7 @@
       {{modalSection.data.Instructor1Name}}</a></p>
   <p class="description">{{modalSection.parent.description}}</p>
   <button ng-click="changeSections(modalSection)" class="small success"
-    ng-show="modalSection.parent.status"
+    ng-show="modalSection.parent.hasMultipleSections"
     >Change Section</button>
   <button ng-click="removeCourse(modalSection.id)" 
   class="small alert">Remove Course</button>

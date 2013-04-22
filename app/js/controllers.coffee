@@ -18,10 +18,12 @@ window.rootCtrl = ($scope, Course, Calendar) ->
     if not $scope.searchQuery or $scope.searchQuery.length == 0
       $scope.clearResults()
       return
-    Course.search($scope.searchQuery, $scope.selectedSemester, calendar, $scope.clearResults)
+    Course.search($scope.searchQuery, $scope.selectedSemester, calendar)
       .then (data) ->
-        # console.log data
-        $scope.searchResults = data
+        if data == 'callnum'
+          $scope.clearResults()
+        else
+          $scope.searchResults = data
 
   $scope.clearResults = ->
     $scope.searchResults = []
@@ -31,10 +33,8 @@ window.rootCtrl = ($scope, Course, Calendar) ->
     $scope.clearResults()
     course.fillData().then (status) ->
       return if not status
-      course.getSections().then (status) ->
-        return if not status
-        console.log course
-        calendar.addCourse course
+      console.log course
+      calendar.addCourse course
 
   $scope.removeCourse = (id) ->
     closeModal()
@@ -62,6 +62,5 @@ window.rootCtrl = ($scope, Course, Calendar) ->
     closeModal()
     course = section.parent
     calendar.changeSections course
-
 
 #rootCtrl.$inject = []
