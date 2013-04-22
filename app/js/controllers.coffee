@@ -1,7 +1,7 @@
 "use strict"
 
 # Controllers
-window.rootCtrl = ($scope, Course, Calendar) ->
+scheduleCtrl = ($scope, Course, Calendar) ->
   calendar = new Calendar
   $scope.hours = Calendar.hours
   $scope.days = Calendar.days
@@ -64,3 +64,20 @@ window.rootCtrl = ($scope, Course, Calendar) ->
     calendar.changeSections course
 
 #rootCtrl.$inject = []
+
+navCtrl = ($scope, $location) ->
+  styles = []
+
+  $scope.$on '$routeChangeSuccess', ->
+    clearStyles()
+    location = $location.path()
+    if location?
+      shortLoc = location.slice(1)
+      $scope[shortLoc] = 'active'
+      styles.push shortLoc
+
+  clearStyles = ->
+    for style in styles
+      $scope[style] = null
+
+directoryCtrl = ($scope) ->
