@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" ng-app="Courses">
+<head>
+  <meta charset="utf-8">
+  <meta property="og:title" content="Schedule Builder"/>
+  <meta property="og:image" content="http://courses.adicu.com/img/schedule-builder-logo.png"/>
+  <meta property="og:description" content="The easiest way to pick classes at Columbia."/>
+
+  <title>Courses by ADi</title>
+  <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" href="css/normalize.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<body ui-jq="foundation">
+  <div class="contain-to-grid">
+    <nav class="top-bar" ng-controller="navCtrl">
+      <ul class="title-area">
+        <li class="name">
+          <h1>
+            <a href="#">Courses 
+              <span id="byline">
+                by ADi
+              </span>
+            </a>
+          </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#/"><span>Menu</span></a></li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="left"></ul>
+        <ul class="right">
+          <!-- <li ng-class="directory"><a href="#/directory">Directory</a></li> -->
+          <li ng-class="schedule"><a href="#/schedule">Schedule</a></li>
+        </ul>
+      </section>
+    </nav>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div id="app" ng-view></div>
+      <noscript>
+        <div class="noscript">
+          <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
+        </div>
+      </noscript>
+      <footer>
+        <div class="row">
+          <div class="byline small-8 columns">
+            By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
+            href="http://hansh.org/">Hans Hyttinen</a>, <a
+            href="http://www.github.com/sidnair09">Sid Nair</a>, and
+            <a href="http://www.brishin.com/">Brian Shin</a>.
+          </div>
+          <div class="small-4 columns" id="reportBug">
+            <a href="mailto:infrastructure@adicu.com?subject=[Schedule Builder]">Report a bug or request a feature</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div id="fade"></div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+  <script src="lib/angular-ui.min.js"></script>
+  <script src="js/courses.min.js"></script>
+  <script src="lib/elastic-with-angular.min.js"></script>
+  <script src="lib/foundation/foundation.min.js"></script>
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18504951-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>
