@@ -9,11 +9,13 @@ module.exports = function(grunt) {
           bare: true
         },
         files: {
-          'target/js/app.js': 'src/js/app.coffee',
-          'target/js/controllers.js': 'src/js/controllers.coffee',
-          'target/js/directives.js': 'src/js/directives.coffee',
-          'target/js/filters.js': 'src/js/filters.coffee',
-          'target/js/services.js': 'src/js/services.coffee'
+          'target/js/courses.js': [
+            'src/js/app.coffee',
+            'src/js/controllers.coffee',
+            'src/js/directives.coffee',
+            'src/js/filters.coffee',
+            'src/js/services.coffee'
+          ]
         }
       }
     }
