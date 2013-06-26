@@ -251,7 +251,7 @@ angular.module('Courses.services', [])
         else
           # hash rather than empty to support legacy routes
           callnum_string = $location.hash()
-        callnums = callnum_string.split ','
+        callnums = if callnum_string then callnum_string.split ',' else []
 
         sections = for callnum in callnums
           if callnum?
