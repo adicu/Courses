@@ -6,7 +6,8 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         options: {
-          bare: true
+          bare: true,
+          sourceMap: true
         },
         files: {
           'target/js/courses.js': [
