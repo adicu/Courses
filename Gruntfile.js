@@ -19,11 +19,26 @@ module.exports = function(grunt) {
           ]
         }
       }
+    },
+    uglify: {
+      compile: {
+        options: {
+          mangle: false,
+          sourceMap: 'target/js/courses.min.js.map',
+          sourceMapIn: 'target/js/courses.js.map',
+          sourceMapRoot: '/js',
+          sourceMappingURL: '/js/courses.min.js.map'
+        },
+        files: {
+          'target/js/courses.min.js': ['target/js/courses.js']
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['coffee']);
+  grunt.registerTask('default', ['coffee', 'uglify']);
 
 };
