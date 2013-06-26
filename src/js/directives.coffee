@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
+`
 /* Directives */
-
 
 angular.module('Courses.directives', []).
   directive('appVersion', ['version', function(version) {
@@ -9,3 +9,4 @@ angular.module('Courses.directives', []).
       elm.text(version);
     };
   }]);
+`
