@@ -15,7 +15,9 @@ module.exports = (grunt) ->
           sourceMap: true
 
         files:
-          'target/js/courses.js': ['src/js/app.coffee', 'src/js/controllers.coffee', 'src/js/directives.coffee', 'src/js/filters.coffee', 'src/js/services.coffee']
+          'target/js/courses.js': [
+            'src/js/**/*.coffee'
+          ]
 
     ngmin:
       compile:
