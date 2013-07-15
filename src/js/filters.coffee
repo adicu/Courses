@@ -1,6 +1,4 @@
-"use strict"
-
-# Filters 
+# Filters
 angular.module("Courses.filters", [])
   .filter 'toTwelveHours', ->
     (input) ->

@@ -1,7 +1,7 @@
-"use strict"
-
 # Controllers
-scheduleCtrl = ($scope, Course, Calendar) ->
+
+angular.module('Courses.controllers', [])
+.controller 'scheduleCtrl', ($scope, Course, Calendar) ->
   calendar = new Calendar
   $scope.hours = Calendar.hours
   $scope.days = Calendar.days
@@ -63,9 +63,7 @@ scheduleCtrl = ($scope, Course, Calendar) ->
     course = section.parent
     calendar.changeSections course
 
-#rootCtrl.$inject = []
-
-navCtrl = ($scope, $location) ->
+.controller 'navCtrl', ($scope, $location) ->
   styles = []
 
   $scope.$on '$routeChangeSuccess', ->
@@ -80,4 +78,4 @@ navCtrl = ($scope, $location) ->
     for style in styles
       $scope[style] = null
 
-directoryCtrl = ($scope) ->
+.controller 'directoryCtrl', ($scope) ->

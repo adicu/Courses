@@ -1,5 +1,3 @@
-'use strict'
-
 # Services
 
 angular.module('Courses.services', [])
@@ -146,7 +144,7 @@ angular.module('Courses.services', [])
         else
           d.resolve true
         d.promise
-        
+
       fillData: (Course) ->
         return if @subsections and @subsections.length >= 1
         d = $q.defer()
@@ -163,7 +161,7 @@ angular.module('Courses.services', [])
             @instructor = @data.Instructor1Name.split(',')[0]
             d.resolve true
         d.promise
-        
+
       urlFromSectionFull: (sectionfull) ->
         re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
         cu_base = 'http://www.columbia.edu/cu/bulletin/uwb/subj/'
@@ -327,7 +325,7 @@ angular.module('Courses.services', [])
       changeSections: (course) ->
         @removeCourse course.id
         @showAllSections course
-        
+
       @getValidSemesters: ->
         semesters = []
         month = new Date().getMonth()

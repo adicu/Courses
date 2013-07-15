@@ -1,16 +1,20 @@
 "use strict"
 
-# Elasticjs library, AngularUI
-angular.module("Courses", ["Courses.filters", "Courses.services",
-      "Courses.directives", "elasticjs.service", 'ui'])
+angular.module("Courses", [
+  'Courses.controllers',
+  'Courses.filters',
+  'Courses.services',
+  'Courses.directives',
+  'elasticjs.service',
+  'ui'])
     .config ["$routeProvider", ($routeProvider) ->
       $routeProvider.when "/schedule",
         templateUrl: "partials/schedule.html"
-        controller: scheduleCtrl
+        controller: 'scheduleCtrl'
         reloadOnSearch: false
       $routeProvider.when "/directory",
         templateUrl: "partials/directory.html"
-        controller: directoryCtrl
+        controller: 'directoryCtrl'
       $routeProvider.otherwise redirectTo: "/schedule"
 ]
 
