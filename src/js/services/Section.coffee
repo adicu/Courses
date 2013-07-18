@@ -10,6 +10,13 @@ angular.module('Courses.services')
       @data = @data
       @parent = @parent
 
+    getCourse: ->
+      parent = @parent
+      while parent
+        return parent if parent instanceof Course
+        parent = parent.parent
+      return null
+
     fillParent: (Course) ->
       d = $q.defer()
       if @parent == null

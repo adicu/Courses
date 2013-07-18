@@ -4,15 +4,14 @@ angular.module('Courses.services')
     @api_url = 'http://data.adicu.com/courses/v2/'
     @api_token = '515abdcf27200000029ca515'
     @ejs = ejsResource('http://db.data.adicu.com:9200')
-    window.ej = @ejs
     @request = ejs.Request()
                   .indices('jdbc')
 
-    constructor: (@id, @semester, @ejs=null) ->
-      if @ejs
-        @title = @ejs.coursetitle
-        @description = @ejs.description
-        @points = @ejs.numfixedunits / 10.0
+    constructor: (@id, @semester, @ejs_data=null) ->
+      if @ejs_data
+        @title = @ejs_data.coursetitle
+        @description = @ejs_data.description
+        @points = @ejs_data.numfixedunits / 10.0
 
     fillData: () ->
       d = $q.defer()

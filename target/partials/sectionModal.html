@@ -1,0 +1,18 @@
+<div class="reveal-modal large" ui-jq="foundation">
+  <h3>{{modalSection.parent.title}}</h3>
+  <p>Call Number: {{modalSection.data["CallNumber"]}}</p>
+  <p>Course: <a href="{{modalSection.url}}" target="_blank">{{modalSection.id}} section {{modalSection.sectionNum}}</a></p>
+  <p>Points: {{modalSection.parent.points}}</p>
+  <p ng-show="modalSection.data.Instructor1Name"
+  >Instructor: <a
+      href="http://www.culpa.info/search/results?search={{modalSection.instructor}}&commit=search"
+      target="_blank">
+      {{modalSection.data.Instructor1Name}}</a></p>
+  <p class="description">{{modalSection.parent.description}}</p>
+  <button ng-click="changeSections(modalSection)" class="small success"
+    ng-show="modalSection.parent.hasMultipleSections"
+    >Change Section</button>
+  <button ng-click="removeCourse(modalSection.id)"
+  class="small alert">Remove Course</button>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

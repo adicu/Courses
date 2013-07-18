@@ -1,14 +1,15 @@
 angular.module('Courses.controllers')
 .controller 'scheduleCtrl', ($scope, Course, Calendar) ->
   calendar = new Calendar
-  $scope.hours = Calendar.hours
-  $scope.days = Calendar.days
+  $scope.hours = Calendar.getHours()
+  $scope.days = Calendar.getDays()
   $scope.semesters = Calendar.getValidSemesters()
   $scope.selectedSemester = $scope.semesters[0]
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
   calendar.fillFromURL($scope.selectedSemester)
+
   $scope.getTotalPoints = ->
     calendar.totalPoints()
 
@@ -49,29 +50,12 @@ angular.module('Courses.controllers')
       openModal()
       $scope.modalSection = section
 
-  closeModal = () ->
-    # Shouldn't be doing this!
-    $('#sectionModal').foundation('reveal', 'close')
-  openModal = () ->
-    # Shouldn't be doing this!
-    $('#sectionModal').foundation('reveal', 'open')
+  closeModal = ->
+    $scope.$broadcast 'modalStateChange', 'close'
+  openModal = ->
+    $scope.$broadcast 'modalStateChange', 'open'
 
   $scope.changeSections = (section) ->
     closeModal()
     course = section.parent
     calendar.changeSections course
-
-.controller 'navCtrl', ($scope, $location) ->
-  styles = []
-
-  $scope.$on '$routeChangeSuccess', ->
-    clearStyles()
-    location = $location.path()
-    if location?
-      shortLoc = location.slice(1)
-      $scope[shortLoc] = 'active'
-      styles.push shortLoc
-
-  clearStyles = ->
-    for style in styles
-      $scope[style] = null

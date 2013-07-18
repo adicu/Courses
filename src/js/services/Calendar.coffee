@@ -114,5 +114,9 @@ angular.module('Courses.services')
         semesters.push year + '' + semester
       semesters
       semesters = ['20133', '20141']
-    @hours: [8..23]
-    @days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
+    @getHours: ->
+      return [8..23]
+
+    @getDays: ->
+      ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
