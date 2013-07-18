@@ -36,8 +36,18 @@ module.exports = (grunt) ->
         files:
           'target/js/courses.min.js': ['generated/js/courses.ngmin.js']
 
+    watch:
+      scripts:
+        files:
+          ['src/**/*.coffee']
+        tasks:
+          ['default']
+        options:
+          livereload: true
+
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
 
