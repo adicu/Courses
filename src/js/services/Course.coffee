@@ -1,11 +1,9 @@
 angular.module('Courses.services')
-.factory 'Course', ($http, $q, ejsResource, Section) ->
+.factory 'Course', ($http, $q, elasticSearch, Section) ->
   class Course
     @api_url = 'http://data.adicu.com/courses/v2/'
     @api_token = '515abdcf27200000029ca515'
-    @ejs = ejsResource('http://db.data.adicu.com:9200')
-    @request = ejs.Request()
-                  .indices('jdbc')
+    @elasticSearch = elasticSearch
 
     constructor: (@id, @semester, @ejs_data=null) ->
       if @ejs_data
@@ -82,7 +80,7 @@ angular.module('Courses.services')
         d.resolve 'callnum'
         d.promise
       else
-        Course.request
+        Course.elasticSearch
           .query(
               ejs.BoolQuery()
               .must(ejs.WildcardQuery('term', '*' + semester  + '*'))

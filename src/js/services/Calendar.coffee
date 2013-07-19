@@ -59,7 +59,6 @@ angular.module('Courses.services')
         @showAllSections course
       else
         @sectionChosen course.sections[0]
-        @updateURL()
 
     addSection: (section, canoverlap=true) ->
       @courses[section.id] = section.parent
@@ -82,12 +81,13 @@ angular.module('Courses.services')
       @courses[id] = false
       @sections[id] = false
 
-    sectionChosen: (section, updateurl=true) ->
+    sectionChosen: (section, shouldUpdateURL=true) ->
       if section.parent
         section.parent.status = null
       @removeCourse section.id
       @sections[section.id] = section
       @addSection(section, false)
+      @updateURL() if shouldUpdateURL
 
     showAllSections: (course) =>
       course.status = "overlapping"
