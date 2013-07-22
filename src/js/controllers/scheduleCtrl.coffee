@@ -14,10 +14,11 @@ angular.module('Courses.controllers')
     calendar.totalPoints()
 
   $scope.search = ->
-    if not $scope.searchQuery or $scope.searchQuery.length == 0
+    query = $scope.searchQuery
+    if not query or query.length == 0
       $scope.clearResults()
       return
-    Course.search($scope.searchQuery, $scope.selectedSemester, calendar)
+    Calendar.search(query, $scope.selectedSemester)
       .then (data) ->
         if data == 'callnum'
           $scope.clearResults()
@@ -45,7 +46,6 @@ angular.module('Courses.controllers')
     if section.parent.status
       calendar.sectionChosen section
       calendar.updateURL()
-      console.log 'updating url'
     else
       openModal()
       $scope.modalSection = section

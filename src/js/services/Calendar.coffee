@@ -1,5 +1,10 @@
 angular.module('Courses.services')
-.factory 'Calendar', ($http, $q, Course, Section, $location) ->
+.factory 'Calendar', (
+    Course,
+    Section,
+    CalendarUtil,
+    $q,
+) ->
   class Calendar
     constructor: () ->
       @courses = {}
@@ -16,36 +21,18 @@ angular.module('Courses.services')
       return points
 
     fillFromURL: (semester) ->
-      if $location.search().hasOwnProperty('sections')
-        callnum_string = ($location.search()).sections
-      else
-        # hash rather than empty to support legacy routes
-        callnum_string = $location.hash()
-      callnums = if callnum_string then callnum_string.split ',' else []
-
-      sections = for callnum in callnums
-        if callnum?
-          sec = new Section callnum, semester
-        else
-          continue
-
-      promises = for sec in sections
-        sec.fillData Course
-
-      $q.all(promises).then =>
+      promise = CalendarUtil.fillFromURL semester
+      $q.all(promise).then (sections) =>
+        console.log sections
         for sec in sections
           @sectionChosen sec
         @updateURL()
 
     updateURL: () ->
-      str = ""
-      for key,section of @sections
-        if section
-          str = str + section.data['CallNumber'] + ","
-      if str and str.charAt(str.length - 1) == ','
-        str = str.slice(0, -1)
-      $location.hash ''
-      $location.search('sections', str)
+      CalendarUtil.updateURL @sections
+
+    search: (query, semester) ->
+      CalendarUtil.search @, query, semester
 
     addCourse: (course) ->
       if @courses[course.id]
