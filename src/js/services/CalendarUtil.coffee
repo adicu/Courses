@@ -57,17 +57,17 @@ angular.module('Courses.services')
       results = data.hits.hits
 
     @search: (calendar, query, semester) ->
-        d = $q.defer()
-        if query.match /^\d{5}$/
-          callnum = parseInt query, 10
-          s = new Section callnum, semester
-          s.fillData(Course).then (status) ->
-            calendar.sectionChosen s
-            calendar.updateURL()
-          d.resolve 'callnum'
-        else
-          CalendarUtil.runCourseQuery().then (results) ->
-            for result in results
-              new Course result._source.course, semester, result._source
-          d.resolve results
-        d.promise
+      d = $q.defer()
+      if query.match /^\d{5}$/
+        callnum = parseInt query, 10
+        s = new Section callnum, semester
+        s.fillData(Course).then (status) ->
+          calendar.sectionChosen s
+          calendar.updateURL()
+        d.resolve 'callnum'
+      else
+        CalendarUtil.runCourseQuery().then (results) ->
+          for result in results
+            new Course result._source.course, semester, result._source
+        d.resolve results
+      d.promise
