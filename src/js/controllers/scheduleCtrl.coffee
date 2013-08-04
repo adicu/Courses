@@ -4,7 +4,8 @@ angular.module('Courses.controllers')
   $scope.hours = Calendar.getHours()
   $scope.days = Calendar.getDays()
   $scope.semesters = Calendar.getValidSemesters()
-  $scope.selectedSemester = $scope.semesters[0]
+  $scope.selectedSemester = $rootScope.selectedSemester =
+    $scope.semesters[0]
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
