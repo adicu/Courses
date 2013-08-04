@@ -8,5 +8,13 @@
     "grunt-ngmin": "0.0.3",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-watch": "~0.4.4"
+  },
+  "dependencies": {
+    "express": "~3.3.4",
+    "coffee-script": "~1.6.3",
+    "passport": "~0.1.17",
+    "passport-facebook": "~0.1.5",
+    "underscore": "~1.5.1",
+    "rethinkdb": "~1.7.0-2"
   }
 }
