@@ -8,7 +8,7 @@ angular.module('Courses.services')
 ) ->
   class CoursesLoader
     @api_url = 'http://data.adicu.com/courses/v2/'
-    @api_token = '515abdcf27200000029ca515'
+    @api_token = '51ffc99d0b18dc0002859b8d'
 
     @loadCourse: (course_id) ->
       d = $q.defer()
