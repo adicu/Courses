@@ -2,7 +2,7 @@ angular.module('Courses.services')
 .factory 'Course', ($http, $q, ejsResource, Section) ->
   class Course
     @api_url = 'http://data.adicu.com/courses/v2/'
-    @api_token = '515abdcf27200000029ca515'
+    @api_token = '51ffc99d0b18dc0002859b8d'
     @ejs = ejsResource('http://db.data.adicu.com:9200')
     @request = ejs.Request()
                   .indices('jdbc')
