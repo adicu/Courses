@@ -2,24 +2,18 @@
 <div class="search" ui-jq="foundation">
   <form ng-submit="search()" class="custom"
   >
-    <div class="row collapse">
-      <div class="small-9 columns">
-        <input type="text" name="search_input"
-        ng-model="searchQuery"
-        ng-change="search()"
-        ng-click="search()"
-        placeholder="Type a course title to begin...">
-      </div>
-      <div class="small-1 columns">
-        <button class="prefix" ng-click="clearResults()">Clear</button>
-      </div>
-      <div class="small-2 columns">
-        <select
-        id="customDropdown"
-        ng-model="selectedSemester"
-        ng-options="semester | readableSemester for semester in semesters"
-        ></select>
-      </div>
+    <div id="searchWrapper" class="row collapse">
+      <input id="searchBox" type="text" name="search_input"
+      ng-model="searchQuery"
+      ng-change="search()"
+      ng-click="search()"
+      placeholder="Type a course title to begin...">
+      <button id="clearButton" class="prefix" ng-click="clearResults()">Clear</button>
+      <select
+      id="customDropdown"
+      ng-model="selectedSemester"
+      ng-options="semester | readableSemester for semester in semesters"
+      ></select>
     </div>
   </form>
 </div>
