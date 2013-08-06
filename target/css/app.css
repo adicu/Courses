@@ -66,6 +66,34 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   -webkit-border-radius: 10px;
 }
 
+#searchWrapper {
+  position: relative;
+  height: 32px;
+}
+#searchWrapper > #searchBox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 190px;
+}
+#searchWrapper > #clearButton {
+  position: absolute;
+  padding:0;
+  text-align: center;
+  width: 60px;
+  top: 0;
+  right:130px;
+}
+#searchWrapper > .custom.dropdown {
+  position: absolute;
+  width:130px;
+  top:0;
+  right:0;
+}
+
+
+
+
 #calendar { position: relative; }
 #calendar table {
   background: none;
