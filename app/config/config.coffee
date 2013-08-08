@@ -1,19 +1,24 @@
 _ = require 'underscore'
 
-default =
+defaultConfig =
   facebook:
     clientID: '478856265465801'
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET
     callbackURL: 'http://courses.adicu.com/'
 
-development = {}
+development =
+  mongo:
+    db: process.env.MONGO_DB or 'courses'
+    uriPre: 'mongodb://localhost/'
 
-production = {}
+production =
+  mongo:
+    db: process.env.MONGO_DB or 'courses'
 
 module.exports = (env) ->
   if env == 'development'
-    _.extend development, default
+    _.extend development, defaultConfig
     development
   else if env == 'production'
-    _.extend production, default
+    _.extend production, defaultConfig
     production
