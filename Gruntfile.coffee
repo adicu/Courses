@@ -19,6 +19,12 @@ module.exports = (grunt) ->
             'src/js/**/*.coffee'
           ]
 
+    forever:
+      options:
+        index: 'app/server.coffee'
+        command: 'coffee'
+        logDir: 'logs'
+
     ngmin:
       compile:
         files:
@@ -50,6 +56,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-forever'
 
   grunt.registerTask 'default', ['build', 'clean']
   grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify']

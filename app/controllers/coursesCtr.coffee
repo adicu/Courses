@@ -14,5 +14,5 @@ exports.query = (req, res) ->
     'CourseFull': CourseFull
     (err, courseData) ->
       throw err if err
-      CourseData.lookupSections courseData, (courseData) ->
-        res.jsonp courseData
+      CourseData.lookupSections courseData, (data) ->
+        res.jsonp data
