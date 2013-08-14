@@ -1,9 +1,19 @@
-<ul ng-repeat="course in courses">
-  <li>
-    <p class="timeSlotText
-    timeSlotTitle"><strong>{{course.id}}</strong>:
-    {{course.points}} pts<br />
-    {{course.title}}</p>
-    <button class="remove_link" ng-click="removeCourse(section.id)" ng-hide="section.overlaps">x</button>
-  </li>
-</ul>
+<div class="panel radius">
+  <h4 class="subheader">Current Courses</h4>
+  <h5
+    class="subheader"
+    ng-show="getTotalPoints() > 0">
+    {{getTotalPoints()}} credits
+  </h5>
+  <h5
+    class="subheader"
+    ng-hide="getTotalPoints() > 0">
+    :( <br /> No Courses. Go add some!
+  </h5>
+  <ul>
+    <li class="courseItem" ng-repeat="course in rawCourses">
+      <p class="courseTitle"><strong>{{course.id}}</strong>
+      <a class="removeButton" ng-click="removeCourse(course.id)">x</a>
+    </li>
+  </ul>
+</div>
