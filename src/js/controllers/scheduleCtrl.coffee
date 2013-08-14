@@ -8,6 +8,7 @@ angular.module('Courses.controllers')
   $scope.searchResults = []
   $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
+  $scope.rawCourses = calendar.getRawCourses()
   calendar.fillFromURL($scope.selectedSemester)
 
   $scope.getTotalPoints = ->
@@ -36,6 +37,8 @@ angular.module('Courses.controllers')
       calendar.addCourse course
 
   $scope.removeCourse = (id) ->
+    if not id
+      throw "ID not provided to removeCourse"
     closeModal()
     calendar.removeCourse id
     calendar.updateURL()
