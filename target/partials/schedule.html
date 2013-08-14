@@ -32,7 +32,7 @@
       <table>
         <thead id="daynames">
           <tr>
-            <th>{{getTotalPoints()}}</th>
+            <th></th>
             <th ng-repeat="day in days">{{day}}</th>
           </tr>
         </thead>
@@ -62,6 +62,7 @@
                   <p class="timeSlotText timeSlotOverlaps" ng-show="section.overlaps">{{section.overlaps.length + 1}} sections</p>  -->
                   <p class="timeSlotSections" ng-hide="section.parent.parent.status">Click for information</p>
                 </div>
+                <div class="fade"></div>
               </div>
             </div>
           </td>
@@ -74,9 +75,7 @@
     </div>
   </div>
   <div class="large-3 columns">
-    <div class="course-listing">
-      <div course-block></div>
-    </div>
+    <div course-block class="courseBlock"></div>
   </div>
 </div>
 

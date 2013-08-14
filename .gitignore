@@ -4,3 +4,4 @@
 target/js
 node_modules/
 generated/
+sftp-config.json

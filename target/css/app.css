@@ -5,7 +5,7 @@ header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opac
 span#byline {color: #777;}
 
 footer {
-  padding-bottom: 1em; 
+  padding-bottom: 1em;
   color: #888;
 }
 footer a {
@@ -28,7 +28,7 @@ strong { font-weight: bold; }
 
 #browser div.results {
   position: absolute; left: 0; top: 50px; z-index: 7;
-  border: 10px solid #75B2DD; 
+  border: 10px solid #75B2DD;
   background: white;
 }
 #browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
@@ -39,8 +39,8 @@ strong { font-weight: bold; }
   font-weight: bold;
   font-size: 0.9em;
 }
-#browser .results li p.description { 
-  font-size: 0.8em; 
+#browser .results li p.description {
+  font-size: 0.8em;
   margin-bottom: 0em;
 }
 
@@ -92,8 +92,6 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 }
 
 
-
-
 #calendar { position: relative; }
 #calendar table {
   background: none;
@@ -104,14 +102,15 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
 #calendar td.dayColumn { width: 20%; padding: 0 0 0 1px; height: 642px;}
 #calendar td.dayColumn > div { position: relative; height: 100%; width: 100%; }
 #calendar td.dayColumn .timeSlotWrapper {
+  border-radius: 2px;
+  padding: 0.3em;
   position: absolute;
   width: 100%;
-  background: #e9e9f5;
-  border-radius: 9px;
+  background: #073A59;
+  color: #FFF;
   overflow: hidden;
-  -moz-border-radius: 9px;
-  border:1px solid #222;}
-#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #333350; color: white; }
+}
+#calendar div.timeSlotWrapper:hover { cursor: pointer; background: #255979; }
 #calendar .timeSlotWrapper .remove_link, .timeslot_popup .remove_link {
   position: absolute; top: 0px; right: 3px; background: transparent; border: none; color: grey; font-weight: bold; font-size: 1.3em; padding: 0 5px;}
 .timeslot_popup .remove_link:hover {cursor:pointer; color: #222;}
@@ -119,9 +118,8 @@ div.errorMessage > div.box, div.errorMessage > div.backdrop {
   text-align: center;
 }
 #calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
-#calendar .timeSlotWrapper .remove_link { color: black; z-index:5; float:right; }
-#calendar .timeSlotWrapper:hover .remove_link { color: #bbb; }
-#calendar .timeSlotWrapper > div { padding: 5px; font-size: 0.85em; line-height: 1.1em; }
+#calendar .timeSlotWrapper .remove_link { color: #FFF; z-index:5; float:right; }
+#calendar .timeSlotWrapper > div { font-size: 0.85em; line-height: 1.1em; }
 #calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
 p.timeSlotSections {
   font-style: italic;
@@ -131,7 +129,7 @@ p.timeSlotSections {
   width: 35px;
   padding: 8px 5px 0px 9px;
   text-align: right;
-  font-size: 0.9em; 
+  font-size: 0.9em;
 }
 #calendar td.hourColumn div {
   position: relative;
@@ -165,7 +163,67 @@ div#app {
   margin-top: 2em;
 }
 
-/*Foundation*/
+.fade {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 40%;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+
+    /* "transparent" only works here because == rgba(0,0,0,0) */
+    border-radius: 2px;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, transparent),color-stop(1, #073A59));
+    background-image: -webkit-linear-gradient(12px, transparent, #073A59);
+    background-image: -moz-linear-gradient(top, transparent, #073A59);
+    background-image: -ms-linear-gradient(top, transparent, #073A59);
+    background-image: -o-linear-gradient(top, transparent, #073A59);
+  }
+
+
+@media only screen and (min-width: 768px) {
+  .courseBlock .panel {
+    min-height: 42.1em;
+    padding: 0.6em;
+  }
+}
+
+.courseBlock h4,
+.courseBlock h5 {
+  text-align: center;
+}
+
+.courseBlock .courseItem {
+  background: #073A59;
+  border-radius: 2px;
+  list-style: none;
+  margin: 0px 0px 0.4em 0px;
+  position: relative;
+}
+
+.courseBlock .courseItem p {
+  color: #FFF;
+  margin: 0em;
+  padding: 0.4em;
+}
+
+.courseBlock .courseTitle strong {
+  display: block;
+  text-align: center;
+}
+
+.courseBlock .removeButton {
+  color: #FFF;
+  position: absolute;
+  right: 0.4em;
+  top: -0.2em;
+}
+
+
+/**
+/* Foundation
+/*
+ */
 
 *,
 *:before,

@@ -15,6 +15,12 @@ angular.module('Courses.services')
           points += course.points
       return points
 
+    getRawCourses: () ->
+      if @courses
+        return @courses
+      else
+        return []
+
     fillFromURL: (semester) ->
       if $location.search().hasOwnProperty('sections')
         callnum_string = ($location.search()).sections
@@ -79,8 +85,8 @@ angular.module('Courses.services')
           if subsection.id == id
             return false
           return true
-      @courses[id] = false
-      @sections[id] = false
+      delete @courses[id]
+      delete @sections[id]
 
     sectionChosen: (section, updateurl=true) ->
       if section.parent
