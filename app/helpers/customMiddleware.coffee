@@ -1,6 +1,9 @@
 
 exports.validationHandler = (req, res, next) ->
-  errors = req.validationErrors()
-  if (errors)
-    res.send 'There have been validation errors: ' + util.inspect(errors), 400
-    return
+  req.onValidationError () ->
+    errors = @validationErrors()
+    if (errors)
+      res.jsonp 400, errors
+      res.end()
+      return
+  next()

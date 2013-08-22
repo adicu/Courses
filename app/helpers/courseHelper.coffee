@@ -4,15 +4,17 @@ Q = require 'q'
 CourseData = mongoose.model 'CourseData'
 SectionData = mongoose.model 'SectionData'
 
-cFindOne = Q.nbind CourseData.findOne, CourseData
-sFindOne = Q.nbind SectionData.findOne, SectionData
+findOneCourse = Q.nbind CourseData.findOne, CourseData
+findOneSection = Q.nbind SectionData.findOne, SectionData
 
 exports.courseBySectionCall = (callNumber) ->
   d = Q.defer()
-  sFindOne('CallNumber': callNumber)
+  findOneSection('CallNumber': callNumber)
   .then (sectionDoc) ->
-    cFindOne('Course': sectionDoc.Course)
+    d.reject 'No matching section found' if not sectionDoc
+    findOneCourse('Course': sectionDoc.Course)
     .then (courseDoc) ->
+      d.reject 'No course found for section' if not courseDoc
       CourseData.lookupSections(courseDoc)
       .then (courseWithSections) ->
         d.resolve courseWithSections
@@ -21,8 +23,9 @@ exports.courseBySectionCall = (callNumber) ->
 
 exports.findCourseAndGetSections = (courseID) ->
   d = Q.defer()
-  cFindOne('Course': courseID)
+  findOneCourse('Course': courseID)
   .then (courseDoc) ->
+    d.reject 'No matching course found' if not courseDoc
     CourseData.lookupSections(courseDoc)
     .then (courseWithSections) ->
       d.resolve courseWithSections

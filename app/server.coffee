@@ -20,14 +20,15 @@ require('./config/passport')(config)
 
 app = express()
 
-require('./config/routes')(config, app)
-
+# Middleware
 app.use express.compress()
 app.use express.bodyParser()
 app.use express.methodOverride()
-app.use app.router
 app.use expressValidator()
 app.use customMiddleware.validationHandler
+app.use app.router
+
+require('./config/routes')(config, app)
 
 port = process.env.NODE_PORT or 3000
 app.listen port

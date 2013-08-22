@@ -19,12 +19,6 @@ exports.query = (req, res) ->
   courseHelper.findCourseAndGetSections(courseID)
   .done (data) ->
     res.jsonp data
-
-exports.queryBySection = (req, res) ->
-  console.log req.query
-  callNumber = req.params.callNumber
-  SectionData.findOne
-    'CallNumber': callNumber
-    (err, sectionDoc) ->
-      throw err if err
-
+  , (err) ->
+    # Todo: err handling
+    res.jsonp err

@@ -1,6 +1,8 @@
 passport = require 'passport'
 
 coursesCtr = require '../controllers/coursesCtr'
+sectionsCtr = require '../controllers/sectionsCtr'
+
 
 module.exports = (config, app) ->
   app.get '/auth/facebook',
@@ -13,4 +15,4 @@ module.exports = (config, app) ->
 
   app.get '/courses/:term/:courseID', coursesCtr.query
 
-  app.get '/sections/:callNumber', coursesCtr.queryBySection
+  app.get '/sections/:callNumber', sectionsCtr.query
