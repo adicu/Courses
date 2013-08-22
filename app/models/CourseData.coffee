@@ -1,4 +1,5 @@
 mongoose = require 'mongoose'
+Q = require 'q'
 
 env = process.env.NODE_ENV or 'development'
 config = require('../config/config')(env)
@@ -22,17 +23,19 @@ CourseDataSchema = new Schema
   { collection: 'coursesd' }
 
 # Lazy lookup sections
-CourseDataSchema.statics.lookupSections = (courseData, callback) ->
-  callback() if not courseData.CourseFull
+CourseDataSchema.statics.lookupSections = (courseData) ->
+  d = Q.defer()
+  d.reject 'No course ref.' if not courseData.CourseFull
   courseData = courseData.toObject()
   SectionData.find
     'CourseFull': courseData.CourseFull
     (err, sections) ->
-      throw err if err
+      d.reject err if err
       courseData.sections = courseData.sections or []
       for section in sections
         courseData.sections.push section
-      callback(courseData)
+      d.resolve courseData
+  d.promise
 
 
 CourseData = mongoose.model 'CourseData', CourseDataSchema

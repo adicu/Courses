@@ -1,5 +1,7 @@
 coffeeScript = require 'coffee-script'
+customMiddleware = require './helpers/customMiddleware'
 express = require 'express'
+expressValidator = require 'express-validator'
 fs = require 'fs'
 mongoose = require 'mongoose'
 passport = require 'passport'
@@ -19,6 +21,13 @@ require('./config/passport')(config)
 app = express()
 
 require('./config/routes')(config, app)
+
+app.use express.compress()
+app.use express.bodyParser()
+app.use express.methodOverride()
+app.use app.router
+app.use expressValidator()
+app.use customMiddleware.validationHandler
 
 port = process.env.NODE_PORT or 3000
 app.listen port

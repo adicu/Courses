@@ -11,4 +11,6 @@ module.exports = (config, app) ->
     (req, res) ->
       res.send 'Shouldn\'t see this.'
 
-  app.get '/courses', coursesCtr.query
+  app.get '/courses/:term/:courseID', coursesCtr.query
+
+  app.get '/sections/:callNumber', coursesCtr.queryBySection

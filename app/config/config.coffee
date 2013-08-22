@@ -14,6 +14,7 @@ development =
 production =
   mongo:
     db: process.env.MONGO_DB or 'courses'
+    uriPre: 'mongodb://localhost/'
 
 module.exports = (env) ->
   if env == 'development'
