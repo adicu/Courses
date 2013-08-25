@@ -1,24 +1,16 @@
 angular.module('Courses.services')
 .factory 'Calendar', (
-    Course,
-    Section,
-    CalendarUtil,
-    $q,
+  Course,
+  Section,
+  CalendarUtil,
+  $q,
 ) ->
   class Calendar
     constructor: () ->
-      @courses = {}
-      @sections = {}
-      @courseCalendar = []
-      for i in [0..6]
-        @courseCalendar[i] = []
+      @courseGraph = new CourseGraph
 
     totalPoints: () ->
-      points = 0
-      for key,course of @courses
-        if course
-          points += course.points
-      return points
+      @courseGraph.totalPoints()
 
     fillFromURL: (semester) ->
       promise = CalendarUtil.fillFromURL semester
@@ -32,20 +24,20 @@ angular.module('Courses.services')
       CalendarUtil.updateURL @sections
 
     search: (query, semester) ->
-      CalendarUtil.search @, query, semester
-
-    addCourse: (course) ->
-      if @courses[course.id]
-        alert 'Warning: you have already selected this course'
-        return
-      if course.sections.length < 1
-        alert 'Warning: this course has no scheduled sections'
-        return
-
-      if course.sections.length > 1
-        @showAllSections course
+      d = $q.defer()
+      if query.match /^\d{5}$/
+        callnum = parseInt query, 10
+        s = new Section callnum, semester
+        s.fillData(Course).then (status) ->
+          calendar.sectionChosen s
+          calendar.updateURL()
+        d.resolve 'callnum'
       else
-        @sectionChosen course.sections[0]
+        CalendarUtil.runCourseQuery().then (results) ->
+          for result in results
+            new Course result._source.course, semester, result._source
+        d.resolve results
+      d.promise
 
     addSection: (section, canoverlap=true) ->
       @courses[section.id] = section.parent
@@ -85,10 +77,59 @@ angular.module('Courses.services')
       @removeCourse course.id
       @showAllSections course
 
+    @fillFromURL: (semester) ->
+      if $location.search().hasOwnProperty('sections')
+        callnum_string = ($location.search()).sections
+      else
+        # hash rather than empty to support legacy routes
+        callnum_string = $location.hash()
+      callnums = if callnum_string then callnum_string.split ',' else []
+
+      sections = for callnum in callnums
+        if callnum?
+          sec = new Section callnum, semester
+
+      promises = for sec in sections
+        sec.fillData Course
+
+    @updateURL: (sections) ->
+      str = ''
+      for key,section of sections
+        if section
+          str = str + section.data['CallNumber'] + ','
+      if str and str.charAt(str.length - 1) == ','
+        str = str.slice(0, -1)
+      # $location.hash ''
+      $location.search('sections', str)
+
+    @runCourseQuery: (query) ->
+      d = $q.defer()
+      elasticSearch
+        .query(
+            ejs.BoolQuery()
+            .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
+            .should(ejs.QueryStringQuery(query + '*')
+              .fields(['coursetitle^3', 'course^4', 'description',
+                'coursesubtitle', 'instructor^2']))
+            .should(ejs.QueryStringQuery('*' + query + '*')
+              .fields(['course', 'coursefull']))
+            .minimumNumberShouldMatch(1)
+        )
+        .doSearch()
+        .then (data) ->
+          processedResults = CalendarUtil.processQueryResults data
+          d.resolve processedResults
+      d.promise
+
+    @processQueryResults: (data) ->
+      return if not data? and not data.hits? and data.hits.hits?
+      results = data.hits.hits
+
     @getValidSemesters: ->
       semesters = []
-      month = new Date().getMonth()
-      year = new Date().getFullYear()
+      date = new Date()
+      month = date.getMonth()
+      year = date.getFullYear()
 
       effectiveMonth = month + 2
 
@@ -100,7 +141,6 @@ angular.module('Courses.services')
         effectiveMonth += 4
         semesters.push year + '' + semester
       semesters
-      semesters = ['20133', '20141']
 
     @getHours: ->
       return [8..23]
