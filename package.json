@@ -16,6 +16,9 @@
     "grunt-contrib-watch": "~0.4.4",
     "sha1": "~1.1.0",
     "grunt-forever": "~0.4.1",
-    "express-validator": "~0.7.0"
+    "express-validator": "~0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "breeze-mongodb": "0.0.5"
   }
 }

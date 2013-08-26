@@ -1,3 +1,5 @@
+/*Foundation*/
+
 *,
 *:before,
 *:after {
@@ -2777,6 +2779,11 @@ form.custom {
     color: #aaaaaa;
     font-weight: bold;
     cursor: pointer; }
+  .reveal-modal p {
+    line-height: 1.0; }
+  .reveal-modal p.description {
+    font-size: 85%;
+    line-height: 1.4; }
 
 @media only screen and (min-width: 48em) {
   .reveal-modal {
@@ -3686,7 +3693,7 @@ table {
     border-radius: 3px; }
 
 /* Tooltips */
-.has-tip {
+/*.has-tip {
   border-bottom: dotted 1px #cccccc;
   cursor: help;
   font-weight: bold;
@@ -3695,7 +3702,7 @@ table {
     border-bottom: dotted 1px #196177;
     color: #2ba6cb; }
   .has-tip.tip-left, .has-tip.tip-right {
-    float: none !important; }
+    float: none !important; }*/
 
 .tooltip {
   display: none;
