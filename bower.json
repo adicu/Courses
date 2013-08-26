@@ -16,7 +16,6 @@
   "dependencies": {
     "angular-ui-utils": "angular-ui/ui-utils#~0.0.4",
     "components-foundation": "~4.1.2",
-    "elastic.js": "~1.1.1",
-    "breeze": "~1.4.1"
+    "elastic.js": "~1.1.1"
   }
 }

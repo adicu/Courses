@@ -14,6 +14,8 @@ development =
 production =
   mongo:
     db: process.env.MONGO_DB or 'courses'
+    host: 'localhost'
+    port: 27017
     uriPre: 'mongodb://localhost/'
 
 module.exports = (env) ->

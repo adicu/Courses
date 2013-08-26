@@ -56,9 +56,6 @@ module.exports = (grunt) ->
             'bower_components/components-foundation/js/foundation.min.js'
             # Elastic.js Angular version
             'bower_components/elastic.js/src/clients/elastic-angular-client.js'
-            # BreezeJS
-            'bower_components/breeze/Breeze.Client/Scripts/breeze.debug.js'
-            'bower_components/breeze/Breeze.Client/Scripts/IBlade/breeze.dataService.mongo.js'
           ]
 
     watch:
