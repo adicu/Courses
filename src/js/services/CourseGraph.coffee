@@ -3,30 +3,26 @@ angular.module('Courses.services')
 
 ) ->
   class CourseGraph
-    constructor: (courses) ->
-      @insertCourses courses
+    constructor: () ->
       @courses = []
 
     insertCourse: (course) ->
-      if @courses[course.id]
+      if _.where(@courses, id: course.id) 
         alert 'Warning: you have already selected this course'
         return
       if course.sections.length < 1
         alert 'Warning: this course has no scheduled sections'
         return
 
-      if course.sections.length > 1
-        @showAllSections course
-      else
-        @sectionChosen course.sections[0]
+      @courses.push course
 
     insertCourses: (courses) ->
       for course in courses
         @insertCourse course
 
-    totalPoints: () ->
+    getTotalPoints: () ->
       points = 0
-      for key,course of @courses
-        if course
+      for course in @courses
+        if course.isSelected()
           points += course.points
       return points

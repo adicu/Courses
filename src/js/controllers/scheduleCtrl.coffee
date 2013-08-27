@@ -1,13 +1,17 @@
 angular.module('Courses.controllers')
-.controller 'scheduleCtrl', ($scope, Course, Calendar) ->
+.controller 'scheduleCtrl', (
+  $scope,
+  Calendar,
+  Course,
+  CourseHelper,
+) ->
   calendar = new Calendar
   $scope.hours = Calendar.getHours()
   $scope.days = Calendar.getDays()
-  $scope.semesters = Calendar.getValidSemesters()
+  $scope.semesters = CourseHelper.getValidSemesters()
   $scope.selectedSemester = $rootScope.selectedSemester =
     $scope.semesters[0]
   $scope.searchResults = []
-  $scope.courseCalendar = calendar.courseCalendar
   $scope.modalSection = {}
   calendar.fillFromURL($scope.selectedSemester)
 
