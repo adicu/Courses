@@ -50,8 +50,8 @@ module.exports = (grunt) ->
       lib:
         files:
           'target/lib/lib.min.js': [
-            # Angular-UI jQuery Passthrough
-            'bower_components/angular-ui-utils/modules/jq/jq.js'
+            # Angular-UI jQuery Passthrough - Shouldn't be needed anymore
+            # 'bower_components/angular-ui-utils/modules/jq/jq.js'
             # Foundation JS
             'bower_components/components-foundation/js/foundation.min.js'
             # Elastic.js Angular version

@@ -1,8 +1,14 @@
 angular.module('Courses.directives')
 .directive 'sectionModal', () ->
-    templateUrl: 'partials/sectionModal.html'
+    templateUrl: 'partials/directives/sectionModal.html'
 
-    link: (scope, elm, attrs) ->
-      scope.$on 'modalStateChange', (event, state) ->
-        modal = angular.element elm.children()[0]
-        modal.foundation('reveal', state)
+    scope:
+      isModalOpen: '='
+      modalSection: '='
+
+    link: (scope, iElement, iAttrs, controller) ->
+      $(iElement).foundation()
+
+    controller: ($scope, $element, $attrs, $transclude, otherInjectables) ->
+      $scope.$watch 'isOpen', (newValue, oldValue) ->
+        $(modal).foundation('reveal', newValue)

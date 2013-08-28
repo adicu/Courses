@@ -2,31 +2,29 @@ angular.module('Courses.services')
 .factory 'CourseQuery', (
   $http,
   $q,
+  $rootScope
   Course,
   Section,
   elasticSearch,
 ) ->
-  @source = ''
-  API_URL = 'db.adicu.com/api/' 
+  # Raw Querying class. Controllers shouldn't call directly.
+  API_URL = 'db.adicu.com/api/'
 
-  query: (query, term) ->
-    elasticSearch
-      .query(
-          ejs.BoolQuery()
-          .must(ejs.WildcardQuery('term', '*' + semester  + '*'))
-          .should(ejs.QueryStringQuery(query + '*')
-            .fields(['coursetitle^3', 'course^4', 'description',
-              'coursesubtitle', 'instructor^2']))
-          .should(ejs.QueryStringQuery('*' + query + '*')
-            .fields(['course', 'coursefull']))
-          .minimumNumberShouldMatch(1)
-      )
-      .doSearch()
-      .then (data) ->
-        processedResults = CalendarUtil.processQueryResults data
-        d.resolve processedResults
+  query: (query, term = $rootScope.selectedSemester) ->
+    d = $q.defer()
+    elasticSearch.executeCourseQuery(query, term)
+    .then (data) ->
+      console.log data
+      # TODO: Process data
+      d.resolve []
+    d.promise
 
-  queryBySectionCall: (callNumber, term, filters) ->
+  # @return {Promise<Section>} Section for given callNumber.
+  queryBySectionCall: (
+    callNumber,
+    term = $rootScope.selectedSemester,
+    filters
+  ) ->
     d = $q.defer()
     $http
       method: 'JSONP'
@@ -38,8 +36,8 @@ angular.module('Courses.services')
         withcourse: filters.withcourse or true
     .success (data, status, headers, config) =>
       course = new Course data
-      course.chooseSection callNumber
-      d.resolve course
+      section = course.selectSectionByCall callNumber
+      d.resolve section
     .error (data, status) ->
       d.reject new Error 'getCourseFromCall failed with status ' + status
     d.promise

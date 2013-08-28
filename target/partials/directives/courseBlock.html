@@ -1,0 +1,11 @@
+<div class="courseListing">
+  <ul ng-repeat="course in courses">
+    <li>
+      <p class="timeSlotText
+      timeSlotTitle"><strong>{{course.id}}</strong>:
+      {{course.points}} pts<br />
+      {{course.title}}</p>
+      <button class="remove_link" ng-click="removeCourse(section.id)" ng-hide="section.overlaps">x</button>
+    </li>
+  </ul>
+</div>

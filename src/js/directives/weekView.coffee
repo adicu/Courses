@@ -1,9 +1,9 @@
 angular.module('Courses.directives')
 .directive 'weekView', () ->
-    templateUrl: 'partials/weekView.html'
+    templateUrl: 'partials/directives/weekView.html'
 
-    scope:
-      calendar: '=calendar'
+    scope: true
 
-    link: (scope, elm, attrs) ->
-
+    controller: ($scope, $element, $attrs, $transclude, otherInjectables) ->
+      $scope.hours = Calendar.getHours()
+      $scope.days = Calendar.getDays()

@@ -1,0 +1,36 @@
+<div class="search">
+  <form ng-submit="search()" class="custom"
+  >
+    <div class="row collapse">
+      <div class="small-9 columns">
+        <input type="text" name="search_input"
+          ng-model="searchQuery"
+          ng-change="search()"
+          ng-click="search()"
+          placeholder="Type a course title to begin..."
+        />
+      </div>
+      <div class="small-1 columns">
+        <button class="prefix" ng-click="clearResults()">Clear</button>
+      </div>
+      <div class="small-2 columns">
+        <select
+          id="customDropdown"
+          ng-model="selectedSemester"
+          ng-options="semester | readableSemester for semester in semesters"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+<div class="results" ng-show="searchResults">
+  <ul class="no-bullet">
+    <li
+      class="course"
+      ng-click="courseSelect(result)"
+      ng-repeat="result in searchResults">
+      <p class="course-title">{{result.id}}: {{result.title}}</p>
+      <p class="description">{{result.description}}</p>
+    </li>
+  </ul>
+</div>

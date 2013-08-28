@@ -5,60 +5,28 @@ angular.module('Courses.controllers')
   Course,
   CourseHelper,
 ) ->
-  calendar = new Calendar
-  $scope.hours = Calendar.getHours()
-  $scope.days = Calendar.getDays()
+  calendar = $scope.calendar = new Calendar
   $scope.semesters = CourseHelper.getValidSemesters()
   $scope.selectedSemester = $rootScope.selectedSemester =
     $scope.semesters[0]
-  $scope.searchResults = []
+
+  $scope.isModalOpen = false
   $scope.modalSection = {}
+
   calendar.fillFromURL($scope.selectedSemester)
 
   $scope.getTotalPoints = ->
     calendar.totalPoints()
 
-  $scope.search = ->
-    query = $scope.searchQuery
-    if not query or query.length == 0
-      $scope.clearResults()
-      return
-    Calendar.search(query, $scope.selectedSemester)
-      .then (data) ->
-        if data == 'callnum'
-          $scope.clearResults()
-        else
-          $scope.searchResults = data
-
-  $scope.clearResults = ->
-    $scope.searchResults = []
-    $scope.searchQuery = ""
-
-  $scope.courseSelect = (course) ->
-    $scope.clearResults()
-    course.fillData().then (status) ->
-      return if not status
-      console.log course
-      calendar.addCourse course
-
   $scope.removeCourse = (id) ->
-    closeModal()
+    $scope.closeModal()
     calendar.removeCourse id
     calendar.updateURL()
 
-  $scope.sectionSelect = (subsection) ->
-    section = subsection.parent
-    if section.parent.status
-      calendar.sectionChosen section
-      calendar.updateURL()
-    else
-      openModal()
-      $scope.modalSection = section
-
-  closeModal = ->
-    $scope.$broadcast 'modalStateChange', 'close'
-  openModal = ->
-    $scope.$broadcast 'modalStateChange', 'open'
+  $scope.closeModal = ->
+    $scope.isModalOpen = false
+  $scope.openModal = ->
+    $scope.isModalOpen = true
 
   $scope.changeSections = (section) ->
     closeModal()

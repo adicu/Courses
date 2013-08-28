@@ -1,0 +1,39 @@
+<div id="calendar">
+  <table>
+    <thead id="daynames">
+      <tr>
+        <th ng-repeat="day in days">{{day}}</th>
+      </tr>
+    </thead>
+    <tbody id="daybodies">
+    <tr>
+      <td id="hours" class="hourColumn">
+        <div ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
+      </td>
+      <td class="dayColumn" ng-repeat="day in days">
+        <div id="{{day}}">
+          <div
+            ng-repeat="section in courseCalendar[$index]"
+            class="timeSlotWrapper {{section.id}}"
+            ng-style="section.css"
+            ng-click="sectionSelect(section)"
+            title="{{section.id}}: {{section.title}}">
+            <div class="timeSlot">
+              <p class="timeSlotSections" ng-show="section.parent.parent.status">Select a section</p>
+              <p class="timeSlotText
+              timeSlotTitle"><strong>{{section.id}}</strong>:
+              {{section.parent.parent.points}} pts<br />
+              {{section.title}}</p>
+              <button class="remove_link" ng-click="removeCourse(section.id)" ng-hide="section.overlaps">x</button>
+              <p class="timeSlotSections">Click for information</p>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div id="guides">
+    <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
+  </div>
+</div>

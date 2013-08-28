@@ -10,13 +10,14 @@ angular.module('Courses.services')
       @callNumber = @data.CallNumber
 
     addSubsections: () ->
-      for meets, i in data.MeetsOn
+      for meets, i in @data.MeetsOn
         subsection =
-          building:  data.Building[i]
-          room:      data.Room[i]
-          meetsOn:   CourseHelper.parseDays data.MeetsOn[i]
-          startTime: CourseHelper.parseTime data.StartTime[i]
-          endTime:   CourseHelper.parseTime data.EndTime[i]
+          building:  @data.Building[i]
+          room:      @data.Room[i]
+          points:    @parentCourse.points
+          meetsOn:   CourseHelper.parseDays @data.MeetsOn[i]
+          startTime: CourseHelper.parseTime @data.StartTime[i]
+          endTime:   CourseHelper.parseTime @data.EndTime[i]
         @subsections.push subsection
 
     isSelected: () ->

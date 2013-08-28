@@ -25,38 +25,46 @@ angular.module('Courses.services')
     updateURL: () ->
       CalendarUtil.updateURL @sections
 
-    search: (query, semester) ->
+    # @return [Promise<Course>] | string Array of courses
+    #   or string representing type of search.
+    search: (query, term) ->
       d = $q.defer()
       if query.match /^\d{5}$/
+        # Query is a section call number.
         callnum = parseInt query, 10
         CourseQuery.getCourseFromCall(callnum).then (course) ->
-          CourseGraph.insertCourse course
+          @insertCourse course
         d.resolve 'callnum'
       else
-        CourseQuery.query(query, semester).then (results) ->
-          for result in results
-            new Course result._source.course, semester, result._source
-        d.resolve results
+        CourseQuery.query(query, term).then (courses) ->
+          for course in courses
+            @insertCourse course
+          d.resolve courses
       d.promise
 
-    sectionSelected: (section, shouldUpdateURL=true) ->
-      section.setSelfChosen
+    insertCourse: (course) ->
+      CourseGraph.insertCourse course
+
+    sectionSelected: (section, shouldUpdateURL = true) ->
+      section.selectSelf()
       @updateURL() if shouldUpdateURL
 
-    @fillFromURL: (semester) ->
+    @fillFromURL: (term) ->
       if $location.search().hasOwnProperty('sections')
         callnum_string = ($location.search()).sections
       else
-        # hash rather than empty to support legacy routes
+        # Support legacy routes using hash
         callnum_string = $location.hash()
       callnums = if callnum_string then callnum_string.split ',' else []
 
-      sections = for callnum in callnums
-        if callnum?
-          sec = new Section callnum, semester
+      promises =
+        for callnum in callnums
+          continue if not callnum
+          CourseQuery.queryBySectionCall callnum, term
 
-      promises = for sec in sections
-        sec.fillData Course
+      $q.all(promises).then (sections)->
+        for section in sections
+          @insertCourse section.parentCourse
 
     @updateURL: (sections) ->
       str = ''
