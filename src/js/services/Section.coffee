@@ -23,6 +23,13 @@ angular.module('Courses.services')
     isSelected: () ->
       @selected
 
+    isSelectedForDay: (day) ->
+      for subsection in @subsections
+        for meetDay in subsection.meetsOn
+          if meetDay == day
+            return true
+      return false
+
     selectSelf: () ->
       @selected = true
       if @parentCourse

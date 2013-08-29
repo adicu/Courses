@@ -11,15 +11,25 @@ angular.module('Courses.services')
     constructor: () ->
       @courseGraph = new CourseGraph
 
-    totalPoints: () ->
+    getTotalPoints: () ->
       @courseGraph.getTotalPoints()
 
-    fillFromURL: (semester) ->
-      promise = CalendarUtil.fillFromURL semester
-      $q.all(promise).then (sections) =>
-        console.log sections
-        for sec in sections
-          @sectionSelected sec
+    fillFromURL: (term) ->
+      if $location.search().hasOwnProperty('sections')
+        callnum_string = ($location.search()).sections
+      else
+        # Support legacy routes using hash
+        callnum_string = $location.hash()
+      callnums = if callnum_string then callnum_string.split ',' else []
+
+      promises =
+        for callnum in callnums
+          continue if not callnum
+          CourseQuery.queryBySectionCall callnum, term
+
+      $q.all(promises).then (sections)->
+        for section in sections
+          @insertCourse section.parentCourse
         @updateURL()
 
     updateURL: () ->
@@ -49,23 +59,6 @@ angular.module('Courses.services')
       section.selectSelf()
       @updateURL() if shouldUpdateURL
 
-    @fillFromURL: (term) ->
-      if $location.search().hasOwnProperty('sections')
-        callnum_string = ($location.search()).sections
-      else
-        # Support legacy routes using hash
-        callnum_string = $location.hash()
-      callnums = if callnum_string then callnum_string.split ',' else []
-
-      promises =
-        for callnum in callnums
-          continue if not callnum
-          CourseQuery.queryBySectionCall callnum, term
-
-      $q.all(promises).then (sections)->
-        for section in sections
-          @insertCourse section.parentCourse
-
     @updateURL: (sections) ->
       str = ''
       for key,section of sections
@@ -73,7 +66,7 @@ angular.module('Courses.services')
           str = str + section.data['CallNumber'] + ','
       if str and str.charAt(str.length - 1) == ','
         str = str.slice(0, -1)
-      # $location.hash ''
+      $location.hash ''
       $location.search('sections', str)
 
     @getHours: ->

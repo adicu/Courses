@@ -15,20 +15,5 @@ angular.module('Courses.controllers')
 
   calendar.fillFromURL($scope.selectedSemester)
 
-  $scope.getTotalPoints = ->
-    calendar.totalPoints()
-
-  $scope.removeCourse = (id) ->
-    $scope.closeModal()
-    calendar.removeCourse id
-    calendar.updateURL()
-
-  $scope.closeModal = ->
-    $scope.isModalOpen = false
-  $scope.openModal = ->
-    $scope.isModalOpen = true
-
-  $scope.changeSections = (section) ->
-    closeModal()
-    course = section.parent
-    calendar.changeSections course
+  $scope.getTotalPoints = () ->
+    calendar.getTotalPoints()

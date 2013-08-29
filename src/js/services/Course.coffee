@@ -46,5 +46,16 @@ angular.module('Courses.services')
         @selectedSections.push section
       section
 
+    # Returns selected sections for a given day.
+    # @param number day int representing which day
+    #   is wanted. 0 -> M, 1 -> T, etc.
+    getSectionsByDay: (day) ->
+      sectionsByDay =
+        for section in @selectedSections
+          if section.isSelectedForDay(day)
+            section
+          else
+            continue
+
     isSelected: () ->
       new Boolean @selectedSections.length
