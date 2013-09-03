@@ -14,11 +14,13 @@
     "grunt-ngmin": "0.0.3",
     "grunt-contrib-clean": "~0.4.1",
     "grunt-contrib-watch": "~0.4.4",
+    "grunt-usemin": "~0.1.12",
     "sha1": "~1.1.0",
     "grunt-forever": "~0.4.1",
     "express-validator": "~0.7.0",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-cssmin": "~0.6.1",
-    "breeze-mongodb": "0.0.5"
+    "breeze-mongodb": "0.0.5",
+    "q": "~0.9.6"
   }
 }
