@@ -1,11 +1,11 @@
 angular.module('Courses.services')
 .factory 'Calendar', (
+  $location,
+  $q,
   Course,
   CourseGraph,
   CourseQuery,
   Section,
-  CalendarUtil,
-  $q,
 ) ->
   class Calendar
     constructor: () ->
@@ -27,13 +27,22 @@ angular.module('Courses.services')
           continue if not callnum
           CourseQuery.queryBySectionCall callnum, term
 
-      $q.all(promises).then (sections)->
+      $q.all(promises).then (sections) =>
         for section in sections
           @insertCourse section.parentCourse
         @updateURL()
 
     updateURL: () ->
-      CalendarUtil.updateURL @sections
+      # TODO: implement
+      return
+      str = ''
+      for key,section of sections
+        if section
+          str = str + section.data['CallNumber'] + ','
+      if str and str.charAt(str.length - 1) == ','
+        str = str.slice(0, -1)
+      $location.hash ''
+      $location.search('sections', str)
 
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
@@ -53,24 +62,17 @@ angular.module('Courses.services')
       d.promise
 
     insertCourse: (course) ->
-      CourseGraph.insertCourse course
+      @courseGraph.insertCourse course
 
     sectionSelected: (section, shouldUpdateURL = true) ->
       section.selectSelf()
       @updateURL() if shouldUpdateURL
 
-    @updateURL: (sections) ->
-      str = ''
-      for key,section of sections
-        if section
-          str = str + section.data['CallNumber'] + ','
-      if str and str.charAt(str.length - 1) == ','
-        str = str.slice(0, -1)
-      $location.hash ''
-      $location.search('sections', str)
+    getSectionArray: () ->
+      @courseGraph.getSectionsByDay @getDays()
 
-    @getHours: ->
+    getHours: ->
       return [8..23]
 
-    @getDays: ->
-      ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+    getDays: ->
+      return [0..6]

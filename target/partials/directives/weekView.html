@@ -2,30 +2,38 @@
   <table>
     <thead id="daynames">
       <tr>
-        <th ng-repeat="day in days">{{day}}</th>
+        <th ng-repeat="day in days">{{day | readableDay}}</th>
       </tr>
     </thead>
     <tbody id="daybodies">
     <tr>
       <td id="hours" class="hourColumn">
-        <div ng-repeat="hour in hours">{{hour | toTwelveHours}}</div>
+        <div ng-repeat="hour in getHours()">{{hour | toTwelveHours}}</div>
       </td>
-      <td class="dayColumn" ng-repeat="day in days">
-        <div id="{{day}}">
+      <td class="dayColumn" ng-repeat="day in getDays()">
+        <div id="day-{{day}}">
           <div
-            ng-repeat="section in courseCalendar[$index]"
-            class="timeSlotWrapper {{section.id}}"
-            ng-style="section.css"
-            ng-click="sectionSelect(section)"
-            title="{{section.id}}: {{section.title}}">
-            <div class="timeSlot">
-              <p class="timeSlotSections" ng-show="section.parent.parent.status">Select a section</p>
-              <p class="timeSlotText
-              timeSlotTitle"><strong>{{section.id}}</strong>:
-              {{section.parent.parent.points}} pts<br />
-              {{section.title}}</p>
-              <button class="remove_link" ng-click="removeCourse(section.id)" ng-hide="section.overlaps">x</button>
-              <p class="timeSlotSections">Click for information</p>
+            ng-repeat="section in sectionArray[day]">
+            <div
+              ng-repeat="subsection in section"
+              class="timeSlotWrapper"
+              ng-click="sectionSelect(section)"
+              ng-style="subsection.css"
+              title="{{section.id}}: {{section.title}}">
+              <div class="timeSlot">
+                <p class="timeSlotText timeSlotTitle">
+                  <strong>{{section.idFull}}</strong>:
+                  {{section.points}} pts<br />
+                  {{section.title}}
+                </p>
+                <button
+                  class="remove_link"
+                  ng-click="removeCourse(section.id)"
+                  ng-hide="section.overlaps">
+                  x
+                </button>
+                <p class="timeSlotSections">Click for information</p>
+              </div>
             </div>
           </div>
         </div>

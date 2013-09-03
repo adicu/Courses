@@ -1,7 +1,6 @@
 angular.module('Courses.services')
 .factory 'Course', (
   $q,
-  CoursesLoader,
   Section,
 ) ->
   class Course
@@ -10,7 +9,9 @@ angular.module('Courses.services')
       @selectedSections = []
 
       @id = @data.Course
+      @idFull = @data.CourseFull
       @points = @data.NumFixedUnits / 10.0
+      @title = @data.CourseTitle
 
       @createSections()
 

@@ -14,8 +14,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-utils": "angular-ui/ui-utils#~0.0.4",
-    "components-foundation": "~4.1.2",
-    "elastic.js": "~1.1.1"
+    "angular-ui-utils": "~0.0.4",
+    "elastic.js": "~1.1.1",
+    "foundation": "~4.3.1"
   }
 }

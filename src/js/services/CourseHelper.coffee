@@ -4,7 +4,7 @@ angular.module('Courses.services')
   # M => 0, W => 2, etc.
 	parseDays: (days) ->
 	  return if not days?
-	  daysAbbr = Section.options.daysAbbr
+	  daysAbbr = CourseHelper.getOptions().daysAbbr
 	  for day in days
 	    if daysAbbr.indexOf day isnt -1
 	      daysAbbr.indexOf day
@@ -18,9 +18,9 @@ angular.module('Courses.services')
     floatTime = hour + minute / 60.0
 
   getOptions: () ->
-    pixels_per_hour: 38
-    start_hour: 8
-    top_padding: 38
+    pixelsPerHour: 38
+    startHour: 8
+    topPadding: 38
     daysAbbr: "MTWRF"
 
   urlFromSectionFull: (sectionfull) ->
@@ -29,16 +29,16 @@ angular.module('Courses.services')
     @url = sectionfull.replace re, cu_base + '$1/$3$2-'+ @data.Term + '-$4'
     @sectionNum = sectionfull.replace re, '$4'
 
-  computeCss: (start, end) ->
+  computeCSS: (start, end) ->
     return if not start?
+    options = CourseHelper.getOptions()
     top_pixels = Math.abs(start -
-        Section.options.start_hour) * Section.options.pixels_per_hour +
-        Section.options.top_padding
-    height_pixels = Math.abs(end-start) * Section.options.pixels_per_hour
+        options.startHour) * options.pixelsPerHour +
+        options.topPadding
+    height_pixels = Math.abs(end-start) * options.pixelsPerHour
 
-    return
-      top: top_pixels
-      height: height_pixels
+    top: top_pixels
+    height: height_pixels
 
   getValidSemesters: ->
     semesters = []

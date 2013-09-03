@@ -1,6 +1,7 @@
 angular.module('Courses.controllers')
 .controller 'scheduleCtrl', (
   $scope,
+  $rootScope,
   Calendar,
   Course,
   CourseHelper,

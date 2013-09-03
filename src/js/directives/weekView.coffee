@@ -4,6 +4,12 @@ angular.module('Courses.directives')
 
     scope: true
 
-    controller: ($scope, $element, $attrs, $transclude, otherInjectables) ->
-      $scope.hours = Calendar.getHours()
-      $scope.days = Calendar.getDays()
+    controller: ($scope, $element, $attrs, $transclude) ->
+      calendar = $scope.calendar
+
+      $scope.sectionArray = calendar.getSectionArray()
+
+      $scope.getDays = () ->
+        calendar.getDays()
+      $scope.getHours = () ->
+        calendar.getHours()

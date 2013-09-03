@@ -1,11 +1,11 @@
 angular.module('Courses.services')
 .factory 'elasticSearch', (ejsResource) ->
   ES_URL = 'http://db.data.adicu.com:9200'
-  resource = ejsResource(ES_URL)
-  request = resource.Request().indices('jdbc')
+  ejs = ejsResource(ES_URL)
+  request = ejs.Request().indices('jdbc')
 
   executeCourseQuery: (query, term) ->
-    elasticSearch
+    request
       .query(
           ejs.BoolQuery()
           .must(ejs.WildcardQuery('term', '*' + term  + '*'))

@@ -8,6 +8,10 @@ angular.module('Courses.services')
       @selected = false
 
       @callNumber = @data.CallNumber
+      @id = @parentCourse.id
+      @idFull = @parentCourse.idFull
+      @points = @parentCourse.points
+      @title = @parentCourse.title
 
     addSubsections: () ->
       for meets, i in @data.MeetsOn
@@ -18,6 +22,8 @@ angular.module('Courses.services')
           meetsOn:   CourseHelper.parseDays @data.MeetsOn[i]
           startTime: CourseHelper.parseTime @data.StartTime[i]
           endTime:   CourseHelper.parseTime @data.EndTime[i]
+        subsection.css = CourseHelper.computeCSS subsection.startTime,
+          subsection.endTime
         @subsections.push subsection
 
     isSelected: () ->
@@ -34,3 +40,4 @@ angular.module('Courses.services')
       @selected = true
       if @parentCourse
         @parentCourse.selectSection @
+

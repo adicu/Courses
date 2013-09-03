@@ -38,25 +38,39 @@ module.exports = (grunt) ->
 
     uglify:
       src:
-        options:
-          mangle: true
-          sourceMap: 'target/js/courses.min.js.map'
-          sourceMapIn: 'target/js/courses.js.map'
-          sourceMapRoot: '/js'
-          sourceMappingURL: '/js/courses.min.js.map'
         files:
           'target/js/courses.min.js': ['generated/js/courses.ngmin.js']
+        # options:
+        #   mangle: true
+        #   sourceMap: 'target/js/courses.min.js.map'
+        #   sourceMapIn: 'target/js/courses.js.map'
+        #   sourceMapRoot: '/js'
+        #   sourceMappingURL: '/js/courses.min.js.map'
+        options:
+          mangle: false
+          beautify:
+            width: 80
+            beautify: true
 
       lib:
         files:
           'target/lib/lib.min.js': [
             # Angular-UI jQuery Passthrough - Shouldn't be needed anymore
-            # 'bower_components/angular-ui-utils/modules/jq/jq.js'
-            # Foundation JS
-            'bower_components/components-foundation/js/foundation.min.js'
+            'bower_components/angular-ui-utils/modules/jq/jq.js'
             # Elastic.js Angular version
-            'bower_components/elastic.js/src/clients/elastic-angular-client.js'
+            'bower_components/elastic.js/dist/elastic.js'
+            'bower_components/elastic.js/dist/elastic-angular-client.js'
+            # Foundation JS
+            'bower_components/foundation/js/foundation/foundation.js'
+            'bower_components/foundation/js/foundation/foundation.forms.js'
+            'bower_components/foundation/js/foundation/foundation.reveal.js'
+            'bower_components/foundation/js/foundation/foundation.dropdown.js'
           ]
+        options:
+          mangle: false
+          beautify:
+            width: 80
+            beautify: true
 
     watch:
       scripts:
@@ -75,7 +89,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-forever'
-  grunt.loadNpmTasks 'grunt-usemin'
 
   grunt.registerTask 'default', ['build', 'clean']
   grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify', 'cssmin']
