@@ -5,7 +5,7 @@ header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opac
 span#byline {color: #777;}
 
 footer {
-  padding-bottom: 1em; 
+  padding-bottom: 1em;
   color: #888;
 }
 footer a {
@@ -28,7 +28,7 @@ strong { font-weight: bold; }
 
 #browser div.results {
   position: absolute; left: 0; top: 50px; z-index: 7;
-  border: 10px solid #75B2DD; 
+  border: 10px solid #75B2DD;
   background: white;
 }
 #browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
@@ -39,8 +39,8 @@ strong { font-weight: bold; }
   font-weight: bold;
   font-size: 0.9em;
 }
-#browser .results li p.description { 
-  font-size: 0.8em; 
+#browser .results li p.description {
+  font-size: 0.8em;
   margin-bottom: 0em;
 }
 
@@ -103,7 +103,7 @@ p.timeSlotSections {
   width: 35px;
   padding: 8px 5px 0px 9px;
   text-align: right;
-  font-size: 0.9em; 
+  font-size: 0.9em;
 }
 #calendar td.hourColumn div {
   position: relative;

@@ -75,4 +75,4 @@ angular.module('Courses.services')
       return [8..23]
 
     getDays: ->
-      return [0..6]
+      return [0..4]

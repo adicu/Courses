@@ -2,7 +2,8 @@
   <table>
     <thead id="daynames">
       <tr>
-        <th ng-repeat="day in days">{{day | readableDay}}</th>
+        <th />
+        <th ng-repeat="day in getDays()">{{day | readableDay}}</th>
       </tr>
     </thead>
     <tbody id="daybodies">
@@ -42,6 +43,6 @@
     </tbody>
   </table>
   <div id="guides">
-    <div ng-repeat="hour in hours" id="{{hour + '-guide'}}"></div>
+    <div ng-repeat="hour in getHours()" id="{{hour + '-guide'}}"></div>
   </div>
 </div>
