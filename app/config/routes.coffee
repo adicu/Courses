@@ -2,6 +2,7 @@ passport = require 'passport'
 
 coursesCtr = require '../controllers/coursesCtr'
 sectionsCtr = require '../controllers/sectionsCtr'
+departmentCtr = require '../controllers/departmentCtr'
 
 
 module.exports = (config, app) ->
@@ -16,3 +17,5 @@ module.exports = (config, app) ->
   app.get '/courses/:term/:courseID', coursesCtr.query
 
   app.get '/sections/:callNumber', sectionsCtr.query
+
+  app.get '/deparments/:department', departmentCtr.query

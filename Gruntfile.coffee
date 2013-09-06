@@ -40,17 +40,12 @@ module.exports = (grunt) ->
       src:
         files:
           'target/js/courses.min.js': ['generated/js/courses.ngmin.js']
-        # options:
-        #   mangle: true
-        #   sourceMap: 'target/js/courses.min.js.map'
-        #   sourceMapIn: 'target/js/courses.js.map'
-        #   sourceMapRoot: '/js'
-        #   sourceMappingURL: '/js/courses.min.js.map'
         options:
-          mangle: false
-          beautify:
-            width: 80
-            beautify: true
+          mangle: true
+          sourceMap: 'target/js/courses.min.js.map'
+          sourceMapIn: 'target/js/courses.js.map'
+          sourceMapRoot: '/js'
+          sourceMappingURL: '/js/courses.min.js.map'
 
       lib:
         files:
@@ -66,11 +61,11 @@ module.exports = (grunt) ->
             'bower_components/foundation/js/foundation/foundation.reveal.js'
             'bower_components/foundation/js/foundation/foundation.dropdown.js'
           ]
-        options:
-          mangle: false
-          beautify:
-            width: 80
-            beautify: true
+        # options:
+        #   mangle: false
+        #   beautify:
+        #     width: 80
+        #     beautify: true
 
     watch:
       scripts:

@@ -1,3 +1,4 @@
+check = require('validator').check
 mongoose = require 'mongoose'
 Q = require 'q'
 
@@ -28,7 +29,7 @@ CourseDataSchema.statics.lookupSections = (courseData) ->
   d.reject 'No course ref.' if not courseData.CourseFull
   courseData = courseData.toObject()
   SectionData.find
-    'CourseFull': courseData.CourseFull
+    Course: courseData.CourseFull
     (err, sections) ->
       d.reject err if err
       courseData.sections = courseData.sections or []
@@ -36,6 +37,18 @@ CourseDataSchema.statics.lookupSections = (courseData) ->
         courseData.sections.push section
       d.resolve courseData
   d.promise
+
+CourseDataSchema.statics.findByDepartment = (department) ->
+  d = Q.defer()
+  check(department).notNull().isAlpha()
+  CourseData.find
+    Course: new RegExp('^' + department, i)
+    (err, docs) ->
+      d.reject err if err
+      d.resolve docs
+  d.promise
+
+
 
 
 CourseData = mongoose.model 'CourseData', CourseDataSchema

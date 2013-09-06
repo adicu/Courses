@@ -5,6 +5,7 @@ angular.module("Courses", [
   'Courses.filters',
   'Courses.services',
   'Courses.directives',
+  'Courses.constants',
   'elasticjs.service',
   'ui.jq',
   ])

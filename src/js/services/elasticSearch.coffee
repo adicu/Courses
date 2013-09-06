@@ -1,10 +1,14 @@
 angular.module('Courses.services')
-.factory 'elasticSearch', (ejsResource) ->
+.factory 'elasticSearch', (
+  $q,
+  ejsResource,
+) ->
   ES_URL = 'http://db.data.adicu.com:9200'
   ejs = ejsResource(ES_URL)
   request = ejs.Request().indices('jdbc')
 
   executeCourseQuery: (query, term) ->
+    d = $q.defer()
     request
       .query(
           ejs.BoolQuery()
@@ -18,5 +22,5 @@ angular.module('Courses.services')
       )
       .doSearch()
       .then (data) ->
-        processedResults = CalendarUtil.processQueryResults data
-        d.resolve processedResults
+        d.resolve data
+    d.promise

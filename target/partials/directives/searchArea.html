@@ -2,12 +2,22 @@
   <form ng-submit="search()" class="custom"
   >
     <div class="row collapse">
-      <div class="small-9 columns">
+      <div class="small-2 columns">
+        <select
+          class="departmentDropdown"
+          ng-model="selectedDepartment"
+          ng-options="department for department in DEPARTMENTS"
+        >
+          <option value="" selected>Department</option>
+        </select>
+      </div>
+      <div class="small-7 columns">
         <input type="text" name="search_input"
           ng-model="searchQuery"
           ng-change="search()"
           ng-click="search()"
-          placeholder="Type a course title to begin..."
+          ng-disabled="!selectedDepartment"
+          placeholder="{{getSearchbarPlaceholder()}}"
         />
       </div>
       <div class="small-1 columns">

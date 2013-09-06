@@ -8,9 +8,16 @@ angular.module('Courses.directives')
 
   scope: true
 
-  controller: ($scope, $element, $attrs, $transclude) ->
+  controller: ($scope, $element, $attrs, DEPARTMENTS) ->
     $scope.searchResults = []
+    $scope.DEPARTMENTS = DEPARTMENTS
     calendar = $scope.calendar
+
+    $scope.getSearchbarPlaceholder = () ->
+      if $scope.selectedDepartment
+        'Type a course title to begin...'
+      else
+        '<- Select a department or enter call number'
 
     $scope.search = ->
       query = $scope.searchQuery
