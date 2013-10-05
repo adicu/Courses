@@ -60,3 +60,20 @@ angular.module('Courses.services')
 
     isSelected: () ->
       new Boolean @selectedSections.length
+
+    # @return [Promise<Course>] | string Array of courses
+    #   or string representing type of search.
+    @search: (query, term) ->
+      d = $q.defer()
+      if query.match /^\d{5}$/
+        # Query is a section call number.
+        callnum = parseInt query, 10
+        CourseQuery.getCourseFromCall(callnum).then (course) ->
+          @insertCourse course
+        d.resolve 'callnum'
+      else
+        CourseQuery.query(query, term).then (courses) ->
+          for course in courses
+            @insertCourse course
+          d.resolve courses
+      d.promise

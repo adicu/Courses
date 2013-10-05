@@ -2,7 +2,7 @@ angular.module('Courses.services')
 .factory 'CourseQuery', (
   $http,
   $q,
-  $rootScope
+  $rootScope,
   Course,
   Section,
   elasticSearch,
