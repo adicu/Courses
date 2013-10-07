@@ -4,7 +4,6 @@ angular.module('Courses.services')
   $q,
   Course,
   CourseGraph,
-  CourseQuery,
   Section,
 ) ->
   class Calendar
@@ -51,11 +50,11 @@ angular.module('Courses.services')
       if query.match /^\d{5}$/
         # Query is a section call number.
         callnum = parseInt query, 10
-        CourseQuery.getCourseFromCall(callnum).then (course) ->
+        Course.queryBySectionCall(callnum).then (course) ->
           @insertCourse course
         d.resolve 'callnum'
       else
-        CourseQuery.query(query, term).then (data) ->
+        Course.query(query, term).then (data) ->
           d.resolve data
       d.promise
 
