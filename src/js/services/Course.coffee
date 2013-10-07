@@ -1,10 +1,13 @@
 angular.module('Courses.services')
 .factory 'Course', (
+  $http,
   $q,
+  $rootScope,
+  CONFIG,
   Section,
 ) ->
   class Course
-    constructor: (@data) ->
+    constructor: (@data, term) ->
       @sections = []
       @selectedSections = []
 
@@ -13,11 +16,17 @@ angular.module('Courses.services')
       @points = @data.NumFixedUnits / 10.0
       @title = @data.CourseTitle
 
-      @createSections()
+      @createSections(term)
 
-    createSections: () ->
-      for sectionData in @data.sections
-        section = new Section sectionData, @
+    # Create sections from data JSON
+    # @param term to filter on
+    createSections: (term) ->
+      for sectionData in @data.Sections
+        if term
+          if sectionData.Term == term
+            section = new Section sectionData, @
+        else
+          section = new Section sectionData, @
         @addSection section
 
     addSection: (section) ->
@@ -63,7 +72,7 @@ angular.module('Courses.services')
 
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
-    @search: (query, term) ->
+    @search: (query, term = $rootScope.selectedSemester) ->
       d = $q.defer()
       if query.match /^\d{5}$/
         # Query is a section call number.
@@ -76,4 +85,25 @@ angular.module('Courses.services')
           for course in courses
             @insertCourse course
           d.resolve courses
+      d.promise
+
+    # @return [Promise<Course>] given its corresponding CourseFull info.
+    # ex. COMSW1004
+    @fetchByCourseFull: (courseFull, term = $rootScope.selectedSemester) ->
+      d = $q.defer()
+      $http
+        method: 'JSONP'
+        url: CONFIG.DATA_API + 'courses'
+        params:
+          jsonp: 'JSON_CALLBACK'
+          api_token: CONFIG.API_TOKEN
+          course_full: courseFull
+      .success (data) ->
+        if !(data.data and data.data.length > 0)
+          d.reject new Error 'No matching course for courseFull: ' + courseFull
+        course = new Course data.data[0], term
+        console.log course
+        d.resolve course
+      .error (data, status) ->
+        d.reject new Error 'fetchByCourseFull failed with status ' + status
       d.promise

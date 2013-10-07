@@ -55,10 +55,8 @@ angular.module('Courses.services')
           @insertCourse course
         d.resolve 'callnum'
       else
-        CourseQuery.query(query, term).then (courses) ->
-          for course in courses
-            @insertCourse course
-          d.resolve courses
+        CourseQuery.query(query, term).then (data) ->
+          d.resolve data
       d.promise
 
     insertCourse: (course) ->

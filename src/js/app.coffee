@@ -6,7 +6,6 @@ angular.module("Courses", [
   'Courses.services',
   'Courses.directives',
   'Courses.constants',
-  'elasticjs.service',
   'ui.jq',
   ])
     .config ($routeProvider) ->

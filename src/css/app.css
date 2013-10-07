@@ -30,6 +30,7 @@ strong { font-weight: bold; }
   position: absolute; left: 0; top: 50px; z-index: 7;
   border: 10px solid #75B2DD;
   background: white;
+  width: 100%;
 }
 #browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
 #browser .results li { padding: 10px; font-size: 1.1em; }
