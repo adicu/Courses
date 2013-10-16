@@ -1,4 +1,4 @@
-angular.module('Courses.services')
+angular.module('Courses.models')
 .factory 'Section', (
   CourseHelper,
 ) ->
@@ -40,4 +40,3 @@ angular.module('Courses.services')
       @selected = true
       if @parentCourse
         @parentCourse.selectSection @
-

@@ -17,3 +17,11 @@ angular.module("Courses", [
         templateUrl: "partials/directory.html"
         controller: 'directoryCtrl'
       $routeProvider.otherwise redirectTo: "/schedule"
+
+# Init internal modules here
+# This is to make sure the modules are defined before
+# the other code tries to add things to them
+angular.module('Courses.controllers', [])
+angular.module('Courses.directives', [])
+angular.module('Courses.models', [])
+angular.module('Courses.services', [])

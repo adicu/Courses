@@ -1,8 +1,8 @@
-angular.module('Courses.services')
-  .factory 'CourseGraph', (
+angular.module('Courses.models')
+  .factory 'Schedule', (
 
 ) ->
-  class CourseGraph
+  class Schedule
     constructor: () ->
       @courses = []
 

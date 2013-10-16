@@ -1,4 +1,4 @@
-angular.module('Courses.services')
+angular.module('Courses.models')
 .factory 'Course', (
   $http,
   $q,
@@ -92,7 +92,7 @@ angular.module('Courses.services')
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: CONFIG.DATA_API + 'search'
+        url: "#{CONFIG.DATA_API}search/"
         params:
           jsonp: 'JSON_CALLBACK'
           api_token: CONFIG.API_TOKEN
@@ -114,7 +114,7 @@ angular.module('Courses.services')
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: CONFIG.COURSES_API + 'sections/' + callNumber
+        url: "#{CONFIG.COURSES_API}sections/#{callNumber}"
         params:
           jsonp: 'JSON_CALLBACK'
           call_number: callNumber
@@ -134,7 +134,7 @@ angular.module('Courses.services')
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: CONFIG.DATA_API + 'courses'
+        url: "#{CONFIG.DATA_API}courses/"
         params:
           jsonp: 'JSON_CALLBACK'
           api_token: CONFIG.API_TOKEN

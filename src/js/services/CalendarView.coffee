@@ -1,17 +1,17 @@
 angular.module('Courses.services')
-.factory 'Calendar', (
+.factory 'CalendarView', (
   $location,
   $q,
   Course,
-  CourseGraph,
+  Schedule,
   Section,
 ) ->
-  class Calendar
+  class CalendarView
     constructor: () ->
-      @courseGraph = new CourseGraph
+      @currentSchedule = new Schedule
 
     getTotalPoints: () ->
-      @courseGraph.getTotalPoints()
+      @currentSchedule.getTotalPoints()
 
     fillFromURL: (term) ->
       if $location.search().hasOwnProperty('sections')
@@ -52,21 +52,25 @@ angular.module('Courses.services')
         callnum = parseInt query, 10
         Course.queryBySectionCall(callnum).then (course) ->
           @insertCourse course
+        , (error) ->
+          throw error if error
         d.resolve 'callnum'
       else
         Course.query(query, term).then (data) ->
           d.resolve data
+        , (error) ->
+          throw error if error
       d.promise
 
     insertCourse: (course) ->
-      @courseGraph.insertCourse course
+      @currentSchedule.insertCourse course
 
     sectionSelected: (section, shouldUpdateURL = true) ->
       section.selectSelf()
       @updateURL() if shouldUpdateURL
 
     getSectionArray: () ->
-      @courseGraph.getSectionsByDay @getDays()
+      @currentSchedule.getSectionsByDay @getDays()
 
     getHours: ->
       return [8..23]
