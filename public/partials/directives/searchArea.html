@@ -28,7 +28,7 @@
   <ul class="no-bullet">
     <li
       class="course"
-      ng-click="courseSelect(result)"
+      ng-click="courseSelect({course: result})"
       ng-repeat="result in searchResults">
       <p class="course-title">{{result.CourseFull}}: {{result.CourseTitle}}</p>
       <p class="description">{{result.Description}}</p>

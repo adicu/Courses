@@ -1,13 +1,17 @@
 angular.module('Courses.models')
-  .factory 'Schedule', (
-
+.factory 'Schedule', (
+  $location,
+  $q,
+  Course,
+  Section,
 ) ->
   class Schedule
     constructor: () ->
       @courses = []
 
-    insertCourse: (course) ->
-      if _.where(@courses, id: course.id)
+    addCourse: (course) ->
+      console.log course.id
+      if _.findWhere(@courses, id: course.id)
         alert 'Warning: you have already selected this course'
         return
       if course.sections.length < 1
@@ -16,13 +20,30 @@ angular.module('Courses.models')
 
       @courses.push course
 
-    insertCourses: (courses) ->
+    addCourses: (courses) ->
       for course in courses
-        @insertCourse course
+        @addCourse course
+
+    fillFromURL: (term) ->
+      if $location.search().hasOwnProperty('sections')
+        callnum_string = ($location.search()).sections
+      else
+        # Support legacy routes using hash
+        callnum_string = $location.hash()
+      callnums = if callnum_string then callnum_string.split ',' else []
+
+      promises =
+        for callnum in callnums
+          continue if not callnum
+          CourseQuery.queryBySectionCall callnum, term
+
+      $q.all(promises).then (sections) =>
+        for section in sections
+          @addCourse section.parentCourse
 
     # @param [number] days ints representing which days
     #   are wanted. Ex. [0, 1, 2] -> MTW
-    getSectionsByDay: (days) ->
+    getSectionsByDay: (days = @getDays()) ->
       selectedCourses = _.filter @courses, (course) ->
         return course.isSelected()
       sectionsByDay = []
@@ -41,3 +62,9 @@ angular.module('Courses.models')
         if course.isSelected()
           points += course.points
       return points
+
+    getHours: ->
+      return [8..23]
+
+    getDays: ->
+      return [0..4]

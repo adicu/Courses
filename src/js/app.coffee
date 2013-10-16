@@ -1,11 +1,12 @@
 "use strict"
 
 angular.module("Courses", [
-  'Courses.controllers',
-  'Courses.filters',
-  'Courses.services',
-  'Courses.directives',
   'Courses.constants',
+  'Courses.controllers',
+  'Courses.directives',
+  'Courses.filters',
+  'Courses.models',
+  'Courses.services',
   'ui.jq',
   ])
     .config ($routeProvider) ->

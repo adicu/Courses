@@ -3,17 +3,14 @@ angular.module('Courses.directives')
     templateUrl: 'partials/directives/sectionModal.html'
 
     scope:
-      calendar: '@'
-      modalSection: '@'
-      removeCourse: '@'
+      modalSection: '='
+      isModalOpen: '='
 
     link: (scope, iElement, iAttrs, controller) ->
       $(iElement).foundation()
 
     controller: ($scope, $element, $attrs, $transclude) ->
-      calendar = $scope.calendar
-
-      $scope.$watch 'isOpen', (newValue, oldValue) ->
+      $scope.$watch 'isModalOpen', (newValue, oldValue) ->
         $($element).foundation('reveal', newValue)
 
       $scope.removeCourse = (id) ->

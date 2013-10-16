@@ -3,16 +3,21 @@ angular.module('Courses.directives')
   $rootScope,
   $timeout,
   Course,
-  CourseHelper
+  CourseHelper,
+  Schedule,
 ) ->
   templateUrl: 'partials/directives/searchArea.html'
-
-  scope: true
+  restrict: 'E'
+  scope:
+    onselect: '&'
 
   controller: ($scope, $element, $attrs, $timeout) ->
     $scope.searchResults = []
-    calendar = $scope.calendar
     previousSearch = null
+
+    $scope.semesters = CourseHelper.getValidSemesters()
+    $scope.selectedSemester = $rootScope.selectedSemester =
+      $scope.semesters[0]
 
     # Actual searching function
     runSearch = () ->
@@ -20,10 +25,11 @@ angular.module('Courses.directives')
       if not query or query.length == 0
         $scope.clearResults()
         return
-      calendar.search(query, $scope.selectedSemester)
+      Course.search(query, $scope.selectedSemester)
         .then (data) ->
           if data == 'callnum'
             $scope.clearResults()
+            # TODO: Success message
           else
             console.log data
             $scope.searchResults = data
@@ -37,12 +43,10 @@ angular.module('Courses.directives')
         # Search has finshed, clear previousSearch
         previousSearch = null
 
+    $scope.courseSelect = (course) ->
+      $scope.clearResults()
+      $scope.onselect course
+
     $scope.clearResults = () ->
       $scope.searchResults = []
       $scope.searchQuery = ""
-
-    $scope.courseSelect = (course) ->
-      $scope.clearResults()
-      Course.fetchByCourseFull(course.CourseFull).then (course) ->
-        console.log 'Added: ' + course
-        calendar.addCourse course

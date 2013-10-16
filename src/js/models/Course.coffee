@@ -77,22 +77,25 @@ angular.module('Courses.models')
       if query.match /^\d{5}$/
         # Query is a section call number.
         callnum = parseInt query, 10
-        CourseQuery.queryBySectionCall(callnum).then (course) ->
-          @insertCourse course
-        d.resolve 'callnum'
+        Course.queryBySectionCall(callnum).then (course) ->
+          d.resolve 'callnum'
+        , (error) ->
+          d.reject error
       else
-        CourseQuery.query(query, term).then (courses) ->
-          for course in courses
-            @insertCourse course
-          d.resolve courses
+        Course.query(query, term).then (courseData) ->
+          d.resolve courseData
+        , (error) ->
+          d.reject error
       d.promise
 
-    # Full text search
+    # Full text search over courses
+    # @return [{}] representing Course data
+    #   Not Courses because ES doesn't give full information
     @query: (query, term = $rootScope.selectedSemester) ->
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: "#{CONFIG.DATA_API}search/"
+        url: "#{CONFIG.DATA_API}search"
         params:
           jsonp: 'JSON_CALLBACK'
           api_token: CONFIG.API_TOKEN
@@ -132,9 +135,11 @@ angular.module('Courses.models')
     # ex. COMSW1004
     @fetchByCourseFull: (courseFull, term = $rootScope.selectedSemester) ->
       d = $q.defer()
+      if not courseFull
+        throw new Error 'courseFull required'
       $http
         method: 'JSONP'
-        url: "#{CONFIG.DATA_API}courses/"
+        url: "#{CONFIG.DATA_API}courses"
         params:
           jsonp: 'JSON_CALLBACK'
           api_token: CONFIG.API_TOKEN

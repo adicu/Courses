@@ -2,14 +2,13 @@ angular.module('Courses.directives')
 .directive 'weekView', () ->
     templateUrl: 'partials/directives/weekView.html'
 
-    scope: true
+    scope:
+      schedule: '='
 
     controller: ($scope, $element, $attrs, $transclude) ->
-      calendar = $scope.calendar
-
-      $scope.sectionArray = calendar.getSectionArray()
+      # $scope.sectionArray = calendar.getSectionArray()
 
       $scope.getDays = () ->
-        calendar.getDays()
+        $scope.schedule.getDays()
       $scope.getHours = () ->
-        calendar.getHours()
+        $scope.schedule.getHours()
