@@ -5,7 +5,7 @@
   "authors": [
     "brishin <ds2791@columbia.edu>"
   ],
-  "main": "/target",
+  "main": "/public",
   "ignore": [
     "**/.*",
     "node_modules",

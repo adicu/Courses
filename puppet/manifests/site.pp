@@ -59,7 +59,7 @@ node 'development.adicu.com' {
 
   nginx::resource::vhost { 'courses.adicu.com':
     ensure => present,
-    www_root => '/vagrant/target'
+    www_root => '/vagrant/public'
   }
 
   nginx::resource::location { 'courses.adicu.com-backend':

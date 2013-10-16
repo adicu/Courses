@@ -1,9 +1,9 @@
 *.swp
 *~
 .DS_Store
-target/css
-target/js
-target/lib
+public/css
+public/js
+public/lib
 node_modules/
 bower_components/
 generated/

@@ -11,7 +11,7 @@ module.exports = (grunt) ->
     coffee:
       src:
         files:
-          'target/js/courses.js': [
+          'public/js/courses.js': [
             'src/js/**/*.coffee'
           ]
         options:
@@ -21,7 +21,7 @@ module.exports = (grunt) ->
     cssmin:
       src:
         files:
-          'target/css/app.min.css': [
+          'public/css/app.min.css': [
             'src/css/**/*.css'
           ]
 
@@ -34,22 +34,22 @@ module.exports = (grunt) ->
     ngmin:
       compile:
         files:
-          'generated/js/courses.ngmin.js': ['target/js/courses.js']
+          'generated/js/courses.ngmin.js': ['public/js/courses.js']
 
     uglify:
       src:
         files:
-          'target/js/courses.min.js': ['generated/js/courses.ngmin.js']
+          'public/js/courses.min.js': ['generated/js/courses.ngmin.js']
         options:
           mangle: true
-          sourceMap: 'target/js/courses.min.js.map'
-          sourceMapIn: 'target/js/courses.js.map'
+          sourceMap: 'public/js/courses.min.js.map'
+          sourceMapIn: 'public/js/courses.js.map'
           sourceMapRoot: '/js'
           sourceMappingURL: '/js/courses.min.js.map'
 
       lib:
         files:
-          'target/lib/lib.min.js': [
+          'public/lib/lib.min.js': [
             # Angular-UI jQuery Passthrough - Shouldn't be needed anymore
             'bower_components/angular-ui-utils/modules/jq/jq.js'
             # Elastic.js Angular version

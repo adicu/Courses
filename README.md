@@ -8,6 +8,6 @@ Build instructions:
 2. `sudo npm install -g grunt-cli`
 3. In this project directory: `npm install`
 4. In this project directory: `grunt`
-5. Serve `target/` however you like.
+5. Serve `public/` however you like.
 
 Make sure you copy the Facebook client secret into `settings.courses`.
