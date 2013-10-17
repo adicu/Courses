@@ -18,7 +18,7 @@ angular.module('Courses.controllers')
     $scope.schedule.getTotalPoints()
 
   $scope.sectionSelected = (section, shouldUpdateURL = true) ->
-    section.selectSelf()
+    section.select()
     @updateURL() if shouldUpdateURL
 
   updateURL: () ->
@@ -33,6 +33,8 @@ angular.module('Courses.controllers')
     $location.hash ''
     $location.search('sections', str)
 
+  # Course is selected, say from search
+  # Course should now be added to the schedule.
   $scope.courseSelect = (course) ->
     Course.fetchByCourseFull(course.CourseFull).then (course) ->
       console.log 'Added course: ', course

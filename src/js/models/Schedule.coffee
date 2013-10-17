@@ -3,27 +3,37 @@ angular.module('Courses.models')
   $location,
   $q,
   Course,
+  CourseState,
   Section,
 ) ->
   class Schedule
     constructor: () ->
       @courses = []
+      @sectionsByDay = []
+
+      for day in @getDays()
+        @sectionsByDay[day] = []
 
     addCourse: (course) ->
       console.log course.id
       if _.findWhere(@courses, id: course.id)
         alert 'Warning: you have already selected this course'
         return
-      if course.sections.length < 1
-        alert 'Warning: this course has no scheduled sections'
+      if course.isValid() isnt true
+        alert 'Warning: this course is invalid'
         return
 
       @courses.push course
+      # Testing
+      # course.sections[0].select()
+      course.state CourseState.EXCLUSIVE_VISIBLE
+      @update()
 
     addCourses: (courses) ->
       for course in courses
         @addCourse course
 
+    # Fills the schedule from the URL parameters
     fillFromURL: (term) ->
       if $location.search().hasOwnProperty('sections')
         callnum_string = ($location.search()).sections
@@ -41,20 +51,42 @@ angular.module('Courses.models')
         for section in sections
           @addCourse section.parentCourse
 
+    # Will generated an array of all selected courses
+    # which have sections for given day(s)
     # @param [number] days ints representing which days
     #   are wanted. Ex. [0, 1, 2] -> MTW
+    #   Call with no param to get all days
     getSectionsByDay: (days = @getDays()) ->
       selectedCourses = _.filter @courses, (course) ->
         return course.isSelected()
       sectionsByDay = []
       for day in days
         sectionsByDay[day] = []
-        sections = _.map selectedCourses, (course) ->
-          course.getSectionsByDay(day)
+        sections =
+          for course in selectedCourses
+            course.getSectionsByDay(day)
+        sections = _.flatten sections
         for section in sections
-          if section
-            sectionsByDay[day].push section
+          sectionsByDay[day].push section
       sectionsByDay
+
+    # Exclusively show all the sections of a given course
+    exclusiveShowCourse: (course) ->
+      sectionsByDay = []
+      for day in @getDays()
+        sectionsByDay[day] = course.getSectionsByDay day, false
+
+      @sectionsByDay = sectionsByDay
+
+    # Run to update section arrays after new courses are added.
+    update: () ->
+      courseStates = for course in @courses
+        course.state()
+      exVisIndex = courseStates.indexOf CourseState.EXCLUSIVE_VISIBLE
+      if exVisIndex isnt -1
+        @exclusiveShowCourse @courses[exVisIndex]
+      else
+        @sectionsByDay = @getSectionsByDay()
 
     getTotalPoints: () ->
       points = 0

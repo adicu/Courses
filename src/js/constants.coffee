@@ -9,3 +9,8 @@ angular.module('Courses.constants', [])
     DATA_API: 'http://data.adicu.com/courses/v2/'
     API_TOKEN: '51ffc99d0b18dc0002859b8d'
 )
+.value(
+  'CourseState',
+    VISIBLE: 1                      # Normal view
+    EXCLUSIVE_VISIBLE: 2            # Hide all other Courses
+)

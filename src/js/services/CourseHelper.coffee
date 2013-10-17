@@ -4,7 +4,7 @@ angular.module('Courses.services')
   # M => 0, W => 2, etc.
 	parseDays: (days) ->
 	  return if not days?
-	  daysAbbr = CourseHelper.getOptions().daysAbbr
+	  daysAbbr = @getOptions().daysAbbr
 	  for day in days
 	    if daysAbbr.indexOf day isnt -1
 	      daysAbbr.indexOf day
@@ -17,11 +17,29 @@ angular.module('Courses.services')
     minute = parseInt (time.slice 3, 5), 10
     floatTime = hour + minute / 60.0
 
+  # Renames fields like Building1 to Building
+  # and makes Building an array
+  santizeData: (data) ->
+    specialFields = @getOptions().specialFields
+    for field in specialFields
+      data[field] = []
+      for i in [1..2]
+        if data[field + i]
+          data[field].push data[field + i]
+        delete data[field + i]
+
   getOptions: () ->
     pixelsPerHour: 38
     startHour: 8
     topPadding: 38
     daysAbbr: "MTWRF"
+    specialFields: [
+      'Building',
+      'EndTime',
+      'MeetsOn',
+      'Room',
+      'StartTime'
+    ]
 
   urlFromSectionFull: (sectionfull) ->
     re = /([a-zA-Z]+)(\d+)([a-zA-Z])(\d+)/g
@@ -31,7 +49,7 @@ angular.module('Courses.services')
 
   computeCSS: (start, end) ->
     return if not start?
-    options = CourseHelper.getOptions()
+    options = @getOptions()
     top_pixels = Math.abs(start -
         options.startHour) * options.pixelsPerHour +
         options.topPadding

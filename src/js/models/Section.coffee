@@ -6,12 +6,15 @@ angular.module('Courses.models')
     constructor: (@data, @parentCourse) ->
       @subsections = []
       @selected = false
+      CourseHelper.santizeData @data
 
       @callNumber = @data.CallNumber
       @id = @parentCourse.id
-      @idFull = @parentCourse.idFull
+      @IDFull = @parentCourse.IDFull
       @points = @parentCourse.points
       @title = @parentCourse.title
+
+      @addSubsections()
 
     addSubsections: () ->
       for meets, i in @data.MeetsOn
@@ -29,14 +32,27 @@ angular.module('Courses.models')
     isSelected: () ->
       @selected
 
-    isSelectedForDay: (day) ->
+    isOnDay: (day) ->
       for subsection in @subsections
         for meetDay in subsection.meetsOn
           if meetDay == day
             return true
       return false
 
-    selectSelf: () ->
-      @selected = true
+    # Checks to see if this section is valid
+    isValid: () ->
+      validity =
+        @IDFull? and
+        @title? and
+        @points? and
+        @subsections? and
+        @subsections.length > 0
+      validity
+
+    getParentCourse: () ->
+      @parentCourse
+
+    select: (state = true) ->
+      @selected = state
       if @parentCourse
-        @parentCourse.selectSection @
+        @parentCourse.selectSection this, state

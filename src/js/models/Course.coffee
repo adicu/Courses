@@ -4,6 +4,7 @@ angular.module('Courses.models')
   $q,
   $rootScope,
   CONFIG,
+  CourseState,
   Section,
 ) ->
   class Course
@@ -12,9 +13,10 @@ angular.module('Courses.models')
       @selectedSections = []
 
       @id = @data.Course
-      @idFull = @data.CourseFull
+      @IDFull = @data.CourseFull
       @points = @data.NumFixedUnits / 10.0
       @title = @data.CourseTitle
+      @_state = CourseState.VISIBLE
 
       @createSections(term)
 
@@ -34,16 +36,18 @@ angular.module('Courses.models')
       if section.isSelected()
         @selectedSections.push section
 
+    # Select or deselect sections
     # @return {Section} Returns section on success.
-    selectSection: (section) ->
-      return section if section.isSelected()
-      if _.findWhere(@selectedSections, callNumber: section.callNumber)
-        # This section is already selected.
-        # TODO: Error handling.
-        return false
+    selectSection: (section, state = true) ->
+      if state
+        if _.findWhere(@selectedSections, callNumber: section.callNumber)
+          # Section is already selected
+          return section
+        else
+          @selectedSections.push section
       else
-        @selectedSections.push section
-      section
+        @selectedSections = _.filter @selectedSections, (x) ->
+          x.callNumber isnt section.callNumber
 
     # @return {Section} Returns section for call on success.
     selectSectionByCall: (callNumber) ->
@@ -59,16 +63,32 @@ angular.module('Courses.models')
     # Returns selected sections for a given day.
     # @param number day int representing which day
     #   is wanted. 0 -> M, 1 -> T, etc.
-    getSectionsByDay: (day) ->
-      sectionsByDay =
-        for section in @selectedSections
-          if section.isSelectedForDay(day)
-            section
-          else
-            continue
+    # @param  filterSelected to filter to only selected sections
+    getSectionsByDay: (day, filterSelected = true) ->
+      if filterSelected
+        sectionsByDay = _.filter @selectedSections, (section) ->
+          section.isOnDay(day)
+      else
+        sectionsByDay = _.filter @sections, (section) ->
+          section.isOnDay(day)
+      sectionsByDay
 
     isSelected: () ->
       new Boolean @selectedSections.length
+
+    # Checks various things to see if this course is valid
+    isValid: () ->
+      selfCheck = @IDFull? and @title? and @points?
+      childrenCheck = true
+      for section in @sections
+        childrenCheck = childrenCheck and section.isValid()
+      selfCheck and childrenCheck
+
+    # Setter and getter for state
+    state: (newState) ->
+      if newState
+        @_state = newState
+      @_state
 
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
