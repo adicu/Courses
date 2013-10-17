@@ -9,9 +9,9 @@ node 'development.adicu.com' {
 
   exec { 'load_development_data':
     command => '/usr/bin/mongorestore -d courses \
-        /vagrant/development_dump/coursesd.bson && \
+        /vagrant/puppet/development_dump/coursesd.bson && \
         /usr/bin/mongorestore -d courses \
-        /vagrant/development_dump/sectionsd.bson',
+        /vagrant/puppet/development_dump/sectionsd.bson',
     require => Class['mongodb']
   }
 
@@ -34,7 +34,7 @@ node 'development.adicu.com' {
   include supervisord
 
   supervisord::program { 'courses_server':
-    command         => "/bin/bash /vagrant/start_backend.sh",
+    command         => "/bin/bash /vagrant/scripts/start_backend.sh",
     directory       => "/vagrant",
     user            => "courses",
     stdout_logfile  => "/var/log/supervisor/courses_server.log",
