@@ -8,6 +8,7 @@ angular.module('Courses.directives')
     schedule: '='
 
   controller: ($scope, $element, $attrs, $transclude) ->
+    $scope.schedule.fillFromURL()
 
     $scope.getDays = () ->
       $scope.schedule.getDays()
