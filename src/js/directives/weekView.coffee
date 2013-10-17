@@ -21,3 +21,7 @@ angular.module('Courses.directives')
       section.getParentCourse().state CourseState.VISIBLE
       section.select()
       $scope.schedule.update()
+
+    $scope.removeSection = (section) ->
+      section.select false
+      $scope.schedule.update()
