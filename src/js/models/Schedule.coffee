@@ -24,14 +24,22 @@ angular.module('Courses.models')
         return
 
       @courses.push course
-      # Testing
-      # course.sections[0].select()
-      course.state CourseState.EXCLUSIVE_VISIBLE
+      if course.sections.length is 1
+        # Only one section, select by default
+        course.sections[0].select()
+      else
+        # Show all the course's sections
+        course.state CourseState.EXCLUSIVE_VISIBLE
       @update()
 
     addCourses: (courses) ->
       for course in courses
         @addCourse course
+
+    removeCourse: (course) ->
+      @courses = _.reject @courses, (c) ->
+        c.IDFull is course.IDFull
+      @update()
 
     # Fills the schedule from the URL parameters
     fillFromURL: (term) ->
