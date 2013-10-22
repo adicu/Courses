@@ -1,6 +1,5 @@
 <div class="search">
-  <form ng-submit="search()" class="custom"
-  >
+  <form ng-submit="search()" class="custom">
     <div class="row collapse">
       <div class="small-9 columns">
         <input type="text" name="search_input"
@@ -13,8 +12,7 @@
       <div class="small-1 columns">
         <button class="prefix" ng-click="clearResults()">Clear</button>
       </div>
-      <div class="small-2 columns"
-        ui-jq="foundation">
+      <div class="small-2 columns">
         <select
           id="customDropdown"
           ng-model="selectedSemester"
@@ -30,8 +28,12 @@
       class="course"
       ng-click="courseSelect({course: result})"
       ng-repeat="result in searchResults">
-      <p class="course-title">{{result.CourseFull}}: {{result.CourseTitle}}</p>
-      <p class="description">{{result.Description}}</p>
+      <p class="course-title">
+        {{result.CourseFull}}: {{result.CourseTitle}}
+      </p>
+      <p class="description">
+        {{result.Description}}
+      </p>
     </li>
   </ul>
 </div>

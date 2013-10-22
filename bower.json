@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "angular-ui-utils": "~0.0.4",
-    "foundation": "~4.3.1"
+    "foundation": "~4.3.1",
+    "angular-easyfb": "~0.2.0"
   }
 }

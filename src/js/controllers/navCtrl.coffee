@@ -1,5 +1,9 @@
 angular.module('Courses.controllers')
-.controller 'navCtrl', ($scope, $location) ->
+.controller 'navCtrl', (
+  $scope,
+  $rootScope,
+  $location,
+) ->
   styles = []
 
   $scope.$on '$routeChangeSuccess', ->
@@ -13,3 +17,6 @@ angular.module('Courses.controllers')
   clearStyles = ->
     for style in styles
       $scope[style] = null
+
+  $scope.fbUser = () ->
+    $rootScope.fbUser

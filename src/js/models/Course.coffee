@@ -167,6 +167,7 @@ angular.module('Courses.models')
       .success (data) ->
         if !(data.data and data.data.length > 0)
           d.reject new Error 'No matching course for courseFull: ' + courseFull
+          return
         course = new Course data.data[0], term
         console.log course
         d.resolve course

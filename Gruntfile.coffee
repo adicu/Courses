@@ -4,6 +4,11 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
 
+    bower:
+      install:
+        options:
+          copy: false
+
     clean:
       src:
         ['generated/']
@@ -60,6 +65,8 @@ module.exports = (grunt) ->
             'bower_components/foundation/js/foundation/foundation.forms.js'
             'bower_components/foundation/js/foundation/foundation.reveal.js'
             'bower_components/foundation/js/foundation/foundation.dropdown.js'
+            # angular-easyfb
+            'bower_components/angular-easyfb/angular-easyfb.js'
           ]
         # options:
         #   mangle: false
@@ -72,7 +79,7 @@ module.exports = (grunt) ->
         files:
           ['src/**/*.coffee']
         tasks:
-          ['default']
+          ['build', 'clean']
         options:
           livereload: true
 
@@ -82,8 +89,10 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+  grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-forever'
 
-  grunt.registerTask 'default', ['build', 'clean']
-  grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify', 'cssmin']
+  grunt.registerTask 'default', ['build', 'lib', 'clean']
+  grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'cssmin']
+  grunt.registerTask 'lib', ['bower', 'uglify:lib']
