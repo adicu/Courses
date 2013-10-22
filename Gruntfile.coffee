@@ -36,6 +36,15 @@ module.exports = (grunt) ->
         command: 'coffee'
         logDir: 'logs'
 
+    less:
+      src:
+        files:
+          'public/css/app.min.css': [
+            'src/css/**/*.less'
+          ]
+        options:
+          yuicompress: true
+
     ngmin:
       compile:
         files:
@@ -81,12 +90,15 @@ module.exports = (grunt) ->
         tasks:
           ['build', 'clean']
         options:
+          debounceDelay: 250
           livereload: true
+          spawn: false
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-cssmin'
+  grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-bower-task'
@@ -94,5 +106,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-forever'
 
   grunt.registerTask 'default', ['build', 'lib', 'clean']
-  grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'cssmin']
+  grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'less']
   grunt.registerTask 'lib', ['bower', 'uglify:lib']

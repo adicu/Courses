@@ -1,6 +1,4 @@
 /* Application */
-header h1 { font-size: 1.5em; }
-header img#seal { position: absolute; top: 220px; left: 410px; z-index: -1; opacity: 0.1; }
 
 span#byline {color: #777;}
 
@@ -13,12 +11,6 @@ footer a {
 }
 footer a:hover { color: #666;}
 footer div#reportBug { text-align: right; padding-right: 30px; }
-
-div.noscript{ margin: 40px 0; }
-strong { font-weight: bold; }
-
-
-#fb_share_link { border:none; overflow:hidden; width: 175px; height:21px; position: relative; top: 12px; float: right;}
 
 #print { background: transparent; border: none; position: absolute; top: 12px; right: 0; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
 #print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
@@ -115,21 +107,21 @@ p.timeSlotSections {
 }
 
 .fade {
-    position: absolute;
-    bottom: 0; left: 0;
-    height: 40%;
-    width: 100%;
-    text-align: center;
-    margin: 0;
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 40%;
+  width: 100%;
+  text-align: center;
+  margin: 0;
 
-    /* "transparent" only works here because == rgba(0,0,0,0) */
-    border-radius: 2px;
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, transparent),color-stop(1, #073A59));
-    background-image: -webkit-linear-gradient(12px, transparent, #073A59);
-    background-image: -moz-linear-gradient(top, transparent, #073A59);
-    background-image: -ms-linear-gradient(top, transparent, #073A59);
-    background-image: -o-linear-gradient(top, transparent, #073A59);
-  }
+  /* "transparent" only works here because == rgba(0,0,0,0) */
+  border-radius: 2px;
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, transparent),color-stop(1, #073A59));
+  background-image: -webkit-linear-gradient(12px, transparent, #073A59);
+  background-image: -moz-linear-gradient(top, transparent, #073A59);
+  background-image: -ms-linear-gradient(top, transparent, #073A59);
+  background-image: -o-linear-gradient(top, transparent, #073A59);
+}
 
 
 @media only screen and (min-width: 768px) {
@@ -140,60 +132,47 @@ p.timeSlotSections {
 
 .courseBlock {
   min-height: 674px;
+
+  h4, h5 {
+    text-align: center;
+  }
+
+  .courseItem {
+    background: #073A59;
+    border-radius: 2px;
+    list-style: none;
+    margin: 0px 0px 0.4em 0px;
+    position: relative;
+    p {
+      color: #FFF;
+      margin: 0em;
+      padding: 0.4em;
+    }
+  }
+
+  .courseTitle strong {
+    display: block;
+    text-align: center;
+  }
+
+  .removeButton {
+    color: #FFF;
+    position: absolute;
+    right: 0.4em;
+    top: -0.2em;
+  }
 }
 
-.courseBlock h4,
-.courseBlock h5 {
-  text-align: center;
-}
-
-.courseBlock .courseItem {
-  background: #073A59;
-  border-radius: 2px;
-  list-style: none;
-  margin: 0px 0px 0.4em 0px;
-  position: relative;
-}
-
-.courseBlock .courseItem p {
-  color: #FFF;
-  margin: 0em;
-  padding: 0.4em;
-}
-
-.courseBlock .courseTitle strong {
-  display: block;
-  text-align: center;
-}
-
-.courseBlock .removeButton {
-  color: #FFF;
-  position: absolute;
-  right: 0.4em;
-  top: -0.2em;
-}
-
-div#fade {
-    display: none;
-    background: rgba( 0, 0, 0, 0.2 );
-    position: fixed; left: 0; top: 0;
-    width: 100%; height: 100%;
-    z-index: 6; }
-
-.box {
-  z-index: 10;
-}
 div.timeSlot {
   height: 100%;
-}
-div.timeSlot p {
-  margin: 0;
+
+  p {
+    margin: 0;
+  }
 }
 .timeSlotTitle { vertical-align: middle; width: 95%;}
 .timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
 .timeSlotPoints {margin-top: 3px; font-size: .85em; }
-
-#adi-logo {display: block; position: relative; top: 3px;}
 
 div#app {
   margin-top: 2em;
