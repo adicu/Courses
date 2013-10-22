@@ -8,12 +8,15 @@
   <h5
     class="subheader"
     ng-hide="schedule.getTotalPoints() > 0">
-    :( <br /> No Courses. Go add some!
+    <i class="icon-meh"></i>
+    <br /> No Courses. Go add some!
   </h5>
   <ul>
     <li class="courseItem" ng-repeat="course in schedule.courses">
-      <p class="courseTitle"><strong>{{course.id}}</strong>
-      <a class="removeButton" ng-click="schedule.removeCourse(course)">x</a>
+      <p class="courseTitle">
+        <strong>{{course.id}}</strong>
+        <i class="icon-info-sign"></i>
+      </p>
     </li>
   </ul>
 </div>
