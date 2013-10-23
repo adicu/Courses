@@ -7,8 +7,16 @@ angular.module('Courses.directives')
   scope:
     schedule: '='
 
-  controller: ($scope, $element, $attrs, $transclude) ->
+  controller: (
+    $scope,
+    $element,
+    $attrs,
+    $transclude,
+    CourseState
+  ) ->
     $scope.schedule.fillFromURL()
+
+    $scope.CourseState = CourseState
 
     $scope.getDays = () ->
       $scope.schedule.getDays()

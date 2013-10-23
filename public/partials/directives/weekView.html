@@ -18,10 +18,18 @@
             <div
               ng-repeat="subsection in section.subsections"
               class="timeSlotWrapper"
+              ng-class="{
+                select: section.getParentCourse().state() == CourseState.EXCLUSIVE_VISIBLE
+              }"
               ng-click="selectSection(section)"
               ng-style="subsection.css"
               title="{{section.id}}: {{section.title}}">
               <div class="timeSlot">
+                <p
+                  class="message"
+                  ng-show="section.getParentCourse().state() == CourseState.EXCLUSIVE_VISIBLE">
+                  <em>Select a section</em>
+                </p>
                 <p class="timeSlotText timeSlotTitle">
                   <strong>{{section.IDFull}}</strong>:
                   {{section.title}}
