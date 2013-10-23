@@ -16,6 +16,7 @@ angular.module('Courses.models')
       @IDFull = @data.CourseFull
       @points = @data.NumFixedUnits / 10.0
       @title = @data.CourseTitle
+      @description = @data.Description
       @_state = CourseState.VISIBLE
 
       @createSections(term)

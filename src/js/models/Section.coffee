@@ -13,6 +13,7 @@ angular.module('Courses.models')
       @IDFull = @parentCourse.IDFull
       @points = @parentCourse.points
       @title = @parentCourse.title
+      @instructor = @data.Instructor1Name
 
       @addSubsections()
 
@@ -28,6 +29,13 @@ angular.module('Courses.models')
         subsection.css = CourseHelper.computeCSS subsection.startTime,
           subsection.endTime
         @subsections.push subsection
+
+    getSubData: (key) ->
+      return '' if @subsections.length < 1
+      @subsections[0][key]
+
+    printLocation: () ->
+      "#{@getSubData('building')} #{@getSubData('room')}"
 
     isSelected: () ->
       @selected

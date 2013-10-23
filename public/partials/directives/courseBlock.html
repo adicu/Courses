@@ -7,12 +7,18 @@
   </h5>
   <h5
     class="subheader"
-    ng-hide="schedule.getTotalPoints() > 0">
+    ng-hide="schedule.courses.length > 0">
     <i class="icon-meh"></i>
     <br /> No Courses. Go add some!
   </h5>
   <ul>
-    <li class="courseItem" ng-repeat="course in schedule.courses">
+    <li
+      class="courseItem"
+      ng-repeat="course in schedule.courses"
+      data-placement="left"
+      data-original-title="{{course.id}}: {{course.title}}"
+      data-unique="1"
+      bs-popover="'partials/directives/course-popover.html'">
       <p class="courseTitle">
         <strong>{{course.id}}</strong>
         <i class="icon-info-sign"></i>

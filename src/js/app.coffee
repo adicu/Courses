@@ -9,6 +9,7 @@ angular.module("Courses", [
   'Courses.services',
   'ui.jq', # jQuery UI passthrough
   'ezfb', # angularjs-ezfb, FB SDK wrapper
+  '$strap.directives' # angular-strap
 ])
 .config ($routeProvider) ->
   $routeProvider.when "/schedule",
@@ -22,6 +23,7 @@ angular.module("Courses", [
 .config ($FBProvider) ->
   $FBProvider.setInitParams
     appId: '478856265465801'
+    cookie: true
 .run (UserAuth) ->
   UserAuth.fbInit()
 

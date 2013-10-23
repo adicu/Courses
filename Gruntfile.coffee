@@ -64,11 +64,8 @@ module.exports = (grunt) ->
       lib:
         files:
           'public/lib/lib.min.js': [
-            # Angular-UI jQuery Passthrough - Shouldn't be needed anymore
+            # Angular-UI jQuery Passthrough
             'bower_components/angular-ui-utils/modules/jq/jq.js'
-            # Elastic.js Angular version
-            'bower_components/elastic.js/dist/elastic.js'
-            'bower_components/elastic.js/dist/elastic-angular-client.js'
             # Foundation JS
             'bower_components/foundation/js/foundation/foundation.js'
             'bower_components/foundation/js/foundation/foundation.forms.js'
@@ -76,6 +73,9 @@ module.exports = (grunt) ->
             'bower_components/foundation/js/foundation/foundation.dropdown.js'
             # angular-easyfb
             'bower_components/angular-easyfb/angular-easyfb.js'
+            # Custom version of angular-strap
+            'src/lib/angular-strap.js'
+            # Additional lib files in index.html
           ]
         # options:
         #   mangle: false
