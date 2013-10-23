@@ -53,11 +53,11 @@ angular.module('Courses.models')
       promises =
         for callnum in callnums
           continue if not callnum
-          CourseQuery.queryBySectionCall callnum, term
+          Course.queryBySectionCall callnum, term
 
-      $q.all(promises).then (sections) =>
-        for section in sections
-          @addCourse section.parentCourse
+      $q.all(promises).then (courses) =>
+        for course in courses
+          @addCourse course
 
     # Will generated an array of all selected courses
     # which have sections for given day(s)
@@ -77,6 +77,15 @@ angular.module('Courses.models')
         for section in sections
           sectionsByDay[day].push section
       sectionsByDay
+
+    getSelectedSections: () ->
+      selectedCourses = _.filter @courses, (course) ->
+        return course.isSelected()
+      selectedSections = []
+      for course in selectedCourses
+        for selected in course.selectedSections
+          selectedSections.push selected
+      selectedSections
 
     # Exclusively show all the sections of a given course
     exclusiveShowCourse: (course) ->

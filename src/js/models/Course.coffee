@@ -27,6 +27,8 @@ angular.module('Courses.models')
         if term
           if sectionData.Term == term
             section = new Section sectionData, @
+          else
+            continue
         else
           section = new Section sectionData, @
         @addSection section
@@ -128,25 +130,27 @@ angular.module('Courses.models')
       d.promise
 
     # Search by the section call number
-    # @return {Promise<Section>} Section for given callNumber.
+    # @return Promise<Course> Course for given callNumber with
+    #   section selected.
     @queryBySectionCall: (
       callNumber,
-      term = $rootScope.selectedSemester,
-      filters
+      term = $rootScope.selectedSemester
     ) ->
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: "#{CONFIG.COURSES_API}sections/#{callNumber}"
+        url: "#{CONFIG.DATA_API}sections/"
         params:
           jsonp: 'JSON_CALLBACK'
           call_number: callNumber
           term: term
-          withcourse: filters.withcourse or true
       .success (data, status, headers, config) =>
-        course = new Course data
-        section = course.selectSectionByCall callNumber
-        d.resolve section
+        if not data['data']
+          d.reject new Error "No such section #{callNumber}"
+        courseFull = data['data'][0]
+        Course.fetchByCourseFull(courseFull).then (course) ->
+          course.selectSectionByCall callNumber
+          d.resolve course
       .error (data, status) ->
         d.reject new Error 'getCourseFromCall failed with status ' + status
       d.promise

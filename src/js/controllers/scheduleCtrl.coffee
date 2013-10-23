@@ -3,6 +3,7 @@ angular.module('Courses.controllers')
   $scope,
   $rootScope,
   $FB,
+  $location,
   Course,
   Schedule,
 ) ->
@@ -13,26 +14,27 @@ angular.module('Courses.controllers')
 
   initURL = () ->
     $scope.schedule.fillFromURL $scope.selectedSemester
-    @updateURL()
+    updateURL()
+
+  updateURL = () ->
+    selectedSections = $scope.schedule.getSelectedSections()
+    console.log 'selected', selectedSections
+    str = ''
+    for selectedSection of selectedSections
+      str += "#{selectedSection.callNumber},"
+    if str and str.charAt(str.length - 1) == ','
+      str = str.slice(0, -1)
+    $location.hash ''
+    $location.search('sections', str)
+
+  initURL()
 
   $scope.getTotalPoints = () ->
     $scope.schedule.getTotalPoints()
 
   $scope.sectionSelected = (section, shouldUpdateURL = true) ->
     section.select()
-    @updateURL() if shouldUpdateURL
-
-  updateURL: () ->
-    # TODO: implement
-    return
-    str = ''
-    for key,section of sections
-      if section
-        str = str + section.data['CallNumber'] + ','
-    if str and str.charAt(str.length - 1) == ','
-      str = str.slice(0, -1)
-    $location.hash ''
-    $location.search('sections', str)
+    updateURL() if shouldUpdateURL
 
   # Course is selected, say from search
   # Course should now be added to the schedule.
