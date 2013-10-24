@@ -23,6 +23,7 @@ module.exports = (grunt) ->
           bare: true
           sourceMap: true
 
+    # Minifies the CSS files. Deprecated.
     cssmin:
       src:
         files:
@@ -36,6 +37,7 @@ module.exports = (grunt) ->
         command: 'coffee'
         logDir: 'logs'
 
+    # Generates the CSS files from less files
     less:
       src:
         files:
@@ -83,6 +85,7 @@ module.exports = (grunt) ->
         #     width: 80
         #     beautify: true
 
+    # Watch coffee files and build js files when coffeescript files changed
     watch:
       scripts:
         files:
