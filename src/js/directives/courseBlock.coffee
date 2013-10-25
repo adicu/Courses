@@ -4,3 +4,15 @@ angular.module('Courses.directives')
   restrict: 'E'
   scope:
     schedule: '='
+  
+  controller: ($scope, $timeout) ->
+  	
+  	$scope.removeCourse = (course) ->
+  		$scope["closePopover" + course.id] = true
+  		
+  		remove = () ->
+  			$scope.schedule.removeCourse course
+  			$scope["closePopover" + course.id].remove
+  		
+  		$timeout remove, 400
+  	
