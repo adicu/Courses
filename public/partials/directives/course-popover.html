@@ -1,12 +1,12 @@
 <p>Points: {{course.sections[0].points}}</p>
 <button
   class="small success"
-  ng-click="changeSections(course)"
+  ng-click="changeSections(course);dismiss()"
   ng-show="course.sections.length > 1">
   Change Section
 </button>
 <button
-  ng-click="removeCourse(course)"
+  ng-click="removeCourse(course);dismiss()"
   class="small alert">
   <i class="icon-remove-sign"></i>
   Remove Course

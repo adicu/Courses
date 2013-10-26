@@ -19,7 +19,7 @@
       data-original-title="{{course.id}}: {{course.title}}"
       data-unique="1"
       bs-popover="'partials/directives/course-popover.html'"
-      data-hide="closePopover{{course.id}}">
+      ng-controller="popoverCtrl">
       <p class="courseTitle">
         <strong>{{course.id}}</strong>
         <i class="icon-info-sign"></i>

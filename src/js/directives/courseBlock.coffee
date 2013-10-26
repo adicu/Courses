@@ -5,14 +5,16 @@ angular.module('Courses.directives')
   scope:
     schedule: '='
   
-  controller: ($scope, $timeout) ->
-  	
+  
+angular.module('Courses.controllers')
+.controller 'popoverCtrl', (
+  $scope
+) ->
   	$scope.removeCourse = (course) ->
-  		$scope["closePopover" + course.id] = true
+  		$scope.schedule.removeCourse course
   		
-  		remove = () ->
-  			$scope.schedule.removeCourse course
-  			$scope["closePopover" + course.id].remove
-  		
-  		$timeout remove, 400
-  	
+  	$scope.changeSections = (course) ->
+  		$scope.schedule.removeCourse course
+  		course.selectedSections = []
+  		$scope.schedule.addCourse course
+		
