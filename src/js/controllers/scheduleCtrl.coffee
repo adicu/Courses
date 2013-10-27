@@ -13,22 +13,22 @@ angular.module('Courses.controllers')
 
   $scope.isModalOpen = false
   $scope.modalSection = {}
-  
-  
+
+
   $scope.semesters = CourseHelper.getValidSemesters()
   $scope.selectedSemester = $rootScope.selectedSemester =
     $scope.semesters[0]
 
   $rootScope.initURL = () ->
     if $cookies.sectionsString == undefined
-       $cookies.sectionsString = "" 
-    
+       $cookies.sectionsString = ""
+
     if ($location.search()).sections == undefined or ($location.search()).sections.length == 0
         console.log $cookies.sectionsString
         $location.search('sections', $cookies.sectionsString)
     else
         console.log ($location.search()).sections
-                
+
     $scope.schedule.fillFromURL $scope.selectedSemester
 
   $rootScope.updateURL = () ->
@@ -56,7 +56,8 @@ angular.module('Courses.controllers')
   # Course should now be added to the schedule.
   $scope.courseSelect = (course) ->
     Course.fetchByCourseFull(course.CourseFull).then (course) ->
-      $scope.schedule.addCourse course
-      , (error) ->
-        throw error if error
+      $scope.schedule.addCourse(course)
       $rootScope.updateURL()
+    , (error) ->
+      throw error if error
+

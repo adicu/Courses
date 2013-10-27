@@ -54,7 +54,7 @@ angular.module('Courses.models')
         for callnum in callnums
           continue if not callnum
           Course.queryBySectionCall callnum, term
-          
+
       $q.all(promises).then (courses) =>
         for course in courses
           @addCourse course
