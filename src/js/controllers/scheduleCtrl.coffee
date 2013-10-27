@@ -56,8 +56,8 @@ angular.module('Courses.controllers')
   # Course should now be added to the schedule.
   $scope.courseSelect = (course) ->
     Course.fetchByCourseFull(course.CourseFull).then (course) ->
-      $scope.schedule.addCourse(course,
-      (error) ->
-        throw error if error
-      )
+      $scope.schedule.addCourse(course)
       $rootScope.updateURL()
+    , (error) ->
+      throw error if error
+
