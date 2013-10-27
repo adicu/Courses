@@ -4,8 +4,8 @@ angular.module('Courses.directives')
   restrict: 'E'
   scope:
     schedule: '='
-  
-  
+
+
 angular.module('Courses.controllers')
 .controller 'popoverCtrl', (
   $scope,
@@ -14,9 +14,8 @@ angular.module('Courses.controllers')
   	$scope.removeCourse = (course) ->
       $scope.schedule.removeCourse course
       $rootScope.updateURL()
-  		
+
   	$scope.changeSections = (course) ->
   		$scope.schedule.removeCourse course
   		course.selectedSections = []
   		$scope.schedule.addCourse course
-		

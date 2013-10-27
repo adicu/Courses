@@ -20,7 +20,7 @@ angular.module('Courses.models')
       @_state = CourseState.VISIBLE
 
       @createSections(term)
-      
+
 
     # Create sections from data JSON
     # @param term to filter on
@@ -147,19 +147,19 @@ angular.module('Courses.models')
           api_token: CONFIG.API_TOKEN
           call_number: callNumber
           term: term
-          
+
       .success (data, status, headers, config) =>
         if not data['data']
           d.reject new Error "No such section #{callNumber}"
         courseId = data['data'][0].Course
-        
+
         Course.fetchByCourseId(courseId).then (course) ->
           course.selectSectionByCall callNumber
           d.resolve course
-          
+
       .error (data, status) ->
         d.reject new Error 'getCourseFromCall failed with status ' + status
-        
+
       d.promise
 
     # @return [Promise<Course>] given its corresponding CourseFull info.
@@ -184,7 +184,7 @@ angular.module('Courses.models')
       .error (data, status) ->
         d.reject new Error 'fetchByCourseFull failed with status ' + status
       d.promise
-      
+
     @fetchByCourseId: (courseId, term = $rootScope.selectedSemester) ->
       d = $q.defer()
       if not courseId
