@@ -1,6 +1,7 @@
 "use strict"
 
 angular.module("Courses", [
+  'ngCookies',
   'Courses.constants',
   'Courses.controllers',
   'Courses.directives',

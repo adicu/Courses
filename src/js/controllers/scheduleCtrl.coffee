@@ -1,6 +1,7 @@
 angular.module('Courses.controllers')
 .controller 'scheduleCtrl', (
   $scope,
+  $cookies,
   $rootScope,
   $FB,
   $location,
@@ -19,6 +20,15 @@ angular.module('Courses.controllers')
     $scope.semesters[0]
 
   $rootScope.initURL = () ->
+    if $cookies.sectionsString == undefined
+       $cookies.sectionsString = "" 
+    
+    if ($location.search()).sections == undefined or ($location.search()).sections.length == 0
+        console.log $cookies.sectionsString
+        $location.search('sections', $cookies.sectionsString)
+    else
+        console.log ($location.search()).sections
+                
     $scope.schedule.fillFromURL $scope.selectedSemester
 
   $rootScope.updateURL = () ->
@@ -30,6 +40,7 @@ angular.module('Courses.controllers')
       str = str.slice(0, -1)
     $location.hash ''
     $location.search('sections', str)
+    $cookies.sectionsString = str
 
   $rootScope.initURL()
 
