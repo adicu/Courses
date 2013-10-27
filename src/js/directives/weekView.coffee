@@ -9,12 +9,13 @@ angular.module('Courses.directives')
 
   controller: (
     $scope,
+    $rootScope,
     $element,
     $attrs,
     $transclude,
     CourseState
   ) ->
-    $scope.schedule.fillFromURL()
+    #$scope.schedule.fillFromURL()
 
     $scope.CourseState = CourseState
 
@@ -30,7 +31,9 @@ angular.module('Courses.directives')
       section.getParentCourse().state CourseState.VISIBLE
       section.select()
       $scope.schedule.update()
+      $rootScope.updateURL()
 
     $scope.removeSection = (section) ->
       section.select false
       $scope.schedule.update()
+      $rootScope.updateURL()

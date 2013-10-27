@@ -6,31 +6,36 @@ angular.module('Courses.controllers')
   $location,
   Course,
   Schedule,
+  CourseHelper
 ) ->
   $scope.schedule = new Schedule
 
   $scope.isModalOpen = false
   $scope.modalSection = {}
+  
+  
+  $scope.semesters = CourseHelper.getValidSemesters()
+  $scope.selectedSemester = $rootScope.selectedSemester =
+    $scope.semesters[0]
 
-  initURL = () ->
+  $rootScope.initURL = () ->
     $scope.schedule.fillFromURL $scope.selectedSemester
-    updateURL()
 
-  updateURL = () ->
+  $rootScope.updateURL = () ->
     selectedSections = $scope.schedule.getSelectedSections()
-    console.log 'selected', selectedSections
     str = ''
-    for selectedSection of selectedSections
-      str += "#{selectedSection.callNumber},"
+    for selectedSection in selectedSections
+      str += selectedSection.callNumber + ","
     if str and str.charAt(str.length - 1) == ','
       str = str.slice(0, -1)
     $location.hash ''
     $location.search('sections', str)
 
-  initURL()
+  $rootScope.initURL()
 
   $scope.getTotalPoints = () ->
     $scope.schedule.getTotalPoints()
+    updateURL()
 
   $scope.sectionSelected = (section, shouldUpdateURL = true) ->
     section.select()
@@ -40,7 +45,7 @@ angular.module('Courses.controllers')
   # Course should now be added to the schedule.
   $scope.courseSelect = (course) ->
     Course.fetchByCourseFull(course.CourseFull).then (course) ->
-      console.log 'Added course: ', course
       $scope.schedule.addCourse course
-    , (error) ->
-      throw error if error
+      , (error) ->
+        throw error if error
+      $rootScope.updateURL()

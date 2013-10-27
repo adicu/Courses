@@ -20,6 +20,7 @@ angular.module('Courses.models')
       @_state = CourseState.VISIBLE
 
       @createSections(term)
+      
 
     # Create sections from data JSON
     # @param term to filter on
@@ -59,7 +60,7 @@ angular.module('Courses.models')
         # TODO: Error handling.
         return false
       else
-        section = _.findWhere(@sections, callNumber: callNumber)
+        section = _.findWhere(@sections, callNumber: parseInt callNumber)
         @selectedSections.push section
       section
 
@@ -140,20 +141,25 @@ angular.module('Courses.models')
       d = $q.defer()
       $http
         method: 'JSONP'
-        url: "#{CONFIG.DATA_API}sections/"
+        url: "#{CONFIG.DATA_API}sections"
         params:
           jsonp: 'JSON_CALLBACK'
+          api_token: CONFIG.API_TOKEN
           call_number: callNumber
           term: term
+          
       .success (data, status, headers, config) =>
         if not data['data']
           d.reject new Error "No such section #{callNumber}"
-        courseFull = data['data'][0]
-        Course.fetchByCourseFull(courseFull).then (course) ->
+        courseId = data['data'][0].Course
+        
+        Course.fetchByCourseId(courseId).then (course) ->
           course.selectSectionByCall callNumber
           d.resolve course
+          
       .error (data, status) ->
         d.reject new Error 'getCourseFromCall failed with status ' + status
+        
       d.promise
 
     # @return [Promise<Course>] given its corresponding CourseFull info.
@@ -174,7 +180,27 @@ angular.module('Courses.models')
           d.reject new Error 'No matching course for courseFull: ' + courseFull
           return
         course = new Course data.data[0], term
-        console.log course
+        d.resolve course
+      .error (data, status) ->
+        d.reject new Error 'fetchByCourseFull failed with status ' + status
+      d.promise
+      
+    @fetchByCourseId: (courseId, term = $rootScope.selectedSemester) ->
+      d = $q.defer()
+      if not courseId
+        throw new Error 'courseId required'
+      $http
+        method: 'JSONP'
+        url: "#{CONFIG.DATA_API}courses"
+        params:
+          jsonp: 'JSON_CALLBACK'
+          api_token: CONFIG.API_TOKEN
+          courseid: courseId
+      .success (data) ->
+        if !(data.data and data.data.length > 0)
+          d.reject new Error 'No matching course for courseId: ' + courseId
+          return
+        course = new Course data.data[0], term
         d.resolve course
       .error (data, status) ->
         d.reject new Error 'fetchByCourseFull failed with status ' + status

@@ -15,7 +15,6 @@ angular.module('Courses.models')
         @sectionsByDay[day] = []
 
     addCourse: (course) ->
-      console.log course.id
       if _.findWhere(@courses, id: course.id)
         alert 'Warning: you have already selected this course'
         return
@@ -24,7 +23,8 @@ angular.module('Courses.models')
         return
 
       @courses.push course
-      if course.sections.length is 1
+      if course.selectedSections.length > 0
+      else if course.sections.length is 1
         # Only one section, select by default
         course.sections[0].select()
       else
@@ -54,7 +54,7 @@ angular.module('Courses.models')
         for callnum in callnums
           continue if not callnum
           Course.queryBySectionCall callnum, term
-
+          
       $q.all(promises).then (courses) =>
         for course in courses
           @addCourse course

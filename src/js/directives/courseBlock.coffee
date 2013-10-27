@@ -8,10 +8,12 @@ angular.module('Courses.directives')
   
 angular.module('Courses.controllers')
 .controller 'popoverCtrl', (
-  $scope
+  $scope,
+  $rootScope
 ) ->
   	$scope.removeCourse = (course) ->
-  		$scope.schedule.removeCourse course
+      $scope.schedule.removeCourse course
+      $rootScope.updateURL()
   		
   	$scope.changeSections = (course) ->
   		$scope.schedule.removeCourse course

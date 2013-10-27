@@ -15,9 +15,6 @@ angular.module('Courses.directives')
     $scope.searchResults = []
     previousSearch = null
 
-    $scope.semesters = CourseHelper.getValidSemesters()
-    $scope.selectedSemester = $rootScope.selectedSemester =
-      $scope.semesters[0]
 
     # Actual searching function
     runSearch = () ->
