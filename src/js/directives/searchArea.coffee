@@ -10,11 +10,14 @@ angular.module('Courses.directives')
   restrict: 'E'
   scope:
     onselect: '&'
+    semesters: '='
 
   controller: ($scope, $element, $attrs, $timeout) ->
     $scope.searchResults = []
     previousSearch = null
 
+    $scope.selectedSemester = $rootScope.selectedSemester =
+      $scope.semesters[0]
 
     # Actual searching function
     runSearch = () ->

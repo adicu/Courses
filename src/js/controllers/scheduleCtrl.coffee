@@ -14,10 +14,7 @@ angular.module('Courses.controllers')
   $scope.isModalOpen = false
   $scope.modalSection = {}
 
-
-  $scope.semesters = CourseHelper.getValidSemesters()
-  $scope.selectedSemester = $rootScope.selectedSemester =
-    $scope.semesters[0]
+  $scope.semesters = ['20141', '20133']
 
   $rootScope.initURL = () ->
     if $cookies.sectionsString == undefined
