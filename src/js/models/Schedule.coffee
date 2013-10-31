@@ -43,6 +43,7 @@ angular.module('Courses.models')
 
     # Fills the schedule from the URL parameters
     fillFromURL: (term) ->
+      return
       if $location.search().hasOwnProperty('sections')
         callnum_string = ($location.search()).sections
       else

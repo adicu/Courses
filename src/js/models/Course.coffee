@@ -151,9 +151,9 @@ angular.module('Courses.models')
       .success (data, status, headers, config) =>
         if not data['data']
           d.reject new Error "No such section #{callNumber}"
-        courseId = data['data'][0].Course
+        courseID = data['data'][0].Course
 
-        Course.fetchByCourseId(courseId).then (course) ->
+        Course.fetchByCourseID(courseID).then (course) ->
           course.selectSectionByCall callNumber
           d.resolve course
 
@@ -185,20 +185,20 @@ angular.module('Courses.models')
         d.reject new Error 'fetchByCourseFull failed with status ' + status
       d.promise
 
-    @fetchByCourseId: (courseId, term = $rootScope.selectedSemester) ->
+    @fetchByCourseID: (courseID, term = $rootScope.selectedSemester) ->
       d = $q.defer()
-      if not courseId
-        throw new Error 'courseId required'
+      if not courseID
+        throw new Error 'courseID required'
       $http
         method: 'JSONP'
         url: "#{CONFIG.DATA_API}courses"
         params:
           jsonp: 'JSON_CALLBACK'
           api_token: CONFIG.API_TOKEN
-          courseid: courseId
+          courseid: courseID
       .success (data) ->
         if !(data.data and data.data.length > 0)
-          d.reject new Error 'No matching course for courseId: ' + courseId
+          d.reject new Error 'No matching course for courseID: ' + courseID
           return
         course = new Course data.data[0], term
         d.resolve course

@@ -16,19 +16,26 @@ angular.module('Courses.controllers')
 
   $scope.semesters = ['20141', '20133']
 
-  $rootScope.initURL = () ->
-    if $cookies.sectionsString == undefined
-       $cookies.sectionsString = ""
+  initURL = () ->
+    $cookies.sectionsString = ""
+    $location.search('sections', '')
+    return # TODO: SAVING IS DISABLED
 
-    if ($location.search()).sections == undefined or ($location.search()).sections.length == 0
-        console.log $cookies.sectionsString
-        $location.search('sections', $cookies.sectionsString)
-    else
-        console.log ($location.search()).sections
+    # if $cookies.sectionsString == undefined
+    #  $cookies.sectionsString = ""
 
-    $scope.schedule.fillFromURL $scope.selectedSemester
+    # if ($location.search()).sections == undefined or ($location.search()).sections.length == 0
+    #   console.log $cookies.sectionsString
+    #   $location.search('sections', $cookies.sectionsString)
+    # else
+    #   console.log ($location.search()).sections
 
-  $rootScope.updateURL = () ->
+    # $scope.schedule.fillFromURL $rootScope.selectedSemester
+
+  initURL()
+
+  updateURL = () ->
+    return
     selectedSections = $scope.schedule.getSelectedSections()
     str = ''
     for selectedSection in selectedSections
@@ -38,8 +45,6 @@ angular.module('Courses.controllers')
     $location.hash ''
     $location.search('sections', str)
     $cookies.sectionsString = str
-
-  $rootScope.initURL()
 
   $scope.getTotalPoints = () ->
     $scope.schedule.getTotalPoints()
@@ -57,4 +62,3 @@ angular.module('Courses.controllers')
       $rootScope.updateURL()
     , (error) ->
       throw error if error
-
