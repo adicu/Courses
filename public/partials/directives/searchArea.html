@@ -1,11 +1,15 @@
 <div class="search">
-  <form ng-submit="search()" class="custom">
+  <form
+    class="custom"
+    onkeypress="return event.keyCode != 13;">
     <div class="row collapse">
       <div class="small-9 columns">
-        <input type="text" name="search_input"
+        <input
+          type="text"
+          name="search_input"
+          onsubmit="return false;"
           ng-model="searchQuery"
           ng-change="search()"
-          ng-submit="search()"
           placeholder="Type a course title to begin..."
         />
       </div>
