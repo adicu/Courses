@@ -1,7 +1,25 @@
 <p>Points: {{course.sections[0].points}}</p>
-<p>
-  Professor: {{course.sections[0].instructor}}
-</p>
+<p class="description">{{course.description}}</p>
+<table class="sections">
+  <tbody>
+    <tr>
+      <th>Call Number</th>
+      <th>Instructor</th>
+      <th>Time</th>
+    </tr>
+    <tr 
+        ng-show="section.callNumber"
+        ng-repeat="section in course.sections"
+        ng-class="{'selected': section.selected}">
+        <td><code>#{{section.callNumber}}</code></td>
+        <td>{{section.instructor}}</td>
+        <td
+          ng-show="section.data.MeetsOn[0] && section.data.StartTime[0] && section.data.EndTime[0]">
+          {{section.data.MeetsOn[0]}} {{section.data.StartTime[0]}} &ndash; {{section.data.EndTime[0]}}
+        </td>
+    <tr>
+  </tbody>
+</table>
 <button
   class="small success"
   ng-click="changeSections(course)"
