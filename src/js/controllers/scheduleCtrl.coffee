@@ -15,6 +15,9 @@ angular.module('Courses.controllers')
   $scope.modalSection = {}
 
   $scope.semesters = ['20141', '20133']
+  
+  $rootScope.initURL = () ->
+    console.warn('$rootScope->initURL currently disabled')
 
   initURL = () ->
     $cookies.sectionsString = ""
@@ -33,6 +36,9 @@ angular.module('Courses.controllers')
     # $scope.schedule.fillFromURL $rootScope.selectedSemester
 
   initURL()
+
+  $rootScope.updateURL = () ->
+    console.warn('$rootScope->updateURL currently disabled')
 
   updateURL = () ->
     return
