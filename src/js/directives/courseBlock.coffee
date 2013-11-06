@@ -11,11 +11,13 @@ angular.module('Courses.controllers')
   $scope,
   $rootScope
 ) ->
-  	$scope.removeCourse = (course) ->
+    $scope.removeCourse = (course) ->
       $scope.schedule.removeCourse course
       $rootScope.updateURL()
+      $scope.hide()
 
-  	$scope.changeSections = (course) ->
-  		$scope.schedule.removeCourse course
-  		course.selectedSections = []
-  		$scope.schedule.addCourse course
+    $scope.changeSections = (course) ->
+      $scope.schedule.removeCourse course
+      course.selectedSections = []
+      $scope.schedule.addCourse course
+      $scope.hide()
