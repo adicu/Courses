@@ -44,7 +44,7 @@ angular.module("Courses.filters", [])
 
 .filter 'bulletinLink', ->
   (section) ->
-    section_re = /([A-Z]+)(\d+)([A-Z])(\d+)/
+    section_re = /([A-Z]+)(\d+)([A-Z]+)(\d+)/
 
     data = section.data.SectionFull.match(section_re)
     term = section.data.Term
