@@ -1,39 +1,44 @@
 <p>Points: {{course.sections[0].points}}</p>
 <p class="description">{{course.description}}</p>
 <table class="sections">
-  <tbody>
+  <thead>
     <tr>
       <th>Call Number</th>
       <th>Instructor</th>
       <th>Time</th>
     </tr>
+  </thead>
+  <tfoot>
+  </tfoot>
+  <tbody>
     <tr 
+        id="{{section.callNumber}}"
         ng-show="section.callNumber"
         ng-repeat="section in course.sections"
         ng-class="{'selected': section.selected}">
-        <td>
-          <code>
-            <a
-              target="_blank"
-              ng-href="{{section|bulletinLink}}">
-              #{{section.callNumber}}
-            </a>
-          </code>
-        </td>
-        <td>
+      <td>
+        <code>
           <a
-              target="_blank"
-              ng-href="{{section|culpaLink}}">
-              {{section.instructor}}
+            target="_blank"
+            ng-href="{{section|bulletinLink}}">
+            #{{section.callNumber}}
           </a>
-        </td>
-        <td
-          ng-show="section.data.MeetsOn && section.data.StartTime && section.data.EndTime">
-          <div ng-repeat="j in section.data.MeetsOn">
-          {{section.data.MeetsOn[$index]}} {{section.data.StartTime[$index]|readableTime}} &ndash; {{section.data.EndTime[$index]|readableTime}}
-          </div>
-        </td>
-    <tr>
+        </code>
+      </td>
+      <td>
+        <a
+          target="_blank"
+          ng-href="{{section|culpaLink}}">
+          {{section.instructor}}
+        </a>
+      </td>
+      <td
+        ng-show="section.data.MeetsOn && section.data.StartTime && section.data.EndTime">
+        <div ng-repeat="j in section.data.MeetsOn">
+        {{section.data.MeetsOn[$index]}} {{section.data.StartTime[$index]|readableTime}} &ndash; {{section.data.EndTime[$index]|readableTime}}
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
 <button
