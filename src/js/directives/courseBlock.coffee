@@ -17,6 +17,8 @@ angular.module('Courses.controllers')
 
     $scope.changeSections = (course) ->
       $scope.schedule.removeCourse course
+      for section in course.selectedSections
+        section.selected = false
       course.selectedSections = []
       $scope.schedule.addCourse course
       $scope.hide()

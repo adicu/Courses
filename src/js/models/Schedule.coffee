@@ -22,8 +22,8 @@ angular.module('Courses.models')
         alert 'Warning: you have already selected this course'
         return
       if course.isValid() isnt true
-        alert 'Warning: this course is invalid'
-        return
+        if not confirm 'Warning: this course is has no available sections.\nWould you like to add it anyways?'
+          return
 
       @courses.push course
       if course.selectedSections.length > 0
@@ -50,14 +50,11 @@ angular.module('Courses.models')
       semester = $location.search()['semester']
       sections = $location.search()['sections']
 
-      console.log '$location', $location.search()
-
       if not semester or not sections
         # No location parameter
         d.resolve false
         return d.promise
 
-      console.log sections
       callnums = sections.split ','
 
       promises =
@@ -143,7 +140,6 @@ angular.module('Courses.models')
       else
         @sectionsByDay = @getSectionsByDay()
 
-      console.log @shouldUpdateURL
       if @shouldUpdateURL
         @updateURL()
 
