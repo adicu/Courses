@@ -98,18 +98,10 @@ angular.module('Courses.models')
     #   or string representing type of search.
     @search: (query, term = $rootScope.selectedSemester) ->
       d = $q.defer()
-      if query.match /^\d{5}$/
-        # Query is a section call number.
-        callnum = parseInt query, 10
-        Course.queryBySectionCall(callnum).then (course) ->
-          d.resolve 'callnum'
-        , (error) ->
-          d.reject error
-      else
-        Course.query(query, term).then (courseData) ->
-          d.resolve courseData
-        , (error) ->
-          d.reject error
+      Course.query(query, term).then (courseData) ->
+        d.resolve courseData
+      , (error) ->
+        d.reject error
       d.promise
 
     # Full text search over courses
