@@ -148,6 +148,8 @@ angular.module('Courses.models')
         Course.fetchByCourseID(courseID).then (course) ->
           course.selectSectionByCall callNumber
           d.resolve course
+        , (error) ->
+          d.reject error
 
       .error (data, status) ->
         d.reject new Error 'getCourseFromCall failed with status ' + status

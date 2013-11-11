@@ -4,12 +4,12 @@ angular.module('Courses.directives')
   $timeout,
   Course,
   CourseHelper,
-  Schedule,
 ) ->
   templateUrl: 'partials/directives/searchArea.html'
   restrict: 'E'
   scope:
     onselect: '&'
+    schedule: '='
     semesters: '='
 
   controller: ($scope, $element, $attrs, $timeout) ->
@@ -18,6 +18,10 @@ angular.module('Courses.directives')
 
     $scope.selectedSemester = $rootScope.selectedSemester =
       $scope.semesters[0]
+    $scope.schedule.semester $scope.selectedSemester
+
+    $scope.$watch 'selectedSemester', (newSemester) ->
+      $scope.schedule.semester newSemester
 
     # Actual searching function
     runSearch = () ->

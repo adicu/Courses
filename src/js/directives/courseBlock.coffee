@@ -13,7 +13,6 @@ angular.module('Courses.controllers')
 ) ->
     $scope.removeCourse = (course) ->
       $scope.schedule.removeCourse course
-      $rootScope.updateURL()
       $scope.hide()
 
     $scope.changeSections = (course) ->
