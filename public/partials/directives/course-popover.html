@@ -11,11 +11,27 @@
         ng-show="section.callNumber"
         ng-repeat="section in course.sections"
         ng-class="{'selected': section.selected}">
-        <td><code>#{{section.callNumber}}</code></td>
-        <td>{{section.instructor}}</td>
+        <td>
+          <code>
+            <a
+              target="_blank"
+              ng-href="{{section|bulletinLink}}">
+              #{{section.callNumber}}
+            </a>
+          </code>
+        </td>
+        <td>
+          <a
+              target="_blank"
+              ng-href="{{section|culpaLink}}">
+              {{section.instructor}}
+          </a>
+        </td>
         <td
-          ng-show="section.data.MeetsOn[0] && section.data.StartTime[0] && section.data.EndTime[0]">
-          {{section.data.MeetsOn[0]}} {{section.data.StartTime[0]}} &ndash; {{section.data.EndTime[0]}}
+          ng-show="section.data.MeetsOn && section.data.StartTime && section.data.EndTime">
+          <div ng-repeat="j in section.data.MeetsOn">
+          {{section.data.MeetsOn[$index]}} {{section.data.StartTime[$index]|readableTime}} &ndash; {{section.data.EndTime[$index]|readableTime}}
+          </div>
         </td>
     <tr>
   </tbody>
