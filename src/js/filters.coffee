@@ -26,3 +26,11 @@ angular.module("Courses.filters", [])
     6: 'Sunday'
   (input) ->
     days[input]
+.filter 'sectionOnDay', ->
+  (sectionList, day) ->
+    isonday = (sec) ->
+      for d in sec.meetsOn
+          if d == day
+            return true
+      false
+    sec for sec in sectionList when isonday(sec)
