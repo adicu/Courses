@@ -1,5 +1,6 @@
 angular.module('Courses.models')
 .factory 'Schedule', (
+  $rootScope,
   $location,
   $q,
   Course,
@@ -10,6 +11,8 @@ angular.module('Courses.models')
     constructor: () ->
       @courses = []
       @sectionsByDay = []
+      @_semester = null
+      @shouldUpdateURL = false
 
       for day in @getDays()
         @sectionsByDay[day] = []
@@ -42,25 +45,52 @@ angular.module('Courses.models')
       @update()
 
     # Fills the schedule from the URL parameters
-    fillFromURL: (term) ->
-      return
-      if $location.search().hasOwnProperty('sections')
-        callnum_string = ($location.search()).sections
-      else
-        # Support legacy routes using hash
-        callnum_string = $location.hash()
-      callnums = if callnum_string then callnum_string.split ',' else []
+    initFromURL: () ->
+      d = $q.defer()
+      semester = $location.search()['semester']
+      sections = $location.search()['sections']
+
+      console.log '$location', $location.search()
+
+      if not semester or not sections
+        # No location parameter
+        d.resolve false
+        return d.promise
+
+      console.log sections
+      callnums = sections.split ','
 
       promises =
         for callnum in callnums
           continue if not callnum
-          Course.queryBySectionCall callnum, term
+          Course.queryBySectionCall callnum, semester
 
       $q.all(promises).then (courses) =>
-        for course in courses
-          @addCourse course
+        # Temporarily disable URL updating
+        @shouldUpdateURL = false
 
-    # Will generated an array of all selected courses
+        @addCourses courses
+
+        # Renable after inserting everything
+        @shouldUpdateURL = true
+        @updateURL()
+        d.resolve true
+      , (error) ->
+        d.reject error
+
+      d.promise
+
+    updateURL: () ->
+      selectedSections = @getSelectedSections()
+      str = ''
+      for selectedSection in selectedSections
+        str += selectedSection.callNumber + ","
+      if str and str.charAt(str.length - 1) == ','
+        str = str.slice(0, -1)
+      $location.search 'semester', @semester()
+      $location.search 'sections', str
+
+    # Will generate an array of all selected courses
     # which have sections for given day(s)
     # @param [number] days ints representing which days
     #   are wanted. Ex. [0, 1, 2] -> MTW
@@ -96,6 +126,13 @@ angular.module('Courses.models')
 
       @sectionsByDay = sectionsByDay
 
+    # Setter and getter for current semester.
+    semester: (newSemester) ->
+      if newSemester
+        @_semester = newSemester
+        @updateNewSemester()
+      @_semester
+
     # Run to update section arrays after new courses are added.
     update: () ->
       courseStates = for course in @courses
@@ -105,6 +142,14 @@ angular.module('Courses.models')
         @exclusiveShowCourse @courses[exVisIndex]
       else
         @sectionsByDay = @getSectionsByDay()
+
+      console.log @shouldUpdateURL
+      if @shouldUpdateURL
+        @updateURL()
+
+    # TODO: Implement. Clear schedule, etc.
+    updateNewSemester: () ->
+      return
 
     getTotalPoints: () ->
       points = 0
