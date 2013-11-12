@@ -22,7 +22,7 @@ angular.module('Courses.models')
         alert 'Warning: you have already selected this course'
         return
       if course.isValid() isnt true
-        if not confirm 'Warning: this course is has no available sections.\nWould you like to add it anyways?'
+        if not confirm 'Warning: this course is has no available sections.\nWould you like to add it anyway?'
           return
 
       @courses.push course
