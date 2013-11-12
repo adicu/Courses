@@ -43,6 +43,7 @@ angular.module('Courses.models')
     # Select or deselect sections
     # @return {Section} Returns section on success.
     selectSection: (section, state = true) ->
+      section.selected = state
       if state
         if _.findWhere(@selectedSections, callNumber: section.callNumber)
           # Section is already selected
@@ -61,6 +62,7 @@ angular.module('Courses.models')
         return false
       else
         section = _.findWhere(@sections, callNumber: parseInt callNumber)
+        section.selected = true
         @selectedSections.push section
       section
 

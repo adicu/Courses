@@ -15,7 +15,7 @@
         id="{{section.callNumber}}"
         ng-show="section.callNumber"
         ng-repeat="section in course.sections"
-        ng-class="{'selected': section.selected}">
+        ng-class="{'selected': section.isSelected()}">
       <td>
         <code>
           <a
