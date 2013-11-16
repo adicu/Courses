@@ -54,3 +54,6 @@ angular.module('Courses.directives')
     $scope.clearResults = () ->
       $scope.searchResults = []
       $scope.searchQuery = ""
+
+    $scope.changeSemester = (newSemester) ->
+      $scope.selectedSemester = newSemester

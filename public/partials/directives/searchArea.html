@@ -6,12 +6,13 @@
       <div class="small-3 columns">
         <div class="row">
           <div
-            class="small-6 columns semesterToggle"
-            ng-repeat="semester in semesters">
-            <!--Put the inputs here-->
+            class="small-6 columns semesterToggle button"
+            ng-repeat="semester in semesters"
+            ng-class="{active: selectedSemester == semester}"
+            ng-click="changeSemester(semester)">
+            <p>{{semester | readableSemester}}</p>
           </div>
         </div>
-        <p>{{selectedSemester | readableSemester</p>
       </div>
       <div class="small-9 columns">
         <input
