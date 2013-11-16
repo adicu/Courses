@@ -22,3 +22,8 @@ angular.module('Courses.controllers')
       course.selectedSections = []
       $scope.schedule.addCourse course
       $scope.hide()
+
+    clickAway = (element) ->
+      $(document).click (event) ->
+        if $(event.target).parents.index element == -1
+          $scope.hide()
