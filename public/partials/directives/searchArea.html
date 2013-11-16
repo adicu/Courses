@@ -4,24 +4,14 @@
     onkeypress="return event.keyCode != 13;">
     <div class="row">
       <div class="small-3 columns">
-        <span
-          class="semesterToggle"
-          ng-repeat="semester in semesters">
-          <label
-            for="radio">
-            <input
-              ng-model="selectedSemester"
-              ng-value="{{semester}}"
-              name="radio"
-              type="radio"
-              id="radio"
-              style="display:none;"
-              ng-checked="semester == selectedSemester"
-              >
-            {{semester | readableSemester}}
-          </label>
-        </span>
-        <p>{{selectedSemester | readableSemester}}</p>
+        <div class="row">
+          <div
+            class="small-6 columns semesterToggle"
+            ng-repeat="semester in semesters">
+            <!--Put the inputs here-->
+          </div>
+        </div>
+        <p>{{selectedSemester | readableSemester</p>
       </div>
       <div class="small-9 columns">
         <input
