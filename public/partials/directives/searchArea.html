@@ -5,6 +5,7 @@
     <div class="row">
       <div class="small-3 columns">
         <span
+          class="semesterToggle"
           ng-repeat="semester in semesters">
           <label
             for="radio">
@@ -17,14 +18,10 @@
               style="display:none;"
               ng-checked="semester == selectedSemester"
               >
-            <span
-              class="custom radio"
-              ng-class="{checked: semester == selectedSemester}">
-            </span>
             {{semester | readableSemester}}
           </label>
         </span>
-        <p>{{selectedSemester}}</p>
+        <p>{{selectedSemester | readableSemester}}</p>
       </div>
       <div class="small-9 columns">
         <input
