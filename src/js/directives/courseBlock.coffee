@@ -5,8 +5,8 @@ angular.module('Courses.directives')
   scope:
     schedule: '='
   controller: (
-    $scope
-    $location
+    $scope,
+    $location,
   ) ->
     $scope.pageUrl = $location.absUrl()
     $scope.$on '$routeUpdate', () ->
@@ -17,7 +17,6 @@ angular.module('Courses.controllers')
 .controller 'popoverCtrl', (
   $scope,
   $rootScope,
-  $location
 ) ->
   $scope.removeCourse = (course) ->
     $scope.schedule.removeCourse course
