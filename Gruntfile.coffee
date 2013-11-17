@@ -42,7 +42,8 @@ module.exports = (grunt) ->
       src:
         files:
           'public/css/app.min.css': [
-            'src/css/**/*.less'
+            'src/css/**/*.less',
+            'bower_components/grid-5/index'
           ]
         options:
           yuicompress: true
