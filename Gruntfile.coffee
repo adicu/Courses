@@ -95,8 +95,12 @@ module.exports = (grunt) ->
           ['build', 'clean']
         options:
           debounceDelay: 250
-          livereload: true
           spawn: false
+      less:
+        files:
+          ['src/css/*']
+        tasks:
+          ['less']
 
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-concat'
