@@ -194,14 +194,19 @@ div#app {
   overflow: auto;
 }
 
-.semesterToggle {
-  label {
-    display: inline;
-    width: 50%;
+.semesterToggle.button {
+  height: 2em;
+  margin-bottom: 0;
+
+  p {
+    margin-bottom: 0;
     font-size: 0.875em;
-    margin: 0 0 1em 0;
-    padding: 0.5em 0 ;
-    height: 2.3125em;
+    padding: 3px;
+  }
+
+  &.active {
+    background-color: #d0d0d0;
+    cursor: default;
   }
 }
 
