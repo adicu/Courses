@@ -2,7 +2,18 @@
   <form
     class="custom"
     onkeypress="return event.keyCode != 13;">
-    <div class="row collapse">
+    <div class="row">
+      <div class="small-3 columns">
+        <div class="row collapse">
+          <div
+            class="small-6 columns semesterToggle button secondary"
+            ng-repeat="semester in semesters"
+            ng-class="{active: selectedSemester == semester}"
+            ng-click="changeSemester(semester)">
+            <p>{{semester | readableSemester}}</p>
+          </div>
+        </div>
+      </div>
       <div class="small-9 columns">
         <input
           type="text"
@@ -11,16 +22,6 @@
           ng-model="searchQuery"
           ng-change="search()"
           placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
-        />
-      </div>
-      <div class="small-1 columns">
-        <button class="prefix" ng-click="clearResults()">Clear</button>
-      </div>
-      <div class="small-2 columns">
-        <select
-          id="customDropdown"
-          ng-model="selectedSemester"
-          ng-options="semester | readableSemester for semester in semesters"
         />
       </div>
     </div>

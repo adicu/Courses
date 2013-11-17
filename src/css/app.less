@@ -37,6 +37,8 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
   margin-bottom: 0em;
 }
 
+
+
 #calendar { position: relative; }
 #calendar table {
   background: none;
@@ -190,6 +192,22 @@ div#app {
   }
   max-height: 460px;
   overflow: auto;
+}
+
+.semesterToggle.button {
+  height: 2em;
+  margin-bottom: 0;
+
+  p {
+    margin-bottom: 0;
+    font-size: 0.875em;
+    padding: 3px;
+  }
+
+  &.active {
+    background-color: #d0d0d0;
+    cursor: default;
+  }
 }
 
 // Popover CSS from Bootstrap
