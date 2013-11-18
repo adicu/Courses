@@ -5,6 +5,7 @@ angular.module('Courses.models')
   $rootScope,
   CONFIG,
   CourseState,
+  elasticSearch,
   Section,
 ) ->
   class Course
@@ -111,18 +112,22 @@ angular.module('Courses.models')
     #   Not Courses because ES doesn't give full information
     @query: (query, term = $rootScope.selectedSemester) ->
       d = $q.defer()
-      $http
-        method: 'JSONP'
-        url: "#{CONFIG.DATA_API}search"
-        params:
-          jsonp: 'JSON_CALLBACK'
-          api_token: CONFIG.API_TOKEN
-          q: query
-          term: term
-      .success (data, status, headers, config) ->
-        d.resolve data.data
-      .error (data, status) ->
-        d.reject new Error 'Query failed with status ' + status
+      request = elasticSearch.getCourseRequest()
+      ejs = elasticSearch.ejs
+      request.query(
+        ejs.BoolQuery()
+          .must(ejs.TermQuery 'Term', term)
+          .should(ejs.QueryStringQuery query)
+      )
+      .doSearch()
+      .then (data) ->
+        hits = data.hits.hits
+        hits = _.map hits, (hit) ->
+          hit['_source']
+        console.log hits
+        d.resolve hits
+      , (error) ->
+        d.reject error
       d.promise
 
     # Search by the section call number

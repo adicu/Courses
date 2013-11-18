@@ -78,6 +78,9 @@ module.exports = (grunt) ->
             'bower_components/angular-easyfb/angular-easyfb.js'
             # Custom version of angular-strap
             'src/lib/angular-strap.js'
+            # elastic.js
+            'bower_components/elastic.js/dist/elastic.js'
+            'bower_components/elastic.js/dist/elastic-angular-client.js'
             # Additional lib files in index.html
           ]
         # options:
