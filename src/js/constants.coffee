@@ -8,6 +8,7 @@ angular.module('Courses.constants', [])
     COURSES_API: 'db.adicu.com/api/'
     DATA_API: 'http://data.adicu.com/courses/v2/'
     API_TOKEN: '51ffc99d0b18dc0002859b8d'
+    ES_API: 'http://db.data.adicu.com:9200'
 )
 .value(
   'CourseState',
