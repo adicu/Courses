@@ -107,20 +107,49 @@ angular.module('Courses.models')
         d.reject error
       d.promise
 
+    # Dynamically builds an ElasticSearch query
+    # by modifying ejsRequest
+    @buildQuery: (queryString, ejsRequest) ->
+      ejs = elasticSearch.ejs
+      ejsQuery = ejs.BoolQuery()
+        .should(ejs.QueryStringQuery queryString)
+
+      # Match full course (ie COMSW1004)
+      if match = queryString.match /^([A-Z]{4})[A-Z]?(\d{1,4})/i
+        department = match[1]
+        courseNumber = match[2]
+        courseSearch = department + courseNumber + '*'
+
+        console.log 'Full course match', match, courseSearch
+        ejsQuery.should(ejs.FieldQuery 'Course', courseSearch)
+          .boost(3.0)
+
+      # Match department (ie COMS)
+      else if match = queryString.match /^[a-zA-Z]{4}/i
+        department = match[0]
+        console.log 'department match', department
+        ejsQuery.should(ejs.FieldQuery 'DepartmentCode', department)
+          .boost(1.5)
+
+      ejsRequest.query(
+        ejsQuery
+      )
+
     # Full text search over courses
     # @return [{}] representing Course data
     #   Not Courses because ES doesn't give full information
     @query: (query, term = $rootScope.selectedSemester) ->
       d = $q.defer()
-      request = elasticSearch.getCourseRequest()
-      ejs = elasticSearch.ejs
-      request.query(
-        ejs.BoolQuery()
-          .must(ejs.TermQuery 'Term', term)
-          .should(ejs.QueryStringQuery query)
+      ejsRequest = elasticSearch.getCourseRequest()
+      Course.buildQuery query, ejsRequest
+      ejsRequest.filter(
+        ejs.TermFilter 'Term', term
       )
       .doSearch()
       .then (data) ->
+        if not (data and data.hits and data.hits.hits)
+          d.reject new Error 'Data not received'
+          return
         hits = data.hits.hits
         hits = _.map hits, (hit) ->
           hit['_source']
