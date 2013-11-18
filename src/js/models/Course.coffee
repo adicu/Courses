@@ -120,14 +120,12 @@ angular.module('Courses.models')
         courseNumber = match[2]
         courseSearch = department + courseNumber + '*'
 
-        console.log 'Full course match', match, courseSearch
         ejsQuery.should(ejs.FieldQuery 'Course', courseSearch)
           .boost(3.0)
 
       # Match department (ie COMS)
       else if match = queryString.match /^[a-zA-Z]{4}/i
         department = match[0]
-        console.log 'department match', department
         ejsQuery.should(ejs.FieldQuery 'DepartmentCode', department)
           .boost(1.5)
 
