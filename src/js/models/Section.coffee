@@ -47,6 +47,15 @@ angular.module('Courses.models')
             return true
       return false
 
+    isOverlapping: (other) ->
+      for ts in @subsections
+        for os in other.subsections
+          if not (ts.endTime < os.startTime or os.endTime < ts.startTime)
+            for thisDay in ts.meetsOn
+              if os.meetsOn.indexOf thisDay
+                return true
+      return false
+
     # Checks to see if this section is valid
     isValid: () ->
       validity =

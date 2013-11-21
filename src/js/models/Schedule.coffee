@@ -116,12 +116,19 @@ angular.module('Courses.models')
       selectedSections
 
     # Exclusively show all the sections of a given course
+    # This is the behavior when multiple sections need to be
+    # selected from for a given course.
     exclusiveShowCourse: (course) ->
       sectionsByDay = []
       for day in @getDays()
         sectionsByDay[day] = course.getSectionsByDay day, false
 
       @sectionsByDay = sectionsByDay
+
+    # Shows all courses that are selected for this schedule.
+    # This is the default behavior.
+    showAllSelectedCourses: () ->
+      @sectionsByDay = @getSectionsByDay()
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
@@ -138,7 +145,7 @@ angular.module('Courses.models')
       if exVisIndex isnt -1
         @exclusiveShowCourse @courses[exVisIndex]
       else
-        @sectionsByDay = @getSectionsByDay()
+        @showAllSelectedCourses()
 
       if @shouldUpdateURL
         @updateURL()
