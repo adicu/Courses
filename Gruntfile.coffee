@@ -23,14 +23,6 @@ module.exports = (grunt) ->
           bare: true
           sourceMap: true
 
-    # Minifies the CSS files. Deprecated.
-    cssmin:
-      src:
-        files:
-          'public/css/app.min.css': [
-            'src/css/**/*.css'
-          ]
-
     forever:
       options:
         index: 'app/server.coffee'
@@ -42,7 +34,7 @@ module.exports = (grunt) ->
       src:
         files:
           'public/css/app.min.css': [
-            'src/css/**/*.less',
+            'src/css/app.less',
             'bower_components/grid-5/index'
           ]
         options:

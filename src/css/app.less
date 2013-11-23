@@ -1,3 +1,7 @@
+@import "variables.less";
+@import "popover.less";
+@import "courseBlock.less";
+
 /* Application */
 
 span#byline {color: #777;}
@@ -12,8 +16,6 @@ footer a {
 footer a:hover { color: #666;}
 footer div#reportBug { text-align: right; padding-right: 30px; }
 
-#print { background: transparent; border: none; position: absolute; top: 12px; right: 0; color: #222; font-size: 0.8em; text-decoration: underline; padding: 0.25em 0.5em 0.05em 0.5em; border: 1px solid #fff; }
-#print:hover { cursor: pointer; background-color: #eee; border: 1px solid #ccc;}
 #browser {
   position: relative;
 }
@@ -36,8 +38,6 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
   font-size: 0.8em;
   margin-bottom: 0em;
 }
-
-
 
 #calendar { position: relative; }
 #calendar table {
@@ -111,52 +111,6 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
   background-image: -o-linear-gradient(top, transparent, #073A59);
 }
 
-
-@media only screen and (min-width: 768px) {
-  .courseBlock .panel {
-    padding: 0.6em;
-  }
-}
-
-.courseBlock {
-
-  h4, h5 {
-    text-align: center;
-  }
-
-  .courseItem {
-    background: #073A59;
-    border-radius: 2px;
-    list-style: none;
-    margin: 0px 0px 0.4em 0px;
-    position: relative;
-
-    p {
-      color: #FFF;
-      display: block;
-      margin: 0em;
-      padding: 0.4em;
-      text-align: center;
-
-      i {
-        margin-left: 0.4em;
-      }
-    }
-
-    &:hover {
-      cursor: pointer;
-      background: #255979;
-    }
-  }
-
-  .removeButton {
-    color: #FFF;
-    position: absolute;
-    right: 0.4em;
-    top: -0.2em;
-  }
-}
-
 div.timeSlot {
   height: 100%;
 
@@ -170,27 +124,6 @@ div.timeSlot {
 
 div#app {
   margin-top: 2em;
-}
-
-// Own popover tweaks
-.popover-content {
-  ul {
-    list-style-type: none;
-  }
-  p {
-    line-height: 1;
-  }
-  p.description {
-    line-height: 1.2;
-  }
-  table {
-    width: 100%;
-    .selected {
-      border: 1px solid rgb(43, 166, 203);
-    }
-  }
-  max-height: 460px;
-  overflow: auto;
 }
 
 .semesterToggle.button {
@@ -210,142 +143,6 @@ div#app {
   }
 }
 
-p.share {
-  margin: 20px 0 0 0;
-}
-
-// Popover CSS from Bootstrap
-.popover {
-  position:absolute;
-  top:0;
-  left:0;
-  z-index:1010;
-  display:none;
-  min-height: 300px;
-  width: 576px;
-  padding:1px;
-  text-align:left;
-  white-space:normal;
-  background-color:#ffffff;
-  border:1px solid #cccccc;
-  border:1px solid rgba(0,0,0,0.2);
-  -webkit-border-radius:6px;
-  -moz-border-radius:6px;
-  border-radius:6px;
-  -webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);
-  -moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);
-  box-shadow:0 5px 10px rgba(0,0,0,0.2);
-  -webkit-background-clip:padding-box;
-  -moz-background-clip:padding;
-  background-clip:padding-box;
-  .arrow {
-    position:absolute;
-    display:block;
-    width:0;
-    height:0;
-    border-color:transparent;
-    border-style:solid;
-    border-width:11px;
-    &:after {
-      position:absolute;
-      display:block;
-      width:0;
-      height:0;
-      border-color:transparent;
-      border-style:solid;
-      border-width:10px;
-      content:"";
-    }
-  }
-
-
-  &.top {
-    margin-top:-10px;
-    .arrow {
-      bottom:-11px;
-      left:50%;
-      margin-left:-11px;
-      border-top-color:#999999;
-      border-top-color:rgba(0,0,0,0.25);
-      border-bottom-width:0;
-      &:after {
-        bottom:1px;
-        margin-left:-10px;
-        border-top-color:#ffffff;
-        border-bottom-width:0;
-      }
-    }
-  }
-  &.right {
-    margin-left:10px;
-    .arrow {
-      top:50%;
-      left:-11px;
-      margin-top:-11px;
-      border-right-color:#999999;
-      border-right-color:rgba(0,0,0,0.25);
-      border-left-width:0;
-      &:after {
-        bottom:-10px;
-        left:1px;
-        border-right-color:#ffffff;
-        border-left-width:0;
-      }
-    }
-  }
-  &.bottom {
-    margin-top:10px;
-    .arrow {
-      top:-11px;
-      left:50%;
-      margin-left:-11px;
-      border-bottom-color:#999999;
-      border-bottom-color:rgba(0,0,0,0.25);
-      border-top-width:0;
-      &:after {
-        top:1px;
-        margin-left:-10px;
-        border-bottom-color:#ffffff;
-        border-top-width:0;
-      }
-    }
-  }
-  &.left {
-    margin-left:-10px;
-    .arrow {
-      top:50%;
-      right:-11px;
-      margin-top:-11px;
-      border-left-color:#999999;
-      border-left-color:rgba(0,0,0,0.25);
-      border-right-width:0;
-      &:after {
-        right:1px;
-        bottom:-10px;
-        border-left-color:#ffffff;
-        border-right-width:0;
-      }
-    }
-  }
-  &-title {
-    padding:8px 14px;
-    margin:0;
-    font-size:14px;
-    font-weight:normal;
-    line-height:18px;
-    background-color:#f7f7f7;
-    border-bottom:1px solid #ebebeb;
-    -webkit-border-radius:5px 5px 0 0;
-    -moz-border-radius:5px 5px 0 0;
-    border-radius:5px 5px 0 0;
-    :empty {
-        display:none;
-    }
-  }
-  &-content {
-    padding:9px 14px;
-  }
-}
 .fade {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
