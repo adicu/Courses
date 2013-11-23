@@ -1,6 +1,7 @@
 angular.module('Courses.models')
 .factory 'Section', (
   CourseHelper,
+  Subsection,
 ) ->
   class Section
     constructor: (@data, @parentCourse) ->
@@ -19,15 +20,14 @@ angular.module('Courses.models')
 
     addSubsections: () ->
       for meets, i in @data.MeetsOn
-        subsection =
+        subsection = new Subsection
           building:  @data.Building[i]
           room:      @data.Room[i]
           points:    @parentCourse.points
           meetsOn:   CourseHelper.parseDays @data.MeetsOn[i]
           startTime: CourseHelper.parseTime @data.StartTime[i]
           endTime:   CourseHelper.parseTime @data.EndTime[i]
-        subsection.css = CourseHelper.computeCSS subsection.startTime,
-          subsection.endTime
+
         @subsections.push subsection
 
     getSubData: (key) ->
@@ -41,19 +41,15 @@ angular.module('Courses.models')
       @selected
 
     isOnDay: (day) ->
-      for subsection in @subsections
-        for meetDay in subsection.meetsOn
-          if meetDay == day
-            return true
-      return false
+      # Returns true if any subsections are on day
+      _.some @subsections, (subsection) ->
+        subsection.isOnDay day
 
     isOverlapping: (other) ->
       for ts in @subsections
         for os in other.subsections
-          if not (ts.endTime < os.startTime or os.endTime < ts.startTime)
-            for thisDay in ts.meetsOn
-              if os.meetsOn.indexOf thisDay
-                return true
+          if ts.isOverlapping os
+            return true
       return false
 
     # Checks to see if this section is valid

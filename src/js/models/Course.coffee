@@ -159,7 +159,6 @@ angular.module('Courses.models')
         hits = data.hits.hits
         hits = _.map hits, (hit) ->
           hit['_source']
-        console.log hits
         d.resolve hits
       , (error) ->
         d.reject error

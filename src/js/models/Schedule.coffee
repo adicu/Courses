@@ -6,6 +6,7 @@ angular.module('Courses.models')
   Course,
   CourseState,
   Section,
+  Subsection,
 ) ->
   class Schedule
     constructor: () ->
@@ -129,6 +130,30 @@ angular.module('Courses.models')
     # This is the default behavior.
     showAllSelectedCourses: () ->
       @sectionsByDay = @getSectionsByDay()
+      @handleOverlaps @sectionsByDay
+
+    # Will recalcuate the CSS for sections that are overlapping
+    handleOverlaps: (sectionsByDay) ->
+      subsectionsByDay = _.map sectionsByDay, (day) ->
+        subsections = for section in day
+          section.subsections
+
+        _.flatten subsections
+
+      seen = []
+      for day in subsectionsByDay
+        for subsection in day
+          if seen.indexOf(subsection) isnt -1
+            continue
+
+          overlappingSubsections = _.filter day, (otherSubsection) ->
+            # This will, of course, include section itself
+            subsection.isOverlapping otherSubsection
+
+          # There are overlapping sections (not just section itself)
+          if overlappingSubsections and overlappingSubsections.length > 1
+            Subsection.recalcCSS overlappingSubsections
+            seen.push x for x in overlappingSubsections
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
