@@ -3,6 +3,13 @@ angular.module('Courses.models')
   CourseHelper,
 ) ->
   class Subsection
+    # Field examples:
+    # building: "PUPIN LABORA"
+    # endTime: 12.25
+    # meetsOn: [0, 2]
+    # points: 3
+    # room: "301"
+    # startTime: 11
     constructor: (@data) ->
       # Set all of the properties on data to the new object
       _.extend @, @data
