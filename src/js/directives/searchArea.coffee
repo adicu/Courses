@@ -35,7 +35,6 @@ angular.module('Courses.directives')
             $scope.clearResults()
             # TODO: Success message
           else
-            console.log data
             $scope.searchResults = data
 
     # Will run searches after a delay

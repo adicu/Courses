@@ -97,6 +97,14 @@ angular.module('Courses.models')
         @_state = newState
       @_state
 
+    # Checks to see if this course overlaps with the other course
+    isOverlapping: (other) ->
+      return false if not other
+      for thisSection in @selectedSections
+        for otherSection in other.selectedSections
+          return true if thisSection.isOverlapping otherSection
+      return false
+
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
     @search: (query, term = $rootScope.selectedSemester) ->
@@ -151,7 +159,6 @@ angular.module('Courses.models')
         hits = data.hits.hits
         hits = _.map hits, (hit) ->
           hit['_source']
-        console.log hits
         d.resolve hits
       , (error) ->
         d.reject error
