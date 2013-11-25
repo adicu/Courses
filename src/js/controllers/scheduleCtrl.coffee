@@ -26,3 +26,7 @@ angular.module('Courses.controllers')
       $scope.schedule.addCourse(course)
     , (error) ->
       throw error if error
+
+  # Section has been clicked, popup should be triggered.
+  $scope.sectionClicked = (section) ->
+    $scope.$broadcast 'sectionClicked', section
