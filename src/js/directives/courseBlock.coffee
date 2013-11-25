@@ -11,30 +11,3 @@ angular.module('Courses.directives')
     $scope.pageUrl = $location.absUrl()
     $scope.$on '$routeUpdate', () ->
       $scope.pageUrl = $location.absUrl()
-
-
-angular.module('Courses.controllers')
-.controller 'popoverCtrl', (
-  $scope,
-  $rootScope,
-) ->
-  $scope.removeCourse = (course) ->
-    $scope.schedule.removeCourse course
-    $scope.hide()
-
-  $scope.changeSections = (course) ->
-    $scope.schedule.removeCourse course
-    for section in course.selectedSections
-      section.selected = false
-    course.selectedSections = []
-    $scope.schedule.addCourse course
-    $scope.hide()
-
-  $scope.$on 'popover-shown', (ev) ->
-    $(document).on 'click.hidepopover', (event) ->
-      if not $(event.target).parents().filter('.courseBlock').length
-        # Click outside the popover
-        $scope.hide()
-
-  $scope.$on 'popover-hide', (ev) ->
-    $(document).off 'click.hidepopover'
