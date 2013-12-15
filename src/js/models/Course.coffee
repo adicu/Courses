@@ -18,6 +18,7 @@ angular.module('Courses.models')
       @points = @data.NumFixedUnits / 10.0
       @title = @data.CourseTitle
       @description = @data.Description
+      @displayName = @getDefaultDisplayName()
       @_state = CourseState.VISIBLE
 
       @createSections(term)
@@ -79,6 +80,10 @@ angular.module('Courses.models')
         sectionsByDay = _.filter @sections, (section) ->
           section.isOnDay(day)
       sectionsByDay
+
+    getDefaultDisplayName: () ->
+      console.log @IDFull + ": " + @title
+      return @IDFull + ": " + @title
 
     isSelected: () ->
       new Boolean @selectedSections.length

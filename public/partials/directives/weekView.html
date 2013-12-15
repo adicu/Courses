@@ -23,7 +23,7 @@
               }"
               ng-click="selectSection(section)"
               ng-style="subsection.css"
-              title="{{section.id}}: {{section.title}}">
+              title="{{section.getParentCourse().displayName}}">
               <div class="timeSlot">
                 <p
                   class="message"
@@ -31,8 +31,7 @@
                   <em>Select a section</em>
                 </p>
                 <p class="timeSlotText timeSlotTitle">
-                  <strong>{{section.IDFull}}</strong>:
-                  {{section.title}}
+                  <strong>{{section.getParentCourse().displayName}}</strong>
                 </p>
               </div>
               <div class="bottom-fade"></div>
