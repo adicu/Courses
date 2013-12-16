@@ -7,6 +7,7 @@ angular.module('Courses.models')
   CourseState,
   elasticSearch,
   Section,
+  Colors,
 ) ->
   class Course
     constructor: (@data, term) ->
@@ -19,6 +20,7 @@ angular.module('Courses.models')
       @title = @data.CourseTitle
       @description = @data.Description
       @displayName = @getDefaultDisplayName()
+      @color = Colors[Math.floor(Math.random() * Colors.length)].color
       @_state = CourseState.VISIBLE
 
       @createSections(term)
@@ -82,7 +84,6 @@ angular.module('Courses.models')
       sectionsByDay
 
     getDefaultDisplayName: () ->
-      console.log @IDFull + ": " + @title
       return @IDFull + ": " + @title
 
     isSelected: () ->

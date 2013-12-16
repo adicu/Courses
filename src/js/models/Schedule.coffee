@@ -86,8 +86,6 @@ angular.module('Courses.models')
         selectedSection = course.selectedSections[0]
         sectionNameParam = selectedSection.callNumber + ".name"
         if $location.search()[sectionNameParam]
-          console.log "sectionNameParam = ", sectionNameParam
-          console.log "setting display name to", $location.search()[sectionNameParam]
           course.displayName = $location.search()[sectionNameParam]
 
 

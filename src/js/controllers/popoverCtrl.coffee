@@ -3,9 +3,12 @@ angular.module('Courses.controllers')
   $scope,
   $rootScope,
   $timeout,
+  Colors
 ) ->
   popoverShown = false
   course = $scope.$parent.course
+  $scope.color = course.color
+  $scope.Colors = Colors
   $scope.displayName = if course.displayName == course.getDefaultDisplayName() then '' else course.displayName
 
   $scope.removeCourse = (course) ->
@@ -27,9 +30,10 @@ angular.module('Courses.controllers')
 
   $scope.$watch 'displayName', () ->
     course.displayName = if $scope.displayName == '' then course.getDefaultDisplayName() else $scope.displayName
-    console.log "hi: ", course.displayName
     $scope.$parent.$parent.schedule.update()
 
+  $scope.$watch 'color', () ->
+    $scope.$parent.$parent.schedule.update()
 
   # Handle clicks outside of the popover so the popover closes
   $scope.$on 'popover-shown', (ev) ->

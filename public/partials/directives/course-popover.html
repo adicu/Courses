@@ -10,6 +10,19 @@
       >
   </div>
 </div>
+<div class="row color">
+  <div class="large-2-5 columns">
+    <p>Colors:</p>
+  </div>
+  <div class="large-9-5 columns colors-wrapper">
+    <div ng-repeat="c in Colors" class="square-wrapper">
+      <span class="{{c.color}}"></span>
+      <input type="radio" name="color" class="square">
+      <span></span>
+    </div>
+  </div>
+</div>
+
 <p>Points: {{course.sections[0].points}}</p>
 <p class="description">{{course.description}}</p>
 <table class="sections">

@@ -17,7 +17,7 @@
             ng-repeat="section in day">
             <div
               ng-repeat="subsection in section.subsections | sectionOnDay:$parent.$index"
-              class="timeSlotWrapper"
+              class="timeSlotWrapper ng-class: section.getParentCourse().color"
               ng-class="{
                 select: section.getParentCourse().state() == CourseState.EXCLUSIVE_VISIBLE
               }"

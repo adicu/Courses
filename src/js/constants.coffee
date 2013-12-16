@@ -15,3 +15,7 @@ angular.module('Courses.constants', [])
     VISIBLE: 1                      # Normal view
     EXCLUSIVE_VISIBLE: 2            # Hide all other Courses
 )
+.value(
+  'Colors',
+  [{"color": "turquoise"}, {"color": "green"}, {"color": "blue"}, {"color": "purple"}, {"color": "midnight"}, {"color": "yellow"}, {"color": "orange"}, {"color": "red"}]
+)

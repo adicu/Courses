@@ -15,6 +15,7 @@
     <li
       class="courseItem"
       ng-repeat="course in schedule.courses"
+      ng-class="course.color"
       data-placement="right"
       data-original-title="{{course.id}}: {{course.title}}"
       data-unique="1"
