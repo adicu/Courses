@@ -23,7 +23,7 @@ angular.module('Courses.constants', [])
    {"color": "green"},
    {"color": "forest"},
    {"color": "blue"},
-   {"color": "deep"},
+   {"color": "true"},
    {"color": "midnight"},
    {"color": "purple"},
    {"color": "gray"}]
