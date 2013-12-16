@@ -17,5 +17,14 @@ angular.module('Courses.constants', [])
 )
 .value(
   'Colors',
-  [{"color": "turquoise"}, {"color": "green"}, {"color": "blue"}, {"color": "purple"}, {"color": "midnight"}, {"color": "yellow"}, {"color": "orange"}, {"color": "red"}]
+  [{"color": "red"},
+   {"color": "orange"},
+   {"color": "yellow"},
+   {"color": "green"},
+   {"color": "forest"},
+   {"color": "blue"},
+   {"color": "deep"},
+   {"color": "midnight"},
+   {"color": "purple"},
+   {"color": "gray"}]
 )
