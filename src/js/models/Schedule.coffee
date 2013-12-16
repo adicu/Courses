@@ -41,9 +41,18 @@ angular.module('Courses.models')
         @addCourse course
 
     removeCourse: (course) ->
+      @removeCourseFromURL(course)
       @courses = _.reject @courses, (c) ->
         c.IDFull is course.IDFull
       @update()
+
+    removeCourseFromURL: (course) ->
+      console.log "course = ", course
+      selectedSection = course.selectedSections[0]
+      sectionNameParam = selectedSection.callNumber + ".name"
+      sectionColorParam = selectedSection.callNumber + ".color"
+      $location.search sectionNameParam, null
+      $location.search sectionColorParam, null
 
     # Fills the schedule from the URL parameters
     initFromURL: () ->
@@ -95,18 +104,19 @@ angular.module('Courses.models')
     updateURL: () ->
       selectedSections = @getSelectedSections()
       sectionsStr = ''
+      liveCallNumbers = []
       for selectedSection in selectedSections
         sectionsStr += selectedSection.callNumber + ","
+        liveCallNumbers.push selectedSection.callNumber
         sectionParent = selectedSection.getParentCourse()
         sectionNameParam = selectedSection.callNumber + ".name"
         if sectionParent.displayName != sectionParent.getDefaultDisplayName()
-          console.log "dipsplayName = ", sectionParent.displayName, " and default = ", sectionParent.getDefaultDisplayName()
           $location.search sectionNameParam, sectionParent.displayName
         else
           # delete the default from the url
           $location.search sectionNameParam, null
         sectionColorParam = selectedSection.callNumber + ".color"
-        $location.search sectionNameParam, sectionParent.displayName
+        $location.search sectionColorParam, sectionParent.color
       if sectionsStr and sectionsStr.charAt(sectionsStr.length - 1) == ','
         sectionsStr = sectionsStr.slice(0, -1)
       $location.search 'semester', @semester()
