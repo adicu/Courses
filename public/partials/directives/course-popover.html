@@ -12,12 +12,17 @@
 </div>
 <div class="row color">
   <div class="large-2-5 columns">
-    <p>Colors:</p>
+    <p>Display color:</p>
   </div>
   <div class="large-9-5 columns colors-wrapper">
     <div ng-repeat="c in Colors" class="square-wrapper">
+      <!-- Colorful square -->
       <span class="{{c.color}}"></span>
-      <input type="radio" name="color" class="square">
+
+      <!-- Invisible radio button that does all the thinking -->
+      <input type="radio" name="color" value="{{c.color}}" ng-model="course.color" ng-change="colorChanged(c.color)">
+
+      <!-- Black box that appears around the square when the input is selected -->
       <span></span>
     </div>
   </div>

@@ -85,9 +85,12 @@ angular.module('Courses.models')
       for course in courses
         selectedSection = course.selectedSections[0]
         sectionNameParam = selectedSection.callNumber + ".name"
+        sectionColorParam = selectedSection.callNumber + ".color"
         if $location.search()[sectionNameParam]
           course.displayName = $location.search()[sectionNameParam]
-
+        if $location.search()[sectionColorParam]
+          course.color = $location.search()[sectionColorParam]
+          console.log "Updating course with color: ", course.color
 
     updateURL: () ->
       selectedSections = @getSelectedSections()
@@ -97,10 +100,13 @@ angular.module('Courses.models')
         sectionParent = selectedSection.getParentCourse()
         sectionNameParam = selectedSection.callNumber + ".name"
         if sectionParent.displayName != sectionParent.getDefaultDisplayName()
+          console.log "dipsplayName = ", sectionParent.displayName, " and default = ", sectionParent.getDefaultDisplayName()
           $location.search sectionNameParam, sectionParent.displayName
         else
           # delete the default from the url
           $location.search sectionNameParam, null
+        sectionColorParam = selectedSection.callNumber + ".color"
+        $location.search sectionNameParam, sectionParent.displayName
       if sectionsStr and sectionsStr.charAt(sectionsStr.length - 1) == ','
         sectionsStr = sectionsStr.slice(0, -1)
       $location.search 'semester', @semester()
