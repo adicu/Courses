@@ -67,6 +67,8 @@ angular.module('Courses.models')
         # Temporarily disable URL updating
         @shouldUpdateURL = false
 
+        @applyCourseCustomizations(courses)
+
         @addCourses courses
 
         # Renable after inserting everything
@@ -78,15 +80,34 @@ angular.module('Courses.models')
 
       d.promise
 
+    applyCourseCustomizations: (courses) ->
+      console.log "courses = ",courses
+      for course in courses
+        selectedSection = course.selectedSections[0]
+        sectionNameParam = selectedSection.callNumber + ".name"
+        if $location.search()[sectionNameParam]
+          console.log "sectionNameParam = ", sectionNameParam
+          console.log "setting display name to", $location.search()[sectionNameParam]
+          course.displayName = $location.search()[sectionNameParam]
+
+
     updateURL: () ->
       selectedSections = @getSelectedSections()
-      str = ''
+      sectionsStr = ''
       for selectedSection in selectedSections
-        str += selectedSection.callNumber + ","
-      if str and str.charAt(str.length - 1) == ','
-        str = str.slice(0, -1)
+        sectionsStr += selectedSection.callNumber + ","
+        sectionParent = selectedSection.getParentCourse()
+        sectionNameParam = selectedSection.callNumber + ".name"
+        if sectionParent.displayName != sectionParent.getDefaultDisplayName()
+          $location.search sectionNameParam, sectionParent.displayName
+        else
+          # delete the default from the url
+          $location.search sectionNameParam, null
+      if sectionsStr and sectionsStr.charAt(sectionsStr.length - 1) == ','
+        sectionsStr = sectionsStr.slice(0, -1)
       $location.search 'semester', @semester()
-      $location.search 'sections', str
+      $location.search 'sections', sectionsStr
+
 
     # Will generate an array of all selected courses
     # which have sections for given day(s)
