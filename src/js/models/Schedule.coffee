@@ -41,9 +41,17 @@ angular.module('Courses.models')
         @addCourse course
 
     removeCourse: (course) ->
+      @removeCourseFromURL(course)
       @courses = _.reject @courses, (c) ->
         c.IDFull is course.IDFull
       @update()
+
+    removeCourseFromURL: (course) ->
+      selectedSection = course.selectedSections[0]
+      sectionNameParam = selectedSection.callNumber + ".name"
+      sectionColorParam = selectedSection.callNumber + ".color"
+      $location.search sectionNameParam, null
+      $location.search sectionColorParam, null
 
     # Fills the schedule from the URL parameters
     initFromURL: () ->
@@ -67,6 +75,8 @@ angular.module('Courses.models')
         # Temporarily disable URL updating
         @shouldUpdateURL = false
 
+        @applyCourseCustomizations(courses)
+
         @addCourses courses
 
         # Renable after inserting everything
@@ -78,15 +88,47 @@ angular.module('Courses.models')
 
       d.promise
 
+
+    ###
+    Update the URL with colors and display names for each course
+
+    writes to the url with the parameters [callNumber].name and
+    [callNumber].color with the values of the display name and customized
+    color respectively.
+
+    @param courses: an array of courses in the current schedule
+    ###
+    applyCourseCustomizations: (courses) ->
+      for course in courses
+        selectedSection = course.selectedSections[0]
+        sectionNameParam = selectedSection.callNumber + ".name"
+        sectionColorParam = selectedSection.callNumber + ".color"
+        if $location.search()[sectionNameParam]
+          course.displayName = $location.search()[sectionNameParam]
+        if $location.search()[sectionColorParam]
+          course.color = $location.search()[sectionColorParam]
+
     updateURL: () ->
       selectedSections = @getSelectedSections()
-      str = ''
+      sectionsStr = ''
+      liveCallNumbers = []
       for selectedSection in selectedSections
-        str += selectedSection.callNumber + ","
-      if str and str.charAt(str.length - 1) == ','
-        str = str.slice(0, -1)
+        sectionsStr += selectedSection.callNumber + ","
+        liveCallNumbers.push selectedSection.callNumber
+        sectionParent = selectedSection.getParentCourse()
+        sectionNameParam = selectedSection.callNumber + ".name"
+        if sectionParent.displayName != sectionParent.getDefaultDisplayName()
+          $location.search sectionNameParam, sectionParent.displayName
+        else
+          # delete the default from the url
+          $location.search sectionNameParam, null
+        sectionColorParam = selectedSection.callNumber + ".color"
+        $location.search sectionColorParam, sectionParent.color
+      if sectionsStr and sectionsStr.charAt(sectionsStr.length - 1) == ','
+        sectionsStr = sectionsStr.slice(0, -1)
       $location.search 'semester', @semester()
-      $location.search 'sections', str
+      $location.search 'sections', sectionsStr
+
 
     # Will generate an array of all selected courses
     # which have sections for given day(s)
