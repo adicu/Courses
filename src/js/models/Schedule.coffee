@@ -47,7 +47,6 @@ angular.module('Courses.models')
       @update()
 
     removeCourseFromURL: (course) ->
-      console.log "course = ", course
       selectedSection = course.selectedSections[0]
       sectionNameParam = selectedSection.callNumber + ".name"
       sectionColorParam = selectedSection.callNumber + ".color"
@@ -89,8 +88,17 @@ angular.module('Courses.models')
 
       d.promise
 
+
+    ###
+    Update the URL with colors and display names for each course
+
+    writes to the url with the parameters [callNumber].name and
+    [callNumber].color with the values of the display name and customized
+    color respectively.
+
+    @param courses: an array of courses in the current schedule
+    ###
     applyCourseCustomizations: (courses) ->
-      console.log "courses = ",courses
       for course in courses
         selectedSection = course.selectedSections[0]
         sectionNameParam = selectedSection.callNumber + ".name"
@@ -99,7 +107,6 @@ angular.module('Courses.models')
           course.displayName = $location.search()[sectionNameParam]
         if $location.search()[sectionColorParam]
           course.color = $location.search()[sectionColorParam]
-          console.log "Updating course with color: ", course.color
 
     updateURL: () ->
       selectedSections = @getSelectedSections()
