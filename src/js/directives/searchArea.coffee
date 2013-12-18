@@ -23,9 +23,19 @@ angular.module('Courses.directives')
     $scope.$watch 'selectedSemester', (newSemester) ->
       $scope.schedule.semester newSemester
 
+    $scope.moreOptionsOff = true
+    $scope.optionsText = 'More Options'
+    $scope.optionsIcon = 'fa-angle-right'
+
     # Actual searching function
     runSearch = () ->
       query = $scope.searchQuery
+
+      # append advanced search features
+      if $scope.hasGoldNuggets
+        query = query + ' goldnugget'
+      if $scope.hasGlobalCores
+        query = query + ' globalcore'
       if not query or query.length == 0
         $scope.clearResults()
         return
@@ -56,3 +66,14 @@ angular.module('Courses.directives')
 
     $scope.changeSemester = (newSemester) ->
       $scope.selectedSemester = newSemester
+
+    $scope.toggleOptions = (moreOptionsStatus) ->
+      $scope.moreOptionsOff = !moreOptionsStatus
+      if $scope.optionsText == 'More Options'
+        $scope.optionsText = 'Less Options'
+      else
+        $scope.optionsText = 'More Options'
+      if $scope.optionsIcon == 'fa-angle-right'
+        $scope.optionsIcon = 'fa-angle-down'
+      else
+        $scope.optionsIcon = 'fa-angle-right'

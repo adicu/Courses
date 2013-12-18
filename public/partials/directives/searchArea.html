@@ -16,6 +16,7 @@
       </div>
       <div class="medium-9 columns">
         <input
+          id="smallerSearch"
           type="text"
           name="search_input"
           onsubmit="return false;"
@@ -23,11 +24,34 @@
           ng-change="search()"
           placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
         />
+        <div href="#" id="optionsButton" class="button" ng-click="toggleOptions(moreOptionsOff)">{{optionsText}}&nbsp<i class="fa {{optionsIcon}} fa-lg"></i></div>
+
+        <div 
+          class="moreOptions"
+          ng-hide="moreOptionsOff">
+          <label class="clearLabel">Filter By&nbsp:&nbsp</label>
+          <input
+            id="professorSearch"
+            ng-model="professorQuery"
+            placeholder="Professor Name"
+          />
+          <select id="departmentSelect">
+            <option value="all">All Departments</option>
+          </select>
+
+          <input id="getGold" type="checkbox" ng-model="hasGoldNuggets" ng-change="search()">
+          <label for="getGold">Gold Nuggets</label>
+
+          <input id="getGlobalCore" type="checkbox" ng-model="hasGlobalCores" ng-change="search()">
+          <label for="getGlobalCore">Global Cores</label>
+        </div>
+
       </div>
     </div>
   </form>
 </div>
 <div class="results" ng-show="searchResults">
+  <a class="closeResults" ng-click="clearResults()">&#215;</a>
   <ul class="no-bullet">
     <li
       class="course"
