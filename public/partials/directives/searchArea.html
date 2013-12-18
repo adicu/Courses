@@ -24,7 +24,7 @@
           ng-change="search()"
           placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
         />
-        <div href="#" id="optionsButton" class="button" ng-click="toggleOptions(moreOptionsOff)">{{optionsText}}&nbsp<i class="fa {{optionsIcon}} fa-lg"></i></div>
+        <div href="#" id="optionsButton" class="blue button" ng-click="toggleOptions(moreOptionsOff)">{{optionsText}}&nbsp<i class="fa {{optionsIcon}} fa-lg"></i></div>
 
         <div 
           class="moreOptions"
@@ -32,11 +32,14 @@
           <label class="clearLabel">Filter By&nbsp:&nbsp</label>
           <input
             id="professorSearch"
-            ng-model="professorQuery"
+            ng-model="professorSearch"
             placeholder="Professor Name"
+            ng-change="search()"
           />
-          <select id="departmentSelect">
-            <option value="all">All Departments</option>
+          <select 
+            id="departmentSelect" 
+            ng-model="department"
+            ng-options="d for d in departments">
           </select>
 
           <input id="getGold" type="checkbox" ng-model="hasGoldNuggets" ng-change="search()">
@@ -50,7 +53,7 @@
     </div>
   </form>
 </div>
-<div class="results" ng-show="searchResults">
+<div class="results {{extraMargin}}" ng-show="searchResults">
   <a class="closeResults" ng-click="clearResults()">&#215;</a>
   <ul class="no-bullet">
     <li
