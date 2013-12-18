@@ -151,9 +151,9 @@ angular.module('Courses.models')
             subsection.isOverlapping otherSubsection
 
           # There are overlapping sections (not just section itself)
-          if overlappingSubsections and overlappingSubsections.length > 1
-            Subsection.recalcCSS overlappingSubsections
-            seen.push x for x in overlappingSubsections
+          
+          Subsection.recalcCSS overlappingSubsections
+          seen.push x for x in overlappingSubsections
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
