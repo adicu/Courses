@@ -137,8 +137,25 @@ angular.module('Courses.models')
         queryString = queryString.replace /goldnugget/, ""
         if queryString.trim().length == 0
             queryString = "*"
-      
 
+      if (queryString.search /professorsearch/) > -1
+        index = queryString.search /professorsearch/
+        queryString = queryString.replace /professorsearch/, ""
+        professorString = queryString.substring(index)
+        queryString = queryString.substring(0, index)
+        ejsQuery.must(ejs.FieldQuery 'Instructor', professorString)
+        if queryString.trim().length == 0
+            queryString = "*"
+      
+      if (queryString.search /departmentsearch/) > -1
+        index = queryString.search /departmentsearch/
+        queryString = queryString.replace /departmentsearch/, ""
+        departmentString = queryString.substring(index)
+        queryString = queryString.substring(0, index)
+        ejsQuery.must(ejs.FieldQuery 'DepartmentCode', departmentString)
+        if queryString.trim().length == 0
+            queryString = "*"
+ 
       ejsQuery.should(ejs.QueryStringQuery queryString)
       
       # Match full course (ie COMSW1004)
