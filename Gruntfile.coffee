@@ -29,6 +29,11 @@ module.exports = (grunt) ->
         command: 'coffee'
         logDir: 'logs'
 
+    karma:
+      unit:
+        options:
+          files: ['test/unit/*.coffee']
+
     # Generates the CSS files from less files
     less:
       src:
@@ -107,6 +112,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-bower-task'
   grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-forever'
+  grunt.loadNpmTasks 'grunt-karma'
 
   grunt.registerTask 'default', ['build', 'lib', 'clean']
   grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'less']

@@ -23,5 +23,9 @@
     "q": "~0.9.6",
     "grunt-bower-task": "~0.3.2",
     "grunt-contrib-less": "~0.7.0"
+  },
+  "devDependencies": {
+    "grunt-karma": "~0.6.2",
+    "karma": "~0.10.9"
   }
 }

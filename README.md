@@ -1,4 +1,4 @@
-#Courses
+# Courses
 
 ADI's schedule builder for Columbia.
 
@@ -14,3 +14,12 @@ Build instructions:
 7. Go to `localhost:8000`.
 
 Make sure you copy the Facebook client secret into `settings.courses`.
+
+## Testing
+
+### Install protractor
+```
+npm install -g protractor
+webdriver-manager update
+webdriver-manager start
+```
