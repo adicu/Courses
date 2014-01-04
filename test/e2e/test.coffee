@@ -10,28 +10,24 @@ describe "Courses homepage", ->
     # https://github.com/angular/protractor/issues/49
     protractor.getInstance().ignoreSynchronization = true
 
+  it "should open the schedule view", ->
     page = new MainPage()
     url = page.get()
 
-  it "should open the schedule view", ->
     expect(browser.getCurrentUrl()).toContain('#/schedule')
 
   it "should search and add the course", ->
     page.searchBox.sendKeys 'COMS1004'
     browser.sleep 1000
     # Should have at least one result
-    expect(page.firstResult.isDisplayed()).toBe(true)
+    expect(page.searchResults.count()).toBeGreaterThan(0)
 
-    page.firstResult.click()
+    page.searchResults.get(0).click()
     browser.sleep 500
-
-    page.courseItems.then (courseItems) ->
-      expect(courseItems.length).toBe(1)
 
   it "should show the popover", ->
-    page.courseItems.then (courseItems) ->
-      courseItems[0].click()
+    expect(page.courseItems.count()).toBe(1)
+    page.courseItems.get(0).click()
     browser.sleep 500
 
-    page.popover.then (popover) ->
-      expect(popover.length).toBe(1)
+    expect(page.popover.count()).toBe(1)
