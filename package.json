@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "grunt-karma": "~0.6.2",
-    "karma": "~0.10.9"
+    "karma": "~0.10.9",
+    "grunt-protractor-runner": "~0.2.0",
+    "protractor": "~0.15.0"
   }
 }
