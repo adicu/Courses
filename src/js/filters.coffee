@@ -70,3 +70,7 @@ angular.module("Courses.filters", [])
             return true
       false
     sec for sec in sectionList when isonday(sec)
+.filter 'zeropad', ->
+  (num, padding) ->
+    num = num + ''
+    return if num.length >= padding then num else new Array(padding - num.length + 1).join('0') + num

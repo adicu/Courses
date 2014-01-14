@@ -51,7 +51,7 @@
           <a
             target="_blank"
             ng-href="{{section|bulletinLink}}">
-            #{{section.callNumber}}
+            #{{section.callNumber|zeropad:5}}
           </a>
         </code>
       </td>
