@@ -25,18 +25,15 @@ angular.module('Courses.models')
 
       @createSections(term)
 
-
     # Create sections from data JSON
     # @param term to filter on
     createSections: (term) ->
-      for sectionData in @data.Sections
-        if term
-          if sectionData.Term == term
-            section = new Section sectionData, @
-          else
-            continue
-        else
-          section = new Section sectionData, @
+      if term
+        validSections = _.where(@data.Sections, Term: term)
+      else
+        validSections = @data.Sections
+      for sectionData in validSections
+        section = new Section sectionData, @
         @addSection section
 
     addSection: (section) ->
