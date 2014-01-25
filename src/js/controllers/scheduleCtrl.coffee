@@ -2,7 +2,6 @@ angular.module('Courses.controllers')
 .controller 'scheduleCtrl', (
   $scope,
   $rootScope,
-  $FB,
   Course,
   Schedule,
   CourseHelper,

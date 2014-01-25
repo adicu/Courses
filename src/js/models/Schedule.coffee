@@ -8,9 +8,15 @@ angular.module('Courses.models')
   Section,
   Subsection,
 ) ->
+  ###
+  Main model of Courses, representing a full schedule with multiple courses
+  ###
   class Schedule
     constructor: () ->
+      # Array of courses in the schedule
       @courses = []
+      # For rendering purposes - 2D array
+      # [day] -> [Sections] in the specified day
       @sectionsByDay = []
       @_semester = null
       @shouldUpdateURL = false

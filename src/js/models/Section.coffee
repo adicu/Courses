@@ -3,6 +3,10 @@ angular.module('Courses.models')
   CourseHelper,
   Subsection,
 ) ->
+  ###
+  Represents a section of a course, ie a section of 1007 that meets MW
+  Certain information is specific to a section, like instructor and points.
+  ###
   class Section
     constructor: (@data, @parentCourse) ->
       @subsections = []

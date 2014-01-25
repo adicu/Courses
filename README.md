@@ -11,12 +11,13 @@ Build instructions:
 5. Serve `public/` however you like.
   `python -m SimpleHTTPServer` for example.
 6. Go to `localhost:8000`.
+7. Keep `grunt watch` running to compile changes.
 
 # App structure
 ```
 |-- app/ (backend code)
 |-- public/ (directory with minified code to be served -
-      this is not complete initially)
+      this is not complete initially, completed by grunt)
 |-- scripts/ (Various one off scripts)
 |-- src/ (code to be compiled)
  \

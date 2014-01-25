@@ -2,6 +2,11 @@ angular.module('Courses.models')
 .factory 'Subsection', (
   CourseHelper,
 ) ->
+  ###
+  Represents one part of the section meeting on MW, like the part only
+  meeting on M. This is due to state of M and W possibly being different,
+  for example if only one of the subsections overlaps.
+  ###
   class Subsection
     # Field examples:
     # building: "PUPIN LABORA"

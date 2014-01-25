@@ -9,6 +9,10 @@ angular.module('Courses.models')
   Section,
   Colors,
 ) ->
+  ###
+  Represents one Course ie COMS 1007, with all of its
+  sections and information.
+  ###
   class Course
     constructor: (@data, term) ->
       @sections = []
