@@ -20,7 +20,7 @@ angular.module('Courses.models')
       _.extend @, @data
       @computeCSS()
 
-    computeCSS: () ->
+    computeCSS:  ->
       @css = CourseHelper.computeCSS @startTime, @endTime
 
     isOnDay: (day) ->
@@ -32,6 +32,11 @@ angular.module('Courses.models')
           if other.isOnDay thisDay
             return true
       return false
+
+    # Will reset the CSS of the subsection
+    reset: ->
+      @css.width = "100%"
+      @css.left = "0"
 
     # Recalc the CSS for multiple overlapping sections
     @recalcCSS: (overlappingSubsections) ->

@@ -202,6 +202,8 @@ angular.module('Courses.models')
           if overlappingSubsections and overlappingSubsections.length > 1
             Subsection.recalcCSS overlappingSubsections
             seen.push x for x in overlappingSubsections
+          else
+            subsection.reset()
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
