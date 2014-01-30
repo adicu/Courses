@@ -36,7 +36,9 @@ angular.module("Courses.filters", [])
     m = d[2]
     s = d[3]
     ampm = 'am'
-    if h > 12
+    if h = 12
+      ampm = 'pm'
+    else if h > 12
       h = h - 12
       ampm = 'pm'
     time = h + ':' + m + ' ' +  ampm
