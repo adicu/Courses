@@ -29,6 +29,9 @@ angular.module('Courses.controllers')
     if section.id is $scope.course.id and not popoverShown
       $timeout () ->
         $scope.show()
+        $('body').animate
+          scrollTop: $('.popover').offset().top-$('body').scrollTop()+100
+        , 500
 
   $scope.$watch 'displayName', () ->
     course.displayName = if $scope.displayName == '' then course.getDefaultDisplayName() else $scope.displayName
