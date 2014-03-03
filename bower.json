@@ -19,5 +19,8 @@
     "grid-5": "https://gist.github.com/natebrennand/8623516/raw/66606eac7f16567908a73cd6b3182913648277ec/grid-5",
     "elastic.js": "~1.1.1",
     "foundation": "~5.0.3"
+  },
+  "resolutions": {
+    "jquery": ">= 2.0.0"
   }
 }
