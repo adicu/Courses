@@ -51,6 +51,8 @@ angular.module("Courses.filters", [])
     data = section.data.SectionFull.match(section_re)
     term = section.data.Term
     dept = data[1]
+    if data[3].toLowerCase() == "x"
+      data[3] = "BC"
     course = data[3] + data[2]
     sectno = data[4]
 
@@ -61,7 +63,10 @@ angular.module("Courses.filters", [])
     if section.instructor == ''
       return 'TBD'
     csv =  section.instructor.split(',')
-    query = csv[1].trim() + ' ' + csv[0].trim()
+    csv[0] = csv[0].trim()
+    csv[1] = csv[1].trim()
+    firstmiddle = csv[1].split(' ')
+    query = firstmiddle[0] + ' ' + csv[0]
     baseurl = 'http://culpa.info/search/results?search='
     baseurl + encodeURIComponent(query)
 .filter 'sectionOnDay', ->
