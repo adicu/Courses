@@ -63,9 +63,9 @@ angular.module("Courses.filters", [])
     if section.instructor == ''
       return 'TBD'
     csv =  section.instructor.split(',')
-    csv[0] = csv[0].trim();
+    csv[0] = csv[0].trim()
     csv[1] = csv[1].trim()
-    firstmiddle = csv[1].split(' ');
+    firstmiddle = csv[1].split(' ')
     query = firstmiddle[0] + ' ' + csv[0]
     baseurl = 'http://culpa.info/search/results?search='
     baseurl + encodeURIComponent(query)
