@@ -3,7 +3,6 @@ passport = require 'passport'
 coursesCtr = require '../controllers/coursesCtr'
 sectionsCtr = require '../controllers/sectionsCtr'
 departmentCtr = require '../controllers/departmentCtr'
-calendarCtr = require '../controllers/calendarCtr'
 
 
 module.exports = (config, app) ->
