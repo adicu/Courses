@@ -28,3 +28,15 @@ angular.module('Courses.constants', [])
    {"color": "purple"},
    {"color": "gray"}]
 )
+.value(
+  'Semesters',
+   ['20141', '20133']
+)
+.value(
+  'SemesterDates',
+  START_CURRENT:"01/20/2014"
+  END_CURRENT:"05/21/2014"
+  START_LAST:"09/2/2014"
+  END_LAST:"12/20/2014"
+)
+

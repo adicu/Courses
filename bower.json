@@ -1,23 +1,19 @@
 {
-  "name": "Courses",
-  "version": "0.0.2",
-  "homepage": "https://github.com/adicu/Courses",
+  "name": "Deks",
+  "version": "0.2",
+  "homepage": "https://github.com/G-ram/Deks",
   "authors": [
-    "brishin <ds2791@columbia.edu>"
+    "ggobieski <ggobieski@columbia.edu>"
   ],
   "main": "/public",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ],
   "dependencies": {
-    "angular-ui-utils": "~0.0.4",
-    "angular-easyfb": "~0.2.0",
-    "grid-5": "https://gist.github.com/natebrennand/8623516/raw/66606eac7f16567908a73cd6b3182913648277ec/grid-5",
-    "elastic.js": "~1.1.1",
-    "foundation": "~5.0.3"
+    "angular": "~1.2.14",
+    "jquery": "~2.1.0",
+    "modernizr": "~2.7.2"
   }
 }

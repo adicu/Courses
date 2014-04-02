@@ -35,29 +35,14 @@
     readonly="readonly"
     ng-model="pageUrl"
     onclick="this.select();">
-  <p class="share">Export to iCal:
-    <span class="hint--bottom" data-hint="Safari may not support this feature">
-      <i class="fa fa-info-circle" style="color:#AAA"></i>
-    </span>
-  </p>
-  <input
-    class="calendar"
-    id="start"
-    type="text"
-    ng-click="schedule.toggleCalendar('start')"
-    onclick="this.select();"
-    placeholder="Start">
-  <input
-    class="calendar"
-    id="end"
-    type="text"
-    ng-click="schedule.toggleCalendar('end')"
-    onclick="this.select();"
-    placeholder="End">
   <button 
     class="small gray"
     ng-click="schedule.getCalendar()"
   >
+    Export to iCal
     <i class="fa fa-download"></i>
   </button>
+    <span data-tooltip ui-jq="tooltip" ui-options="{placement:'bottom'}" class="has-tip" title="Safari may not support this feature">
+      <i class="fa fa-info-circle calendarInfo"></i>
+    </span>
 </div>
