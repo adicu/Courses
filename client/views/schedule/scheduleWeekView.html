@@ -1,0 +1,56 @@
+<template name="scheduleWeekView">
+  <div id="calendar">
+    <table>
+      <thead id="daynames">
+        <tr>
+          <th></th>
+          {{#each getDays}}
+            <th>{{readableDay}}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody id="daybodies">
+      <tr>
+        <td id="hours" class="hourColumn">
+          {{#each hours}}
+            <div>{{toTwelveHours}}</div>
+          {{/each}}
+        </td>
+        {{#each getDays}}
+          <td class="dayColumn">
+            <div>
+              {{#each getSectionsForDay}}
+                {{> scheduleWeekCourse}}
+              {{/each}}
+            </div>
+          </td>
+        {{/each}}
+      </tr>
+      </tbody>
+    </table>
+    <div id="guides">
+      {{#each getHours}}
+        <div id="{{this}}-guide"></div>
+      {{/each}}
+    </div>
+  </div>
+</template>
+
+<template name="scheduleWeekCourse">
+  {{# each subsections}}
+    <div
+      class="timeSlotWrapper"
+      ng-click="selectSection(section)"
+      ng-style="subsection.css"
+      title="{{section.parentCourse.displayName}}">
+      <div class="timeSlot">
+        <p class="message">
+          <em>Select a section</em>
+        </p>
+        <p class="timeSlotText timeSlotTitle">
+          <strong>{{section.parentCourse.displayName}}</strong>
+        </p>
+      </div>
+    </div>
+  {{/each}}
+</template>

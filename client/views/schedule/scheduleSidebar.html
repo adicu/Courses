@@ -1,0 +1,38 @@
+<template name="scheduleSidebar">
+  <div class="panel radius courseBlock">
+    <h4 class="subheader">Current Courses</h4>
+    {{#if hasCourses}}
+      <h5
+        class="subheader"
+        ng-show="schedule.getTotalPoints() > 0">
+        {{schedule.getTotalPoints}} credits
+      </h5>
+    {{else}}
+      <h5
+        class="subheader">
+        <i class="fa fa-2x fa-meh-o"></i>
+        <br/> No Courses. Go add some!
+      </h5>
+    {{/if}}
+    <ul>
+      {{#each schedule.getCourses}}
+        {{> scheduleSidebarItem}}
+      {{/each}}
+    </ul>
+  </div>
+</template>
+
+<template name="scheduleSidebarItem">
+  <li
+    class="courseItem {{course.color}}"
+    data-placement="right"
+    data-original-title="{{id}}: {{title}}"
+    data-unique="1"
+    bs-popover="'partials/directives/course-popover.html'"
+    ng-controller="popoverCtrl">
+    <p class="courseTitle">
+      <strong>{{course.displayName}}</strong>
+      <i class="fa fa-info-circle"></i>
+    </p>
+  </li>
+</template>

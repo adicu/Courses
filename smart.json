@@ -1,0 +1,19 @@
+{
+  "packages": {
+    "zurb-foundation": {},
+    "iron-router": {},
+    "spin": {},
+    "bower": {
+      "git": "https://github.com/brishin/meteor-bower"
+    },
+    "collection2": {}
+  },
+  "bower": {
+    "elastic.js": {
+      "version": "~1.1.1",
+      "additionalFiles": [
+        "dist/elastic-jquery-client.js"
+      ]
+    }
+  }
+}

@@ -2,8 +2,8 @@ import sys
 import argparse
 import os
 import time
-
-import simplejson as json
+import collections
+import json
 
 import pymongo
 
@@ -17,8 +17,6 @@ course_schema = [
     ("SchoolName", "varchar(64)"),
     ("DepartmentCode", "varchar(32)"),
     ("DepartmentName", "varchar(64)"),
-    ("SubtermCode", "varchar(32)"),
-    ("SubtermName", "varchar(64)"),
     ("EnrollmentStatus", "varchar(32)"),
     ("NumFixedUnits", "int"),
     ("MinUnits", "int"),
@@ -40,60 +38,7 @@ section_schema = [
     ("NumEnrolled", "int"),
     ("MaxSize", "int"),
     ("TypeCode", "varchar(32)"),
-    ("TypeName", "varchar(32)"),
-    ("Meets1", "varchar(64)"),
-    ("Meets2", "varchar(64)"),
-    ("Meets3", "varchar(64)"),
-    ("Meets4", "varchar(64)"),
-    ("Meets5", "varchar(64)"),
-    ("Meets6", "varchar(64)"),
-    ("MeetsOn1", "varchar(32)",),
-    ("StartTime1", "time"),
-    ("EndTime1", "time"),
-    ("Building1", "varchar(32)"),
-    ("Room1", "varchar(32)"),
-    ("MeetsOn2", "varchar(32)"),
-    ("StartTime2", "time"),
-    ("EndTime2", "time"),
-    ("Building2", "varchar(32)"),
-    ("Room2", "varchar(32)"),
-    ("MeetsOn3", "varchar(32)"),
-    ("StartTime3", "time"),
-    ("EndTime3", "time"),
-    ("Building3", "varchar(32)"),
-    ("Room3", "varchar(32)"),
-    ("MeetsOn4", "varchar(32)"),
-    ("StartTime4", "time"),
-    ("EndTime4", "time"),
-    ("Building4", "varchar(32)"),
-    ("Room4", "varchar(32)"),
-    ("MeetsOn5", "varchar(32)"),
-    ("StartTime5", "time"),
-    ("EndTime5", "time"),
-    ("Building5", "varchar(32)"),
-    ("Room5", "varchar(32)"),
-    ("MeetsOn6", "varchar(32)"),
-    ("StartTime6", "time"),
-    ("EndTime6", "time"),
-    ("Building6", "varchar(32)"),
-    ("Room6", "varchar(32)"),
-    ("ExamMeetsOn", "varchar(32)"),
-    ("ExamStartTime", "time"),
-    ("ExamEndTime", "time"),
-    ("ExamBuilding", "varchar(32)"),
-    ("ExamRoom", "varchar(32)"),
-    ("ExamMeet", "varchar(64)"),
-    ("ExamDate", "varchar(32)"),
-    # ("Instructor1PID", "varchar(32)"),
-    ("Instructor1Name", "varchar(32)"),
-    # ("Instructor2PID", "varchar(32)"),
-    ("Instructor2Name", "varchar(32)"),
-    # ("Instructor3PID", "varchar(32)"),
-    ("Instructor3Name", "varchar(32)"),
-    # ("Instructor4PID", "varchar(32)"),
-    ("Instructor4Name", "varchar(32)"),
-    ("CampusCode", "varchar(32)"),
-    ("CampusName", "varchar(32)"),
+    ("TypeName", "varchar(32)")
 ]
 
 # these are given to us in a weird format and need to be massaged a little
@@ -142,65 +87,74 @@ special_fields = [
     'Meets3',
     'Meets4',
     'Meets5',
-    'Meets6'
+    'Meets6',
+    "Instructor1Name",
+    "Instructor2Name",
+    "Instructor3Name",
+    "Instructor4Name"
 ]
 # format for meeting string (ex. "TR     03:00P-05:10PPUP PUPIN LABORA1332")
 # these tuples are of the form (field, type, start_char, end_char)
+MeetsTuple = collections.namedtuple('MeetsTuple',
+    ['field', 'type', 'start_char', 'end_char']
+)
 meets_format = [
-        ('MeetsOn', 'varchar(32)', 0, 7),
-        ('StartTime', 'time', 7, 13),
-        ('EndTime', 'time', 14, 20),
-        ('Building', 'varchar(32)', 24, 36),
-        ('Room', 'varchar(32)', 36, 42)
+    ('MeetsOn', 'varchar(32)', 0, 7),
+    ('StartTime', 'time', 7, 13),
+    ('EndTime', 'time', 14, 20),
+    ('Building', 'varchar(32)', 24, 36),
+    ('Room', 'varchar(32)', 36, 42)
 ]
+meets_format = [MeetsTuple._make(x) for x in meets_format]
 
 def _format_course(course):
     return course[:4] + ' ' + course[8] + course[4:8]
 
-def _special_treatment(course, schema):
-    num_meets = 6
+def _special_treatment_course(doc):
     pairs = []
-    dict_pairs = {}
-    for i in range(1, 1 + num_meets):
-        meets = course['Meets' + str(i)]
-        for item in meets_format:
-            if dict_pairs.get(item[0]) is None:
-                dict_pairs[item[0]] = []
-            value = meets[item[2]:item[3]].strip()
-            if value:
-                dict_pairs[item[0]].append(_typify(value, item[1]))
-
-    pairs += dict_pairs.items()
-
-    for prefix in ['Exam']:
-        meets = course[prefix + 'Meet']
-        for item in meets_format:
-            value = meets[item[2]:item[3]].strip()
-            if value:
-                pairs.append((prefix + item[0], _typify(value, item[1])))
-            else:
-                pairs.append((prefix + item[0], None))
-
-    pairs.append(('SectionFull', course['Course']))
-    pairs.append(('Course', course['Course'][:8]))
-    pairs.append(('CourseFull', _format_course(course['Course'])))
+    pairs.append(('Course', doc['Course'][:8]))
+    pairs.append(('CourseFull', _format_course(doc['Course'])))
 
     return pairs
 
-def drop_table():
-    client = pymongo.MongoClient("localhost", 27017)
-    db = client.courses
+def _special_treatment_section(doc):
+    num_meets = 6
+    num_instructors = 4
 
-    db['coursesd'].drop()
-    db['sectionsd'].drop()
+    dict_pairs = {}
+    for i in range(1, 1 + num_meets):
+        meets = doc['Meets' + str(i)]
+        for item in meets_format:
+            if dict_pairs.get(item.field) is None:
+                dict_pairs[item.field] = []
+            value = meets[item.start_char:item.end_char].strip()
+            if value:
+                dict_pairs[item.field].append(_typify(value, item.type))
 
-    pass
+    dict_pairs['instructors'] = []
+    for i in range(1, 1 + num_instructors):
+        instructor = doc.get(("Instructor%sName"% i), '')
+        if len(instructor) == 0:
+            continue
+        dict_pairs['instructors'].append(instructor)
+
+    pairs = dict_pairs.items()
+    pairs.append(('CourseFull', _format_course(doc['Course'])))
+    pairs.append(('SectionFull', doc['Term'] + doc['Course']))
+    return pairs
+
+def drop_table(mongo_uri):
+    client = pymongo.MongoClient(mongo_uri)
+    parsed_uri = pymongo.uri_parser.parse_uri(mongo_uri)
+
+    db = client[parsed_uri['database']]
+    db['courses'].drop()
 
 def _typify(value, data_type):
     if data_type.startswith('varchar'):
         return value
     if data_type.startswith('int'):
-        return str(int(value)) if value else 0
+        return int(value) if value else 0
     if data_type.startswith('time'):
         input_time = '%sM' % value # given data is in form '09:00A'
         # Converts to four digit 24 hour time 0000 - 2359
@@ -209,50 +163,91 @@ def _typify(value, data_type):
         print 'WARN: Unidentified type'
         return None
 
-def load_data(dump_file):
-    client = pymongo.MongoClient("localhost", 27017)
-    db = client['courses']
-    coursesd = db['coursesd']
-    sectionsd = db['sectionsd']
+# Downcases the key for each pair
+def downcase_pairs(pairs):
+    new_pairs = []
+    for pair in pairs:
+        # Downcase first char of string
+        pair_key = pair[0]
+        if isinstance(pair_key, (str, unicode)):
+            pair_key = pair_key[0].lower() + pair_key[1:]
+        new_pairs.append((pair_key, pair[1]))
+    return new_pairs
 
-    doc_queue = []
+def get_section_info(doc):
+    pairs = [(name, _typify(doc.get(name), data_type)) for (name,
+            data_type) in section_schema if name not in special_fields]
+    pairs += _special_treatment_section(doc)
+
+    return dict(downcase_pairs(pairs))
+
+# Will camelCase and process special fields
+def get_course_info(doc):
+    pairs = [(name, _typify(doc.get(name), data_type)) for (name,
+            data_type) in course_schema if name not in special_fields]
+    pairs += _special_treatment_course(doc)
+
+    new_doc = dict(downcase_pairs(pairs))
+
+    return new_doc
+
+def load_data(args):
+    client = pymongo.MongoClient(args.mongo_uri)
+    parsed_uri = pymongo.uri_parser.parse_uri(args.mongo_uri)
+
+    db = client[parsed_uri['database']]
+    courses_db = db['courses']
+    bulk = courses_db.initialize_unordered_bulk_op()
+
+    dump_file = args.dump_file
     with open(dump_file) as f:
-        for course in json.load(f):
-            pairs = [(name, _typify(course.get(name), data_type)) for (name,
-                    data_type) in course_schema if name not in special_fields]
-            pairs += _special_treatment(course, course_schema)
-            doc = dict(pairs)
-            coursesd.update({'CourseFull': doc['CourseFull']},
-                doc, True)
-    print '%d courses in db.' % coursesd.count()
-    with open(dump_file) as f:
-        for course in json.load(f):
-            pairs = [(name, _typify(course[name], data_type)) for (name,
-                    data_type) in section_schema if name not in special_fields]
-            pairs += _special_treatment(course, section_schema)
-            doc = dict(pairs)
-            doc_queue.append(doc)
-            if len(doc_queue) == 100:
-                inserted = sectionsd.insert(doc_queue)
-                print '%d documents inserted' % len(inserted)
-                doc_queue = []
-        if doc_queue:
-            inserted = sectionsd.insert(doc_queue)
-            print '%d documents inserted' % len(inserted)
-            doc_queue = []
-    print '%d sections in db.' % sectionsd.count()
+        docs = json.load(f)
+    courses = map(get_course_info, docs)
+    sections = map(get_section_info, docs)
+
+    for course in courses:
+        update_doc = {'$setOnInsert': course}
+        bulk.find({'courseFull': course['courseFull']})\
+            .upsert().update(update_doc)
+
+    result = bulk.execute()
+    # Remove giant list of objectIDs returned
+    result.pop('upserted', None)
+    print result
+    print '%d courses in db.' % courses_db.count()
+
+
+    sections_db = db['sections']
+    bulk = sections_db.initialize_unordered_bulk_op()
+
+    for section in sections:
+        update_doc = {'$set': section}
+        bulk.find({'sectionFull': section['sectionFull']})\
+            .upsert().update(update_doc)
+
+    try:
+        result = bulk.execute()
+    except pymongo.errors.BulkWriteError as bwe:
+        print(bwe.details)
+    # Remove giant list of objectIDs returned
+    result.pop('upserted', None)
+    print result
+    print '%d sections in db.' % sections_db.count()
+
 
 def main():
     parser = argparse.ArgumentParser(description="""Read a directory of courses
             JSON dump file and writes to Mongo.""")
     parser.add_argument('--drop', action='store_true', help="""drop the
-            courses_v2_t table""")
+            courses collection""")
     parser.add_argument('dump_file')
+    parser.add_argument('mongo_uri', help="""URI of the mongo database including
+        which database""")
     args = parser.parse_args()
     if args.drop:
-        drop_table()
+        drop_table(args.mongo_uri)
     else:
-        load_data(args.dump_file)
+        load_data(args)
 
 if __name__ == "__main__":
     main()
