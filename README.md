@@ -4,14 +4,9 @@ ADI's schedule builder for Columbia.
 
 Build instructions:
 
-1. Set up [npm](http://nodejs.org/download/) (at least 0.8.0).
-2. `sudo npm install -g grunt-cli coffee-script bower`
-3. In this project directory: `npm install`
-4. In this project directory: `grunt`
-5. Serve `public/` however you like.
-  `python -m SimpleHTTPServer` for example.
-6. Go to `localhost:8000`.
-7. Keep `grunt watch` running to compile changes.
+1. Run `vagrant up`
+2. View Courses at <http://localhost:8080/>
+3. Enjoy live recompilation of changed files.
 
 # App structure
 ```
