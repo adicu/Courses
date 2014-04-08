@@ -2,9 +2,14 @@ Meteor.publish 'courses', (courseFulls) ->
   if not _.isArray courseFulls
     courseFulls = [courseFulls]
 
-  return Courses.find
-    courseFull:
+  return [
+    Courses.find
+      courseFull:
         $in: courseFulls
+    Sections.find
+      courseFull:
+        $in: courseFulls
+  ]
 
 Meteor.publish 'sections', (sectionFulls) ->
   if not Co.isArray sectionFulls
@@ -21,4 +26,11 @@ Meteor.publish 'sections', (sectionFulls) ->
     Courses.find
       courseFull:
         $in: courseFulls
+  ]
+
+Meteor.publish 'schedules', ->
+  return [
+    Schedules.find
+      owner:
+        @userId
   ]

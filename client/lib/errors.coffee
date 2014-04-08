@@ -1,5 +1,5 @@
-Errors = new Meteor.Collection null
+@Errors = new Meteor.Collection null
 
-handleError = (message) ->
-  console.log 'Error ' + message
-  Errors.insert message: message
+@handleError = (error) ->
+  console.log 'Error: ' + error
+  Errors.insert error: error

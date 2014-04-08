@@ -5,8 +5,13 @@
       "zurb-foundation": {},
       "iron-router": {},
       "spin": {},
-      "bower": {},
-      "collection2": {}
+      "bower": {
+        "git": "https://github.com/brishin/meteor-bower",
+        "branch": "master"
+      },
+      "collection2": {},
+      "accounts-guest": {},
+      "collection-helpers": {}
     },
     "packages": {
       "zurb-foundation": {
@@ -25,14 +30,24 @@
         "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
       },
       "bower": {
-        "git": "https://github.com/mquandalle/meteor-bower.git",
-        "tag": "v0.1.5",
-        "commit": "4e96fa0365414371e412c8c5b79e7b4c2e6cefbf"
+        "git": "https://github.com/brishin/meteor-bower",
+        "branch": "master",
+        "commit": "d42f78e09286a59ce6dcbfdeaded81502253cbf3"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
         "tag": "v0.3.11",
         "commit": "7e970671305657678e8508d8107d5e6c5e158559"
+      },
+      "accounts-guest": {
+        "git": "https://github.com/artwells/meteor-accounts-guest.git",
+        "tag": "v0.0.6",
+        "commit": "f40bcf1f9e5999c70ab81a4f1e7a39f3ce78aa57"
+      },
+      "collection-helpers": {
+        "git": "https://github.com/dburles/meteor-collection-helpers.git",
+        "tag": "v0.2.4",
+        "commit": "e10ac53aa03e9656ee8ecaff7b9054dcb3a8a791"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

@@ -4,7 +4,7 @@
       <thead id="daynames">
         <tr>
           <th></th>
-          {{#each getDays}}
+          {{#each days}}
             <th>{{readableDay}}</th>
           {{/each}}
         </tr>
@@ -16,7 +16,7 @@
             <div>{{toTwelveHours}}</div>
           {{/each}}
         </td>
-        {{#each getDays}}
+        {{#each days}}
           <td class="dayColumn">
             <div>
               {{#each getSectionsForDay}}
@@ -29,7 +29,7 @@
       </tbody>
     </table>
     <div id="guides">
-      {{#each getHours}}
+      {{#each hours}}
         <div id="{{this}}-guide"></div>
       {{/each}}
     </div>
@@ -41,7 +41,7 @@
     <div
       class="timeSlotWrapper"
       ng-click="selectSection(section)"
-      ng-style="subsection.css"
+      style="{{css}}"
       title="{{section.parentCourse.displayName}}">
       <div class="timeSlot">
         <p class="message">

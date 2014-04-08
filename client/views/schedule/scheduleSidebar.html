@@ -1,7 +1,7 @@
 <template name="scheduleSidebar">
   <div class="panel radius courseBlock">
     <h4 class="subheader">Current Courses</h4>
-    {{#if hasCourses}}
+    {{#if schedule.getCourses}}
       <h5
         class="subheader"
         ng-show="schedule.getTotalPoints() > 0">
@@ -23,6 +23,7 @@
 </template>
 
 <template name="scheduleSidebarItem">
+  {{debug}}
   <li
     class="courseItem {{course.color}}"
     data-placement="right"
@@ -31,7 +32,7 @@
     bs-popover="'partials/directives/course-popover.html'"
     ng-controller="popoverCtrl">
     <p class="courseTitle">
-      <strong>{{course.displayName}}</strong>
+      <strong>{{course.courseFull}}</strong>
       <i class="fa fa-info-circle"></i>
     </p>
   </li>

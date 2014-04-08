@@ -12,3 +12,7 @@ coffeescript
 less
 bower
 collection2
+accounts-base
+accounts-password
+accounts-guest
+collection-helpers

@@ -2,6 +2,7 @@
 
 # Convert 0-23 hour time to 12 hour time
 UI.registerHelper 'toTwelveHours', (input = this) ->
+  input = Number input
   if input == 0
     return 'midnight'
   if input == 12

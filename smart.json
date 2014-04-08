@@ -6,7 +6,9 @@
     "bower": {
       "git": "https://github.com/brishin/meteor-bower"
     },
-    "collection2": {}
+    "collection2": {},
+    "accounts-guest": {},
+    "collection-helpers": {}
   },
   "bower": {
     "elastic.js": {

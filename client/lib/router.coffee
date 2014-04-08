@@ -7,6 +7,8 @@ Router.configure
 
 Router.onBeforeAction 'loading'
 
+# Associated controllers are in their respective directories
+# in views, mapped automatically by name
 Router.map ->
   @route 'home',
     path: '/'
@@ -15,23 +17,6 @@ Router.map ->
 
   @route 'scheduleView',
     path: '/schedule'
-    onBeforeAction: ->
-      Session.set 'coursesSearchResults', []
-    onStop: ->
-      # Clear search results when leaving page
-      Session.set 'coursesSearchResults', []
-    data: ->
-      data =
-        schedule: []
-        searchResults: Session.get 'coursesSearchResults'
-        # Should use constants but not working in router.coffee
-        semesters: Co.constants.semesters
-
-      # Set semesters to the first one by default
-      if data.semesters? and data.semesters.length >= 1
-        Session.set 'currentSemester', String data.semesters[0]
-
-      data
 
   @route 'directoryView',
     path: '/directory'

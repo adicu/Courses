@@ -108,7 +108,7 @@ meets_format = [
 meets_format = [MeetsTuple._make(x) for x in meets_format]
 
 def _format_course(course):
-    return course[:4] + ' ' + course[8] + course[4:8]
+    return course[:4] + course[8] + course[4:8]
 
 def _special_treatment_course(doc):
     pairs = []

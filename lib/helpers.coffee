@@ -73,3 +73,13 @@
       effectiveMonth += 4
       semesters.push year + '' + semester
     semesters
+
+# Necessary for anon users package
+@Co.user = ->
+  if Meteor.user()
+    return Meteor.user()
+
+  if Meteor.userId()
+    return Meteor.users.findOne Meteor.userId()
+  else
+    return null

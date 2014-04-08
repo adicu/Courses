@@ -5,3 +5,7 @@
 /bower
 /collection2
 /simple-schema
+/collection-helpers
+/persistent-session
+/session-amplify
+/accounts-guest
