@@ -1,10 +1,9 @@
 <template name="scheduleSidebar">
-  <div class="panel radius courseBlock">
+  <div class="panel radius scheduleSidebar">
     <h4 class="subheader">Current Courses</h4>
-    {{#if schedule.getCourses}}
+    {{#if schedule.getCourseFulls}}
       <h5
-        class="subheader"
-        ng-show="schedule.getTotalPoints() > 0">
+        class="subheader">
         {{schedule.getTotalPoints}} credits
       </h5>
     {{else}}
@@ -23,16 +22,15 @@
 </template>
 
 <template name="scheduleSidebarItem">
-  {{debug}}
   <li
-    class="courseItem {{course.color}}"
+    class="courseItem true"
     data-placement="right"
     data-original-title="{{id}}: {{title}}"
     data-unique="1"
     bs-popover="'partials/directives/course-popover.html'"
     ng-controller="popoverCtrl">
     <p class="courseTitle">
-      <strong>{{course.courseFull}}</strong>
+      <strong>{{courseFull}}</strong>
       <i class="fa fa-info-circle"></i>
     </p>
   </li>

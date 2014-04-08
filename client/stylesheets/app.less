@@ -1,6 +1,5 @@
 @import "colors.import.less";
 @import "popover.import.less";
-@import "courseBlock.import.less";
 
 /* Application */
 
@@ -16,83 +15,6 @@ footer a {
 footer a:hover { color: #666;}
 footer div#reportBug { text-align: right; padding-right: 30px; }
 
-#browser {
-  position: relative;
-}
-
-#browser div.results {
-  position: absolute; left: 0; top: 50px; z-index: 1020;
-  border: 10px solid #75B2DD;
-  background: white;
-  width: 100%;
-}
-#browser .results ul, #browser .results p.clear_results { background: rgba( 255, 255, 255, 0.95); }
-#browser .results li { padding: 10px; font-size: 1.1em; }
-#browser .results li:hover { padding: 10px; font-size: 1.1em; background: #dddde9; cursor: pointer; }
-#browser p.course-title {
-  margin-bottom: 0em;
-  font-weight: bold;
-  font-size: 0.9em;
-}
-#browser .results li p.description {
-  font-size: 0.8em;
-  margin-bottom: 0em;
-}
-
-#calendar { position: relative; }
-#calendar table {
-  background: none;
-}
-#calendar #guides { position: absolute; top: 32px; left: 0; width: 100%; max-width: 960px; z-index: -1; }
-#calendar #guides div { border-bottom: 1px solid #DFDFDF; height: 38px; }
-#calendar #daynames th { text-align: center; }
-#calendar .dayColumn {
-  width: 20%;
-  padding: 0 0 0 1px;
-  height: 642px;
-
-  > div {
-    position: relative;
-    height: 100%;
-    width: 100%;
-  }
-
-  .timeSlotWrapper {
-    border-radius: 2px;
-    padding: 0.3em;
-    position: absolute;
-    width: 100%;
-    overflow: hidden;
-    -moz-border-radius: 9px;
-    &.select:hover {
-      cursor: pointer;
-    }
-    &:hover {
-      cursor: pointer;
-    }
-  }
-}
-#calendar .timeSlotWrapper {
-  text-align: center;
-}
-#calendar .timeSlotWrapper p:first-child { margin-right: 13px; }
-#calendar .timeSlotWrapper .remove_link { color: #FFF; z-index:5; float:right;; z-index:5; float:right; }
-#calendar .timeSlotWrapper > div { font-size: 0.85em; line-height: 1.1em; }
-#calendar .timeSlotWrapper:hover .remove_link:hover { color: #fff; }
-
-#calendar td.hourColumn {
-  width: 35px;
-  padding: 0px 5px 0px 9px;
-  text-align: right;
-  font-size: 0.9em;
-}
-#calendar td.hourColumn div {
-  position: relative;
-  padding-right: 0.3em;
-  line-height: normal;
-  height: 38px;
-}
-
 .bottom-fade {
   position: absolute;
   bottom: 0; left: 0;
@@ -105,17 +27,6 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
   border-radius: 2px;
 
 }
-
-div.timeSlot {
-  height: 100%;
-
-  p {
-    margin: 0;
-  }
-}
-.timeSlotTitle { vertical-align: middle; width: 95%;}
-.timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
-.timeSlotPoints {margin-top: 3px; font-size: .85em; }
 
 div#app {
   margin-top: 2em;

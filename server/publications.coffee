@@ -30,7 +30,5 @@ Meteor.publish 'sections', (sectionFulls) ->
 
 Meteor.publish 'schedules', ->
   return [
-    Schedules.find
-      owner:
-        @userId
+    Schedules.find owner: @userId
   ]

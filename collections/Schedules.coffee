@@ -79,9 +79,48 @@ addedSection = new SimpleSchema
         $push:
           addedCourses:
             course: courseFull
+
+  # @return [Course]
   getCourses: ->
-    courses = _.pluck @addedCourses, 'course'
-    console.log courses
+    courses = @getCourseFulls()
     return Courses.find
       courseFull:
         $in: courses
+
+  # @return [Section]
+  getSections: ->
+    sections = @getSectionFulls()
+    return Sections.find
+      sectionFull:
+        $in: sections
+
+  # @return [Section]
+  getSelectedSections: ->
+    sections = @getSelectedSectionFulls()
+    return Sections.find
+      sectionFull:
+        $in: sections
+
+  # @return [String] courseFulls
+  getCourseFulls: ->
+    courses = _.pluck @addedCourses, 'course'
+
+  # @return [String] sectionFulls
+  getSectionFulls: ->
+    sections = _.pluck @addedSections, 'section'
+
+  # @return [String] sectionFulls
+  getSelectedSectionFulls: ->
+    sections = _.filter @addedSections, (addedSection) ->
+      addedSection.isSelected
+    sections = _.pluck sections, 'section'
+
+  getTotalPoints: ->
+    totalPoints = 0
+    selectedSectionFulls = @getSelectedSectionFulls()
+    selectedCourseFulls = _.map selectedSectionFulls, (item) ->
+      Co.helpers.sectionFulltoCourseFull item
+    for course in @getCourses
+      if _.contains selectedCourseFulls, course.courseFull
+        totalPoints += course.numFixedUnits / 10
+    totalPoints
