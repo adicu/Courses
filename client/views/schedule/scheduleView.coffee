@@ -7,6 +7,7 @@ Template.scheduleSearchArea.semesterClasses = ->
   if selectedSemester == currentSemester
     return ['active']
 
+# Clears the search bar and search results
 resetSearch = ->
   searchInput = $ '#searchInput'
   searchInput.value = ''
@@ -47,7 +48,7 @@ Template.scheduleSearchArea.events
 
   'click .courseResultItem': (e) ->
     schedule = createOrGetSchedule()
-    Schedules.addCourse schedule._id, @CourseFull, (err) ->
+    schedule.addCourse @CourseFull, (err) ->
       handleError err if err
     resetSearch()
 
@@ -78,9 +79,30 @@ Template.scheduleWeekView.getSectionsForDay = (day) ->
   return []
 
 
-Template.scheduleView.schedule = ->
-  if Co.user()
-    schedule = Schedules.findOne
-      owner: Co.user()._id
-      semester: Number Session.get 'currentSemester'
-  return schedule
+# Returns credit or credits based on number of points
+Template.scheduleSidebar.formatCreditLabel = ->
+  points = @schedule.getTotalPoints()
+  if points == 1
+    return 'credit'
+  else
+    return 'credits'
+
+
+SECTIONS_LIMIT = 4
+Template.scheduleSidebarItem.getAbbrevSections = ->
+  return @course.getSections limit: SECTIONS_LIMIT
+
+# Checks if the number of sections is greater than some limit
+Template.scheduleSidebarItem.hasMoreSections = ->
+  return @course.getSections().count() > SECTIONS_LIMIT
+
+Template.scheduleSidebarItem.events
+  'click input.sectionSelect': (e) ->
+    input = e.target
+    checked = input.checked
+    if checked
+      @schedule.addSection @section.sectionFull
+    else
+      @schedule.removeSection @section.sectionFull
+  'click .deleteCourse': (e) ->
+    @schedule.removeCourse @course.courseFull

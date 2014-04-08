@@ -7,8 +7,11 @@
       type: String
       label: 'CourseFull reference'
     addedSections:
-      type: [addedSection]
+      type: [Object]
       optional: true
+    'addedSections.$.section':
+      type: String
+      label: 'SectionFull reference'
     semester:
       type: Number
     createdAt:
@@ -17,18 +20,6 @@
       CollectionsShared.updatedAt
     owner:
       CollectionsShared.owner
-
-addedCourse = new SimpleSchema
-  course:
-    # CourseFull reference
-    type: String
-
-addedSection = new SimpleSchema
-  isSelected:
-    type: Boolean
-  section:
-    # SectionFull reference
-    type: String
 
 # Allow / Deny
 
@@ -66,9 +57,8 @@ addedSection = new SimpleSchema
 
 @Schedules.helpers
   addCourse: (courseFull, callback) ->
-    Meteor.subscribe 'courses', courseFull, ->
-      course = Courses.findOne
-        courseFull: courseFull
+    Meteor.subscribe 'courses', courseFull, =>
+      course = Courses.findOne courseFull: courseFull
 
       if not course
         if callback
@@ -79,6 +69,37 @@ addedSection = new SimpleSchema
         $push:
           addedCourses:
             course: courseFull
+
+      sections = Sections.find(courseFull: courseFull).fetch()
+      if sections.length == 1
+        @addSection sections[0].sectionFull
+
+  addSection: (sectionFull) ->
+    Schedules.update @_id,
+      $push:
+        addedSections:
+          section: sectionFull
+
+  # Removes course and all related sections from the schedule
+  removeCourse: (courseFull) ->
+    Schedules.update @_id,
+      $pull:
+        addedCourses:
+          course: courseFull
+
+    sectionFulls = _.pluck @getSectionsForCourse(courseFull), 'sectionFull'
+    return if not sectionFulls
+    sectionFulls = _.map sectionFulls, (sectionFull) ->
+      section: sectionFull
+    Schedules.update @_id,
+      $pullAll:
+        addedSections: sectionFulls
+
+  removeSection: (sectionFull) ->
+    Schedules.update @_id,
+      $pull:
+        addedSections:
+          section: sectionFull
 
   # @return [Course]
   getCourses: ->
@@ -94,12 +115,15 @@ addedSection = new SimpleSchema
       sectionFull:
         $in: sections
 
-  # @return [Section]
-  getSelectedSections: ->
-    sections = @getSelectedSectionFulls()
-    return Sections.find
-      sectionFull:
-        $in: sections
+  # @return [Section] The sections that are
+  # associated with a given courseFull
+  getSectionsForCourse: (courseFull) ->
+    sections = @getSections().fetch()
+    return _.filter sections, (section) ->
+      return section.courseFull == courseFull
+
+  isSelected: (sectionFull) ->
+    return _.contains @getSectionFulls(), sectionFull
 
   # @return [String] courseFulls
   getCourseFulls: ->
@@ -109,18 +133,13 @@ addedSection = new SimpleSchema
   getSectionFulls: ->
     sections = _.pluck @addedSections, 'section'
 
-  # @return [String] sectionFulls
-  getSelectedSectionFulls: ->
-    sections = _.filter @addedSections, (addedSection) ->
-      addedSection.isSelected
-    sections = _.pluck sections, 'section'
-
   getTotalPoints: ->
     totalPoints = 0
-    selectedSectionFulls = @getSelectedSectionFulls()
-    selectedCourseFulls = _.map selectedSectionFulls, (item) ->
-      Co.helpers.sectionFulltoCourseFull item
-    for course in @getCourses
+    sectionFulls = @getSectionFulls()
+    selectedCourseFulls = _.map sectionFulls, (item) ->
+      Co.courseHelper.sectionFulltoCourseFull item
+    selectedCourseFulls = _.uniq selectedCourseFulls
+    for course in @getCourses().fetch()
       if _.contains selectedCourseFulls, course.courseFull
         totalPoints += course.numFixedUnits / 10
     totalPoints

@@ -1,10 +1,5 @@
 @import "/client/stylesheets/colors.import.less";
-
-@media only screen and (min-width: 768px) {
-  .scheduleSidebar .panel {
-    padding: 0.6em;
-  }
-}
+@import "/client/stylesheets/sizes.import.less";
 
 .scheduleSidebar {
   h4, h5 {
@@ -13,6 +8,17 @@
 
   ul {
     margin: 0;
+  }
+
+  &.panel {
+    padding: 0.8rem 0.5rem;
+  }
+
+  @media @large {
+    &.panel {
+      height: 680px;
+      overflow-y: scroll;
+    }
   }
 
   .courseItem {
@@ -36,13 +42,8 @@
     & > i {
       color: white;
       position: absolute;
-      right: 0.4em;
-      top: 0.2em;
-
-      &:hover {
-        color: @red;
-        text-shadow: 2px 2px 0px #666;
-      }
+      right: 0.6em;
+      top: 0.75em;
     }
 
     &:hover {
@@ -57,8 +58,52 @@
     top: -0.2em;
   }
 
-  p.share {
-    margin: 20px 0 0 0;
+  .accordion {
+    .content.active {
+      border-style: solid;
+      border-width: 1px;
+      border-color: @foundation-gray;
+      padding: 0.4rem;
+      margin-top: -0.4em;
+    }
+  }
+
+  .accordionItem {
+    > a {
+      padding: 0;
+    }
+    .content {
+      .courseTitle {
+        font-size: 0.9rem;
+        line-height: 1.2;
+      }
+      .fa {
+        font-size: 1.6em;
+      }
+      button.small {
+        margin-top: 0.7rem;
+        padding: 0.4rem 1rem;
+        width: 100%;
+      }
+    }
+    .fa-times {
+      display: none;
+    }
+    &.active {
+      .fa-info-circle {
+        display: none;
+      }
+      .fa-times {
+        color: @red-dk;
+        display: inline-block;
+      }
+    }
+  }
+
+  .sectionsList {
+    input {
+      margin: 0;
+    }
   }
 }
 

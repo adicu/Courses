@@ -33,8 +33,8 @@ UI.registerHelper 'readableDay', (input = this) ->
 
 # Converts 24 time 13:10:30 to 1:10pm
 UI.registerHelper 'readableTime', (time = this) ->
-  time_re = /(\d+):(\d+):(\d+)/
-  d = time.match time_re
+  timeRegex = /(\d+):(\d+):(\d+)/
+  d = time.match timeRegex
   if d == null
     return time
   h = d[1]
@@ -48,6 +48,16 @@ UI.registerHelper 'readableTime', (time = this) ->
     ampm = 'pm'
 
   time = h + ':' + m + ' ' +  ampm
+
+# Returns the instructor's last name
+UI.registerHelper 'instructorLast', (instructors = this) ->
+  instructor = instructors[0]
+  if not instructor
+    return 'None'
+  instructorRegex = /([\w ]+),\s+(\w+)\s*(\w*)/
+  match = instructor.match instructorRegex
+  if match and match[1]
+    return Co.toTitleCase match[1]
 
 UI.registerHelper 'debug', (optionalValue) ->
   if optionalValue

@@ -67,3 +67,11 @@ buildRequest = (query, ejsRequest) ->
       Session.set 'coursesSearchResults', hits
     , (error) ->
       handleError error
+
+# Helpers
+@Courses.helpers
+  # @return [Sections]
+  getSections: (options) ->
+    Sections.find
+      courseFull: @courseFull,
+      options

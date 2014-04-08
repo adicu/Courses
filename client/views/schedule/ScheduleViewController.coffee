@@ -24,8 +24,8 @@
       semesters: Co.constants.semesters
 
     # Set semesters to the first one by default
-    if data.semesters? and data.semesters.length >= 1
-      Session.set 'currentSemester', String data.semesters[0]
+    if data.semesters and data.semesters.length >= 1
+      Session.setDefault 'currentSemester', String data.semesters[0]
 
     if Co.user()
       data.schedule = Schedules.findOne

@@ -4,7 +4,7 @@
     {{#if schedule.getCourseFulls}}
       <h5
         class="subheader">
-        {{schedule.getTotalPoints}} credits
+        {{schedule.getTotalPoints}} {{formatCreditLabel}}
       </h5>
     {{else}}
       <h5
@@ -13,25 +13,61 @@
         <br/> No Courses. Go add some!
       </h5>
     {{/if}}
-    <ul>
+    <dl class="accordion" data-accordion>
       {{#each schedule.getCourses}}
-        {{> scheduleSidebarItem}}
+        {{> scheduleSidebarItem
+          schedule=../schedule
+          course=.
+        }}
       {{/each}}
-    </ul>
+    </dl>
   </div>
 </template>
 
 <template name="scheduleSidebarItem">
-  <li
-    class="courseItem true"
-    data-placement="right"
-    data-original-title="{{id}}: {{title}}"
-    data-unique="1"
-    bs-popover="'partials/directives/course-popover.html'"
-    ng-controller="popoverCtrl">
-    <p class="courseTitle">
-      <strong>{{courseFull}}</strong>
-      <i class="fa fa-info-circle"></i>
-    </p>
+  <dd class="accordionItem">
+    <a href="#panel-{{course.courseFull}}">
+      <div class="courseItem true">
+        <p class="courseTitle">
+          <strong>{{course.courseFull}}</strong>
+        </p>
+        <i class="fa fa-info-circle"></i>
+        <i class="fa fa-times"></i>
+      </div>
+    </a>
+    <div id="panel-{{course.courseFull}}" class="content">
+      <p class="courseTitle">
+        {{course.courseTitle}}
+      </p>
+      <ul class="no-bullet sectionsList">
+        {{#each getAbbrevSections}}
+          {{> scheduleSidebarSection
+            schedule=../schedule
+            section=.
+          }}
+        {{/each}}
+        {{#if hasMoreSections}}
+          <li>
+            <a href="#" onclick="return false;">
+              See more sections...
+            </a>
+          </li>
+        {{/if}}
+      </ul>
+      <button class="small alert radius deleteCourse">
+        <i class="fa fa-trash-o"></i>
+        Delete Course
+      </button>
+    </div>
+  </dd>
+</template>
+
+<template name="scheduleSidebarSection">
+  <li>
+    <input
+      class="sectionSelect"
+      type="checkbox"
+      checked="{{schedule.isSelected section.sectionFull}}">
+    {{instructorLast section.instructors}}
   </li>
 </template>
