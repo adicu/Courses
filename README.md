@@ -48,3 +48,11 @@ webdriver-manager start
 grunt test
 ```
 This assumes that you have the application available at `localhost:8000`.
+
+# Docker
+The current `Dockerfile` included will create a data only container
+(see [data container pattern](http://docs.docker.io/en/latest/use/working_with_volumes/))
+when built with `docker build -t courses .` and run with
+`docker run -d courses`.
+This container should then be mounted by a container running a server
+like nginx. A tool to automatically do this will follow.
