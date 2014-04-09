@@ -10,7 +10,7 @@ angular.module('Courses.controllers')
   $scope.schedule.initFromURL()
   $scope.schedule.shouldUpdateURL = true
 
-  $scope.semesters = ['20141', '20133']
+  $scope.semesters = ['20143', '20141']
 
   $scope.getTotalPoints = () ->
     $scope.schedule.getTotalPoints()
