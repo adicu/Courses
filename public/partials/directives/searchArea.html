@@ -16,7 +16,7 @@
       </div>
       <div class="medium-9 columns">
         <input
-          id="smallerSearch"
+          class="smallerSearch"
           type="text"
           name="search_input"
           onsubmit="return false;"
@@ -24,36 +24,44 @@
           ng-change="search()"
           placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
         />
-        <div href="#" id="optionsButton" class="blue button" ng-click="toggleOptions(moreOptionsOff)">{{optionsText}}&nbsp<i class="fa {{optionsIcon}} fa-lg"></i></div>
+        <div
+          id="optionsButton"
+          class="blue button"
+          ng-click="toggleOptions()">
+          {{optionsText()}}&nbsp;
+          <i class="fa fa-lg" ng-class="optionsIcon()"></i>
+        </div>
 
-        <div 
-          class="moreOptions"
+        <div
+          class="moreOptions row"
           ng-hide="moreOptionsOff">
-          <label class="clearLabel">Filter By&nbsp:&nbsp</label>
-          <input
-            id="professorSearch"
-            ng-model="professorSearch"
-            placeholder="Professor Name"
-            ng-change="search()"
-          />
-          <select 
-            id="departmentSelect" 
-            ng-model="department"
-            ng-options="d for d in departments">
-          </select>
-
-          <input id="getGold" type="checkbox" ng-model="hasGoldNuggets" ng-change="search()">
-          <label for="getGold">Gold Nuggets</label>
-
-          <input id="getGlobalCore" type="checkbox" ng-model="hasGlobalCores" ng-change="search()">
-          <label for="getGlobalCore">Global Cores</label>
+          <div class="medium-8 columns">
+            <div class="row">
+              <div class="medium-2 columns">
+                <label class="inline right">Filter By: </label>
+              </div>
+              <div class="medium-10 columns">
+                <input
+                  id="professorSearch"
+                  type="text"
+                  ng-model="professorSearch"
+                  placeholder="Professor Name"
+                  ng-change="search()"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="medium-4 columns">
+            <input id="getGlobalCore" type="checkbox" ng-model="hasGlobalCores" ng-change="search()">
+            <label class="inline checkInput" for="getGlobalCore">Global Cores</label>
+          </div>
         </div>
 
       </div>
     </div>
   </form>
 </div>
-<div class="results {{extraMargin}}" ng-show="searchResults">
+<div class="results" ng-show="searchResults" ng-class="extraMargin()">
   <a class="closeResults" ng-click="clearResults()">&#215;</a>
   <ul class="no-bullet">
     <li

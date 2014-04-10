@@ -158,9 +158,21 @@ div#app {
   }
 }
 
-#smallerSearch {
-  width: 75%;
-  float: left;
+.search {
+  .smallerSearch {
+    width: 75%;
+    float: left;
+  }
+}
+
+.results {
+  &.extraMargin {
+    margin-top: 2em;
+  }
+  .closeResults {
+    float: right;
+    padding: 0.3em;
+  }
 }
 
 #optionsButton {
@@ -172,27 +184,13 @@ div#app {
 }
 
 .moreOptions {
-  label {
+  .checkInput  {
     display: inline;
   }
   #professorSearch {
-    width: 30%;
     font-size: 0.8em;
   }
   #departmentSelect {
     width: 30%;
   }
-  .clearLabel {
-    clear: both;
-    float: left;
-    padding: 2px 0;
-  }
-}
-
-.closeResults {
-  float: right;
-  padding: 0.3em;
-}
-.extraMargin {
-  margin-top: 2em;
 }

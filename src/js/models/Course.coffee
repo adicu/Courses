@@ -107,9 +107,9 @@ angular.module('Courses.models')
 
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
-    @search: (query, term = $rootScope.selectedSemester) ->
+    @search: (query, term = $rootScope.selectedSemester, options) ->
       d = $q.defer()
-      Course.query(query, term).then (courseData) ->
+      Course.query(query, term, options).then (courseData) ->
         d.resolve courseData
       , (error) ->
         d.reject error
@@ -117,47 +117,22 @@ angular.module('Courses.models')
 
     # Dynamically builds an ElasticSearch query
     # by modifying ejsRequest
-    @buildQuery: (queryString, ejsRequest) ->
+    @buildQuery: (queryString, options, ejsRequest) ->
+      LONGER_SIZE = 30
       ejs = elasticSearch.ejs
       ejsQuery = ejs.BoolQuery()
         .minimumNumberShouldMatch(1)
 
-      globalCoreString = "AFASC1001 OR ANTHV1008 OR ANTHV1130 OR ANTHV2010 OR ANTHV2013 OR ANTHV2014 OR ANTHV2020 OR ANTHV2027 OR ANTHV2035 OR ANTHV2100 OR ANTHV3300 OR ANTHV3465 OR ANTHV3525 OR ANTHV3821 OR ANTHV3892 OR ANTHV3933 OR ANTHV3947 OR ANHSW4001 OR ANTHG4065 OR AHISV3201 OR AHISW3208 OR AHUMV3340 OR AHUMV3342 OR AHISG4085 OR AFCVC1020 OR LACVC1020 OR CSERW1010 OR CSERW1600 OR CSERW1601 OR CSERW3250 OR CSERW3510 OR CSERW3922 OR CSERW3926 OR CSERW3928 OR CSERW3961 OR INSMW3920 OR INSMW3921 OR INSMC3940 OR INSMW3950 OR CPLSW3333 OR CPLSW3454 OR CPLSW3620 OR CPLSW3945 OR CPLSW3955 OR CPLSW3956 OR CLGMV3920 OR ASCEV2002 OR ASCEV2359 OR ASCEV2361 OR ASCEV2363 OR ASCEV2365 OR AHUMV3400 OR AHUMV3830 OR EAASV3927 OR EAASG4160 OR ECONW4325 OR CLENW4200 OR HISTW3618 OR HISTW3657 OR HISTW3660 OR HISTV3661 OR HISTW3665 OR HISTW3701 OR HISTW3719 OR HISTW3764 OR HISTW3772 OR HISTW3800 OR HISTW3803 OR HISTW3810 OR HISTW3811 OR HSEAW3898 OR HISTW3943 OR HISTW4404 OR HISTW4779 OR SPANW3349 OR SPANW3350 OR SPANW3490 OR SPANW3491 OR PORTW3350 OR ASCMV2001 OR ASCMV2003 OR ASCMV2008 OR ASCMV2357 OR MDESW3000 OR MDESW3445 OR CLMEW3032 OR AHUMV3399 OR CLMEW4031 OR MDESG4052 OR CLMEG4241 OR CLMEG4261 OR MDESG4326 OR MUSIV2020 OR AHMMV3320 OR AHMMV3321 OR MUSIW4430 OR RELIV2008 OR RELIV2205 OR RELIV2305 OR RELIV2405 OR RELIV2645 OR SLCLW3001 OR CLRSW4190 OR SOCIW3324"
+      if options.globalCore
+        ejsQuery.must(ejs.FieldQuery 'GlobalCore', true)
+        ejsRequest.size LONGER_SIZE
 
-      goldNuggetString = "\"Shapiro, Jill\" OR \"Pazzaglini, Peter\" OR \"Rand, Archie\" OR \"Garton, Bradford\" OR \"Zetzel, James\" OR \"Vu-Daniel, Tomas\" OR \"Dames, Nicholas\" OR \"Milnor, Kristina\" OR \"Torrey, Kenneth\" OR \"Weston, Robert\" OR \"Katznelson, Ira\" OR \"Ziegler, Garrett\" OR \"Catterson, Lynn\" OR \"Bauman, Rebecca\" OR \"Legassie, Shayne\" OR \"Pouncey, Peter\" OR \"Williams, Gareth\" OR \"Olson, Kristina\" OR \"Miller, Robert\" OR \"Ruffini, Giovanni\" OR \"Beck, Karin\" OR \"Padilla, George\" OR \"Spencer, Gordon\" OR \"Valencia, Maria del Pilar\" OR \"Park, Peter\" OR \"Muller, Jill\" OR \"Deodatis, George\" OR \"White, Jennifer\" OR \"Murphy, Kevin\" OR \"Servedio, Rocco\" OR \"Hamilton, Saskia\" OR \"Negron-Muntaner, Frances\" OR \"Thomas, Colleen\" OR \"Ziolkowski, Saskia\" OR \"Lependorf, Jeffrey\" OR \"Hone, James\" OR \"Sharpe, Leslie\" OR \"Stein, Robert\" OR \"Pedersen, Susan\" OR \"Hamer, Hendrik\" OR \"Hiles, Karen\" OR \"Phillips, Sarah\" OR \"Amann, Elizabeth\" OR \"Gray, Erik\" OR \"Gibney, Brian\" OR \"Adil, Azfar\" OR \"Gurna, Elia\" OR \"Shapiro, Robert\" OR \"Martin, Severine\" OR \"Smith, Molly\" OR \"Vallancourt, David\" OR \"Alden, Jenna\" OR \"Papageorgiou, Anargyros\" OR \"Youell-Fingleton, Amber\" OR \"Amir Arjomand, Ramin\" OR \"Dohrn, Zayd\" OR \"Griffin, Farah\" OR \"Nusbaum, Juliet\" OR \"Vaughan, Diane\" OR \"Stillman, Jamy\" OR \"Pizzigoni, Caterina\" OR \"Nouhi, Youssef\" OR \"Kasdorf, Katherine\" OR \"Lilla, Mark\" OR \"Snyder, Scott B.\" OR \"Guy, Gary Michael\" OR \"Russell, Karen\" OR \"Tadiar, Neferti\" OR \"Benson, Amy\" OR \"Charles, Collomia\" OR \"Petrovic, Ana\" OR \"O'Connell, David\" OR \"Callahan, Daniel\" OR \"Buchan, Mark\" OR \"Snider, Justin\" OR \"Ahsan, Sonia\" OR \"Rosales-Varo, Francisco\" OR \"Absi, Ouijdane\" OR \"Webster, Anthony\" OR \"Watson, Mark\" OR \"Edwards, Brent\" OR \"Worthen, William\" OR \"Wang, Xiaodan\" OR \"Monroy, Liza\" OR \"Mendelson, Cheryl\" OR \"Marange, Celine\" OR \"Williams, Jon\" OR \"Bentancor, Orlando\" OR \"Ruiz-Campillo, Jose\" OR \"Shaw, Beau\" OR \"Kittay, David\" OR \"Hayman, Emily\" OR \"Johnson, Eleanor\" OR \"Gamber, John\" OR \"Conrad, Jessamyn\" OR \"Hughes, Ivana\" OR \"Llopis-Garcia, Reyes\" OR \"Williams, Catherine\" OR \"Mendelsohn, Susan\" OR \"Rodney, Mariel\" OR \"Baics, Gergely\" OR \"Kreitman, Rina\" OR \"Nail, Ashley\" OR \"Gutkin, David\" OR \"Engel, Nicholas\" OR \"Huback, Ana Paula\" OR \"Fucci, Robert\" OR \"Aufrichtig, Michael\" OR \"Howley, Joseph\""
+      if options.professorSearch
+        ejsQuery.must(ejs.FieldQuery 'Instructor', options.professorSearch)
 
-      if (queryString.search /globalcore/) > -1
-        ejsQuery.must(ejs.FieldQuery 'CourseFull', globalCoreString)
-        queryString = queryString.replace /globalcore/, ""
-        if queryString.trim().length == 0
-            queryString = "*"
+      if queryString
+        ejsQuery.should(ejs.QueryStringQuery queryString)
 
-      if (queryString.search /goldnugget/) > -1
-        ejsQuery.must(ejs.FieldQuery 'Instructor', goldNuggetString)
-        queryString = queryString.replace /goldnugget/, ""
-        if queryString.trim().length == 0
-            queryString = "*"
-
-      if (queryString.search /professorsearch/) > -1
-        index = queryString.search /professorsearch/
-        queryString = queryString.replace /professorsearch/, ""
-        professorString = queryString.substring(index)
-        queryString = queryString.substring(0, index)
-        ejsQuery.must(ejs.FieldQuery 'Instructor', professorString)
-        if queryString.trim().length == 0
-            queryString = "*"
-      
-      if (queryString.search /departmentsearch/) > -1
-        index = queryString.search /departmentsearch/
-        queryString = queryString.replace /departmentsearch/, ""
-        departmentString = queryString.substring(index)
-        queryString = queryString.substring(0, index)
-        ejsQuery.must(ejs.FieldQuery 'DepartmentCode', departmentString)
-        if queryString.trim().length == 0
-            queryString = "*"
- 
-      ejsQuery.should(ejs.QueryStringQuery queryString)
-      
       # Match full course (ie COMSW1004)
       if match = queryString.match /^([A-Z]{4})[A-Z]?(\d{1,4})/i
         department = match[1]
@@ -180,10 +155,10 @@ angular.module('Courses.models')
     # Full text search over courses
     # @return [{}] representing Course data
     #   Not Courses because ES doesn't give full information
-    @query: (query, term = $rootScope.selectedSemester) ->
+    @query: (query, term = $rootScope.selectedSemester, options) ->
       d = $q.defer()
       ejsRequest = elasticSearch.getCourseRequest()
-      Course.buildQuery query, ejsRequest
+      Course.buildQuery query, options, ejsRequest
       ejsRequest.filter(
         ejs.TermFilter 'Term', term
       )
