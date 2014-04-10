@@ -30,7 +30,7 @@
         <strong>{{course.displayName}}</strong>
         <i class="fa fa-info-circle"></i>
       </p>
-      <!-- <i class="fa fa-times" ng-click="removeCourse()"></i> -->
+      <!--<i class="fa fa-times" ng-click="removeCourse()"></i>--> 
     </li>
   </ul>
   <p class="share">Copy link to share:</p>
@@ -40,4 +40,14 @@
     readonly="readonly"
     ng-model="pageUrl"
     onclick="this.select();">
+  <button 
+    class="small gray"
+    ng-click="schedule.getCalendar()"
+  >
+    Export to iCal
+    <i class="fa fa-download"></i>
+  </button>
+    <span data-tooltip ui-jq="tooltip" ui-options="{placement:'bottom'}" class="has-tip" title="Safari may not support this feature">
+      <i class="fa fa-info-circle calendarInfo"></i>
+    </span>
 </div>

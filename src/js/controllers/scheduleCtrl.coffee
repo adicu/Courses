@@ -2,15 +2,16 @@ angular.module('Courses.controllers')
 .controller 'scheduleCtrl', (
   $scope,
   $rootScope,
+  CONFIG,
   Course,
   Schedule,
   CourseHelper,
+  Semesters
 ) ->
   $scope.schedule = new Schedule
   $scope.schedule.initFromURL()
   $scope.schedule.shouldUpdateURL = true
-
-  $scope.semesters = ['20143', '20141']
+  $scope.semesters = Semesters
 
   $scope.getTotalPoints = () ->
     $scope.schedule.getTotalPoints()
