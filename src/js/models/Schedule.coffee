@@ -7,6 +7,8 @@ angular.module('Courses.models')
   CourseState,
   Section,
   Subsection,
+  Semesters,
+  SemesterDates,
 ) ->
   ###
   Main model of Courses, representing a full schedule with multiple courses
@@ -204,6 +206,73 @@ angular.module('Courses.models')
             seen.push x for x in overlappingSubsections
           else
             subsection.reset()
+    #Export to iCal
+    getCalendar: () ->
+      #format date
+      rawStart = ""
+      rawEnd = ""
+      if(@_semester == Semesters[1])
+        rawStart = SemesterDates["START_LAST"]
+        rawEnd = SemesterDates["END_LAST"]
+      else
+        rawStart = SemesterDates["START_CURRENT"]
+        rawEnd = SemesterDates["END_CURRENT"]
+      startDate = rawStart.split("/")
+      endDate = rawEnd.split("/")
+      for i in [0..2]
+        startDate[i] = parseInt(startDate[i])
+        endDate[i] = parseInt(endDate[i])
+      startDate[0] -= 1
+      endDate[0] -= 1
+      #create day of week array based on start date
+      weekDayStart = new Date(startDate[2],startDate[0],startDate[1])
+      monday = @getWeekDay(weekDayStart,1)
+      tuesday = @getWeekDay(weekDayStart,2)
+      wednesday = @getWeekDay(weekDayStart,3)
+      thursday = @getWeekDay(weekDayStart,4)
+      friday = @getWeekDay(weekDayStart,5)
+      weekDay = [[monday.getMonth(),monday.getDate()],
+      [tuesday.getMonth(),tuesday.getDate()],
+      [wednesday.getMonth(),wednesday.getDate()],
+      [thursday.getMonth(),thursday.getDate()],
+      [friday.getMonth(),friday.getDate()]]
+      #create calendar and add events
+      calendar = new ICS "adicu.com//Courses Builder"
+      for scheduleEvent in @getSelectedSections()
+        for subsectionEvent in scheduleEvent.subsections
+          startTime = subsectionEvent.startTime.toString().split('.')
+          endTime = subsectionEvent.endTime.toString().split('.')
+          calendar.addEvent({
+            DTSTART: new Date(startDate[2],
+              weekDay[subsectionEvent.meetsOn[0]][0],
+              weekDay[subsectionEvent.meetsOn[0]][1],
+              parseInt(startTime[0]),
+              Math.round(parseFloat("0."+startTime[1])*60),0),
+            DTEND: new Date(endDate[2],
+              weekDay[subsectionEvent.meetsOn[0]][0],
+              weekDay[subsectionEvent.meetsOn[0]][1],
+              parseInt(endTime[0]),
+              Math.round(parseFloat("0."+endTime[1])*60),0),
+            SUMMARY: scheduleEvent.title,
+            LOCATION: subsectionEvent.building+" "+subsectionEvent.room,
+            RRULE: "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
+          })
+
+      calendar.download("ADISchedule")
+
+    #Helper functions for exporting to iCal
+    getTomorrow: (currentDay,increment) ->
+      new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate()+increment)
+
+    getWeekDay: (currentDay,day) ->
+      if(currentDay.getDay() != day)
+        for i in [0..5]
+          currentDay = @getTomorrow(currentDay,1)
+          if currentDay.getDay() == day
+            return currentDay
+            break
+      else
+        return currentDay
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
