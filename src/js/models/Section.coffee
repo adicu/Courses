@@ -3,6 +3,10 @@ angular.module('Courses.models')
   CourseHelper,
   Subsection,
 ) ->
+  ###
+  Represents a section of a course, ie a section of 1007 that meets MW
+  Certain information is specific to a section, like instructor and points.
+  ###
   class Section
     constructor: (@data, @parentCourse) ->
       @subsections = []
@@ -20,15 +24,16 @@ angular.module('Courses.models')
 
     addSubsections: () ->
       for meets, i in @data.MeetsOn
-        subsection = new Subsection
-          building:  @data.Building[i]
-          room:      @data.Room[i]
-          points:    @parentCourse.points
-          meetsOn:   CourseHelper.parseDays @data.MeetsOn[i]
-          startTime: CourseHelper.parseTime @data.StartTime[i]
-          endTime:   CourseHelper.parseTime @data.EndTime[i]
+        for day in CourseHelper.parseDays @data.MeetsOn[i]
+          subsection = new Subsection
+            building:  @data.Building[i]
+            room:      @data.Room[i]
+            points:    @parentCourse.points
+            meetsOn:   [day]
+            startTime: CourseHelper.parseTime @data.StartTime[i]
+            endTime:   CourseHelper.parseTime @data.EndTime[i]
 
-        @subsections.push subsection
+          @subsections.push subsection
 
     getSubData: (key) ->
       return '' if @subsections.length < 1

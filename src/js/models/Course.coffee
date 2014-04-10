@@ -7,7 +7,12 @@ angular.module('Courses.models')
   CourseState,
   elasticSearch,
   Section,
+  Colors,
 ) ->
+  ###
+  Represents one Course ie COMS 1007, with all of its
+  sections and information.
+  ###
   class Course
     constructor: (@data, term) ->
       @sections = []
@@ -18,22 +23,21 @@ angular.module('Courses.models')
       @points = @data.NumFixedUnits / 10.0
       @title = @data.CourseTitle
       @description = @data.Description
+      @displayName = @getDefaultDisplayName()
+      @color = Colors[Math.floor(Math.random() * Colors.length)].color
       @_state = CourseState.VISIBLE
 
       @createSections(term)
 
-
     # Create sections from data JSON
     # @param term to filter on
     createSections: (term) ->
-      for sectionData in @data.Sections
-        if term
-          if sectionData.Term == term
-            section = new Section sectionData, @
-          else
-            continue
-        else
-          section = new Section sectionData, @
+      if term
+        validSections = _.where(@data.Sections, Term: term)
+      else
+        validSections = @data.Sections
+      for sectionData in validSections
+        section = new Section sectionData, @
         @addSection section
 
     addSection: (section) ->
@@ -79,6 +83,9 @@ angular.module('Courses.models')
         sectionsByDay = _.filter @sections, (section) ->
           section.isOnDay(day)
       sectionsByDay
+
+    getDefaultDisplayName: () ->
+      return @IDFull + ": " + @title
 
     isSelected: () ->
       new Boolean @selectedSections.length

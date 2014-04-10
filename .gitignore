@@ -11,3 +11,5 @@ sftp-config.json
 logs/
 .vagrant
 settings.courses
+venv/
+*.pyc

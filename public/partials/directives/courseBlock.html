@@ -1,3 +1,8 @@
+<div class="messages">
+  <div data-alert class="alert-box forest">
+    We have updated with Fall 2014 data!
+  </div>
+</div>
 <div class="panel radius courseBlock">
   <h4 class="subheader">Current Courses</h4>
   <h5
@@ -15,13 +20,14 @@
     <li
       class="courseItem"
       ng-repeat="course in schedule.courses"
+      ng-class="course.color"
       data-placement="right"
       data-original-title="{{course.id}}: {{course.title}}"
       data-unique="1"
       bs-popover="'partials/directives/course-popover.html'"
       ng-controller="popoverCtrl">
       <p class="courseTitle">
-        <strong>{{course.id}}</strong>
+        <strong>{{course.displayName}}</strong>
         <i class="fa fa-info-circle"></i>
       </p>
       <!-- <i class="fa fa-times" ng-click="removeCourse()"></i> -->

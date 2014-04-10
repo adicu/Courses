@@ -1,4 +1,4 @@
-@import "variables.less";
+@import "colors.less";
 @import "popover.less";
 @import "courseBlock.less";
 
@@ -59,21 +59,16 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
 
   .timeSlotWrapper {
     border-radius: 2px;
-    background: #073A59;
-    color: #FFF;
     padding: 0.3em;
     position: absolute;
     width: 100%;
     overflow: hidden;
     -moz-border-radius: 9px;
-    border:1px solid #222;
     &.select:hover {
       cursor: pointer;
-      background: #255979;
     }
     &:hover {
       cursor: pointer;
-      background: #255979;
     }
   }
 }
@@ -108,11 +103,7 @@ footer div#reportBug { text-align: right; padding-right: 30px; }
 
   /* "transparent" only works here because == rgba(0,0,0,0) */
   border-radius: 2px;
-  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, transparent),color-stop(1, #073A59));
-  background-image: -webkit-linear-gradient(12px, transparent, #073A59);
-  background-image: -moz-linear-gradient(top, transparent, #073A59);
-  background-image: -ms-linear-gradient(top, transparent, #073A59);
-  background-image: -o-linear-gradient(top, transparent, #073A59);
+
 }
 
 div.timeSlot {

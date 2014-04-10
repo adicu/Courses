@@ -29,6 +29,11 @@ module.exports = (grunt) ->
         command: 'coffee'
         logDir: 'logs'
 
+    karma:
+      unit:
+        options:
+          files: ['test/unit/*.coffee']
+
     # Generates the CSS files from less files
     less:
       src:
@@ -44,6 +49,11 @@ module.exports = (grunt) ->
       compile:
         files:
           'generated/js/courses.ngmin.js': ['public/js/courses.js']
+
+    protractor:
+      e2e:
+        options:
+          configFile: 'test/protractor.conf.js'
 
     uglify:
       src:
@@ -104,10 +114,14 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-watch'
+
   grunt.loadNpmTasks 'grunt-bower-task'
-  grunt.loadNpmTasks 'grunt-ngmin'
   grunt.loadNpmTasks 'grunt-forever'
+  grunt.loadNpmTasks 'grunt-karma'
+  grunt.loadNpmTasks 'grunt-ngmin'
+  grunt.loadNpmTasks 'grunt-protractor-runner'
 
   grunt.registerTask 'default', ['build', 'lib', 'clean']
   grunt.registerTask 'build', ['coffee', 'ngmin', 'uglify:src', 'less']
   grunt.registerTask 'lib', ['bower', 'uglify:lib']
+  grunt.registerTask 'test', ['protractor:e2e']

@@ -4,13 +4,22 @@
   }
 }
 
+.messages .alert-box {
+  line-height: 1.5em;
+  text-align: center;
+  font-weight: bold;
+
+  &.forest:hover {
+    background-color: @forest !important;
+  }
+}
+
 .courseBlock {
   h4, h5 {
     text-align: center;
   }
 
   .courseItem {
-    background: #073A59;
     border-radius: 2px;
     list-style: none;
     margin: 0px 0px 0.4em 0px;
@@ -42,7 +51,6 @@
 
     &:hover {
       cursor: pointer;
-      background: #255979;
     }
   }
 
