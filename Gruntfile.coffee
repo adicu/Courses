@@ -83,6 +83,10 @@ module.exports = (grunt) ->
             # elastic.js
             'bower_components/elastic.js/dist/elastic.js'
             'bower_components/elastic.js/dist/elastic-angular-client.js'
+            #Export to iCal
+            'bower_components/ics.js/ics.js'
+            'bower_components/Filesaver.js/Filesaver.js'
+            'bower_components/Blob.js/Blob.js'
             # Additional lib files in index.html
           ]
         # options:
