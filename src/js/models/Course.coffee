@@ -114,9 +114,9 @@ angular.module('Courses.models')
 
     # @return [Promise<Course>] | string Array of courses
     #   or string representing type of search.
-    @search: (query, term = $rootScope.selectedSemester) ->
+    @search: (query, term = $rootScope.selectedSemester, options) ->
       d = $q.defer()
-      Course.query(query, term).then (courseData) ->
+      Course.query(query, term, options).then (courseData) ->
         d.resolve courseData
       , (error) ->
         d.reject error
@@ -124,10 +124,21 @@ angular.module('Courses.models')
 
     # Dynamically builds an ElasticSearch query
     # by modifying ejsRequest
-    @buildQuery: (queryString, ejsRequest) ->
+    @buildQuery: (queryString, options, ejsRequest) ->
+      LONGER_SIZE = 30
       ejs = elasticSearch.ejs
       ejsQuery = ejs.BoolQuery()
-        .should(ejs.QueryStringQuery queryString)
+        .minimumNumberShouldMatch(1)
+
+      if options.globalCore
+        ejsQuery.must(ejs.FieldQuery 'GlobalCore', true)
+        ejsRequest.size LONGER_SIZE
+
+      if options.professorSearch
+        ejsQuery.must(ejs.FieldQuery 'Instructor', options.professorSearch)
+
+      if queryString
+        ejsQuery.should(ejs.QueryStringQuery queryString)
 
       # Match full course (ie COMSW1004)
       if match = queryString.match /^([A-Z]{4})[A-Z]?(\d{1,4})/i
@@ -151,10 +162,10 @@ angular.module('Courses.models')
     # Full text search over courses
     # @return [{}] representing Course data
     #   Not Courses because ES doesn't give full information
-    @query: (query, term = $rootScope.selectedSemester) ->
+    @query: (query, term = $rootScope.selectedSemester, options) ->
       d = $q.defer()
       ejsRequest = elasticSearch.getCourseRequest()
-      Course.buildQuery query, ejsRequest
+      Course.buildQuery query, options, ejsRequest
       ejsRequest.filter(
         ejs.TermFilter 'Term', term
       )

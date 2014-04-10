@@ -23,13 +23,25 @@ angular.module('Courses.directives')
     $scope.$watch 'selectedSemester', (newSemester) ->
       $scope.schedule.semester newSemester
 
+    $scope.moreOptionsOff = true
+    $scope.searchQuery = ''
+
     # Actual searching function
     runSearch = () ->
       query = $scope.searchQuery
-      if not query or query.length == 0
+
+      options = {}
+      # append advanced search features
+      if not $scope.moreOptionsOff
+        if $scope.hasGlobalCores
+          options.globalCore = true
+        if $scope.professorSearch and $scope.professorSearch.length != 0
+          options.professorSearch = $scope.professorSearch
+
+      if not query and not options
         $scope.clearResults()
         return
-      Course.search(query, $scope.selectedSemester)
+      Course.search(query, $scope.selectedSemester, options)
         .then (data) ->
           if data == 'callnum'
             $scope.clearResults()
@@ -56,3 +68,24 @@ angular.module('Courses.directives')
 
     $scope.changeSemester = (newSemester) ->
       $scope.selectedSemester = newSemester
+
+    $scope.optionsText = ->
+      if $scope.moreOptionsOff
+        return 'More Options'
+      else
+        return 'Less Options'
+
+    $scope.optionsIcon = ->
+      if $scope.moreOptionsOff
+        return 'fa-angle-down'
+      else
+        return 'fa-angle-right'
+
+    $scope.extraMargin = ->
+      if $scope.moreOptionsOff
+        return ''
+      else
+        return 'extraMargin'
+
+    $scope.toggleOptions =  ->
+      $scope.moreOptionsOff = not $scope.moreOptionsOff
