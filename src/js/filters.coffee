@@ -81,3 +81,8 @@ angular.module("Courses.filters", [])
   (num, padding) ->
     num = num + ''
     return if num.length >= padding then num else new Array(padding - num.length + 1).join('0') + num
+.filter 'titleCase', ->
+  (str) ->
+    titleCaseRegex = /\w\S*/g
+    return str.replace titleCaseRegex, (txt) ->
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
