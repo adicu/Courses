@@ -1,5 +1,6 @@
 angular.module('Courses.models')
 .factory 'Schedule', (
+  $filter,
   $rootScope,
   $location,
   $q,
@@ -237,7 +238,7 @@ angular.module('Courses.models')
       [thursday.getMonth(),thursday.getDate()],
       [friday.getMonth(),friday.getDate()]]
       #create calendar and add events
-      calendar = new ICS "adicu.com//Courses Builder"
+      calendar = new ICS "adicu.com//Courses"
       for scheduleEvent in @getSelectedSections()
         for subsectionEvent in scheduleEvent.subsections
           startTime = subsectionEvent.startTime.toString().split('.')
@@ -253,12 +254,12 @@ angular.module('Courses.models')
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(endTime[0]),
               Math.round(parseFloat("0."+endTime[1])*60),0),
-            SUMMARY: scheduleEvent.title,
+            SUMMARY: $filter('titleCase')(scheduleEvent.title),
             LOCATION: subsectionEvent.building+" "+subsectionEvent.room,
             RRULE: "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
           })
 
-      calendar.download("ADISchedule")
+      calendar.download "Courses-schedule-" + @_semester
 
     #Helper functions for exporting to iCal
     getTomorrow: (currentDay,increment) ->
