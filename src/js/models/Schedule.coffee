@@ -237,12 +237,19 @@ angular.module('Courses.models')
       [wednesday.getMonth(),wednesday.getDate()],
       [thursday.getMonth(),thursday.getDate()],
       [friday.getMonth(),friday.getDate()]]
+
       #create calendar and add events
       calendar = new ICS "adicu.com//Courses"
       for scheduleEvent in @getSelectedSections()
         for subsectionEvent in scheduleEvent.subsections
           startTime = subsectionEvent.startTime.toString().split('.')
           endTime = subsectionEvent.endTime.toString().split('.')
+
+          courseName = $filter('titleCase')(scheduleEvent.title)
+          sectionParent = scheduleEvent.getParentCourse()
+          if sectionParent.displayName != sectionParent.getDefaultDisplayName()
+            courseName = sectionParent.displayName
+
           calendar.addEvent({
             DTSTART: new Date(startDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
@@ -254,7 +261,7 @@ angular.module('Courses.models')
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(endTime[0]),
               Math.round(parseFloat("0."+endTime[1])*60),0),
-            SUMMARY: $filter('titleCase')(scheduleEvent.title),
+            SUMMARY: courseName
             LOCATION: subsectionEvent.building+" "+subsectionEvent.room,
             RRULE: "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
           })
