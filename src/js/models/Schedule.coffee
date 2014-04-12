@@ -227,21 +227,13 @@ angular.module('Courses.models')
       endDate[0] -= 1
       #create day of week array based on start date
       weekDayStart = new Date(startDate[2],startDate[0],startDate[1])
-      monday = @getWeekDay(weekDayStart,1)
-      tuesday = @getWeekDay(weekDayStart,2)
-      wednesday = @getWeekDay(weekDayStart,3)
-      thursday = @getWeekDay(weekDayStart,4)
-      friday = @getWeekDay(weekDayStart,5)
-      weekDay = [[monday.getMonth(),monday.getDate()],
-      [tuesday.getMonth(),tuesday.getDate()],
-      [wednesday.getMonth(),wednesday.getDate()],
-      [thursday.getMonth(),thursday.getDate()],
-      [friday.getMonth(),friday.getDate()]]
+      weekday = ([@getWeekDay(weekDayStart, i).getMonth(), @getWeekDay(weekDayStart, i).getDate()] for i in [1..5])
 
       #create calendar and add events
       calendar = new ICS "adicu.com//Courses"
       for scheduleEvent in @getSelectedSections()
         for subsectionEvent in scheduleEvent.subsections
+
           startTime = subsectionEvent.startTime.toString().split('.')
           endTime = subsectionEvent.endTime.toString().split('.')
 
@@ -249,6 +241,10 @@ angular.module('Courses.models')
           sectionParent = scheduleEvent.getParentCourse()
           if sectionParent.displayName != sectionParent.getDefaultDisplayName()
             courseName = sectionParent.displayName
+
+          courseLocation = 'RTBA'
+          if subsectionEvent.building != undefined
+            courseLocation = subsectionEvent.building+" "+subsectionEvent.room
 
           calendar.addEvent({
             DTSTART: new Date(startDate[2],
@@ -262,7 +258,7 @@ angular.module('Courses.models')
               parseInt(endTime[0]),
               Math.round(parseFloat("0."+endTime[1])*60),0),
             SUMMARY: courseName
-            LOCATION: subsectionEvent.building+" "+subsectionEvent.room,
+            LOCATION: courseLocation
             RRULE: "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
           })
 
