@@ -141,7 +141,13 @@ angular.module('Courses.models')
         ejsQuery.should(ejs.QueryStringQuery queryString)
 
       # Match full course (ie COMSW1004)
-      if match = queryString.match /^([A-Z]{4})[A-Z]?(\d{1,4})/i
+      courseRegex = ///
+        ^([A-Z]{4})         # Department ex. (COMS)
+        \s?                 # Possible space in the middle (COMS 1004)
+        [A-Z]{0,2}          # Faculty type (W or BC)
+        (\d{1,4})           # Course numbers
+      ///i                  # Case insensitive
+      if match = queryString.match courseRegex
         department = match[1]
         courseNumber = match[2]
         courseSearch = department + courseNumber + '*'
