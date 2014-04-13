@@ -86,3 +86,13 @@ angular.module("Courses.filters", [])
     titleCaseRegex = /\w\S*/g
     return str.replace titleCaseRegex, (txt) ->
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+
+.filter 'calByDay', ->
+  days =
+    0: 'MO',
+    1: 'TU'
+    2: 'WE'
+    3: 'TH'
+    4: 'FR',
+  (input) ->
+    days[input]

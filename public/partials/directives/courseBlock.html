@@ -40,11 +40,16 @@
     readonly="readonly"
     ng-model="pageUrl"
     onclick="this.select();">
+    <p class='share'>
+    Add to
+    <a href="https://support.google.com/calendar/answer/37118?hl=en">GCal</a>
+    /<a href="http://support.apple.com/kb/PH11524">iCal</a>
+    </p>
   <button 
-    class="small gray"
+    class="small blue"
     ng-click="schedule.getCalendar()"
   >
-    Export to iCal
+    Export Calendar
     <i class="fa fa-download"></i>
   </button>
     <span data-tooltip ui-jq="tooltip" ui-options="{placement:'bottom'}" class="has-tip" title="Safari may not support this feature">
