@@ -72,6 +72,9 @@ buildRequest = (query, ejsRequest) ->
 @Courses.helpers
   # @return [Sections]
   getSections: (options) ->
-    Sections.find
-      courseFull: @courseFull,
-      options
+    query = {}
+    query['courseFull'] = @courseFull
+    if Session.get 'currentSemester'
+      query['term'] = Session.get 'currentSemester'
+
+    Sections.find query, options

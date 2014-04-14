@@ -37,7 +37,7 @@
     </a>
     <div id="panel-{{course.courseFull}}" class="content">
       <p class="courseTitle">
-        {{course.courseTitle}}
+        {{toTitleCase course.courseTitle}}
       </p>
       <ul class="no-bullet sectionsList">
         {{#each getAbbrevSections}}
@@ -50,6 +50,12 @@
           <li>
             <a href="#" onclick="return false;">
               See more sections...
+            </a>
+          </li>
+        {{else}}
+          <li>
+            <a href="#" onclick="return false;">
+              More information
             </a>
           </li>
         {{/if}}

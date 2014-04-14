@@ -35,16 +35,17 @@
 # Observers
 
 @Schedules.find().observe
-  added: (doc) ->
-    user = @userId
-    return if not user
-    newSchedule = {}
-    newSchedule[doc.semester] = doc._id
-    Meteor.users.update user._id,
-      $set:
-        profile:
-          schedules:
-            newSchedule
+  changed: (newDoc, oldDoc) ->
+    # The owner field has just been added
+    if newDoc.owner and not oldDoc.owner
+      user = newDoc.owner
+      newSchedule = {}
+      newSchedule[newDoc.semester] = newDoc._id
+      Meteor.users.update user,
+        $set:
+          profile:
+            schedules:
+              newSchedule
   removed: (oldDoc) ->
     owner = Meteor.users.findOne oldDoc.owner
     changeSet = {}
@@ -70,7 +71,10 @@
           addedCourses:
             course: courseFull
 
-      sections = Sections.find(courseFull: courseFull).fetch()
+      sections = Sections.find
+        courseFull: courseFull
+        term: Session.get 'currentSemester'
+      .fetch()
       if sections.length == 1
         @addSection sections[0].sectionFull
 
@@ -114,6 +118,7 @@
     return Sections.find
       sectionFull:
         $in: sections
+      term: Session.get 'currentSemester'
 
   # @return [Section] The sections that are
   # associated with a given courseFull

@@ -59,6 +59,9 @@ UI.registerHelper 'instructorLast', (instructors = this) ->
   if match and match[1]
     return Co.toTitleCase match[1]
 
+UI.registerHelper 'toTitleCase', (str = this) ->
+  return Co.toTitleCase str
+
 UI.registerHelper 'debug', (optionalValue) ->
   if optionalValue
     console.log('debug', this, optionalValue);
