@@ -8,6 +8,10 @@ Build instructions:
 2. View Courses at <http://localhost:8080/>
 3. Enjoy live recompilation of changed files.
 
+
+**Hint**: [Notes.md](/Notes.md) has
+some useful info for understanding Courses.
+
 # App structure
 ```
 |-- app/ (backend code)
