@@ -1,6 +1,33 @@
 @import "/client/stylesheets/colors.import.less";
 @import "/client/stylesheets/sizes.import.less";
 
+// Fullcalendar
+// scheduleWeekView
+#calendar {
+  // Hide today highlight
+  .fc-state-highlight {
+    background: inherit;
+  }
+  // Disable foundation alternate row coloring
+  table tr.even, table tr.alt, table tr:nth-of-type(even) {
+    background: inherit;
+  }
+  table {
+    border: none;
+  }
+  // Override fullcalendar scrolling
+  .fc-view-agendaWeek > div > div[style] {
+    overflow-y: hidden !important;
+  }
+  // Hide time info on events
+  .fc-event-time {
+    display: none;
+  }
+  .fc-event {
+    cursor: pointer;
+  }
+}
+
 .scheduleSidebar {
   h4, h5 {
     text-align: center;
@@ -16,7 +43,7 @@
 
   @media @large {
     &.panel {
-      height: 680px;
+      height: 734px;
       overflow-y: scroll;
     }
   }

@@ -8,7 +8,8 @@
     },
     "collection2": {},
     "accounts-guest": {},
-    "collection-helpers": {}
+    "collection-helpers": {},
+    "moment": {}
   },
   "bower": {
     "elastic.js": {
@@ -16,6 +17,9 @@
       "additionalFiles": [
         "dist/elastic-jquery-client.js"
       ]
+    },
+    "fullcalendar": {
+      "version": "~1.6.4"
     }
   }
 }

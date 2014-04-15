@@ -29,3 +29,55 @@
       type: [String]
     createdAt:
       CollectionsShared.createdAt
+
+@Sections.helpers
+  # Finds the Courses object associated with this Section
+  getParentCourse: ->
+    return Courses.findOne courseFull: @courseFull
+
+  # Parses the time fields
+  # @return [[Moment, Moment]] - start, end
+  # An array of start and end times based on the next Monday
+  # after the start of classes for the current semester
+  # Each meeting of class will generate one - MW => 2 starts and ends
+  getMeetingTimes: ->
+    # Next Monday after the current start date
+    baseDate = Co.courseHelper.getCurrentSemesterDates().start.day(1)
+    meetingTimes = []
+
+    for meet, i in @meetsOn
+      parsedDays = Co.courseHelper.parseDays @meetsOn[i]
+      parsedStart = Co.courseHelper.parseTimes @startTime[i]
+      parsedEnd = Co.courseHelper.parseTimes @endTime[i]
+      # A field is missing
+      # Possible error condition
+      continue if not (parsedDays or parsedStart or parsedEnd)
+      for day in parsedDays # ex. iterate over [M, W]
+        newStart = moment baseDate # Copy the moment
+        newEnd = moment baseDate
+        # Set the day of the week, increment by 1 to account for
+        # Sunday being 0 instead of Monday
+        newStart.day day + 1
+        newEnd.day day + 1
+
+        newStart.hour(parsedStart[0]).minute(parsedStart[1])
+        newEnd.hour(parsedEnd[0]).minute(parsedEnd[1])
+
+        meetingTimes.push [newStart, newEnd]
+
+    return meetingTimes
+
+  # Converts this section to FullCalendar Event objects
+  # @return [Event]
+  toFCEvents: ->
+    events = []
+    baseEvent =
+      id: @sectionFull
+      title: Co.toTitleCase @getParentCourse().courseTitle
+      courseFull: @courseFull
+    for times in @getMeetingTimes()
+      newEvent = _.extend {}, baseEvent,
+        start: times[0].toISOString()
+        end: times[1].toISOString()
+      events.push newEvent
+    return events

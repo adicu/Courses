@@ -1,23 +1,31 @@
 @Co = {} if not @Co?
+# Co is used just as a short namespace for methods
+# relating to the Courses application
 
 # Helpers particularly related to Courses
 @Co.courseHelper =
   # Converts days of format MTWRF into ints.
   # M => 0, W => 2, etc.
   parseDays: (days) ->
-    return if not days?
+    return if not days
     daysAbbr = @getOptions().daysAbbr
+    parsed = []
     for day in days
-      if daysAbbr.indexOf day isnt -1
-        daysAbbr.indexOf day
+      if daysAbbr.indexOf(day) isnt -1
+        parsed.push daysAbbr.indexOf day
+      else
+        return null
+    return parsed
 
-  # Converts time to floats for display purposes
-  # 0815 => 8.25
-  parseTime: (time) ->
-    return if not time?
-    hour = parseInt (time.slice 0, 2), 10
-    minute = parseInt (time.slice 3, 5), 10
-    floatTime = hour + minute / 60.0
+  # Parses times into hours and minutes
+  # @param [String] ex. ["0815"]
+  # @return [Number, Number] ex. [8, 15]
+  parseTimes: (time) ->
+    # Ignore times of non length 4
+    return if not time or time.length isnt 4
+    hour = parseInt time.slice(0, 2), 10
+    min = parseInt time.slice(2), 10
+    return [hour, min]
 
   getOptions: () ->
     pixelsPerHour: 38
@@ -58,22 +66,12 @@
     top: top_pixels
     height: height_pixels
 
-  getValidSemesters: ->
-    semesters = []
-    date = new Date()
-    month = date.getMonth()
-    year = date.getFullYear()
-
-    effectiveMonth = month + 2
-
-    for i in [0..2]
-      if effectiveMonth > 11
-        effectiveMonth %= 12
-        year++
-      semester = Math.floor(effectiveMonth / 4) + 1
-      effectiveMonth += 4
-      semesters.push year + '' + semester
-    semesters
+  # Return {start: Moment, end: Moment} Object indicating
+  # the start and end dates for the current semester
+  getCurrentSemesterDates: ->
+    currentSemester = Number Session.get 'currentSemester'
+    return if not currentSemester
+    return Co.constants.semesterDates[currentSemester]
 
 @Co.toTitleCase = (str) ->
   titleCaseRegex = /\w\S*/g
@@ -81,6 +79,7 @@
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
 
 # Necessary for anon users package
+# Returns the current user object
 @Co.user = ->
   if Meteor.user()
     return Meteor.user()

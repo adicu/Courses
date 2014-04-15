@@ -29,3 +29,11 @@
 
   semesters:
     ['20143', '20141']
+
+  semesterDates:
+    20143:
+      start: moment '09/2/2014', 'MM-DD-YYYY'
+      end: moment '12/9/2014', 'MM-DD-YYYY'
+    20141:
+      start: moment '01/20/2014', 'MM-DD-YYYY'
+      end: moment '05/21/2014', 'MM-DD-YYYY'

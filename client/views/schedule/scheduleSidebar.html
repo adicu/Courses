@@ -13,8 +13,8 @@
         <br/> No Courses. Go add some!
       </h5>
     {{/if}}
-    <dl class="accordion" data-accordion>
-      {{#each schedule.getCourses}}
+    <dl class="accordion">
+      {{#each getCourses}}
         {{> scheduleSidebarItem
           schedule=../schedule
           course=.
@@ -25,8 +25,8 @@
 </template>
 
 <template name="scheduleSidebarItem">
-  <dd class="accordionItem">
-    <a href="#panel-{{course.courseFull}}">
+  <dd class="accordionItem accordionItem-{{course.courseFull}}">
+    <a href="#" onclick="return false;" data-coursefull="{{course.courseFull}}">
       <div class="courseItem true">
         <p class="courseTitle">
           <strong>{{course.courseFull}}</strong>
@@ -35,7 +35,7 @@
         <i class="fa fa-times"></i>
       </div>
     </a>
-    <div id="panel-{{course.courseFull}}" class="content">
+    <div class="content panel-{{course.courseFull}}">
       <p class="courseTitle">
         {{toTitleCase course.courseTitle}}
       </p>

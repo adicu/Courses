@@ -11,7 +11,8 @@
       },
       "collection2": {},
       "accounts-guest": {},
-      "collection-helpers": {}
+      "collection-helpers": {},
+      "moment": {}
     },
     "packages": {
       "zurb-foundation": {
@@ -49,6 +50,11 @@
         "tag": "v0.2.4",
         "commit": "e10ac53aa03e9656ee8ecaff7b9054dcb3a8a791"
       },
+      "moment": {
+        "git": "https://github.com/acreeger/meteor-moment.git",
+        "tag": "v2.5.1",
+        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.2",
@@ -56,8 +62,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.45",
-        "commit": "27a5a943a70a7376c90f18d2e2a4a122c6fc73fb"
+        "tag": "v0.2.47",
+        "commit": "d97bf419498efb560771e94a8a3e2c92db33d06d"
       }
     }
   }

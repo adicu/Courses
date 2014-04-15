@@ -70,6 +70,8 @@
         $push:
           addedCourses:
             course: courseFull
+      , null # options
+      , callback
 
       sections = Sections.find
         courseFull: courseFull
@@ -111,6 +113,7 @@
     return Courses.find
       courseFull:
         $in: courses
+    , sort: ['course']
 
   # @return [Section]
   getSections: ->
@@ -148,3 +151,11 @@
       if _.contains selectedCourseFulls, course.courseFull
         totalPoints += course.numFixedUnits / 10
     totalPoints
+
+  # Converts all included sections to FullCalendar Event objects
+  # @return [Event]
+  toFCEvents: ->
+    sections = @getSections().fetch()
+    events = (section.toFCEvents() for section in sections)
+    events = _.flatten events
+    return events

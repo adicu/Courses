@@ -10,7 +10,7 @@ Template.scheduleSearchArea.semesterClasses = ->
 # Clears the search bar and search results
 resetSearch = ->
   searchInput = $ '#searchInput'
-  searchInput.value = ''
+  searchInput.val ''
   Session.set 'coursesSearchResults', []
 
 searchTimeout = null
@@ -48,8 +48,9 @@ Template.scheduleSearchArea.events
 
   'click .courseResultItem': (e) ->
     schedule = createOrGetSchedule()
-    schedule.addCourse @CourseFull, (err) ->
+    schedule.addCourse @CourseFull, (err) =>
       handleError err if err
+      Template.scheduleSidebar.openAccordion @CourseFull
     resetSearch()
 
   'input input': (e) ->
@@ -69,40 +70,41 @@ Template.scheduleSearchArea.events
     , SEARCH_TIMEOUT
 
 
-Template.scheduleWeekView.days = ->
-  [0..4]
+# Runs automatically when template is rendered
+scheduleComputation = undefined
+Template.scheduleWeekView.rendered = ->
+  startDate = Co.courseHelper.getCurrentSemesterDates().start
+  # Will be populated by the autorun whenever
+  # schedule or sections changes
+  fcEvents = []
+  $('#calendar').fullCalendar
+    events: (start, end, callback) ->
+      callback fcEvents
+    eventClick: (fcEvent, e, view) ->
+      Template.scheduleSidebar.toggleAccordion fcEvent.courseFull
+    weekends: false
+    defaultView: 'agendaWeek'     # Just show week view
+    header: false                 # Disable the default headers
+    allDaySlot: false             # Disable all day header
+    allDayDefault: false          # Make events default not all day
+    columnFormat:
+      week: 'dddd'                # Don't show the specific day
+    minTime: 7                    # Start at 7am
+    height: 100000                # Force full view
 
-Template.scheduleWeekView.hours = ->
-  [8..23]
+    year: startDate.year()
+    month: startDate.month()
+    # Finds the next Monday after the start and
+    # returns the date of the month
+    date: moment(startDate).day(1).date()
 
-Template.scheduleWeekView.getSectionsForDay = (day) ->
-  return []
+  scheduleComputation = Deps.autorun ->
+    schedule = getSchedule()
+    return if not schedule
+    fcEvents = schedule.toFCEvents()
+    $('#calendar').fullCalendar 'refetchEvents'
 
-
-# Returns credit or credits based on number of points
-Template.scheduleSidebar.formatCreditLabel = ->
-  points = @schedule.getTotalPoints()
-  if points == 1
-    return 'credit'
-  else
-    return 'credits'
-
-
-SECTIONS_LIMIT = 4
-Template.scheduleSidebarItem.getAbbrevSections = ->
-  return @course.getSections limit: SECTIONS_LIMIT
-
-# Checks if the number of sections is greater than some limit
-Template.scheduleSidebarItem.hasMoreSections = ->
-  return @course.getSections().count() > SECTIONS_LIMIT
-
-Template.scheduleSidebarItem.events
-  'click input.sectionSelect': (e) ->
-    input = e.target
-    checked = input.checked
-    if checked
-      @schedule.addSection @section.sectionFull
-    else
-      @schedule.removeSection @section.sectionFull
-  'click .deleteCourse': (e) ->
-    @schedule.removeCourse @course.courseFull
+Template.scheduleWeekView.destroyed = ->
+  # Clean up our autorunning
+  if scheduleComputation
+    scheduleComputation.stop()
