@@ -10,6 +10,7 @@ angular.module('Courses.models')
   Subsection,
   Semesters,
   SemesterDates,
+  Holidays,
 ) ->
   ###
   Main model of Courses, representing a full schedule with multiple courses
@@ -218,13 +219,8 @@ angular.module('Courses.models')
       else
         rawStart = SemesterDates["START_CURRENT"]
         rawEnd = SemesterDates["END_CURRENT"]
-      startDate = rawStart.split("/")
-      endDate = rawEnd.split("/")
-      for i in [0..2]
-        startDate[i] = parseInt(startDate[i])
-        endDate[i] = parseInt(endDate[i])
-      startDate[0] -= 1
-      endDate[0] -= 1
+      startDate = @formatDateString(rawStart)
+      endDate = @formatDateString(rawEnd)
       #create day of week array based on start date
       weekDayStart = new Date(startDate[2],startDate[0],startDate[1])
       weekDay = for i in [1..5]
@@ -257,6 +253,13 @@ angular.module('Courses.models')
           if subsectionEvent.byday
             courseRRule += ";BYDAY="+subsectionEvent.byday
 
+          courseEXDate = ""
+          for rawDateString in Holidays
+            holidayDate = @formatDateString(rawDateString)
+            courseEXDate += ICSFormatDate(new Date(holidayDate[2],holidayDate[2],holidayDate[2]))+","
+
+          courseEXDate = courseEXDate.substring(0, courseEXDate.length - 1)
+
           calendar.addEvent({
             DTSTART: new Date(startDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
@@ -268,8 +271,9 @@ angular.module('Courses.models')
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(endTime[0]),
               Math.round(parseFloat("0."+endTime[1])*60),0),
-            SUMMARY: courseName
-            LOCATION: courseLocation
+            SUMMARY: courseName,
+            LOCATION: courseLocation,
+            EXDATE: courseEXDate,
             RRULE: courseRRule
           })
 
@@ -288,6 +292,13 @@ angular.module('Courses.models')
             break
       else
         return currentDay
+
+    formatDateString: (rawDate) ->
+      dateString = rawDate.split("/")
+      for i in [0..2]
+        dateString[i] = parseInt(dateString[i])
+      dateString[0] -= 1
+      return dateString
 
     # Setter and getter for current semester.
     semester: (newSemester) ->

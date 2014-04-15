@@ -39,3 +39,7 @@ angular.module('Courses.constants', [])
   START_LAST:"01/20/2014"
   END_LAST:"05/21/2014"
 )
+.value(
+  'Holidays',
+  ['11/3/2014','11/27/2014','11/28/2014']
+)
