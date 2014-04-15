@@ -256,7 +256,7 @@ angular.module('Courses.models')
           courseEXDate = ""
           for rawDateString in Holidays
             holidayDate = @formatDateString(rawDateString)
-            courseEXDate += ICSFormatDate(new Date(holidayDate[2],holidayDate[2],holidayDate[2]))+","
+            courseEXDate += ICSFormatDate(new Date(holidayDate[2],holidayDate[0],holidayDate[1]))+","
 
           courseEXDate = courseEXDate.substring(0, courseEXDate.length - 1)
 
