@@ -91,12 +91,11 @@ angular.module('Courses.models')
       new Boolean @selectedSections.length
 
     # Checks various things to see if this course is valid
+    # Will only check fields on the Course, not on
+    # Section (lenient checking)
     isValid: () ->
       selfCheck = @IDFull? and @title? and @points?
-      childrenCheck = true
-      for section in @sections
-        childrenCheck = childrenCheck and section.isValid()
-      selfCheck and childrenCheck
+      selfCheck
 
     # Setter and getter for state
     state: (newState) ->
