@@ -28,9 +28,6 @@
     return [hour, min]
 
   getOptions: () ->
-    pixelsPerHour: 38
-    startHour: 8
-    topPadding: 38
     daysAbbr: "MTWRF"
     specialFields: [
       'Building',
@@ -55,23 +52,23 @@
     @url = sectionFull.replace re, cu_base + '$1/$3$2-'+ @data.Term + '-$4'
     @sectionNum = sectionFull.replace re, '$4'
 
-  computeCSS: (start, end) ->
-    return if not start?
-    options = @getOptions()
-    top_pixels = Math.abs(start -
-        options.startHour) * options.pixelsPerHour +
-        options.topPadding
-    height_pixels = Math.abs(end-start) * options.pixelsPerHour
-
-    top: top_pixels
-    height: height_pixels
-
   # Return {start: Moment, end: Moment} Object indicating
   # the start and end dates for the current semester
   getCurrentSemesterDates: ->
     currentSemester = Number Session.get 'currentSemester'
     return if not currentSemester
     return Co.constants.semesterDates[currentSemester]
+
+  colors: [
+    "red"
+    "orange"
+    "yellow"
+    "green"
+    "forest"
+    "blue"
+    "midnight"
+    "purple"
+  ]
 
 @Co.toTitleCase = (str) ->
   titleCaseRegex = /\w\S*/g

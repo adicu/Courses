@@ -1,7 +1,7 @@
 @import "colors.import.less";
-@import "popover.import.less";
 
-/* Application */
+// This file should contain styles that are not tied to a
+// specific view
 
 span#byline {color: #777;}
 
@@ -15,47 +15,6 @@ footer a {
 footer a:hover { color: #666;}
 footer div#reportBug { text-align: right; padding-right: 30px; }
 
-.bottom-fade {
-  position: absolute;
-  bottom: 0; left: 0;
-  height: 40%;
-  width: 100%;
-  text-align: center;
-  margin: 0;
-
-  /* "transparent" only works here because == rgba(0,0,0,0) */
-  border-radius: 2px;
-
-}
-
 div#app {
   margin-top: 2em;
-}
-
-.semesterToggle.button {
-  height: 2.3125rem;
-  margin-bottom: 1em;
-  overflow: hidden;
-
-  p {
-    margin-bottom: 0;
-    font-size: 0.875em;
-    padding: 0.6em;
-  }
-
-  &.active {
-    background-color: #d0d0d0;
-    cursor: default;
-  }
-}
-
-.fade {
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-     -moz-transition: opacity 0.15s linear;
-       -o-transition: opacity 0.15s linear;
-          transition: opacity 0.15s linear;
-  &.in {
-    opacity: 1;
-  }
 }

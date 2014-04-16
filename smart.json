@@ -9,7 +9,8 @@
     "collection2": {},
     "accounts-guest": {},
     "collection-helpers": {},
-    "moment": {}
+    "moment": {},
+    "moment-range": {}
   },
   "bower": {
     "elastic.js": {

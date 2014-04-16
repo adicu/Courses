@@ -19,36 +19,6 @@ UI.registerHelper 'readableSemester', (input = this) ->
 
   semesters[semester] + ' ' + input[0..3]
 
-# Converts from int[0-6] to day
-UI.registerHelper 'readableDay', (input = this) ->
-  days =
-    0: 'Monday',
-    1: 'Tuesday',
-    2: 'Wednesday',
-    3: 'Thursday',
-    4: 'Friday',
-    5: 'Saturday',
-    6: 'Sunday'
-  days[input]
-
-# Converts 24 time 13:10:30 to 1:10pm
-UI.registerHelper 'readableTime', (time = this) ->
-  timeRegex = /(\d+):(\d+):(\d+)/
-  d = time.match timeRegex
-  if d == null
-    return time
-  h = d[1]
-  m = d[2]
-  s = d[3]
-  ampm = 'am'
-  if h = 12
-    ampm = 'pm'
-  else if h > 12
-    h = h - 12
-    ampm = 'pm'
-
-  time = h + ':' + m + ' ' +  ampm
-
 # Returns the instructor's last name
 UI.registerHelper 'instructorLast', (instructors = this) ->
   instructor = instructors[0]

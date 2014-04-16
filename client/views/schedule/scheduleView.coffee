@@ -20,13 +20,12 @@ createOrGetSchedule = ->
   user = Co.user()
 
   if user
-    schedules = user.profile.schedules
-    if schedules and schedules[semester]
-      schedule = Schedules.findOne schedules[semester]
+    schedule = getSchedule()
+    if schedule
       return schedule
     else
       newSchedule = Schedules.insert
-        semester: Number semester
+        semester: parseInt semester, 10
       schedule = Schedules.findOne newSchedule
       return schedule
   else
@@ -37,9 +36,9 @@ getSchedule = ->
   user = Co.user()
 
   if user
-    schedules = user.profile.schedules
-    if schedules and schedules[semester]
-      return Schedules.findOne schedules[semester]
+    return Schedules.findOne
+      owner: user._id
+      semester: parseInt semester, 10
 
 Template.scheduleSearchArea.events
   'click .semesterToggle': (e) ->

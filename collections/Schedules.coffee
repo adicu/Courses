@@ -6,6 +6,9 @@
     'addedCourses.$.course':
       type: String
       label: 'CourseFull reference'
+    'addedCourses.$.color':
+      type: String
+      label: 'Color associated with course'
     addedSections:
       type: [Object]
       optional: true
@@ -25,34 +28,14 @@
 
 @Schedules.allow
   insert: (userId, doc) ->
+    # (semester, owner) consistency may be
+    # need to be enforced here
     userId and doc.owner == userId
   update: (userId, doc, fields, modifier) ->
     doc.owner == userId
   remove: (userId, doc) ->
     doc.owner == userId
   fetch: ['owner']
-
-# Observers
-
-@Schedules.find().observe
-  changed: (newDoc, oldDoc) ->
-    # The owner field has just been added
-    if newDoc.owner and not oldDoc.owner
-      user = newDoc.owner
-      newSchedule = {}
-      newSchedule[newDoc.semester] = newDoc._id
-      Meteor.users.update user,
-        $set:
-          profile:
-            schedules:
-              newSchedule
-  removed: (oldDoc) ->
-    owner = Meteor.users.findOne oldDoc.owner
-    changeSet = {}
-    changeSet['profile.schedules.' + oldDoc.semester] = ''
-    Meteor.users.update owner,
-      $unset:
-        changeSet
 
 # Helpers
 
@@ -70,6 +53,7 @@
         $push:
           addedCourses:
             course: courseFull
+            color: @randomUniqueColor()
       , null # options
       , callback
 
@@ -151,6 +135,22 @@
       if _.contains selectedCourseFulls, course.courseFull
         totalPoints += course.numFixedUnits / 10
     totalPoints
+
+  # @return String a color which is attempted to be unique
+  randomUniqueColor: ->
+    usedColors = _.pluck @addedCourses, 'color'
+    unusedColors = _.difference Co.courseHelper.colors, usedColors
+    if not unusedColors
+      # If all colors have been used
+      unusedColors = Co.courseHelper.colors
+    return _.sample unusedColors
+
+  # @return [String] the color associated with a given courseFull
+  getColor: (courseFull) ->
+    addedCourse = _.find @addedCourses, (course) ->
+      course.course == courseFull
+    if addedCourse
+      return addedCourse.color
 
   # Converts all included sections to FullCalendar Event objects
   # @return [Event]

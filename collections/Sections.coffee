@@ -36,7 +36,8 @@
     return Courses.findOne courseFull: @courseFull
 
   # Parses the time fields
-  # @return [[Moment, Moment]] - start, end
+  # @return [DateRange] - start, end
+  # See moment-range package for info on DateRange
   # An array of start and end times based on the next Monday
   # after the start of classes for the current semester
   # Each meeting of class will generate one - MW => 2 starts and ends
@@ -63,7 +64,7 @@
         newStart.hour(parsedStart[0]).minute(parsedStart[1])
         newEnd.hour(parsedEnd[0]).minute(parsedEnd[1])
 
-        meetingTimes.push [newStart, newEnd]
+        meetingTimes.push moment().range newStart, newEnd
 
     return meetingTimes
 
@@ -71,13 +72,16 @@
   # @return [Event]
   toFCEvents: ->
     events = []
+    title = @courseFull + ': ' +
+      Co.toTitleCase @getParentCourse().courseTitle
     baseEvent =
       id: @sectionFull
-      title: Co.toTitleCase @getParentCourse().courseTitle
+      title: title
       courseFull: @courseFull
-    for times in @getMeetingTimes()
+    for range in @getMeetingTimes()
       newEvent = _.extend {}, baseEvent,
-        start: times[0].toISOString()
-        end: times[1].toISOString()
+        start: range.start.toISOString()
+        end: range.end.toISOString()
+        range: range
       events.push newEvent
     return events

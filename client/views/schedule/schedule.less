@@ -113,15 +113,14 @@
         width: 100%;
       }
     }
-    .fa-times {
+    .fa-caret-down {
       display: none;
     }
     &.active {
-      .fa-info-circle {
+      .fa-caret-right {
         display: none;
       }
-      .fa-times {
-        color: @red-dk;
+      .fa-caret-down {
         display: inline-block;
       }
     }
@@ -131,134 +130,66 @@
     input {
       margin: 0;
     }
-  }
-}
-
-#calendar {
-  position: relative;
-  table {
-    background: none;
-  }
-  #guides {
-    position: absolute;
-    top: 32px;
-    left: 0;
-    width: 100%;
-    max-width: 960px;
-    z-index: -1;
-    div {
-      border-bottom: 1px solid #DFDFDF;
-      height: 38px;
-    }
-  }
-  #daynames {
-    th {
-      text-align: center;
-    }
-  }
-  .dayColumn {
-    width: 20%;
-    padding: 0 0 0 1px;
-    height: 642px;
-    & > div {
-      position: relative;
-      height: 100%;
-      width: 100%;
-    }
-    .timeSlotWrapper {
-      border-radius: 2px;
-      padding: 0.3em;
-      position: absolute;
-      width: 100%;
-      overflow: hidden;
-      -moz-border-radius: 9px;
-    }
-    .timeSlotWrapper.select:hover {
-      cursor: pointer;
-    }
-    .timeSlotWrapper:hover {
-      cursor: pointer;
-    }
-  }
-  .timeSlotWrapper {
-    text-align: center;
-    p:first-child {
-      margin-right: 13px;
-    }
-    .remove_link {
-      color: #FFF;
-      z-index: 5;
-      float: right;
-    }
-    & > div {
-      font-size: 0.85em;
-      line-height: 1.1em;
-    }
-  }
-  .timeSlotWrapper:hover {
-    .remove_link:hover {
-      color: #fff;
-    }
-  }
-  td.hourColumn {
-    width: 35px;
-    padding: 0px 5px 0px 9px;
-    text-align: right;
-    font-size: 0.9em;
-    div {
-      position: relative;
-      padding-right: 0.3em;
-      line-height: normal;
-      height: 38px;
+    .sectionInfo {
+      & > p {
+        display: inline;
+        margin: 0;
+      }
     }
   }
 }
 
-div.timeSlot {
-  height: 100%;
+.semesterToggle.button {
+  height: 2.3125rem;
+  margin-bottom: 1em;
+  overflow: hidden;
 
   p {
-    margin: 0;
+    margin-bottom: 0;
+    font-size: 0.875em;
+    padding: 0.6em;
+  }
+
+  &.active {
+    background-color: #d0d0d0;
+    cursor: default;
   }
 }
-.timeSlotTitle { vertical-align: middle; width: 95%;}
-.timeSlotCallNumber {margin-top: 3px; font-size: .85em; }
-.timeSlotPoints {margin-top: 3px; font-size: .85em; }
 
 #browser {
-    position: relative;
-    div.results {
-        position: absolute;
-        left: 0;
-        top: 50px;
-        z-index: 1020;
-        border: 10px solid #75B2DD;
-        background: white;
-        width: 100%;
-    }
-    .results {
-        li {
-            padding: 10px;
-            font-size: 1.1em;
-            p.description {
-                font-size: 0.8em;
-                margin-bottom: 0em;
-            }
-        }
-        li:hover {
-            padding: 10px;
-            font-size: 1.1em;
-            background: #dddde9;
-            cursor: pointer;
-        }
-    }
-    p.course-title {
+  position: relative;
+  div.results {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    z-index: 1020;
+    border: 10px solid #75B2DD;
+    background: white;
+    width: 100%;
+  }
+  .results {
+    li {
+      padding: 10px;
+      font-size: 1.1em;
+      p.description {
+        font-size: 0.8em;
         margin-bottom: 0em;
-        font-weight: bold;
-        font-size: 0.9em;
+      }
     }
+    li:hover {
+      padding: 10px;
+      font-size: 1.1em;
+      background: #dddde9;
+      cursor: pointer;
+    }
+  }
+  p.course-title {
+    margin-bottom: 0em;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
 }
 #browser .results ul, #browser .results p.clear_results {
-    background: rgba( 255, 255, 255, 0.95);
+  background: rgba( 255, 255, 255, 0.95);
 }
 

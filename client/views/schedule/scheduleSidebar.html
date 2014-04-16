@@ -27,12 +27,12 @@
 <template name="scheduleSidebarItem">
   <dd class="accordionItem accordionItem-{{course.courseFull}}">
     <a href="#" onclick="return false;" data-coursefull="{{course.courseFull}}">
-      <div class="courseItem true">
+      <div class="courseItem {{getSidebarClasses}}">
         <p class="courseTitle">
           <strong>{{course.courseFull}}</strong>
         </p>
-        <i class="fa fa-info-circle"></i>
-        <i class="fa fa-times"></i>
+        <i class="fa fa-caret-right"></i>
+        <i class="fa fa-caret-down"></i>
       </div>
     </a>
     <div class="content panel-{{course.courseFull}}">
@@ -69,11 +69,19 @@
 </template>
 
 <template name="scheduleSidebarSection">
-  <li>
+  <li class="scheduleSidebarSection">
     <input
       class="sectionSelect"
       type="checkbox"
       checked="{{schedule.isSelected section.sectionFull}}">
-    {{instructorLast section.instructors}}
+    <div class="sectionInfo">
+      <p class="instructorLast">
+        {{instructorLast section.instructors}}
+      </p>
+      <br>
+      <p class="sectionTimes">
+        {{formatSectionTimes}}
+      </p>
+    </div>
   </li>
 </template>

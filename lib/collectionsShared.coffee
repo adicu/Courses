@@ -29,3 +29,4 @@
       else
         @unset()
     denyUpdate: true
+    index: 1
