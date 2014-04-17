@@ -15,7 +15,7 @@
     'addedSections.$.section':
       type: String
       label: 'SectionFull reference'
-    semester:
+    semester: # Careful, this needs to be parsed to a number
       type: Number
     createdAt:
       CollectionsShared.createdAt
@@ -158,4 +158,11 @@
     sections = @getSections().fetch()
     events = (section.toFCEvents() for section in sections)
     events = _.flatten events
+
+    # Add color to events
+    for evt in events
+      color = @getColor evt.courseFull
+      if color
+        evt.className = color
+
     return events

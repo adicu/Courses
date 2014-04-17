@@ -85,7 +85,7 @@ Template.scheduleSidebarItem.events
 Template.scheduleSidebarSection.formatSectionTimes = ->
   meetsOn = @section.meetsOn[0]
   meetingTime = @section.getMeetingTimes()[0]
-  return if not meetingTime
+  return "TBA" if not meetingTime
 
   startTime = meetingTime.start.format 'LT'
   endTime = meetingTime.end.format 'LT'

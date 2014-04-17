@@ -52,7 +52,7 @@
       parsedEnd = Co.courseHelper.parseTimes @endTime[i]
       # A field is missing
       # Possible error condition
-      continue if not (parsedDays or parsedStart or parsedEnd)
+      continue if not (parsedDays and parsedStart and parsedEnd)
       for day in parsedDays # ex. iterate over [M, W]
         newStart = moment baseDate # Copy the moment
         newEnd = moment baseDate
