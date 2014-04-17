@@ -99,9 +99,12 @@ Template.scheduleWeekView.rendered = ->
 
   scheduleComputation = Deps.autorun ->
     schedule = getSchedule()
-    return if not schedule
-    fcEvents = schedule.toFCEvents()
-    $('#calendar').fullCalendar 'refetchEvents'
+    if schedule
+      fcEvents = schedule.toFCEvents()
+      $('#calendar').fullCalendar 'refetchEvents'
+    else
+      fcEvents = []
+      $('#calendar').fullCalendar 'refetchEvents'
 
 Template.scheduleWeekView.destroyed = ->
   # Clean up our autorunning
