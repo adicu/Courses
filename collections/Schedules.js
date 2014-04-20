@@ -157,6 +157,15 @@ Schedules.helpers({
     return _.contains(this.getSectionFulls(), sectionFull);
   },
 
+  isMine: function() {
+    var userID = '';
+    if (Co.user()) {
+      userID = Co.user()._id;
+    }
+
+    return this.owner === userID;
+  },
+
   getCourseFulls: function() {
     return _.pluck(this.addedCourses, 'course');
   },

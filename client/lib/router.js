@@ -22,10 +22,14 @@ Router.map(function() {
   });
 
   this.route('scheduleView', {
-    path: '/schedule'
+    path: '/schedule/:_id?'
   });
 
   this.route('directoryView', {
     path: '/directory'
+  });
+
+  this.route('loading', {
+    path: '/loading'
   });
 });

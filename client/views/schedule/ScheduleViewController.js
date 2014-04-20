@@ -14,15 +14,25 @@ ScheduleViewController = RouteController.extend({
   onData: function() {
     var data = this.data();
     if (data && data.schedule) {
+      // The user has a current schedule
       var courseFulls = data.schedule.getCourseFulls();
       Meteor.subscribe('courses', courseFulls);
+
+      if (data.schedule._id !== this.params._id) {
+        // Change to current schedule URL
+        Router.go('scheduleView', {_id: data.schedule._id});
+      }
     }
   },
 
   waitOn: function() {
-    return [
-      Meteor.subscribe('schedules')
-    ];
+    var subscriptions = [];
+
+    if (this.params._id) {
+      subscriptions.push(Meteor.subscribe('schedule', this.params._id));
+    }
+    subscriptions.push(Meteor.subscribe('mySchedules'));
+    return subscriptions;
   },
 
   data: function() {
@@ -36,12 +46,16 @@ ScheduleViewController = RouteController.extend({
       Session.setDefault('currentSemester', String(data.semesters[0]));
     }
 
-    if (Co.user()) {
+    if (this.params._id) {
+      check(this.params._id, String);
+      data.schedule = Schedules.findOne(this.params._id);
+    } else if (Co.user()) {
       data.schedule = Schedules.findOne({
         owner: Co.user()._id,
         semester: Number(Session.get('currentSemester'))
       });
     }
+
     return data;
   }
 });

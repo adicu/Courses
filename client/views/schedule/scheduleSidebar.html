@@ -60,10 +60,12 @@
           </li>
         {{/if}}
       </ul>
-      <button class="small alert radius deleteCourse">
-        <i class="fa fa-trash-o"></i>
-        Delete Course
-      </button>
+      {{#if schedule.isMine}}
+        <button class="small alert deleteCourse">
+          <i class="fa fa-trash-o"></i>
+          Delete
+        </button>
+      {{/if}}
     </div>
   </dd>
 </template>
@@ -73,7 +75,8 @@
     <input
       class="sectionSelect"
       type="checkbox"
-      checked="{{schedule.isSelected section.sectionFull}}">
+      checked="{{schedule.isSelected section.sectionFull}}"
+      {{isDisabled}}>
     <div class="sectionInfo">
       <p class="instructorLast">
         {{instructorLast section.instructors}}

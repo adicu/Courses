@@ -17,10 +17,9 @@ var resetSearch = function() {
 
 var createOrGetSchedule = function() {
   var semester = Session.get('currentSemester');
-  var user = Co.user();
 
-  if (user) {
-    var schedule = getSchedule();
+  if (Co.user()) {
+    var schedule = this.schedule;
     if (!schedule) {
       var newSchedule = Schedules.insert({
         semester: parseInt(semester, 10)
@@ -33,32 +32,24 @@ var createOrGetSchedule = function() {
   }
 };
 
-var getSchedule = function() {
-  var semester = Session.get('currentSemester');
-  var user = Co.user();
-
-  if (user) {
-    return Schedules.findOne({
-      owner: user._id,
-      semester: parseInt(semester, 10)
-    });
-  }
-};
-
 var searchTimeout;
 Template.scheduleSearchArea.events({
   'click .semesterToggle': function(e) {
     var selectedSemester = String(this);
     Session.set('currentSemester', String(selectedSemester));
+
+    // Clear the _id parameter of the URL to tell the controller
+    // to look for a different schedule
+    Router.go('scheduleView');
   },
   'click .courseResultItem': function(e) {
     var that = this;
-    var schedule = createOrGetSchedule();
-    schedule.addCourse(this.CourseFull, function(err) {
+    var schedule = createOrGetSchedule.call(this);
+    schedule.addCourse(this.result.CourseFull, function(err) {
       if (err) {
         handleError(err);
       }
-      Template.scheduleSidebar.openAccordion(that.CourseFull);
+      Template.scheduleSidebar.openAccordion(that.result.CourseFull);
     });
     resetSearch();
   },
@@ -85,13 +76,14 @@ Template.scheduleSearchArea.events({
 
 
 // Runs automatically when template is rendered
-var scheduleComputation;
+var scheduleComputation, startDateComputation;
 Template.scheduleWeekView.rendered = function() {
+  var that = this;
   var startDate = Co.courseHelper.getCurrentSemesterDates().start;
   // Will be populated by the autorun whenever
   // schedule or sections changes
   var fcEvents = [];
-  $('#calendar').fullCalendar({
+  var fcOptions = {
     events: function(start, end, callback) {
       callback(fcEvents);
     },
@@ -107,16 +99,26 @@ Template.scheduleWeekView.rendered = function() {
       week: 'dddd'                // Don't show the specific day
     },
     minTime: 7,                   // Start at 7am
-    height: 100000,               // Force full view
-    year: startDate.year(),
-    month: startDate.month(),
-    // Finds the next Monday after the start and
-    // returns the date of the month
-    date: moment(startDate).day(1).date()
+    height: 100000                // Force full view
+  };
+  $('#calendar').fullCalendar(fcOptions);
+
+  // Automatically runs whenever the start date changes
+  startDateComputation = Deps.autorun(function() {
+    var startDate = Co.courseHelper.getCurrentSemesterDates().start;
+
+    $('#calendar').fullCalendar(
+      'gotoDate',
+      startDate.year(),
+      startDate.month(),
+      moment(startDate).day(1).date()
+    );
   });
 
+  // Automatically runs whenever the schedule object changes
   scheduleComputation = Deps.autorun(function() {
-    var schedule = getSchedule();
+    // Necessary to properly establish dependency
+    var schedule = Schedules.findOne(that.data.schedule._id);
     if (schedule) {
       fcEvents = schedule.toFCEvents();
       $('#calendar').fullCalendar('refetchEvents');
@@ -128,7 +130,9 @@ Template.scheduleWeekView.rendered = function() {
 };
 
 Template.scheduleWeekView.destroyed = function() {
-  if (scheduleComputation) {
+  if (scheduleComputation)
     scheduleComputation.stop();
-  }
+
+  if (startDateComputation)
+    startDateComputation.stop();
 };

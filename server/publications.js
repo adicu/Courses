@@ -36,7 +36,14 @@ Meteor.publish('sections', function(sectionFulls) {
   ];
 });
 
-Meteor.publish('schedules', function() {
+Meteor.publish('schedule', function(id) {
+  check(id, String);
+  return [
+    Schedules.find(id)
+  ];
+});
+
+Meteor.publish('mySchedules', function() {
   return [
     Schedules.find({
       owner: this.userId

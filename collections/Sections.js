@@ -91,7 +91,10 @@ Sections.helpers({
   // @return [Event]
   toFCEvents: function() {
     var events = [];
-    var title = this.courseFull + ': ' + Co.toTitleCase(this.getParentCourse().courseTitle);
+    var parentCourse = this.getParentCourse();
+    if (!this.getParentCourse)
+      return;
+    var title = this.courseFull + ': ' + Co.toTitleCase(parentCourse.courseTitle);
     var baseEvent = {
       id: this.sectionFull,
       title: title,

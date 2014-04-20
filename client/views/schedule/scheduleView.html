@@ -1,10 +1,12 @@
 <template name="scheduleView">
   <div id="browser">
-    {{> scheduleSearchArea
-      schedule=schedule
-      semesters=semesters
-      searchResults=searchResults
-    }}
+    {{#if schedule.isMine}}
+      {{> scheduleSearchArea
+        schedule=schedule
+        semesters=semesters
+        searchResults=searchResults
+      }}
+    {{/if}}
   </div>
 
   <div class="row">
@@ -19,7 +21,7 @@
 
 <template name="scheduleWeekView">
   <div id="calendar">
-    <!-- This div populated by FullCalendar. See template helpers. -->
+    {{! This div populated by FullCalendar. See template helpers.}}
   </div>
 </template>
 
@@ -56,16 +58,19 @@
     <div class="results">
       <ul class="no-bullet">
         {{#each searchResults}}
-          <li
-            class="courseResultItem"
-            ng-click="courseSelect({course: result})">
+        {{#with
+          result=.
+          schedule=../schedule
+        }}
+          <li class="courseResultItem">
             <p class="course-title">
-              {{CourseFull}}: {{CourseTitle}}
+              {{result.CourseFull}}: {{result.CourseTitle}}
             </p>
             <p class="description">
-              {{Description}}
+              {{result.Description}}
             </p>
           </li>
+        {{/with}}
         {{/each}}
       </ul>
     </div>

@@ -108,5 +108,11 @@ Template.scheduleSidebarSection.formatSectionTimes = function() {
 
   var startTime = meetingTime.start.format('LT');
   var endTime = meetingTime.end.format('LT');
-  return meetsOn + " " + startTime + "-" + endTime;
+  return meetsOn + " " + startTime + " - " + endTime;
+};
+
+Template.scheduleSidebarSection.isDisabled = function() {
+  if (!this.schedule.isMine()) {
+    return 'disabled';
+  }
 };
