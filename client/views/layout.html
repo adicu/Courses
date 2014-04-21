@@ -42,8 +42,8 @@
             <a href="{{pathFor 'scheduleView'}}">Schedule</a>
           </li>
           <li class="divider"></li>
-          <li class="{{isActive 'directoryView'}}">
-            <a href="{{pathFor 'directoryView'}}">Directory</a>
+          <li class="{{isActive 'about'}}">
+            <a href="{{pathFor 'about'}}">About</a>
           </li>
           <li class="divider"></li>
         </ul>
@@ -56,7 +56,7 @@
   <footer>
     <div class="row">
       <div class="byline large-8 small-6 columns">
-        By ADI Infrastructure
+        <a href="{{pathFor 'about'}}">By ADI Infrastructure</a>
       </div>
       <div class="large-4 small-6 columns" id="reportBug">
         <a href="mailto:infrastructure@adicu.com?subject=[Schedule Builder]">Report a bug or request a feature</a>

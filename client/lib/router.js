@@ -17,6 +17,7 @@ Router.map(function() {
   this.route('home', {
     path: '/',
     onBeforeAction: function() {
+      // Redirect to schedule by default
       return Router.go('scheduleView');
     }
   });
@@ -25,11 +26,11 @@ Router.map(function() {
     path: '/schedule/:_id?'
   });
 
-  this.route('directoryView', {
-    path: '/directory'
+  this.route('directorySingle', {
+    path: '/directory/:courseFull'
   });
 
-  this.route('loading', {
-    path: '/loading'
+  this.route('about', {
+    path: '/about'
   });
 });

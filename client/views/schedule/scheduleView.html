@@ -1,6 +1,6 @@
 <template name="scheduleView">
   <div id="browser">
-    {{#if schedule.isMine}}
+    {{#if shouldShowSearch}}
       {{> scheduleSearchArea
         schedule=schedule
         semesters=semesters

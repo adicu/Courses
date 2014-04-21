@@ -1,5 +1,19 @@
 var SEARCH_TIMEOUT = 750;
 
+// Shows search if there either is no current schedule or
+// the the current schedule is editable.
+Template.scheduleView.shouldShowSearch = function() {
+  if (!this.schedule) {
+    return true;
+  } else if (this.schedule.isMine()) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+
+
 Template.scheduleSearchArea.semesterClasses = function() {
   var selectedSemester = String(this);
   var currentSemester = Session.get('currentSemester');
@@ -117,6 +131,8 @@ Template.scheduleWeekView.rendered = function() {
 
   // Automatically runs whenever the schedule object changes
   scheduleComputation = Deps.autorun(function() {
+    if (!that.data.schedule)
+      return;
     // Necessary to properly establish dependency
     var schedule = Schedules.findOne(that.data.schedule._id);
     if (schedule) {
