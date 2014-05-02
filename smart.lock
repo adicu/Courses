@@ -5,21 +5,19 @@
       "zurb-foundation": {},
       "iron-router": {},
       "spin": {},
-      "bower": {
-        "git": "https://github.com/brishin/meteor-bower",
-        "branch": "master"
-      },
+      "bower": {},
       "collection2": {},
       "accounts-guest": {},
       "collection-helpers": {},
       "moment": {},
-      "moment-range": {}
+      "moment-range": {},
+      "fontawesome4": {}
     },
     "packages": {
       "zurb-foundation": {
         "git": "https://github.com/MixinLabs/meteor-foundation.git",
-        "tag": "v0.2.0",
-        "commit": "2fc8ecfe2756e178140aae281141c8e56f1c2606"
+        "tag": "v5.2.2-0.0.1",
+        "commit": "afe432020cc6246fa0a243a6d2e1e031f08d98e3"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -32,9 +30,9 @@
         "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
       },
       "bower": {
-        "git": "https://github.com/brishin/meteor-bower",
-        "branch": "master",
-        "commit": "d42f78e09286a59ce6dcbfdeaded81502253cbf3"
+        "git": "https://github.com/mquandalle/meteor-bower.git",
+        "tag": "v0.1.8",
+        "commit": "5699c3f29a936dcb2aa1221a9febd4669764fc91"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
@@ -53,13 +51,18 @@
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.5.1",
-        "commit": "8c9bc5d3fc96705057737cb9743d555417f6e551"
+        "tag": "v2.6.0",
+        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
       },
       "moment-range": {
         "git": "https://github.com/kevb/meteor-moment-range",
         "tag": "v1.0.1",
         "commit": "60db017c61fbe747fb0e8e696bf136ceaccd8c7c"
+      },
+      "fontawesome4": {
+        "git": "https://github.com/chrismbeckett/meteor-fontawesome4.git",
+        "tag": "v1.0.0",
+        "commit": "fe38ec775e974f0f7855d1693dc74fd4f1b4848c"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -68,8 +71,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.47",
-        "commit": "d97bf419498efb560771e94a8a3e2c92db33d06d"
+        "tag": "v0.4.0",
+        "commit": "2cc6aac0d35a4e00b065c1437d540b2aefba5241"
       }
     }
   }

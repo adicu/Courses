@@ -3,14 +3,13 @@
     "zurb-foundation": {},
     "iron-router": {},
     "spin": {},
-    "bower": {
-      "git": "https://github.com/brishin/meteor-bower"
-    },
+    "bower": {},
     "collection2": {},
     "accounts-guest": {},
     "collection-helpers": {},
     "moment": {},
-    "moment-range": {}
+    "moment-range": {},
+    "fontawesome4": {}
   },
   "bower": {
     "elastic.js": {
