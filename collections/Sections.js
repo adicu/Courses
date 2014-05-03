@@ -30,7 +30,7 @@ Sections = new Meteor.Collection('sections', {
       type: String
     },
     instructors: {
-      type: String
+      type: [String]
     },
     numEnrolled: {
       type: Number

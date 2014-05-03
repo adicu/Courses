@@ -7,7 +7,8 @@ Courses = new Meteor.Collection('courses', {
       unique: true
     },
     description: {
-      type: String
+      type: String,
+      optional: true
     },
     courseTitle: {
       type: String,
@@ -17,7 +18,7 @@ Courses = new Meteor.Collection('courses', {
       type: String,
       label: 'ex. COMS'
     },
-    points: {
+    numFixedUnits: {
       type: Number,
       label: 'ex. 30'
     },
@@ -79,7 +80,7 @@ Courses.helpers({
     var query = {
       courseFull: this.courseFull
     };
-    if (Session.get('currentSemester')) {
+    if (Session && Session.get('currentSemester')) {
       query.term = Session.get('currentSemester');
     }
     return Sections.find(query, options);
