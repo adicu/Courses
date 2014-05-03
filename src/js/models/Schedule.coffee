@@ -231,10 +231,6 @@ angular.module('Courses.models')
       for scheduleEvent in @getSelectedSections()
 
         eventsToMake = _.clone scheduleEvent.subsections
-        if eventsToMake.length == 2 and eventsToMake[0].startTime == eventsToMake[1].startTime
-          # create BYDAY parameter if event is repeating
-          eventsToMake[0].byday = $filter('calByDay')(eventsToMake[0].meetsOn[0])+','+$filter('calByDay')(eventsToMake[1].meetsOn[0])
-          eventsToMake.splice(1, 1)
 
         for subsectionEvent in eventsToMake
           startTime = subsectionEvent.startTime.toString().split('.')
@@ -250,8 +246,6 @@ angular.module('Courses.models')
             courseLocation = subsectionEvent.building+" "+subsectionEvent.room
 
           courseRRule = "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
-          if subsectionEvent.byday
-            courseRRule += ";BYDAY="+subsectionEvent.byday
 
           courseEXDate = ""
           for rawDateString in Holidays
@@ -259,13 +253,14 @@ angular.module('Courses.models')
             courseEXDate += ICSFormatDate(new Date(holidayDate[2],holidayDate[2],holidayDate[2]))+","
 
           courseEXDate = courseEXDate.substring(0, courseEXDate.length - 1)
-
-          calendar.addEvent({
-            DTSTART: new Date(startDate[2],
+          courseDTSTART = new Date(startDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(startTime[0]),
-              Math.round(parseFloat("0."+startTime[1])*60),0),
+              Math.round(parseFloat("0."+startTime[1])*60),0)
+
+          calendar.addEvent({
+            DTSTART: courseDTSTART,
             DTEND: new Date(endDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
               weekDay[subsectionEvent.meetsOn[0]][1],
