@@ -13,8 +13,13 @@ Build instructions:
 
 # App structure
 This app structure is based on the recommendations [here](https://github.com/oortcloud/unofficial-meteor-faq#where-should-i-put-my-files)
+
+> Note that most of the frontend code in is `client/` but that the
+> frontend code may also access code in other directories
+> (but not `tests/` and `server/`)
+
 ```
-client/                     # client specific code (most interesting)
+client/                     # Most of the frontend code
     lib/                    # client utlity code
       router.js             # **routes defined here**
     stylesheets/            # stylesheets for the whole app
@@ -30,6 +35,10 @@ smart.json                  # Meteor package manifest
 ```
 
 ## Testing
+Laika is a wrapper around mocha, a common JS testing framework.
+Note that in the documentation for Laika, TDD syntax is used,
+but in our tests BDD syntax is used, which is more standard for
+mocha. It starts an new instance of meteor for each test.
 
 ### Install laika
 Documentation for laika [here](http://arunoda.github.io/laika/).
@@ -40,6 +49,8 @@ Documentation for laika [here](http://arunoda.github.io/laika/).
 
 ### Running
 1. Run `laika` in project root.
+
+This will run both unit and integration tests.
 
 # Docker
 The current `Dockerfile` included will create a data only container
