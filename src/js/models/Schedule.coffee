@@ -10,6 +10,7 @@ angular.module('Courses.models')
   Subsection,
   Semesters,
   SemesterDates,
+  Holidays,
 ) ->
   ###
   Main model of Courses, representing a full schedule with multiple courses
@@ -218,13 +219,8 @@ angular.module('Courses.models')
       else
         rawStart = SemesterDates["START_CURRENT"]
         rawEnd = SemesterDates["END_CURRENT"]
-      startDate = rawStart.split("/")
-      endDate = rawEnd.split("/")
-      for i in [0..2]
-        startDate[i] = parseInt(startDate[i])
-        endDate[i] = parseInt(endDate[i])
-      startDate[0] -= 1
-      endDate[0] -= 1
+      startDate = @formatDateString(rawStart)
+      endDate = @formatDateString(rawEnd)
       #create day of week array based on start date
       weekDayStart = new Date(startDate[2],startDate[0],startDate[1])
       weekDay = for i in [1..5]
@@ -235,10 +231,6 @@ angular.module('Courses.models')
       for scheduleEvent in @getSelectedSections()
 
         eventsToMake = _.clone scheduleEvent.subsections
-        if eventsToMake.length == 2 and eventsToMake[0].startTime == eventsToMake[1].startTime
-          # create BYDAY parameter if event is repeating
-          eventsToMake[0].byday = $filter('calByDay')(eventsToMake[0].meetsOn[0])+','+$filter('calByDay')(eventsToMake[1].meetsOn[0])
-          eventsToMake.splice(1, 1)
 
         for subsectionEvent in eventsToMake
           startTime = subsectionEvent.startTime.toString().split('.')
@@ -254,22 +246,29 @@ angular.module('Courses.models')
             courseLocation = subsectionEvent.building+" "+subsectionEvent.room
 
           courseRRule = "FREQ=WEEKLY;UNTIL="+ICSFormatDate(new Date(endDate[2],endDate[0],endDate[1],11,59,59))
-          if subsectionEvent.byday
-            courseRRule += ";BYDAY="+subsectionEvent.byday
 
-          calendar.addEvent({
-            DTSTART: new Date(startDate[2],
+          courseEXDate = ""
+          for rawDateString in Holidays
+            holidayDate = @formatDateString(rawDateString)
+            courseEXDate += ICSFormatDate(new Date(holidayDate[2],holidayDate[0],holidayDate[1]))+","
+
+          courseEXDate = courseEXDate.substring(0, courseEXDate.length - 1)
+          courseDTSTART = new Date(startDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(startTime[0]),
-              Math.round(parseFloat("0."+startTime[1])*60),0),
+              Math.round(parseFloat("0."+startTime[1])*60),0)
+
+          calendar.addEvent({
+            DTSTART: courseDTSTART,
             DTEND: new Date(endDate[2],
               weekDay[subsectionEvent.meetsOn[0]][0],
               weekDay[subsectionEvent.meetsOn[0]][1],
               parseInt(endTime[0]),
               Math.round(parseFloat("0."+endTime[1])*60),0),
-            SUMMARY: courseName
-            LOCATION: courseLocation
+            SUMMARY: courseName,
+            LOCATION: courseLocation,
+            EXDATE: courseEXDate,
             RRULE: courseRRule
           })
 
@@ -288,6 +287,13 @@ angular.module('Courses.models')
             break
       else
         return currentDay
+
+    formatDateString: (rawDate) ->
+      dateString = rawDate.split("/")
+      for i in [0..2]
+        dateString[i] = parseInt(dateString[i])
+      dateString[0] -= 1
+      return dateString
 
     # Setter and getter for current semester.
     semester: (newSemester) ->
