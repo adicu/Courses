@@ -8,6 +8,10 @@ Build instructions:
 2. View Courses at <http://localhost:8080/>
 3. Enjoy live recompilation of changed files.
 
+
+**Hint**: [Notes.md](/Notes.md) has
+some useful info for understanding Courses.
+
 # App structure
 ```
 |-- app/ (backend code)
@@ -48,3 +52,11 @@ webdriver-manager start
 grunt test
 ```
 This assumes that you have the application available at `localhost:8000`.
+
+# Docker
+The current `Dockerfile` included will create a data only container
+(see [data container pattern](http://docs.docker.io/en/latest/use/working_with_volumes/))
+when built with `docker build -t courses .` and run with
+`docker run -d courses`.
+This container should then be mounted by a container running a server
+like nginx. A tool to automatically do this will follow.
