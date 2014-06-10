@@ -4,6 +4,57 @@
 
 /* Application */
 
+.hidden {display: none}
+
+body, html {
+  height: 100%;
+}
+
+.server-outages{
+  background-color:#1f1f21;
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  height: 100%;
+  width: 100%;
+
+  .message {
+    height: 300px;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 95%;
+    padding:1.5em;
+
+    em {
+      float: right;
+    }
+    h3 {
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .server-outages {
+    padding: 0.5rem;
+
+    .message {
+      position: relative;
+      top: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
 span#byline {color: #777;}
 
 footer {
