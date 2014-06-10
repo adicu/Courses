@@ -56,30 +56,38 @@
       </section>
     </nav>
   </div>
-  <div class="row">
-    <div class="large-12 columns">
-      <div id="app" ng-view></div>
-      <noscript>
-        <div class="noscript">
-          <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
-        </div>
-      </noscript>
-      <footer>
-        <div class="row">
-          <div class="byline large-8 small-6 columns">
-            By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
-            href="http://hansh.org/">Hans Hyttinen</a>, <a
-            href="http://www.github.com/sidnair09">Sid Nair</a>, and
-            <a href="http://www.brishin.com/">Brian Shin</a>.
+  <div class="hidden">
+    <div class="row">
+      <div class="large-12 columns">
+        <div id="app" ng-view></div>
+        <noscript>
+          <div class="noscript">
+            <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
           </div>
-          <div class="large-4 small-6 columns" id="reportBug">
-            <a href="mailto:infrastructure@adicu.com?subject=[Schedule Builder]">Report a bug or request a feature</a>
+        </noscript>
+        <footer>
+          <div class="row">
+            <div class="byline large-8 small-6 columns">
+              By <a href="http://ryanbubinski.com/">Ryan Bubinski</a>, <a
+              href="http://hansh.org/">Hans Hyttinen</a>, <a
+              href="http://www.github.com/sidnair09">Sid Nair</a>, and
+              <a href="http://www.brishin.com/">Brian Shin</a>.
+            </div>
+            <div class="large-4 small-6 columns" id="reportBug">
+              <a href="mailto:infrastructure@adicu.com?subject=[Schedule Builder]">Report a bug or request a feature</a>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   </div>
-
+  <div class="server-outages">
+    <div class="message">
+      <h3>Server outages</h3>
+      <p>Our servers have been comprimised in an outage, but fear not!  We are working actively to fix the problem very soon.  Thank you for understanding, and we appologizes for any inconvenience.</p>
+      <em>&mdash;ADI Infrastructure</em>
+    </div>
+  </div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
   <script src="//code.angularjs.org/1.0.4/angular-cookies.min.js"></script>
