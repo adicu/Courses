@@ -1,34 +1,35 @@
-Schedules = new Meteor.Collection('schedules', {
-  schema: new SimpleSchema({
-    addedCourses: {
-      type: [Object],
-      optional: true
-    },
-    'addedCourses.$.course': {
-      type: String,
-      label: 'CourseFull reference'
-    },
-    'addedCourses.$.color': {
-      type: String,
-      label: 'Color associated with course'
-    },
-    addedSections: {
-      type: [Object],
-      optional: true
-    },
-    'addedSections.$.section': {
-      type: String,
-      label: 'SectionFull reference'
-    },
-    semester: {
-      // Careful, this needs to be parsed to a number
-      type: Number
-    },
-    createdAt: CollectionsShared.createdAt,
-    updatedAt: CollectionsShared.updatedAt,
-    owner: CollectionsShared.owner
-  })
+Schedules = new Meteor.Collection('schedules');
+
+var schema = new SimpleSchema({
+  addedCourses: {
+    type: [Object],
+    optional: true
+  },
+  'addedCourses.$.course': {
+    type: String,
+    label: 'CourseFull reference'
+  },
+  'addedCourses.$.color': {
+    type: String,
+    label: 'Color associated with course'
+  },
+  addedSections: {
+    type: [Object],
+    optional: true
+  },
+  'addedSections.$.section': {
+    type: String,
+    label: 'SectionFull reference'
+  },
+  semester: {
+    // Careful, this needs to be parsed to a number
+    type: Number
+  },
+  createdAt: CollectionsShared.createdAt,
+  updatedAt: CollectionsShared.updatedAt,
+  owner: CollectionsShared.owner
 });
+Schedules.attachSchema(schema);
 
 Schedules.allow({
   insert: function(userId, doc) {

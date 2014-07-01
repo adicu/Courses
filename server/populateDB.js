@@ -13,6 +13,7 @@ Meteor.startup(function() {
       appRoot = fs.realpathSync(meteorRoot + '/../../../../');
       console.log('Importing only COMS courses into the database');
       console.log('**Adding other courses will not work!**');
+      console.log('Warning, mongoDB must be installed.');
     } else {
       return;
     }

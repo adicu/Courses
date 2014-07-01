@@ -1,30 +1,31 @@
-Courses = new Meteor.Collection('courses', {
-  schema: new SimpleSchema({
-    courseFull: {
-      type: String,
-      label: 'ex. COMSS3203',
-      index: 1,
-      unique: true
-    },
-    description: {
-      type: String,
-      optional: true
-    },
-    courseTitle: {
-      type: String,
-      label: 'ex. DISCRETE MATHEMATICS'
-    },
-    departmentCode: {
-      type: String,
-      label: 'ex. COMS'
-    },
-    numFixedUnits: {
-      type: Number,
-      label: 'ex. 30'
-    },
-    createdAt: CollectionsShared.createdAt
-  })
+Courses = new Meteor.Collection('courses');
+
+var schema = new SimpleSchema({
+  courseFull: {
+    type: String,
+    label: 'ex. COMSS3203',
+    index: 1,
+    unique: true
+  },
+  description: {
+    type: String,
+    optional: true
+  },
+  courseTitle: {
+    type: String,
+    label: 'ex. DISCRETE MATHEMATICS'
+  },
+  departmentCode: {
+    type: String,
+    label: 'ex. COMS'
+  },
+  numFixedUnits: {
+    type: Number,
+    label: 'ex. 30'
+  },
+  createdAt: CollectionsShared.createdAt
 });
+Courses.attachSchema(schema);
 
 // Adds additional options to a given elasticsearch request
 // for a given query string
