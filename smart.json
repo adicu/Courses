@@ -9,15 +9,10 @@
     "collection-helpers": {},
     "moment": {},
     "moment-range": {},
-    "fontawesome4": {}
+    "fontawesome4": {},
+    "elasticsearch": {}
   },
   "bower": {
-    "elastic.js": {
-      "version": "~1.1.1",
-      "additionalFiles": [
-        "dist/elastic-jquery-client.js"
-      ]
-    },
     "fullcalendar": {
       "version": "~1.6.4"
     }

@@ -11,13 +11,14 @@
       "collection-helpers": {},
       "moment": {},
       "moment-range": {},
-      "fontawesome4": {}
+      "fontawesome4": {},
+      "elasticsearch": {}
     },
     "packages": {
       "zurb-foundation": {
         "git": "https://github.com/MixinLabs/meteor-foundation.git",
-        "tag": "v5.2.2-0.0.1",
-        "commit": "afe432020cc6246fa0a243a6d2e1e031f08d98e3"
+        "tag": "v5.3.0-0.1.0",
+        "commit": "dbab2c02a7c7e376c0fdddc1e699f2728d8e7b01"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -36,8 +37,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.1",
-        "commit": "a9ffc9b285c3af8ad631f9cda4851b0ffc30c5ce"
+        "tag": "v0.4.2",
+        "commit": "4ff4b707bec8be434919730bf101325adb215444"
       },
       "accounts-guest": {
         "git": "https://github.com/artwells/meteor-accounts-guest.git",
@@ -46,8 +47,8 @@
       },
       "collection-helpers": {
         "git": "https://github.com/dburles/meteor-collection-helpers.git",
-        "tag": "v0.2.9",
-        "commit": "912be6d15a59b9ee4519bf73000be70dd141b655"
+        "tag": "v0.3.0",
+        "commit": "842bd9343b19c0e45ae20ac9c63c8c356889959a"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
@@ -64,6 +65,11 @@
         "tag": "v1.1.0",
         "commit": "7d2cb9119b7981b8f854b7051d302d4842311249"
       },
+      "elasticsearch": {
+        "git": "https://github.com/andrewreedy/meteor-elasticsearch.git",
+        "tag": "v0.0.5",
+        "commit": "da60735a238d9f8687a06686760d47081c359b2c"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -73,6 +79,11 @@
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
         "tag": "v0.5.1",
         "commit": "a29956b34d03a4591dbd0eaed9d37009ef48b8db"
+      },
+      "log": {
+        "git": "https://github.com/andrewreedy/meteor-log.git",
+        "branch": "master",
+        "commit": "110251d7d973611a0ac56db7e2af76fb3cc77af5"
       }
     }
   }
