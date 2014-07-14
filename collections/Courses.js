@@ -27,52 +27,29 @@ var schema = new SimpleSchema({
 });
 Courses.attachSchema(schema);
 
-// Adds additional options to a given elasticsearch request
-// for a given query string
-var buildRequest = function(query, ejsRequest) {
-  var match = '';
-  var ejsQuery = ejs.BoolQuery().should(ejs.QueryStringQuery(query));
-
-  // Match full course (ie COMSW1004)
-  if (match = query.match(/^([A-Z]{4})[A-Z]?(\d{1,4})/i)) {
-    var department = match[1];
-    var courseNumber = match[2];
-    var courseSearch = department + courseNumber + '*';
-
-    ejsQuery.should(ejs.FieldQuery('Course', courseSearch)).boost(3.0);
-  } else if (match = query.match(/^[a-zA-Z]{4}/i)) {
-    // Match department (ie COMS)
-    var department = match[0];
-    ejsQuery.should(ejs.FieldQuery('DepartmentCode', department)).boost(1.5);
-  }
-  ejsRequest.query(ejsQuery);
-  return ejsRequest;
-};
+// Indicates that the Courses search is still loading
+Courses.SEARCH_LOADING_VAL = false;
 
 // Automatically performs the correct full text search for
 // query, setting Session variable coursesSearchResults
 Courses.search = function(query) {
-  ejs.client = new ejs.jQueryClient(Co.constants.config.ES_API);
-  var ejsRequest = ejs.Request().indices('data').types('courses');
-  buildRequest(query, ejsRequest)
-    .filter(
-      ejs.TermFilter('Term', Session.get('currentSemester'))
-    )
-    .doSearch()
-    .then(function(data) {
-      if (!(data && data.hits && data.hits.hits)) {
-        handleError(new Error('Data not received'));
-        return;
+  var currentSemester = Session.get('currentSemester');
+  Session.set('coursesSearchResults', Courses.SEARCH_LOADING_VAL);
+
+  // See server/CoursesSearch.js
+  Meteor.call(
+    'Courses/search',
+    query,
+    currentSemester,
+    function(err, result) {
+      if (err) {
+        return handleError(err);
       }
-      var hits = data.hits.hits;
-      hits = _.map(hits, function(hit) {
-        return hit['_source'];
-      });
-      Session.set('coursesSearchResults', hits);
-    }, function(error) {
-      handleError(error);
-    });
-};
+      console.log(result);
+      Session.set('coursesSearchResults', result);
+    }
+  );
+}
 
 Courses.helpers({
   // @return [Sections] The sections associated with this course

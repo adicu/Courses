@@ -10,7 +10,8 @@
     "moment": {},
     "moment-range": {},
     "fontawesome4": {},
-    "elasticsearch": {}
+    "elasticsearch": {},
+    "npm": {}
   },
   "bower": {
     "fullcalendar": {
