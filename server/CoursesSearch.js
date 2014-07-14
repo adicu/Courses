@@ -6,7 +6,7 @@ var buildESQuery = function(query) {
   var match = '';
   var esQuery = ejs.BoolQuery().should(ejs.QueryStringQuery(query));
 
-  if (match = query.match(/^([A-Z]{4})[A-Z]?(\d{1,4})/i)) {
+  if (match = query.match(/^([A-Z]{4})[A-Z]?(\d{1,4})$/i)) {
     // Match full course (ie COMSW1004)
     var department = match[1];
     var courseNumber = match[2];
@@ -18,7 +18,7 @@ var buildESQuery = function(query) {
         .fields('Course')
         .boost(3.0)
     );
-  } else if (match = query.match(/^[a-zA-Z]{4}/i)) {
+  } else if (match = query.match(/^[a-zA-Z]{4}$/i)) {
     // Match department (ie COMS)
     var department = match[0];
     esQuery.should(
