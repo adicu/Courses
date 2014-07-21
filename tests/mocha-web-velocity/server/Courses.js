@@ -1,8 +1,6 @@
 describe('Courses', function() {
   before(function() {
     stubMeteor();
-    return;
-    importAllCollections();
   });
 
   it('should full text search', function(done) {
@@ -21,7 +19,7 @@ describe('Courses', function() {
   });
 
   it('should get associated sections', function() {
-    var aCourse = Courses.findOne();
+    var aCourse = Courses.findOne({'courseFull' : 'COMSW1004'});
     assert(aCourse, 'got some course');
 
     var sectionCount = aCourse.getSections().count();

@@ -1,809 +1,114 @@
 [
-	{
-		"_id" : "53422df61aa5c4587e99a4a3",
-		"building" : [
-			"SCHAPIRO CEP"
-		],
-		"callNumber" : 14300,
-		"courseFull" : "COMSW1001",
-		"endTime" : [
-			"1255"
-		],
-		"instructors" : [
-			"XIE, BOYI"
-		],
-		"maxSize" : 40,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 28,
-		"room" : [
-			"415"
-		],
-		"sectionFull" : "20133COMS1001W001",
-		"startTime" : [
-			"1140"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a4",
-		"building" : [
-			"HAVEMEYER HA"
-		],
-		"callNumber" : 29558,
-		"courseFull" : "COMSW1004",
-		"endTime" : [
-			"1725"
-		],
-		"instructors" : [
-			"CANNON, ADAM H"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 286,
-		"room" : [
-			"309"
-		],
-		"sectionFull" : "20133COMS1004W001",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4fa",
-		"building" : [
-			"INTERNATIONA"
-		],
-		"callNumber" : 71229,
-		"courseFull" : "COMSW1004",
-		"endTime" : [
-			"1725"
-		],
-		"instructors" : [
-			"CANNON, ADAM H"
-		],
-		"maxSize" : 400,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 286,
-		"room" : [
-			"417"
-		],
-		"sectionFull" : "20141COMS1004W001",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef5c",
-		"building" : [ ],
-		"callNumber" : 87197,
-		"courseFull" : "COMSW1004",
-		"endTime" : [
-			"1725"
-		],
-		"instructors" : [
-			"CANNON, ADAM H"
-		],
-		"maxSize" : 400,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS1004W001",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a5",
-		"building" : [
-			"SEELEY W. MU"
-		],
-		"callNumber" : 26529,
-		"courseFull" : "COMSW1005",
-		"endTime" : [
-			"1125"
-		],
-		"instructors" : [
-			"BLAER, PAUL S"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 51,
-		"room" : [
-			"633"
-		],
-		"sectionFull" : "20133COMS1005W001",
-		"startTime" : [
-			"1010"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4fb",
-		"building" : [
-			"SEELEY W. MU"
-		],
-		"callNumber" : 23039,
-		"courseFull" : "COMSW1005",
-		"endTime" : [
-			"1125"
-		],
-		"instructors" : [
-			"VOVSHA, ILIA"
-		],
-		"maxSize" : 150,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 71,
-		"room" : [
-			"833"
-		],
-		"sectionFull" : "20141COMS1005W001",
-		"startTime" : [
-			"1010"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef5d",
-		"building" : [ ],
-		"callNumber" : 91748,
-		"courseFull" : "COMSW1005",
-		"endTime" : [
-			"1125"
-		],
-		"instructors" : [
-			"BLAER, PAUL S"
-		],
-		"maxSize" : 150,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS1005W001",
-		"startTime" : [
-			"1010"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a6",
-		"building" : [
-			"NORTHWEST CO"
-		],
-		"callNumber" : 63241,
-		"courseFull" : "COMSW1007",
-		"endTime" : [
-			"1425"
-		],
-		"instructors" : [
-			"KENDER, JOHN R"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 78,
-		"room" : [
-			"501"
-		],
-		"sectionFull" : "20133COMS1007W001",
-		"startTime" : [
-			"1310"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef5e",
-		"building" : [ ],
-		"callNumber" : 76031,
-		"courseFull" : "COMSW1007",
-		"endTime" : [
-			"1425"
-		],
-		"instructors" : [
-			"KENDER, JOHN R"
-		],
-		"maxSize" : 90,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS1007W001",
-		"startTime" : [
-			"1310"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a7",
-		"building" : [ ],
-		"callNumber" : 12602,
-		"courseFull" : "COMSW1404",
-		"endTime" : [ ],
-		"instructors" : [
-			"CANNON, ADAM H"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [ ],
-		"numEnrolled" : 32,
-		"room" : [ ],
-		"sectionFull" : "20133COMS1404W001",
-		"startTime" : [ ],
-		"term" : "20133",
-		"typeCode" : "SM",
-		"typeName" : "SEMINAR"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4fc",
-		"building" : [ ],
-		"callNumber" : 82794,
-		"courseFull" : "COMSW1404",
-		"endTime" : [ ],
-		"instructors" : [
-			"CANNON, ADAM H"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [ ],
-		"numEnrolled" : 30,
-		"room" : [ ],
-		"sectionFull" : "20141COMS1404W001",
-		"startTime" : [ ],
-		"term" : "20141",
-		"typeCode" : "SM",
-		"typeName" : "SEMINAR"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a8",
-		"building" : [
-			"PUPIN LABORA"
-		],
-		"callNumber" : 93700,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"1800"
-		],
-		"instructors" : [
-			"VOVSHA, ILIA"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"M"
-		],
-		"numEnrolled" : 19,
-		"room" : [
-			"224"
-		],
-		"sectionFull" : "20133COMS3101W001",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4a9",
-		"building" : [
-			"PUPIN LABORA"
-		],
-		"callNumber" : 11105,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"1800"
-		],
-		"instructors" : [
-			"VOVSHA, ILIA"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"M"
-		],
-		"numEnrolled" : 14,
-		"room" : [
-			"224"
-		],
-		"sectionFull" : "20133COMS3101W002",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4aa",
-		"building" : [
-			"ENGINEERING"
-		],
-		"callNumber" : 65805,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"1600"
-		],
-		"instructors" : [
-			"JEE, KANGKOOK"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"R"
-		],
-		"numEnrolled" : 14,
-		"room" : [
-			"253"
-		],
-		"sectionFull" : "20133COMS3101W003",
-		"startTime" : [
-			"1410"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4ab",
-		"building" : [
-			"KNOX HALL"
-		],
-		"callNumber" : 21698,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"2000"
-		],
-		"instructors" : [
-			"ISUKAPALLI, RAMANA"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"T"
-		],
-		"numEnrolled" : 19,
-		"room" : [
-			"104"
-		],
-		"sectionFull" : "20133COMS3101W004",
-		"startTime" : [
-			"1810"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4fd",
-		"building" : [
-			"SEELEY W. MU"
-		],
-		"callNumber" : 21802,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"2000"
-		],
-		"instructors" : [
-			"STOLFO, EMILY"
-		],
-		"maxSize" : 20,
-		"meetsOn" : [
-			"T"
-		],
-		"numEnrolled" : 19,
-		"room" : [
-			"825"
-		],
-		"sectionFull" : "20141COMS3101W001",
-		"startTime" : [
-			"1810"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4fe",
-		"building" : [
-			"SEELEY W. MU"
-		],
-		"callNumber" : 82222,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"2000"
-		],
-		"instructors" : [
-			"ISUKAPALLI, RAMANA"
-		],
-		"maxSize" : 40,
-		"meetsOn" : [
-			"T"
-		],
-		"numEnrolled" : 30,
-		"room" : [
-			"825"
-		],
-		"sectionFull" : "20141COMS3101W002",
-		"startTime" : [
-			"1810"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c4ff",
-		"building" : [
-			"NORTHWEST CO"
-		],
-		"callNumber" : 20851,
-		"courseFull" : "COMSW3101",
-		"endTime" : [
-			"2000"
-		],
-		"instructors" : [
-			"VITRANO, MICHAEL S"
-		],
-		"maxSize" : 40,
-		"meetsOn" : [
-			"T"
-		],
-		"numEnrolled" : 18,
-		"room" : [
-			"602"
-		],
-		"sectionFull" : "20141COMS3101W003",
-		"startTime" : [
-			"1810"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4ac",
-		"building" : [
-			"NORTHWEST CO"
-		],
-		"callNumber" : 68597,
-		"courseFull" : "COMSW3134",
-		"endTime" : [
-			"1855"
-		],
-		"instructors" : [
-			"PASIK, ALEXANDER J"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 155,
-		"room" : [
-			"501"
-		],
-		"sectionFull" : "20133COMS3134W001",
-		"startTime" : [
-			"1740"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c500",
-		"building" : [
-			"INTERNATIONA"
-		],
-		"callNumber" : 15569,
-		"courseFull" : "COMSW3134",
-		"endTime" : [
-			"1125"
-		],
-		"instructors" : [
-			"BLAER, PAUL S"
-		],
-		"maxSize" : 230,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 161,
-		"room" : [
-			"417"
-		],
-		"sectionFull" : "20141COMS3134W001",
-		"startTime" : [
-			"1010"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef5f",
-		"building" : [ ],
-		"callNumber" : 82782,
-		"courseFull" : "COMSW3134",
-		"endTime" : [
-			"1855"
-		],
-		"instructors" : [
-			"PASIK, ALEXANDER J"
-		],
-		"maxSize" : 160,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS3134W001",
-		"startTime" : [
-			"1740"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4ad",
-		"building" : [
-			"HAMILTON HAL"
-		],
-		"callNumber" : 67000,
-		"courseFull" : "COMSW3136",
-		"endTime" : [
-			"1855"
-		],
-		"instructors" : [
-			"LEE, JAE W"
-		],
-		"maxSize" : 999,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 27,
-		"room" : [
-			"516"
-		],
-		"sectionFull" : "20133COMS3136W001",
-		"startTime" : [
-			"1740"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef60",
-		"building" : [ ],
-		"callNumber" : 74256,
-		"courseFull" : "COMSW3136",
-		"endTime" : [
-			"1855"
-		],
-		"instructors" : [
-			"LEE, JAE W"
-		],
-		"maxSize" : 100,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 1,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS3136W001",
-		"startTime" : [
-			"1740"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4ae",
-		"building" : [
-			"HAMILTON HAL"
-		],
-		"callNumber" : 28780,
-		"courseFull" : "COMSW3137",
-		"endTime" : [
-			"1255"
-		],
-		"instructors" : [
-			"HERSHKOP, SHLOMO"
-		],
-		"maxSize" : 86,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 66,
-		"room" : [
-			"702"
-		],
-		"sectionFull" : "20133COMS3137W001",
-		"startTime" : [
-			"1140"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c501",
-		"building" : [
-			"SEELEY W. MU"
-		],
-		"callNumber" : 60533,
-		"courseFull" : "COMSW3137",
-		"endTime" : [
-			"1125"
-		],
-		"instructors" : [
-			"ALLEN, PETER K"
-		],
-		"maxSize" : 120,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 69,
-		"room" : [
-			"833"
-		],
-		"sectionFull" : "20141COMS3137W001",
-		"startTime" : [
-			"1010"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef61",
-		"building" : [ ],
-		"callNumber" : 69169,
-		"courseFull" : "COMSW3137",
-		"endTime" : [
-			"1255"
-		],
-		"instructors" : [
-			"HERSHKOP, SHLOMO"
-		],
-		"maxSize" : 120,
-		"meetsOn" : [
-			"MW"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS3137W001",
-		"startTime" : [
-			"1140"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422df61aa5c4587e99a4af",
-		"building" : [
-			"PUPIN LABORA"
-		],
-		"callNumber" : 70238,
-		"courseFull" : "COMSW3157",
-		"endTime" : [
-			"1255"
-		],
-		"instructors" : [
-			"LEE, JAE W"
-		],
-		"maxSize" : 140,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 128,
-		"room" : [
-			"428"
-		],
-		"sectionFull" : "20133COMS3157W001",
-		"startTime" : [
-			"1140"
-		],
-		"term" : "20133",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "53422dfc1aa5c4587e99c502",
-		"building" : [
-			"PUPIN LABORA"
-		],
-		"callNumber" : 28118,
-		"courseFull" : "COMSW3157",
-		"endTime" : [
-			"1725"
-		],
-		"instructors" : [
-			"LEE, JAE W"
-		],
-		"maxSize" : 272,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 160,
-		"room" : [
-			"301"
-		],
-		"sectionFull" : "20141COMS3157W001",
-		"startTime" : [
-			"1610"
-		],
-		"term" : "20141",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	},
-	{
-		"_id" : "5344b9e317b5f9d600fbef62",
-		"building" : [ ],
-		"callNumber" : 61998,
-		"courseFull" : "COMSW3157",
-		"endTime" : [
-			"1255"
-		],
-		"instructors" : [
-			"LEE, JAE W"
-		],
-		"maxSize" : 200,
-		"meetsOn" : [
-			"TR"
-		],
-		"numEnrolled" : 0,
-		"room" : [
-			"RTBA"
-		],
-		"sectionFull" : "20143COMS3157W001",
-		"startTime" : [
-			"1140"
-		],
-		"term" : "20143",
-		"typeCode" : "LC",
-		"typeName" : "LECTURE"
-	}
+  { "_id" : "5366b3d2f5e3c24fedb416b3", "building" : [], "callNumber" : 68702, "courseFull" : "COMSE0001", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 8, "room" : [], "sectionFull" : "20141COMS0001E001", "startTime" : [], "term" : "20141", "typeCode" : "DM", "typeName" : "DUMMY COURSE" },
+  { "_id" : "5366b3d2f5e3c24fedb416b4", "building" : [], "callNumber" : 71149, "courseFull" : "COMSE0002", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 5, "room" : [], "sectionFull" : "20141COMS0002E001", "startTime" : [], "term" : "20141", "typeCode" : "DM", "typeName" : "DUMMY COURSE" },
+  { "_id" : "5366b3d2f5e3c24fedb416b5", "building" : [], "callNumber" : 71457, "courseFull" : "COMSE0003", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 18, "room" : [], "sectionFull" : "20141COMS0003E001", "startTime" : [], "term" : "20141", "typeCode" : "DM", "typeName" : "DUMMY COURSE" },
+  { "_id" : "5366b3d2f5e3c24fedb416b6", "building" : [], "callNumber" : 71651, "courseFull" : "COMSE0004", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 13, "room" : [], "sectionFull" : "20141COMS0004E001", "startTime" : [], "term" : "20141", "typeCode" : "SM", "typeName" : "SEMINAR" },
+  { "_id" : "5366b3d2f5e3c24fedb416b7", "building" : [], "callNumber" : 71800, "courseFull" : "COMSE0005", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 6, "room" : [], "sectionFull" : "20141COMS0005E001", "startTime" : [], "term" : "20141", "typeCode" : "SM", "typeName" : "SEMINAR" },
+  { "_id" : "5366b3d2f5e3c24fedb416b8", "building" : [], "callNumber" : 72152, "courseFull" : "COMSE0006", "endTime" : [], "instructors" : [], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS0006E001", "startTime" : [], "term" : "20141", "typeCode" : "SM", "typeName" : "SEMINAR" },
+  { "_id" : "5366b3d2f5e3c24fedb416b9", "building" : [ "INTERNATIONA" ], "callNumber" : 71229, "courseFull" : "COMSW1004", "endTime" : [ "1725" ], "instructors" : [ "CANNON, ADAM H" ], "maxSize" : 400, "meetsOn" : [ "MW" ], "numEnrolled" : 286, "room" : [ "417" ], "sectionFull" : "20141COMS1004W001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ba", "building" : [ "SEELEY W. MU" ], "callNumber" : 23039, "courseFull" : "COMSW1005", "endTime" : [ "1125" ], "instructors" : [ "VOVSHA, ILIA" ], "maxSize" : 150, "meetsOn" : [ "MW" ], "numEnrolled" : 71, "room" : [ "833" ], "sectionFull" : "20141COMS1005W001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416bb", "building" : [], "callNumber" : 82794, "courseFull" : "COMSW1404", "endTime" : [], "instructors" : [ "CANNON, ADAM H" ], "maxSize" : 999, "meetsOn" : [], "numEnrolled" : 30, "room" : [], "sectionFull" : "20141COMS1404W001", "startTime" : [], "term" : "20141", "typeCode" : "SM", "typeName" : "SEMINAR" },
+  { "_id" : "5366b3d2f5e3c24fedb416bc", "building" : [ "SEELEY W. MU" ], "callNumber" : 21802, "courseFull" : "COMSW3101", "endTime" : [ "2000" ], "instructors" : [ "STOLFO, EMILY" ], "maxSize" : 20, "meetsOn" : [ "T" ], "numEnrolled" : 19, "room" : [ "825" ], "sectionFull" : "20141COMS3101W001", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416bd", "building" : [ "SEELEY W. MU" ], "callNumber" : 82222, "courseFull" : "COMSW3101", "endTime" : [ "2000" ], "instructors" : [ "ISUKAPALLI, RAMANA" ], "maxSize" : 40, "meetsOn" : [ "T" ], "numEnrolled" : 31, "room" : [ "825" ], "sectionFull" : "20141COMS3101W002", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416be", "building" : [ "NORTHWEST CO" ], "callNumber" : 20851, "courseFull" : "COMSW3101", "endTime" : [ "2000" ], "instructors" : [ "VITRANO, MICHAEL S" ], "maxSize" : 40, "meetsOn" : [ "T" ], "numEnrolled" : 18, "room" : [ "602" ], "sectionFull" : "20141COMS3101W003", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416bf", "building" : [ "INTERNATIONA" ], "callNumber" : 15569, "courseFull" : "COMSW3134", "endTime" : [ "1125" ], "instructors" : [ "BLAER, PAUL S" ], "maxSize" : 230, "meetsOn" : [ "TR" ], "numEnrolled" : 162, "room" : [ "417" ], "sectionFull" : "20141COMS3134W001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c0", "building" : [ "SEELEY W. MU" ], "callNumber" : 60533, "courseFull" : "COMSW3137", "endTime" : [ "1125" ], "instructors" : [ "ALLEN, PETER K" ], "maxSize" : 120, "meetsOn" : [ "TR" ], "numEnrolled" : 68, "room" : [ "833" ], "sectionFull" : "20141COMS3137W001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c1", "building" : [ "PUPIN LABORA" ], "callNumber" : 28118, "courseFull" : "COMSW3157", "endTime" : [ "1725" ], "instructors" : [ "LEE, JAE W" ], "maxSize" : 272, "meetsOn" : [ "TR" ], "numEnrolled" : 159, "room" : [ "301" ], "sectionFull" : "20141COMS3157W001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c2", "building" : [ "SCHERMERHORN" ], "callNumber" : 20190, "courseFull" : "COMSW3203", "endTime" : [ "1855" ], "instructors" : [ "STRICKLAND, DAWN M" ], "maxSize" : 190, "meetsOn" : [ "MW" ], "numEnrolled" : 177, "room" : [ "501" ], "sectionFull" : "20141COMS3203W001", "startTime" : [ "1740" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c3", "building" : [ "SEELEY W. MU" ], "callNumber" : 26862, "courseFull" : "COMSW3261", "endTime" : [ "1555" ], "instructors" : [ "LEWKO, ALLISON" ], "maxSize" : 120, "meetsOn" : [ "TR" ], "numEnrolled" : 113, "room" : [ "833" ], "sectionFull" : "20141COMS3261W001", "startTime" : [ "1440" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c4", "building" : [], "callNumber" : 63443, "courseFull" : "COMSW3902", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS3902W001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416c5", "building" : [], "callNumber" : 12033, "courseFull" : "COMSW3998", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS3998W001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416c6", "building" : [ "SEELEY W. MU" ], "callNumber" : 22531, "courseFull" : "COMSW4111", "endTime" : [ "1540" ], "instructors" : [ "BILIRIS, ALEXANDROS" ], "maxSize" : 80, "meetsOn" : [ "T" ], "numEnrolled" : 79, "room" : [ "535" ], "sectionFull" : "20141COMS4111W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c7", "building" : [ "NORTHWEST CO" ], "callNumber" : 10641, "courseFull" : "COMSW4111", "endTime" : [ "1840" ], "instructors" : [ "BILIRIS, ALEXANDROS" ], "maxSize" : 100, "meetsOn" : [ "T" ], "numEnrolled" : 93, "room" : [ "501" ], "sectionFull" : "20141COMS4111W002", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c8", "building" : [ "SEELEY W. MU" ], "callNumber" : 18693, "courseFull" : "COMSW4112", "endTime" : [ "1425" ], "instructors" : [ "ROSS, KENNETH A" ], "maxSize" : 70, "meetsOn" : [ "MW" ], "numEnrolled" : 56, "room" : [ "1024" ], "sectionFull" : "20141COMS4112W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416c9", "building" : [ "SEELEY W. MU" ], "callNumber" : 21711, "courseFull" : "COMSW4115", "endTime" : [ "1555" ], "instructors" : [ "AHO, ALFRED" ], "maxSize" : 120, "meetsOn" : [ "MW" ], "numEnrolled" : 104, "room" : [ "833" ], "sectionFull" : "20141COMS4115W001", "startTime" : [ "1440" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ca", "building" : [ "NORTHWEST CO" ], "callNumber" : 75423, "courseFull" : "COMSW4118", "endTime" : [ "1255" ], "instructors" : [ "LEE, JAE W" ], "maxSize" : 164, "meetsOn" : [ "TR" ], "numEnrolled" : 139, "room" : [ "501" ], "sectionFull" : "20141COMS4118W001", "startTime" : [ "1140" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416cb", "building" : [ "SEELEY W. MU" ], "callNumber" : 63648, "courseFull" : "COMSW4160", "endTime" : [ "1255" ], "instructors" : [ "ZHENG, CHANGXI" ], "maxSize" : 60, "meetsOn" : [ "TR" ], "numEnrolled" : 40, "room" : [ "535" ], "sectionFull" : "20141COMS4160W001", "startTime" : [ "1140" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416cc", "building" : [ "SEELEY W. MU" ], "callNumber" : 22582, "courseFull" : "COMSW4172", "endTime" : [ "1425" ], "instructors" : [ "FEINER, STEVEN K" ], "maxSize" : 50, "meetsOn" : [ "TR" ], "numEnrolled" : 40, "room" : [ "233" ], "sectionFull" : "20141COMS4172W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416cd", "building" : [ "SCHAPIRO CEP" ], "callNumber" : 76090, "courseFull" : "COMSW4180", "endTime" : [ "1240" ], "instructors" : [ "COOK, DEBRA L" ], "maxSize" : 45, "meetsOn" : [ "R" ], "numEnrolled" : 30, "room" : [ "415" ], "sectionFull" : "20141COMS4180W001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ce", "building" : [ "SEELEY W. MU" ], "callNumber" : 63867, "courseFull" : "COMSW4236", "endTime" : [ "1555" ], "instructors" : [ "YANNAKAKIS, MIHALIS" ], "maxSize" : 40, "meetsOn" : [ "MW" ], "numEnrolled" : 31, "room" : [ "535" ], "sectionFull" : "20141COMS4236W001", "startTime" : [ "1440" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416cf", "building" : [ "SEELEY W. MU" ], "callNumber" : 77182, "courseFull" : "COMSW4281", "endTime" : [ "1725" ], "instructors" : [ "PAPAGEORGIOU, ANARGYROS" ], "maxSize" : 80, "meetsOn" : [ "TR" ], "numEnrolled" : 40, "room" : [ "833" ], "sectionFull" : "20141COMS4281W001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d0", "building" : [ "MATHEMATICS" ], "callNumber" : 65956, "courseFull" : "COMSW4721", "endTime" : [ "2055" ], "instructors" : [ "SALLEB-AOUISSI, ANSAF" ], "maxSize" : 50, "meetsOn" : [ "MW" ], "numEnrolled" : 37, "room" : [ "407" ], "sectionFull" : "20141COMS4721W001", "startTime" : [ "1940" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d1", "building" : [ "NORTHWEST CO" ], "callNumber" : 73956, "courseFull" : "COMSW4731", "endTime" : [ "1125" ], "instructors" : [ "NAYAR, SHREE K" ], "maxSize" : 100, "meetsOn" : [ "TR" ], "numEnrolled" : 79, "room" : [ "501" ], "sectionFull" : "20141COMS4731W001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d2", "building" : [ "SEELEY W. MU" ], "callNumber" : 76588, "courseFull" : "COMSW4771", "endTime" : [ "1425" ], "instructors" : [ "PE'ER, ITSHACK" ], "maxSize" : 100, "meetsOn" : [ "MW" ], "numEnrolled" : 74, "room" : [ "535" ], "sectionFull" : "20141COMS4771W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d3", "building" : [ "SEELEY W. MU" ], "callNumber" : 71300, "courseFull" : "COMSW4772", "endTime" : [ "1540" ], "instructors" : [ "ARAVKIN, ALEKANDR Y" ], "maxSize" : 50, "meetsOn" : [ "F" ], "numEnrolled" : 45, "room" : [ "833" ], "sectionFull" : "20141COMS4772W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d4", "building" : [], "callNumber" : 83297, "courseFull" : "COMSW4901", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS4901W001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416d5", "building" : [ "SEELEY W. MU" ], "callNumber" : 75305, "courseFull" : "COMSW4995", "endTime" : [ "1540" ], "instructors" : [ "GRINSPUN, EITAN" ], "maxSize" : 40, "meetsOn" : [ "M" ], "numEnrolled" : 18, "room" : [ "644" ], "sectionFull" : "20141COMS4995W001", "startTime" : [ "1310" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d6", "building" : [ "SEELEY W. MU" ], "callNumber" : 70506, "courseFull" : "COMSW4995", "endTime" : [ "1255" ], "instructors" : [ "RABIN, MICHAEL" ], "maxSize" : 60, "meetsOn" : [ "TR" ], "numEnrolled" : 23, "room" : [ "233" ], "sectionFull" : "20141COMS4995W002", "startTime" : [ "1140" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d7", "building" : [ "SEELEY W. MU" ], "callNumber" : 11482, "courseFull" : "COMSW4995", "endTime" : [ "1800" ], "instructors" : [ "MASKEY, SAMEER R" ], "maxSize" : 70, "meetsOn" : [ "M" ], "numEnrolled" : 50, "room" : [ "633" ], "sectionFull" : "20141COMS4995W003", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d8", "building" : [ "SEELEY W. MU" ], "callNumber" : 72405, "courseFull" : "COMSW4995", "endTime" : [ "2000" ], "instructors" : [ "REED, MICHAEL K" ], "maxSize" : 40, "meetsOn" : [ "T" ], "numEnrolled" : 36, "room" : [ "337" ], "sectionFull" : "20141COMS4995W004", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416d9", "building" : [ "SEELEY W. MU" ], "callNumber" : 24622, "courseFull" : "COMSE6111", "endTime" : [ "1800" ], "instructors" : [ "GRAVANO, LUIS" ], "maxSize" : 80, "meetsOn" : [ "R" ], "numEnrolled" : 80, "room" : [ "535" ], "sectionFull" : "20141COMS6111E001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416da", "building" : [ "SEELEY W. MU" ], "callNumber" : 20503, "courseFull" : "COMSE6125", "endTime" : [ "1200" ], "instructors" : [ "KAISER, GAIL E" ], "maxSize" : 25, "meetsOn" : [ "T" ], "numEnrolled" : 5, "room" : [ "644" ], "sectionFull" : "20141COMS6125E001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416db", "building" : [ "SEELEY W. MU" ], "callNumber" : 24015, "courseFull" : "COMSE6184", "endTime" : [ "1800" ], "instructors" : [ "BELLOVIN, STEVEN M" ], "maxSize" : 20, "meetsOn" : [ "W" ], "numEnrolled" : 18, "room" : [ "545" ], "sectionFull" : "20141COMS6184E001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "SM", "typeName" : "SEMINAR" },
+  { "_id" : "5366b3d2f5e3c24fedb416dc", "building" : [ "SEELEY W. MU" ], "callNumber" : 70041, "courseFull" : "COMSE6185", "endTime" : [ "1800" ], "instructors" : [ "HERSHKOP, SHLOMO" ], "maxSize" : 50, "meetsOn" : [ "T" ], "numEnrolled" : 27, "room" : [ "535" ], "sectionFull" : "20141COMS6185E001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416dd", "building" : [ "SEELEY W. MU" ], "callNumber" : 71176, "courseFull" : "COMSE6261", "endTime" : [ "1800" ], "instructors" : [ "LEWKO, ALLISON" ], "maxSize" : 40, "meetsOn" : [ "R" ], "numEnrolled" : 11, "room" : [ "627" ], "sectionFull" : "20141COMS6261E001", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416de", "building" : [ "SEELEY W. MU" ], "callNumber" : 23513, "courseFull" : "COMSE6735", "endTime" : [ "1200" ], "instructors" : [ "KENDER, JOHN R" ], "maxSize" : 100, "meetsOn" : [ "R" ], "numEnrolled" : 14, "room" : [ "545" ], "sectionFull" : "20141COMS6735E001", "startTime" : [ "1010" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416df", "building" : [], "callNumber" : 13098, "courseFull" : "COMSE6900", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS6900E001", "startTime" : [], "term" : "20141", "typeCode" : "TU", "typeName" : "TUTORIAL" },
+  { "_id" : "5366b3d2f5e3c24fedb416e0", "building" : [], "callNumber" : 16099, "courseFull" : "COMSE6901", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS6901E001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416e1", "building" : [], "callNumber" : 69263, "courseFull" : "COMSE6902", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS6902E001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416e2", "building" : [ "SCHAPIRO CEP" ], "callNumber" : 11638, "courseFull" : "COMSE6998", "endTime" : [ "1600" ], "instructors" : [ "BELHUMEUR, PETER" ], "maxSize" : 20, "meetsOn" : [ "W" ], "numEnrolled" : 20, "room" : [ "6LW4" ], "sectionFull" : "20141COMS6998E001", "startTime" : [ "1410" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e3", "building" : [ "SEELEY W. MU" ], "callNumber" : 76483, "courseFull" : "COMSE6998", "endTime" : [ "1800" ], "instructors" : [ "GEAMBASU, ROXANA" ], "maxSize" : 40, "meetsOn" : [ "M" ], "numEnrolled" : 22, "room" : [ "545" ], "sectionFull" : "20141COMS6998E002", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e4", "building" : [ "SEELEY W. MU" ], "callNumber" : 91550, "courseFull" : "COMSE6998", "endTime" : [ "1800" ], "instructors" : [ "SERVEDIO, ROCCO" ], "maxSize" : 40, "meetsOn" : [ "W" ], "numEnrolled" : 17, "room" : [ "644" ], "sectionFull" : "20141COMS6998E003", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e5", "building" : [ "SEELEY W. MU" ], "callNumber" : 11597, "courseFull" : "COMSE6998", "endTime" : [ "1600" ], "instructors" : [ "KRISHNAMURTHY, BALACHANDER" ], "maxSize" : 30, "meetsOn" : [ "W" ], "numEnrolled" : 7, "room" : [ "327" ], "sectionFull" : "20141COMS6998E004", "startTime" : [ "1410" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e6", "building" : [ "SEELEY W. MU" ], "callNumber" : 25520, "courseFull" : "COMSE6998", "endTime" : [ "2130" ], "instructors" : [ "BEIGI, HOMAYOON S" ], "maxSize" : 60, "meetsOn" : [ "R" ], "numEnrolled" : 10, "room" : [ "834" ], "sectionFull" : "20141COMS6998E005", "startTime" : [ "1900" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e7", "building" : [ "SEELEY W. MU" ], "callNumber" : 93648, "courseFull" : "COMSE6998", "endTime" : [ "1600" ], "instructors" : [ "GLIOZZO, ALFIO" ], "maxSize" : 54, "meetsOn" : [ "M" ], "numEnrolled" : 28, "room" : [ "327" ], "sectionFull" : "20141COMS6998E006", "startTime" : [ "1410" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e8", "building" : [ "SEELEY W. MU" ], "callNumber" : 75534, "courseFull" : "COMSE6998", "endTime" : [ "2000" ], "instructors" : [ "LI, LI E" ], "maxSize" : 60, "meetsOn" : [ "M" ], "numEnrolled" : 53, "room" : [ "633" ], "sectionFull" : "20141COMS6998E007", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416e9", "building" : [ "SEELEY W. MU" ], "callNumber" : 62948, "courseFull" : "COMSE6998", "endTime" : [ "1800" ], "instructors" : [ "MURESAN, SMARANDA" ], "maxSize" : 30, "meetsOn" : [ "R" ], "numEnrolled" : 14, "room" : [ "644" ], "sectionFull" : "20141COMS6998E008", "startTime" : [ "1610" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ea", "building" : [ "SEELEY W. MU" ], "callNumber" : 81048, "courseFull" : "COMSE6998", "endTime" : [ "1600" ], "instructors" : [ "JOHNSON, DAVID S" ], "maxSize" : 25, "meetsOn" : [ "T" ], "numEnrolled" : 6, "room" : [ "337" ], "sectionFull" : "20141COMS6998E009", "startTime" : [ "1410" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416eb", "building" : [ "SEELEY W. MU" ], "callNumber" : 82041, "courseFull" : "COMSE6998", "endTime" : [ "2000" ], "instructors" : [ "SAHU, SAMBIT" ], "maxSize" : 50, "meetsOn" : [ "W" ], "numEnrolled" : 69, "room" : [ "1024" ], "sectionFull" : "20141COMS6998E010", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ec", "building" : [ "PUPIN LABORA" ], "callNumber" : 13067, "courseFull" : "COMSE6998", "endTime" : [ "2000" ], "instructors" : [ "ELSON, DAVID K" ], "maxSize" : 60, "meetsOn" : [ "W" ], "numEnrolled" : 22, "room" : [ "424" ], "sectionFull" : "20141COMS6998E011", "startTime" : [ "1810" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ed", "building" : [ "SEELEY W. MU" ], "callNumber" : 21659, "courseFull" : "COMSE6998", "endTime" : [ "1400" ], "instructors" : [ "LI, KEVIN A" ], "maxSize" : 25, "meetsOn" : [ "W" ], "numEnrolled" : 18, "room" : [ "644" ], "sectionFull" : "20141COMS6998E012", "startTime" : [ "1210" ], "term" : "20141", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ee", "building" : [], "callNumber" : 78147, "courseFull" : "COMSE9800", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS9800E001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416ef", "building" : [], "callNumber" : 78298, "courseFull" : "COMSE9910", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20141COMS9910E001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416f0", "building" : [], "callNumber" : 96797, "courseFull" : "COMSE9911", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 1, "room" : [], "sectionFull" : "20141COMS9911E001", "startTime" : [], "term" : "20141", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416f1", "building" : [], "callNumber" : 22751, "courseFull" : "COMSS1004", "endTime" : [ "2040" ], "instructors" : [ "MAYCOCK, MATTHEW H" ], "maxSize" : 999, "meetsOn" : [ "TR" ], "numEnrolled" : 34, "room" : [ "RTBA" ], "sectionFull" : "20142COMS1004S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f2", "building" : [], "callNumber" : 13840, "courseFull" : "COMSS1005", "endTime" : [ "2040" ], "instructors" : [ "BLAER, PAUL S" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 18, "room" : [ "RTBA" ], "sectionFull" : "20142COMS1005S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f3", "building" : [], "callNumber" : 73788, "courseFull" : "COMSS3134", "endTime" : [ "2040" ], "instructors" : [ "BLAER, PAUL S" ], "maxSize" : 999, "meetsOn" : [ "TR" ], "numEnrolled" : 40, "room" : [ "RTBA" ], "sectionFull" : "20142COMS3134S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f4", "building" : [], "callNumber" : 64876, "courseFull" : "COMSS3157", "endTime" : [ "2040" ], "instructors" : [ "HERSHKOP, SHLOMO" ], "maxSize" : 999, "meetsOn" : [ "TR" ], "numEnrolled" : 11, "room" : [ "RTBA" ], "sectionFull" : "20142COMS3157S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f5", "building" : [], "callNumber" : 21535, "courseFull" : "COMSS3203", "endTime" : [ "2040" ], "instructors" : [ "HOLLIDAY, ROBERT L" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 31, "room" : [ "RTBA" ], "sectionFull" : "20142COMS3203S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f6", "building" : [], "callNumber" : 12624, "courseFull" : "COMSS3261", "endTime" : [ "2040" ], "instructors" : [ "HOLLIDAY, ROBERT L" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 15, "room" : [ "RTBA" ], "sectionFull" : "20142COMS3261S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f7", "building" : [], "callNumber" : 72572, "courseFull" : "COMSS4115", "endTime" : [ "2040" ], "instructors" : [ "EDWARDS, STEPHEN A" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 7, "room" : [ "RTBA" ], "sectionFull" : "20142COMS4115S001", "startTime" : [ "1730" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f8", "building" : [], "callNumber" : 29231, "courseFull" : "COMSS4231", "endTime" : [ "2110" ], "instructors" : [ "PLUMETTAZ, MATTHIEU" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 16, "room" : [ "RTBA" ], "sectionFull" : "20142COMS4231S001", "startTime" : [ "1800" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416f9", "building" : [], "callNumber" : 63660, "courseFull" : "COMSS4701", "endTime" : [ "2110" ], "instructors" : [ "CREAMER, GERMAN G" ], "maxSize" : 999, "meetsOn" : [ "MW" ], "numEnrolled" : 14, "room" : [ "RTBA" ], "sectionFull" : "20142COMS4701S001", "startTime" : [ "1800" ], "term" : "20142", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416fa", "building" : [], "callNumber" : 80529, "courseFull" : "COMSS4910", "endTime" : [], "instructors" : [], "maxSize" : 0, "meetsOn" : [], "numEnrolled" : 0, "room" : [], "sectionFull" : "20142COMS4910S001", "startTime" : [], "term" : "20142", "typeCode" : "IS", "typeName" : "INDEPENDENT" },
+  { "_id" : "5366b3d2f5e3c24fedb416fb", "building" : [], "callNumber" : 87197, "courseFull" : "COMSW1004", "endTime" : [ "1725" ], "instructors" : [ "CANNON, ADAM H" ], "maxSize" : 400, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS1004W001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416fc", "building" : [], "callNumber" : 91748, "courseFull" : "COMSW1005", "endTime" : [ "1125" ], "instructors" : [ "BLAER, PAUL S" ], "maxSize" : 150, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS1005W001", "startTime" : [ "1010" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416fd", "building" : [], "callNumber" : 76031, "courseFull" : "COMSW1007", "endTime" : [ "1425" ], "instructors" : [ "KENDER, JOHN R" ], "maxSize" : 90, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS1007W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416fe", "building" : [], "callNumber" : 82782, "courseFull" : "COMSW3134", "endTime" : [ "1855" ], "instructors" : [ "PASIK, ALEXANDER J" ], "maxSize" : 160, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3134W001", "startTime" : [ "1740" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb416ff", "building" : [], "callNumber" : 74256, "courseFull" : "COMSW3136", "endTime" : [ "1855" ], "instructors" : [ "LEE, JAE W" ], "maxSize" : 100, "meetsOn" : [ "TR" ], "numEnrolled" : 1, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3136W001", "startTime" : [ "1740" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41700", "building" : [], "callNumber" : 69169, "courseFull" : "COMSW3137", "endTime" : [ "1255" ], "instructors" : [ "HERSHKOP, SHLOMO" ], "maxSize" : 120, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3137W001", "startTime" : [ "1140" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41701", "building" : [], "callNumber" : 61998, "courseFull" : "COMSW3157", "endTime" : [ "1255" ], "instructors" : [ "LEE, JAE W" ], "maxSize" : 200, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3157W001", "startTime" : [ "1140" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41702", "building" : [], "callNumber" : 70547, "courseFull" : "COMSW3203", "endTime" : [ "1855" ], "instructors" : [ "STRICKLAND, DAWN M" ], "maxSize" : 150, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3203W001", "startTime" : [ "1740" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41703", "building" : [], "callNumber" : 72480, "courseFull" : "COMSW3251", "endTime" : [ "1555" ], "instructors" : [ "PAPAGEORGIOU, ANARGYROS" ], "maxSize" : 80, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3251W001", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41704", "building" : [], "callNumber" : 61565, "courseFull" : "COMSW3261", "endTime" : [ "1425" ], "instructors" : [ "AHO, ALFRED" ], "maxSize" : 100, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS3261W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41705", "building" : [], "callNumber" : 27519, "courseFull" : "COMSW4111", "endTime" : [ "1540" ], "instructors" : [ "BILIRIS, ALEXANDROS" ], "maxSize" : 70, "meetsOn" : [ "T" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4111W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41706", "building" : [], "callNumber" : 22163, "courseFull" : "COMSW4115", "endTime" : [ "1725" ], "instructors" : [ "EDWARDS, STEPHEN A" ], "maxSize" : 90, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4115W001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41707", "building" : [], "callNumber" : 76240, "courseFull" : "COMSW4118", "endTime" : [ "1125" ], "instructors" : [ "NIEH, JASON" ], "maxSize" : 150, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4118W001", "startTime" : [ "1010" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41708", "building" : [], "callNumber" : 68576, "courseFull" : "COMSW4156", "endTime" : [ "1125" ], "instructors" : [ "KAISER, GAIL E" ], "maxSize" : 80, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4156W001", "startTime" : [ "1010" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41709", "building" : [], "callNumber" : 60624, "courseFull" : "COMSW4162", "endTime" : [ "1555" ], "instructors" : [ "ZHENG, CHANGXI" ], "maxSize" : 40, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4162W001", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170a", "building" : [], "callNumber" : 69154, "courseFull" : "COMSW4167", "endTime" : [ "1555" ], "instructors" : [ "GRINSPUN, EITAN" ], "maxSize" : 999, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4167W001", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170b", "building" : [], "callNumber" : 27751, "courseFull" : "COMSW4170", "endTime" : [ "1425" ], "instructors" : [ "FEINER, STEVEN K" ], "maxSize" : 80, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4170W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170c", "building" : [], "callNumber" : 11868, "courseFull" : "COMSW4187", "endTime" : [ "1555" ], "instructors" : [ "BELLOVIN, STEVEN M" ], "maxSize" : 70, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4187W001", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170d", "building" : [], "callNumber" : 20600, "courseFull" : "COMSW4236", "endTime" : [ "2025" ], "instructors" : [ "CHEN, XI" ], "maxSize" : 40, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4236W001", "startTime" : [ "1910" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170e", "building" : [], "callNumber" : 20916, "courseFull" : "COMSW4241", "endTime" : [ "1425" ], "instructors" : [ "TRAUB, JOSEPH F" ], "maxSize" : 50, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4241W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4170f", "building" : [], "callNumber" : 72540, "courseFull" : "COMSW4252", "endTime" : [ "1425" ], "instructors" : [ "SERVEDIO, ROCCO" ], "maxSize" : 100, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4252W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41710", "building" : [], "callNumber" : 61801, "courseFull" : "COMSW4261", "endTime" : [ "1255" ], "instructors" : [ "MALKIN, TAL" ], "maxSize" : 30, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4261W001", "startTime" : [ "1140" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41711", "building" : [], "callNumber" : 24122, "courseFull" : "COMSW4444", "endTime" : [ "1425" ], "instructors" : [ "ROSS, KENNETH A" ], "maxSize" : 40, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4444W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41712", "building" : [], "callNumber" : 73439, "courseFull" : "COMSW4460", "endTime" : [ "1840" ], "instructors" : [ "YEMINI, YECHIAM" ], "maxSize" : 35, "meetsOn" : [ "W" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4460W001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41713", "building" : [], "callNumber" : 75739, "courseFull" : "COMSW4701", "endTime" : [ "2025" ], "instructors" : [ "RADEV, DRAGOMIR R" ], "maxSize" : 120, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4701W001", "startTime" : [ "1910" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41714", "building" : [], "callNumber" : 19576, "courseFull" : "COMSW4705", "endTime" : [ "1725" ], "instructors" : [ "COLLINS, MICHAEL" ], "maxSize" : 90, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4705W001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41715", "building" : [], "callNumber" : 62548, "courseFull" : "COMSW4731", "endTime" : [ "1125" ], "instructors" : [ "NAYAR, SHREE K" ], "maxSize" : 60, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4731W001", "startTime" : [ "1010" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41716", "building" : [], "callNumber" : 25157, "courseFull" : "COMSW4733", "endTime" : [ "1255" ], "instructors" : [ "ALLEN, PETER K" ], "maxSize" : 60, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4733W001", "startTime" : [ "1140" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41717", "building" : [], "callNumber" : 67013, "courseFull" : "COMSW4737", "endTime" : [ "1425" ], "instructors" : [ "BELHUMEUR, PETER" ], "maxSize" : 25, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4737W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41718", "building" : [], "callNumber" : 24384, "courseFull" : "COMSW4771", "endTime" : [ "1425" ], "instructors" : [ "JEBARA, TONY" ], "maxSize" : 150, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4771W001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41719", "building" : [], "callNumber" : 26927, "courseFull" : "COMSW4772", "endTime" : [ "1800" ], "instructors" : [ "HSU, DANIEL" ], "maxSize" : 60, "meetsOn" : [ "W" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4772W001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171a", "building" : [], "callNumber" : 62192, "courseFull" : "COMSW4995", "endTime" : [ "1555" ], "instructors" : [ "GEAMBASU, ROXANA" ], "maxSize" : 40, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4995W001", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171b", "building" : [], "callNumber" : 27568, "courseFull" : "COMSW4995", "endTime" : [ "1725" ], "instructors" : [ "SCHULZRINNE, HENNING G" ], "maxSize" : 40, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS4995W002", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171c", "building" : [], "callNumber" : 64619, "courseFull" : "COMSE6121", "endTime" : [ "1600" ], "instructors" : [ "YANG, JUNFENG" ], "maxSize" : 40, "meetsOn" : [ "T" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6121E001", "startTime" : [ "1410" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171d", "building" : [], "callNumber" : 19413, "courseFull" : "COMSE6737", "endTime" : [ "1425" ], "instructors" : [ "BELHUMEUR, PETER" ], "maxSize" : 25, "meetsOn" : [ "TR" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6737E001", "startTime" : [ "1310" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171e", "building" : [], "callNumber" : 67750, "courseFull" : "COMSE6998", "endTime" : [ "1800" ], "instructors" : [ "AHO, ALFRED" ], "maxSize" : 40, "meetsOn" : [ "M" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6998E001", "startTime" : [ "1610" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb4171f", "building" : [], "callNumber" : 74887, "courseFull" : "COMSE6998", "endTime" : [ "2000" ], "instructors" : [ "CHAINTREAU, AUGUSTIN" ], "maxSize" : 40, "meetsOn" : [ "M" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6998E002", "startTime" : [ "1810" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41720", "building" : [], "callNumber" : 75376, "courseFull" : "COMSE6998", "endTime" : [ "1555" ], "instructors" : [ "PE'ER, ITSHACK" ], "maxSize" : 40, "meetsOn" : [ "MW" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6998E003", "startTime" : [ "1440" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41721", "building" : [], "callNumber" : 26274, "courseFull" : "COMSE6998", "endTime" : [ "2130" ], "instructors" : [ "BEIGI, HOMAYOON S" ], "maxSize" : 40, "meetsOn" : [ "R" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6998E004", "startTime" : [ "1900" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" },
+  { "_id" : "5366b3d2f5e3c24fedb41722", "building" : [], "callNumber" : 73437, "courseFull" : "COMSE6998", "endTime" : [ "1200" ], "instructors" : [ "FERGUSON, DONALD F" ], "maxSize" : 30, "meetsOn" : [ "R" ], "numEnrolled" : 0, "room" : [ "RTBA" ], "sectionFull" : "20143COMS6998E005", "startTime" : [ "1010" ], "term" : "20143", "typeCode" : "LC", "typeName" : "LECTURE" }
 ]
