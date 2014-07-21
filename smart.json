@@ -13,7 +13,6 @@
     "elasticsearch": {},
     "npm": {},
     "mocha-web-velocity": {},
-    "jasmine": {},
     "velocity-html-reporter": {}
   },
   "bower": {

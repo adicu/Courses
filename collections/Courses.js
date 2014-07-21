@@ -10,9 +10,8 @@ var schema = new SimpleSchema({
   course: {
     type: String,
     label: 'ex.COMS3203',
-    index: 1,
-    unique: true
-  }
+    index: 1
+  },
   description: {
     type: String,
     optional: true
@@ -23,7 +22,7 @@ var schema = new SimpleSchema({
   },
   courseSubtitle: {
     type: String
-  }
+  },
   departmentCode: {
     type: String,
     label: 'ex. COMS'

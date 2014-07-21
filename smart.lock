@@ -15,7 +15,6 @@
       "elasticsearch": {},
       "npm": {},
       "mocha-web-velocity": {},
-      "jasmine": {},
       "velocity-html-reporter": {}
     },
     "packages": {
@@ -83,11 +82,6 @@
         "git": "https://github.com/mad-eye/meteor-mocha-web.git",
         "tag": "v0.3.4",
         "commit": "5b68e18104c00687748b190b04a7752478472d17"
-      },
-      "jasmine": {
-        "git": "https://github.com/Sanjo/meteor-jasmine.git",
-        "tag": "v0.1.15",
-        "commit": "45024d476f08366250b227ef2cb62aea1ce7b89f"
       },
       "velocity-html-reporter": {
         "git": "https://github.com/rdickert/velocity-html-reporter.git",
