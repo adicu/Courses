@@ -11,7 +11,10 @@
     "moment-range": {},
     "fontawesome4": {},
     "elasticsearch": {},
-    "npm": {}
+    "npm": {},
+    "mocha-web-velocity": {},
+    "jasmine": {},
+    "velocity-html-reporter": {}
   },
   "bower": {
     "fullcalendar": {

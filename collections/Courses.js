@@ -45,7 +45,6 @@ Courses.search = function(query) {
       if (err) {
         return handleError(err);
       }
-      console.log(result);
       Session.set('coursesSearchResults', result);
     }
   );

@@ -17,3 +17,8 @@
 /elasticsearch
 /log
 /npm
+/velocity-html-reporter
+/mocha-web-velocity
+/velocity
+/package-stubber
+/mirror

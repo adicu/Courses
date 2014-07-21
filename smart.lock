@@ -13,7 +13,10 @@
       "moment-range": {},
       "fontawesome4": {},
       "elasticsearch": {},
-      "npm": {}
+      "npm": {},
+      "mocha-web-velocity": {},
+      "jasmine": {},
+      "velocity-html-reporter": {}
     },
     "packages": {
       "zurb-foundation": {
@@ -76,6 +79,21 @@
         "tag": "v0.2.6",
         "commit": "177ab6118de5bf8cffb19481343d5762ff7a2aaf"
       },
+      "mocha-web-velocity": {
+        "git": "https://github.com/mad-eye/meteor-mocha-web.git",
+        "tag": "v0.3.4",
+        "commit": "5b68e18104c00687748b190b04a7752478472d17"
+      },
+      "jasmine": {
+        "git": "https://github.com/Sanjo/meteor-jasmine.git",
+        "tag": "v0.1.15",
+        "commit": "45024d476f08366250b227ef2cb62aea1ce7b89f"
+      },
+      "velocity-html-reporter": {
+        "git": "https://github.com/rdickert/velocity-html-reporter.git",
+        "tag": "v0.1.4",
+        "commit": "55f973519fb6db831678219057854b94a4cec846"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -83,13 +101,23 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.5.1",
-        "commit": "a29956b34d03a4591dbd0eaed9d37009ef48b8db"
+        "tag": "v0.6.0",
+        "commit": "418ec496612fb2afc853e342f0d2269b6674a2fe"
       },
       "log": {
         "git": "https://github.com/andrewreedy/meteor-log.git",
         "branch": "master",
         "commit": "110251d7d973611a0ac56db7e2af76fb3cc77af5"
+      },
+      "mirror": {
+        "git": "https://github.com/xdissent/meteor-mirror.git",
+        "tag": "v0.0.2",
+        "commit": "03d965dcab2f976a1fdc6ce513edcd4c17b75746"
+      },
+      "velocity": {
+        "git": "https://github.com/xolvio/velocity.git",
+        "tag": "v0.1.14",
+        "commit": "a79260e019e385dce09a67f1017f90d3143a12d9"
       }
     }
   }
