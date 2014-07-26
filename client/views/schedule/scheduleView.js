@@ -93,12 +93,11 @@ Template.scheduleSearchArea.events({
 var scheduleComputation, startDateComputation;
 Template.scheduleWeekView.rendered = function() {
   var that = this;
-  var startDate = Co.courseHelper.getCurrentSemesterDates().start;
   // Will be populated by the autorun whenever
   // schedule or sections changes
   var fcEvents = [];
   var fcOptions = {
-    events: function(start, end, callback) {
+    events: function(start, end, timezone, callback) {
       callback(fcEvents);
     },
     eventClick: function(fcEvent, e, view) {
@@ -112,20 +111,20 @@ Template.scheduleWeekView.rendered = function() {
     columnFormat: {
       week: 'dddd'                // Don't show the specific day
     },
-    minTime: 7,                   // Start at 7am
+    minTime: moment.duration(7, 'hours'), // Start at 7am
     height: 100000                // Force full view
   };
   $('#calendar').fullCalendar(fcOptions);
 
   // Automatically runs whenever the start date changes
+  // (ex. When the semester changes)
   startDateComputation = Deps.autorun(function() {
     var startDate = Co.courseHelper.getCurrentSemesterDates().start;
 
     $('#calendar').fullCalendar(
       'gotoDate',
-      startDate.year(),
-      startDate.month(),
-      moment(startDate).day(1).date()
+      // The Monday before the startdate
+      moment(startDate).day(1)
     );
   });
 

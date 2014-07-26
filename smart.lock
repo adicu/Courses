@@ -5,7 +5,6 @@
       "zurb-foundation": {},
       "iron-router": {},
       "spin": {},
-      "bower": {},
       "collection2": {},
       "accounts-guest": {},
       "collection-helpers": {},
@@ -15,7 +14,8 @@
       "elasticsearch": {},
       "npm": {},
       "mocha-web-velocity": {},
-      "velocity-html-reporter": {}
+      "velocity-html-reporter": {},
+      "fullcalendar2.0": {}
     },
     "packages": {
       "zurb-foundation": {
@@ -30,13 +30,8 @@
       },
       "spin": {
         "git": "https://github.com/SachaG/meteor-spin.git",
-        "tag": "v0.2.2",
-        "commit": "3f655f0016228e4195acc784c45d3e3a247dc39f"
-      },
-      "bower": {
-        "git": "https://github.com/mquandalle/meteor-bower.git",
-        "tag": "v0.1.8",
-        "commit": "5699c3f29a936dcb2aa1221a9febd4669764fc91"
+        "tag": "v2.0.3",
+        "commit": "23c1145472a710d5c93fa4beaca4e576caeb2f24"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
@@ -88,6 +83,11 @@
         "tag": "v0.1.4",
         "commit": "55f973519fb6db831678219057854b94a4cec846"
       },
+      "fullcalendar2.0": {
+        "git": "https://github.com/J-Katzen/meteor-fullcalendar2.git",
+        "tag": "v1.0.4",
+        "commit": "64b14f953f5f51a91ae12762c382d13ea6d441bd"
+      },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
         "tag": "v0.2.4",
@@ -110,8 +110,13 @@
       },
       "velocity": {
         "git": "https://github.com/xolvio/velocity.git",
-        "tag": "v0.1.14",
-        "commit": "a79260e019e385dce09a67f1017f90d3143a12d9"
+        "tag": "v0.1.15",
+        "commit": "e153b2f8b56d788a2877a0fe211b94ab42f6f389"
+      },
+      "jquery-ui": {
+        "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",
+        "tag": "v1.9.2",
+        "commit": "c437d45edcf1367df8d5ffa8bad2867758030bd2"
       }
     }
   }
