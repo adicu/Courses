@@ -9,6 +9,10 @@ Build instructions:
 5. Run courses: `meteor`
 6. View Courses at <http://localhost:3000/>
 
+*Search:* You'll need to do something like `ssh -L 9200:localhost:9200 adi-data`
+to tunnel into our servers to get the search working. Unfortunately as of now
+there isn't much of a better way to do this.
+
 # App structure
 This app structure is based on the recommendations [here](https://github.com/oortcloud/unofficial-meteor-faq#where-should-i-put-my-files)
 

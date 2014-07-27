@@ -110,8 +110,8 @@
       },
       "velocity": {
         "git": "https://github.com/xolvio/velocity.git",
-        "tag": "v0.1.15",
-        "commit": "e153b2f8b56d788a2877a0fe211b94ab42f6f389"
+        "tag": "v0.1.16",
+        "commit": "047ee02ce4e6340bbd6229b6bed9ff81940bc22b"
       },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",

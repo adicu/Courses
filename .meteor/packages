@@ -9,7 +9,6 @@ iron-router
 underscore
 spin
 coffeescript
-less
 collection2
 accounts-base
 accounts-password
@@ -24,3 +23,4 @@ npm
 mocha-web-velocity
 velocity-html-reporter
 fullcalendar2.0
+less
