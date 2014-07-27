@@ -25,7 +25,7 @@ UI.registerHelper('readableSemester', function(input) {
   if (!input) {
     input = this;
   }
-  var semesters = ['', 'Spring', 'Summer', 'Autumn'];
+  var semesters = ['', 'Spring', 'Summer', 'Fall'];
   var semester = input[input.length - 1];
   return semesters[semester] + ' ' + input.slice(0, 4);
 });

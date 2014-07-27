@@ -34,3 +34,9 @@ Router.map(function() {
     path: '/about'
   });
 });
+
+// iron-router-progress config
+IronRouterProgress.configure({
+  delay: 50,
+  spinner: false
+});

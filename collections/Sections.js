@@ -103,8 +103,8 @@ Sections.helpers({
     };
     _.each(this.getMeetingTimes(), function(range) {
       var newEvent = _.extend({}, baseEvent, {
-        start: range.start.toISOString(),
-        end: range.end.toISOString(),
+        start: range.start,
+        end: range.end,
         range: range
       });
       events.push(newEvent);

@@ -4,7 +4,6 @@
     "basePackages": {
       "zurb-foundation": {},
       "iron-router": {},
-      "spin": {},
       "collection2": {},
       "accounts-guest": {},
       "collection-helpers": {},
@@ -15,7 +14,8 @@
       "npm": {},
       "mocha-web-velocity": {},
       "velocity-html-reporter": {},
-      "fullcalendar2.0": {}
+      "fullcalendar2.0": {},
+      "iron-router-progress": {}
     },
     "packages": {
       "zurb-foundation": {
@@ -28,15 +28,10 @@
         "tag": "v0.7.1",
         "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
-      "spin": {
-        "git": "https://github.com/SachaG/meteor-spin.git",
-        "tag": "v2.0.3",
-        "commit": "23c1145472a710d5c93fa4beaca4e576caeb2f24"
-      },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.2",
-        "commit": "4ff4b707bec8be434919730bf101325adb215444"
+        "tag": "v0.4.3",
+        "commit": "cb470de2cfeebeccbf76d4cc0a39ad4afc76d553"
       },
       "accounts-guest": {
         "git": "https://github.com/artwells/meteor-accounts-guest.git",
@@ -87,6 +82,11 @@
         "git": "https://github.com/J-Katzen/meteor-fullcalendar2.git",
         "tag": "v1.0.4",
         "commit": "64b14f953f5f51a91ae12762c382d13ea6d441bd"
+      },
+      "iron-router-progress": {
+        "git": "https://github.com/Multiply/iron-router-progress.git",
+        "tag": "v0.4.1",
+        "commit": "496fcda9a6ec352b4733725f60c6f280250c3541"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

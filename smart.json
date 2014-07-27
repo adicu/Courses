@@ -2,7 +2,6 @@
   "packages": {
     "zurb-foundation": {},
     "iron-router": {},
-    "spin": {},
     "collection2": {},
     "accounts-guest": {},
     "collection-helpers": {},
@@ -13,7 +12,8 @@
     "npm": {},
     "mocha-web-velocity": {},
     "velocity-html-reporter": {},
-    "fullcalendar2.0": {}
+    "fullcalendar2.0": {},
+    "iron-router-progress": {}
   },
   "bower": {
     "fullcalendar": {
