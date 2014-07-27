@@ -41,3 +41,11 @@ page (will only be shown in development mode).
 # Docker
 Docker support is coming soon.
 *Note:* Docker support is for deployment, as you lose all of the reactive goodness (automatic reloading) if Meteor isn't running locally.
+
+# Vagrant
+
+If you do not wish to install everything on your local computer, you can use [Vagrant](https://www.vagrantup.com/) to manage Courses from within a VM.
+You will need use vagrant 1.5+.
+
+Vagrant creates a fresh Ubuntu VM then executes our [provisioning script](scripts/bootstrap.sh).
+
