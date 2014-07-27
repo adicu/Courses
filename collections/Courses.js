@@ -43,6 +43,9 @@ Courses.SEARCH_LOADING_VAL = false;
 Courses.search = function(query) {
   var currentSemester = Session.get('currentSemester');
   Session.set('coursesSearchResults', Courses.SEARCH_LOADING_VAL);
+  Co.analytics.track('Courses/search', {
+    query: query
+  });
 
   // See server/CoursesSearch.js
   Meteor.call(

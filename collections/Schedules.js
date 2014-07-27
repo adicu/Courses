@@ -68,6 +68,10 @@ Schedules.helpers({
         }
       }, null, callback); // No options
 
+      Co.analytics.track('Schedules/addCourse', {
+        courseFull: course.courseFull
+      });
+
       var sections = Sections.find({
         courseFull: courseFull,
         term: Session.get('currentSemester')

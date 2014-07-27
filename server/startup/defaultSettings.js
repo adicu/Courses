@@ -4,7 +4,9 @@ var defaultSettings = {
   }
 };
 
-if (_.isEmpty(Meteor.settings)) {
-  console.log('Setting default settings');
-  Meteor.settings = defaultSettings;
-}
+Meteor.startup(function() {
+  if (_.isEmpty(Meteor.settings)) {
+    console.log('Setting default settings');
+    Meteor.settings = defaultSettings;
+  }
+});

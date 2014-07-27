@@ -8,3 +8,7 @@ Template.navBar.isActive = function(pathName) {
     return 'active';
   }
 };
+
+Template.analytics.created = function() {
+  Co.analytics.start();
+}
