@@ -202,7 +202,7 @@ Schedules.helpers({
   randomUniqueColor: function() {
     var usedColors = _.pluck(this.addedCourses, 'color');
     var unusedColors = _.difference(Co.constants.colors, usedColors);
-    if (!unusedColors) {
+    if (unusedColors.length == 0) {
       // All colors have been used, give up on uniquness
       unusedColors = Co.constants.colors;
     }
