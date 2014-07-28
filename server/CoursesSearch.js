@@ -52,7 +52,6 @@ Meteor.methods({
       .query(buildESQuery(query))
       .filter(buildESFilter(query, semester))
       .toString();
-    console.log(esBody);
 
     var results = esSearch({
       index: 'data',

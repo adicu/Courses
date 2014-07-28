@@ -139,6 +139,8 @@ Schedules.helpers({
     });
   },
 
+  // @return Cursor A cursor of sections that have been added
+  // to this schedule
   getSections: function() {
     var sections = this.getSectionFulls();
     return Sections.find({
@@ -175,6 +177,8 @@ Schedules.helpers({
     return _.pluck(this.addedCourses, 'course');
   },
 
+  // @return [String] the sectionFull of sections that
+  // have been added to the Schedule
   getSectionFulls: function() {
     return _.pluck(this.addedSections, 'section');
   },
@@ -232,6 +236,11 @@ Schedules.helpers({
       if (color) {
         evt.className = color;
       }
+    });
+
+    // Make sure all events are truthy
+    events = _.filter(events, function(anEvent) {
+      return (!!anEvent)
     });
 
     return events;
