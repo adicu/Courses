@@ -29,6 +29,5 @@ Co.analytics.start = function() {
 // @param eventName String - the name of the event to track
 // @param data Object - any additional data to track
 Co.analytics.track = function(eventName, data) {
-  console.log(eventName, data);
   heap.track(eventName, data);
 };

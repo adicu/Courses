@@ -29,6 +29,15 @@ var resetSearch = function() {
   Session.set('coursesSearchResults', []);
 };
 
+// Gets the schedule from the Router param
+// Generally should not use
+var dirtyGetSchedule = function() {
+  var currentRouter = Router.current();
+  if (currentRouter.params._id) {
+    return Schedules.findOne(currentRouter.params._id);
+  }
+}
+
 var createOrGetSchedule = function() {
   var semester = Session.get('currentSemester');
 
@@ -130,10 +139,8 @@ Template.scheduleWeekView.rendered = function() {
 
   // Automatically runs whenever the schedule object changes
   scheduleComputation = Deps.autorun(function() {
-    if (!that.data.schedule)
-      return;
-    // Necessary to properly establish dependency
-    var schedule = Schedules.findOne(that.data.schedule._id);
+    var schedule = dirtyGetSchedule();
+
     if (schedule) {
       fcEvents = schedule.toFCEvents();
       $('#calendar').fullCalendar('refetchEvents');

@@ -1,3 +1,5 @@
+// View iron-router for documentation on this
+
 ScheduleViewController = RouteController.extend({
   onBeforeAction: function() {
     Session.set('coursesSearchResults', []);
@@ -22,6 +24,9 @@ ScheduleViewController = RouteController.extend({
         // Change to current schedule URL
         Router.go('scheduleView', {_id: data.schedule._id});
       }
+    } else if (this.params._id && (!data || !data.schedule)) {
+      // ID parameter, but no matching schedule exists
+      Router.go('scheduleView');
     }
   },
 
