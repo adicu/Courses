@@ -38,19 +38,43 @@
       <section class="top-bar-section">
         <ul class="left"></ul>
         <ul class="right">
-          <li class="divider"></li>
-          <li class="{{isActive 'scheduleView'}}">
-            <a href="{{pathFor 'scheduleView'}}">Schedule</a>
-          </li>
-          <li class="divider"></li>
-          <li class="{{isActive 'about'}}">
-            <a href="{{pathFor 'about'}}">About</a>
-          </li>
-          <li class="divider"></li>
+          {{> navBarRightItems}}
         </ul>
       </section>
     </nav>
   </div>
+</template>
+
+<template name="navBarRightItems">
+  <li class="divider"></li>
+  <li class="{{isActive 'scheduleView'}}">
+    <a href="{{pathFor 'scheduleView'}}">Schedule</a>
+  </li>
+  <li class="divider"></li>
+  <li class="{{isActive 'about'}}">
+    <a href="{{pathFor 'about'}}">About</a>
+  </li>
+  <li class="divider"></li>
+  {{#if currentUser}}
+    <li class="has-dropdown">
+      <a href="#"><i class="fa fa-cog fa-lg"></i></a>
+      <ul class="dropdown">
+        <li><a href="#" class="logout-auth">Sign out</a></li>
+      </ul>
+    </li>
+  {{else}}
+    <li class="has-dropdown">
+      <a href="#">Login</a>
+      <ul class="dropdown">
+        <li>
+          <a href="#" class="facebook-auth">
+            <i class="fa fa-facebook"></i>Login with Facebook
+          </a>
+        </li>
+      </ul>
+    </li>
+  {{/if}}
+  <li class="divider"></li>
 </template>
 
 <template name="footer">
