@@ -201,10 +201,10 @@ Schedules.helpers({
   // @return String - a color which is attempted to be unique
   randomUniqueColor: function() {
     var usedColors = _.pluck(this.addedCourses, 'color');
-    var unusedColors = _.difference(Co.courseHelper.colors, usedColors);
+    var unusedColors = _.difference(Co.constants.colors, usedColors);
     if (!unusedColors) {
       // All colors have been used, give up on uniquness
-      unusedColors = Co.courseHelper.colors;
+      unusedColors = Co.constants.colors;
     }
     return _.sample(unusedColors);
   },
