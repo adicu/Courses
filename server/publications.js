@@ -1,3 +1,5 @@
+// @param courseFulls either String or [String]
+// some courseFulls to publish
 Meteor.publish('courses', function(courseFulls) {
   if (!_.isArray(courseFulls)) {
     courseFulls = [courseFulls];
@@ -15,6 +17,8 @@ Meteor.publish('courses', function(courseFulls) {
   ];
 });
 
+// @param sectionFulls either String or [String]
+// some sectionFulls to publish
 Meteor.publish('sections', function(sectionFulls) {
   if (!Co.isArray(sectionFulls)) {
     sectionFulls = [sectionFulls];

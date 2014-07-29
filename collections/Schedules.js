@@ -152,7 +152,8 @@ Schedules.helpers({
   },
 
   // @return [Section] The sections that are
-  // associated with a given courseFull
+  // associated with a given courseFull that also have
+  // been added to this schedule
   getSectionsForCourse: function(courseFull) {
     var sections = this.getSections().fetch();
     return _.filter(sections, function(section) {
