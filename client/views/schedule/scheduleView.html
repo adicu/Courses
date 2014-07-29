@@ -6,6 +6,8 @@
         semesters=semesters
         searchResults=searchResults
       }}
+    {{else}}
+      {{> friendsScheduleMessage }}
     {{/if}}
   </div>
 
@@ -23,6 +25,10 @@
   <div id="calendar">
     {{! This div populated by FullCalendar. See template helpers.}}
   </div>
+</template>
+
+<template name="friendsScheduleMessage">
+  <p>You're viewing a friend's schedule. Click <a href="/schedule/">here</a> to start your own.</p>
 </template>
 
 <template name="scheduleSearchArea">
