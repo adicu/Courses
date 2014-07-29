@@ -1,6 +1,6 @@
 <template name="scheduleSidebar">
   <div class="panel radius scheduleSidebar">
-    <h4 class="subheader">Current Courses</h4>
+    <h4 class="subheader">Schedule</h4>
     {{#if schedule.getCourseFulls}}
       <h5
         class="subheader">
@@ -28,17 +28,18 @@
   <dd class="accordionItem accordionItem-{{course.courseFull}}">
     <a href="#" onclick="return false;" data-coursefull="{{course.courseFull}}">
       <div class="courseItem {{getSidebarClasses}}">
+        <strong class="courseFull">
+          {{course.courseFull}}
+        </strong>
+
         <p class="courseTitle">
-          <strong>{{course.courseFull}}</strong>
+          {{toTitleCase course.courseTitle}}
         </p>
         <i class="fa fa-caret-right"></i>
         <i class="fa fa-caret-down"></i>
       </div>
     </a>
     <div class="content panel-{{course.courseFull}}">
-      <p class="courseTitle">
-        {{toTitleCase course.courseTitle}}
-      </p>
       <ul class="no-bullet sectionsList">
         {{#each getAbbrevSections}}
           {{> scheduleSidebarSection
@@ -71,6 +72,10 @@
       <br>
       <p class="sectionTimes">
         {{formatSectionTimes}}
+      </p>
+      <br>
+      <p class="sectionTimes">
+        {{formatLocation}}
       </p>
     </div>
   </li>

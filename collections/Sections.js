@@ -95,7 +95,16 @@ Sections.helpers({
     var parentCourse = this.getParentCourse();
     if (!this.getParentCourse)
       return;
-    var title = this.courseFull + ': ' + Co.toTitleCase(parentCourse.courseTitle);
+    var location = "";
+    console.log(this);
+    if (!this.building[0]) {
+      location = "Location TBA";
+    } else if (!this.room[0]) {
+      location = this.building[0];
+    } else {
+      location = this.building[0] + " " + this.room[0];
+    }
+    var title = this.courseFull + ' ' + location;
     var baseEvent = {
       id: this.sectionFull,
       title: title,

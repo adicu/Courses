@@ -23,8 +23,21 @@
   .fc-event-time {
     display: none;
   }
+  .fc-event-title {
+    padding: 0.5rem;
+
+    &:first-line {
+      font-weight: bold;
+    }
+  }
   .fc-event {
     cursor: pointer;
+
+    &:hover {
+      min-height: 50.5px;
+      width: 124.75px !important;
+      z-index: 10000;
+    }
   }
 }
 
@@ -51,18 +64,28 @@
   .courseItem {
     border-radius: 2px;
     list-style: none;
+
     margin: 0px 0px 0.4em 0px;
     position: relative;
+    text-align: left;
 
-    p {
+    p, strong {
       color: #FFF;
       display: block;
       margin: 0em;
-      padding: 0.4em;
-      text-align: center;
+      padding: 0 0.8em;
 
       i {
         margin-left: 0.4em;
+      }
+
+      &.courseFull {
+        padding-top: 0.6rem;
+        padding-bottom: 0.2rem;
+      }
+      &.courseTitle{
+        padding-bottom: 0.8rem;
+        font-size: 0.9rem;
       }
     }
 
@@ -70,11 +93,15 @@
       color: white;
       position: absolute;
       right: 0.6em;
-      top: 0.75em;
+      top: 1em;
     }
 
     &:hover {
       cursor: pointer;
+    }
+
+    .courseTitle {
+      line-height: 1rem;
     }
   }
 
@@ -91,7 +118,8 @@
       border-width: 1px;
       border-color: @foundation-gray;
       padding: 0.4rem;
-      margin-top: -0.4em;
+      margin-top: -0.4rem;
+      margin-bottom: 0.4rem;
     }
   }
 
@@ -110,6 +138,11 @@
       button.small {
         margin-top: 0.4rem;
         padding: 0.4rem 1rem;
+        line-height: 1.6rem;
+        font-size: 0.9rem;
+        i {
+          font-size: 1.2em;
+        }
       }
     }
     .fa-caret-down {
@@ -135,6 +168,11 @@
       & > p {
         display: inline;
         margin: 0;
+        font-size: 0.9em;
+
+        &.instructorLast {
+          font-weight: bold;
+        }
       }
     }
     .sectionSelect {
@@ -143,11 +181,9 @@
       float:left;
       margin: 5px 5px 0 0 !important;
     }
-    .scheduleSidebarSection:first-of-type {
-      border-top: 1px solid #eee;
-    }
     .scheduleSidebarSection {
       border-bottom: 1px solid #eee;
+      position: relative;
     }
   }
 }

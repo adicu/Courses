@@ -111,6 +111,16 @@ Template.scheduleSidebarSection.formatSectionTimes = function() {
   return meetsOn + " " + startTime + " - " + endTime;
 };
 
+Template.scheduleSidebarSection.formatLocation = function() {
+  if (!this.section.building[0]) {
+    return "Location TBA";
+  }
+  if (!this.section.room) {
+    return this.section.building[0];
+  }
+  return this.section.building[0] + " " + this.section.room[0];
+};
+
 Template.scheduleSidebarSection.isDisabled = function() {
   if (!this.schedule.isMine()) {
     return 'disabled';
