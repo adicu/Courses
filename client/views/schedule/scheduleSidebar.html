@@ -46,19 +46,6 @@
             section=.
           }}
         {{/each}}
-        {{#if hasMoreSections}}
-          <li>
-            <a href="#" onclick="return false;">
-              See more sections...
-            </a>
-          </li>
-        {{else}}
-          <li>
-            <a href="#" onclick="return false;">
-              More information
-            </a>
-          </li>
-        {{/if}}
       </ul>
       {{#if schedule.isMine}}
         <button class="small alert deleteCourse">
