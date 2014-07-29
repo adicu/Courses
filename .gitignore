@@ -1,15 +1,11 @@
 *.swp
 *~
 .DS_Store
-public/css
-public/js
-public/lib
 node_modules/
 bower_components/
 generated/
 sftp-config.json
 logs/
-.vagrant
 settings.courses
 venv/
 *.pyc

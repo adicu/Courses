@@ -1,0 +1,244 @@
+@import (reference) "/client/stylesheets/colors.import.less";
+@import (reference) "/client/stylesheets/sizes.import.less";
+
+// Fullcalendar
+// scheduleWeekView
+#calendar {
+  // Hide today highlight
+  .fc-state-highlight {
+    background: inherit;
+  }
+  // Disable foundation alternate row coloring
+  table tr.even, table tr.alt, table tr:nth-of-type(even) {
+    background: inherit;
+  }
+  table {
+    border: none;
+  }
+  // Override fullcalendar scrolling
+  .fc-view-agendaWeek > div > div[style] {
+    overflow-y: hidden !important;
+  }
+  // Hide time info on events
+  .fc-event-time {
+    display: none;
+  }
+  .fc-event-title {
+    padding: 0.5rem;
+
+    &:first-line {
+      font-weight: bold;
+    }
+  }
+  .fc-event {
+    cursor: pointer;
+
+    &:hover {
+      min-height: 50.5px;
+      width: 124.75px !important;
+      z-index: 10000;
+    }
+  }
+}
+
+.scheduleSidebar {
+  h4, h5 {
+    text-align: center;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  &.panel {
+    padding: 0.8rem 0.5rem;
+  }
+
+  @media @large {
+    &.panel {
+      height: 734px;
+      overflow-y: scroll;
+    }
+  }
+
+  .courseItem {
+    border-radius: 2px;
+    list-style: none;
+
+    margin: 0px 0px 0.4em 0px;
+    position: relative;
+    text-align: left;
+
+    p, strong {
+      color: #FFF;
+      display: block;
+      margin: 0em;
+      padding: 0 0.8em;
+
+      i {
+        margin-left: 0.4em;
+      }
+
+      &.courseFull {
+        padding-top: 0.6rem;
+        padding-bottom: 0.2rem;
+      }
+      &.courseTitle{
+        padding-bottom: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    & > i {
+      color: white;
+      position: absolute;
+      right: 0.6em;
+      top: 1em;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .courseTitle {
+      line-height: 1rem;
+    }
+  }
+
+  .removeButton {
+    color: #FFF;
+    position: absolute;
+    right: 0.4em;
+    top: -0.2em;
+  }
+
+  .accordion {
+    .content.active {
+      border-style: solid;
+      border-width: 1px;
+      border-color: @foundation-gray;
+      padding: 0.4rem;
+      margin-top: -0.4rem;
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  .accordionItem {
+    > a {
+      padding: 0;
+    }
+    .content {
+      .courseTitle {
+        font-size: 0.9rem;
+        line-height: 1.2;
+      }
+      .fa {
+        font-size: 1.6em;
+      }
+      button.small {
+        margin-top: 0.4rem;
+        padding: 0.4rem 1rem;
+        line-height: 1.6rem;
+        font-size: 0.9rem;
+        i {
+          font-size: 1.2em;
+        }
+      }
+    }
+    .fa-caret-down {
+      display: none;
+    }
+    &.active {
+      .fa-caret-right {
+        display: none;
+      }
+      .fa-caret-down {
+        display: inline-block;
+      }
+    }
+  }
+
+  .sectionsList {
+    input {
+      margin: 0;
+    }
+    .sectionInfo {
+      display: inline-block;
+      margin-left: 1.2rem;
+      & > p {
+        display: inline;
+        margin: 0;
+        font-size: 0.9em;
+
+        &.instructorLast {
+          font-weight: bold;
+        }
+      }
+    }
+    .sectionSelect {
+      position: absolute;
+      display: inline-block;
+      float:left;
+      margin: 5px 5px 0 0 !important;
+    }
+    .scheduleSidebarSection {
+      border-bottom: 1px solid #eee;
+      position: relative;
+    }
+  }
+}
+
+.semesterToggle.button {
+  height: 2.3125rem;
+  margin-bottom: 1em;
+  overflow: hidden;
+
+  p {
+    margin-bottom: 0;
+    font-size: 0.875em;
+    padding: 0.6em;
+  }
+
+  &.active {
+    background-color: #d0d0d0;
+    cursor: default;
+  }
+}
+
+#browser {
+  position: relative;
+  div.results {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    z-index: 1020;
+    border: 10px solid #75B2DD;
+    background: white;
+    width: 100%;
+  }
+  .results {
+    li {
+      padding: 10px;
+      font-size: 1.1em;
+      p.description {
+        font-size: 0.8em;
+        margin-bottom: 0em;
+      }
+    }
+    li:hover {
+      padding: 10px;
+      font-size: 1.1em;
+      background: #dddde9;
+      cursor: pointer;
+    }
+  }
+  p.course-title {
+    margin-bottom: 0em;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+}
+#browser .results ul, #browser .results p.clear_results {
+  background: rgba( 255, 255, 255, 0.95);
+}
+

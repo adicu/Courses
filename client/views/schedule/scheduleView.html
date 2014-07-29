@@ -1,0 +1,84 @@
+<template name="scheduleView">
+  <div id="browser">
+    {{#if shouldShowSearch}}
+      {{> scheduleSearchArea
+        schedule=schedule
+        semesters=semesters
+        searchResults=searchResults
+      }}
+    {{else}}
+      {{> friendsScheduleMessage }}
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <div class="large-9 large-push-3 columns">
+      {{> scheduleWeekView schedule=schedule}}
+    </div>
+    <div class="large-3 large-pull-9 columns">
+      {{> scheduleSidebar schedule=schedule}}
+    </div>
+  </div>
+</template>
+
+<template name="scheduleWeekView">
+  <div id="calendar">
+    {{! This div populated by FullCalendar. See template helpers.}}
+  </div>
+</template>
+
+<template name="friendsScheduleMessage">
+  <p>You're viewing a friend's schedule. Click <a href="/schedule/">here</a> to start your own.</p>
+</template>
+
+<template name="scheduleSearchArea">
+  <div class="search">
+    <form
+      class="custom"
+      onkeypress="return event.keyCode != 13;">
+      <div class="row">
+        <div class="medium-3 columns">
+          <div class="row collapse">
+            {{#each semesters}}
+              <div
+                class="small-6 columns semesterToggle button secondary {{semesterClasses}}">
+                <p>{{readableSemester}}</p>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+        <div class="medium-9 columns">
+          <input
+            type="text"
+            id="searchInput"
+            name="search_input"
+            onsubmit="return false;"
+            placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {{#if searchResults}}
+    <div class="results">
+      <ul class="no-bullet">
+        {{#each searchResults}}
+        {{#with
+          result=.
+          schedule=../schedule
+        }}
+          <li class="courseResultItem">
+            <p class="course-title">
+              {{result.CourseFull}}: {{result.CourseTitle}}
+            </p>
+            <p class="description">
+              {{result.Description}}
+            </p>
+          </li>
+        {{/with}}
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</template>

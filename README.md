@@ -1,62 +1,47 @@
 # Courses
 
-ADI's schedule builder for Columbia.
-
 Build instructions:
 
-1. Run `vagrant up`
-2. View Courses at <http://localhost:8080/>
-3. Enjoy live recompilation of changed files.
+1. Install [node.js](http://nodejs.org/)
+2. Install meteor: `curl https://install.meteor.com/ | sh`
+3. Install meteorite: `npm install -g meteorite`
+4. Install meteor packages: `mrt install`
+5. Run courses: `meteor`
+6. View Courses at <http://localhost:3000/>
 
-
-**Hint**: [Notes.md](/Notes.md) has
-some useful info for understanding Courses.
+*Search:* You'll need to do something like `ssh -L 9200:localhost:9200 adi-data`
+to tunnel into our servers to get the search working. Unfortunately as of now
+there isn't much of a better way to do this.
 
 # App structure
+This app structure is based on the recommendations [here](https://github.com/oortcloud/unofficial-meteor-faq#where-should-i-put-my-files)
+
+> Note that most of the frontend code in is `client/` but that the
+> frontend code may also access code in other directories
+> (but not `tests/` and `server/`)
+
 ```
-|-- app/ (backend code)
-|-- public/ (directory with minified code to be served -
-      this is not complete initially, completed by grunt)
-|-- scripts/ (Various one off scripts)
-|-- src/ (code to be compiled)
- \
-  |-- css/ (less files to be compiled to CSS)
-  |-- js/ (coffescript files - most of the Angular code)
-   \
-    |-- controllers/ (the C in MVC)
-    |-- directives/ (See angular directives)
-    |-- models/ (Plain old Coffescript classes, M in MVC)
-    |-- services/ (See angular services)
-    |-- app.coffee (Main init code for Angular, where Angular
-          packages are required)
-    |-- constants.coffee (Various constants)
-    |-- filters.coffee (See angular filters)
-  |-- lib/ (Library js files that have been edited/tweaked)
-|-- test/
-|-- bower.json (bower package manifest)
-|-- package.json (npm package manifest)
-|-- README.md (This file)
+client/                     # Most of the frontend code
+    lib/                    # client utlity code
+      router.js             # **routes defined here**
+    stylesheets/            # stylesheets for the whole app
+    views/                  # **client view code**
+    index.html              # Everything is injected into here
+collections/                # db collections (client and server)
+lib/                        # global utility code
+    constants.js            # Various constants
+public/                     # static files (ex. img)
+scripts/                    # utility scripts not used by meteor
+tests/                      # tests
+smart.json                  # Meteor package manifest
 ```
 
-## Testing
-
-### Install protractor
-```
-npm install -g protractor
-webdriver-manager update
-webdriver-manager start
-```
-
-### Run tests
-```
-grunt test
-```
-This assumes that you have the application available at `localhost:8000`.
+# Testing
+Tests are currently in the `tests/mocha-web-velocity` directory.
+Editing and saving any of these tests will cause them to be automatically rerun.
+See the status of tests by clicking the on circle on the top right corner of the
+page (will only be shown in development mode).
 
 # Docker
-The current `Dockerfile` included will create a data only container
-(see [data container pattern](http://docs.docker.io/en/latest/use/working_with_volumes/))
-when built with `docker build -t courses .` and run with
-`docker run -d courses`.
-This container should then be mounted by a container running a server
-like nginx. A tool to automatically do this will follow.
+Docker support is coming soon.
+*Note:* Docker support is for deployment, as you lose all of the reactive goodness (automatic reloading) if Meteor isn't running locally.

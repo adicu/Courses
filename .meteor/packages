@@ -1,0 +1,28 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+standard-app-packages
+zurb-foundation
+iron-router
+underscore
+coffeescript
+collection2
+accounts-base
+accounts-password
+accounts-guest
+collection-helpers
+moment
+moment-range
+browser-policy-framing
+fontawesome4
+elasticsearch
+npm
+mocha-web-velocity
+velocity-html-reporter
+fullcalendar2.0
+less
+iron-router-progress
+accounts-facebook
+service-configuration

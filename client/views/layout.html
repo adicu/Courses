@@ -1,0 +1,100 @@
+<template name="layout">
+  {{> analytics}}
+  {{> navBar}}
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div id="app">
+        {{> yield}}
+      </div>
+      <noscript>
+        <div class="noscript">
+          <h2>You must have <a target="_blank" href="http://www.tothepc.com/archives/disable-enable-javascript-in-web-browser/">JavaScript enabled</a> to use this application.</h2>
+        </div>
+      </noscript>
+      {{> footer}}
+    </div>
+  </div>
+</template>
+
+<template name="navBar">
+  <div class="contain-to-grid">
+    <nav class="top-bar" data-topbar data-options="is_hover: false">
+      <ul class="title-area">
+        <li class="name">
+          <h1>
+            <a
+              href="{{pathFor 'home'}}"
+              target="_blank">
+              Courses
+              <span id="byline">
+                by ADI
+              </span>
+            </a>
+          </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+      </ul>
+      <section class="top-bar-section">
+        <ul class="left"></ul>
+        <ul class="right">
+          {{> navBarRightItems}}
+        </ul>
+      </section>
+    </nav>
+  </div>
+</template>
+
+<template name="navBarRightItems">
+  <li class="divider"></li>
+  <li class="{{isActive 'scheduleView'}}">
+    <a href="{{pathFor 'scheduleView'}}">Schedule</a>
+  </li>
+  <li class="divider"></li>
+  <li class="{{isActive 'about'}}">
+    <a href="{{pathFor 'about'}}">About</a>
+  </li>
+  <li class="divider"></li>
+  {{#if currentUser}}
+    <li class="has-dropdown">
+      <a href="#"><i class="fa fa-cog fa-lg"></i></a>
+      <ul class="dropdown">
+        <li><a href="#" class="logout-auth">Sign out</a></li>
+      </ul>
+    </li>
+  {{else}}
+    <li class="has-dropdown">
+      <a href="#">Login</a>
+      <ul class="dropdown">
+        <li>
+          <a href="#" class="facebook-auth">
+            <i class="fa fa-facebook"></i>Login with Facebook
+          </a>
+        </li>
+      </ul>
+    </li>
+  {{/if}}
+  <li class="divider"></li>
+</template>
+
+<template name="footer">
+  <footer>
+    <div class="row">
+      <div class="byline large-8 small-6 columns">
+        <a href="{{pathFor 'about'}}">By ADI Infrastructure</a>
+      </div>
+      <div class="large-4 small-6 columns" id="reportBug">
+        <a href="mailto:infrastructure@adicu.com?subject=[Schedule Builder]">Report a bug or request a feature</a>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<!-- This is the template for the loading indicator inbetween pages -->
+<template name="loading">
+  {{> spinner}}
+</template>
+
+<!-- Contains analytics code. See js file for injected code -->
+<template name="analytics">
+</template>

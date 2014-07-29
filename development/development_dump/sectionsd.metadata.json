@@ -1,1 +1,0 @@
-{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "courses.sectionsd", "name" : "_id_" }, { "v" : 1, "key" : { "CallNumber" : 1 }, "ns" : "courses.sectionsd", "name" : "CallNumber_1" }, { "v" : 1, "key" : { "Term" : 1 }, "ns" : "courses.sectionsd", "name" : "Term_1" }, { "v" : 1, "key" : { "Course" : 1 }, "ns" : "courses.sectionsd", "name" : "Course_1" } ] }

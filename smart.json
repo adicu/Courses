@@ -1,0 +1,23 @@
+{
+  "packages": {
+    "zurb-foundation": {},
+    "iron-router": {},
+    "collection2": {},
+    "accounts-guest": {},
+    "collection-helpers": {},
+    "moment": {},
+    "moment-range": {},
+    "fontawesome4": {},
+    "elasticsearch": {},
+    "npm": {},
+    "mocha-web-velocity": {},
+    "velocity-html-reporter": {},
+    "fullcalendar2.0": {},
+    "iron-router-progress": {}
+  },
+  "bower": {
+    "fullcalendar": {
+      "version": "~1.6.4"
+    }
+  }
+}
