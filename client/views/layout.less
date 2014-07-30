@@ -1,5 +1,15 @@
+@import (reference) "/client/stylesheets/colors.import.less";
+
 nav.top-bar {
   i.fa-facebook {
     margin-right: 0.5em;
   }
+}
+
+.top-bar-section li.active:not(.has-form) a:not(.button) {
+    background-color: @blue;
+
+    &:hover {
+        background-color: @blue-dk;
+    }
 }

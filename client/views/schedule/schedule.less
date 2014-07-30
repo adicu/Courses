@@ -28,26 +28,23 @@
     font-size: 0.8rem;
 
     &:first-line {
-      font-size: 0.9rem;
       font-weight: bold;
     }
   }
   .fc-event {
     cursor: pointer;
-
-    &:hover {
-      min-height: 50.5px;
-      width: 124.75px !important;
-      z-index: 10000;
-    }
   }
 }
 
 .scheduleSidebar {
   h4, h5 {
-    text-align: center;
-  }
+    padding: 0 0.8rem;
 
+    &.empty {
+      cursor: pointer;
+      color: #888;
+    }
+  }
   ul {
     margin: 0;
   }
@@ -71,19 +68,20 @@
     position: relative;
     text-align: left;
 
-    p, strong {
+    p, h6 {
       color: #FFF;
       display: block;
       margin: 0em;
-      padding: 0 0.8em;
+      padding: 0 0.8rem;
 
       i {
-        margin-left: 0.4em;
+        margin-left: 0.4rem;
       }
 
       &.courseFull {
         padding-top: 0.6rem;
         padding-bottom: 0.2rem;
+        margin-bottom: 0.1rem;
       }
       &.courseTitle{
         padding-bottom: 0.8rem;
@@ -207,18 +205,27 @@
   }
 }
 
-#browser {
+.search-input {
+  margin: 0 !important;
+  &:focus {
+    box-shadow: 0 0 5px rgba(153, 153, 153, .5);
+  }
+}
+
+.results-wrapper {
   position: relative;
-  div.results {
+  .results {
     position: absolute;
     left: 0;
-    top: 50px;
     z-index: 1020;
-    border: 10px solid #75B2DD;
     background: white;
     width: 100%;
-  }
-  .results {
+    box-shadow: 0 0 5px rgba(153, 153, 153, .5);
+    border: 1px solid #999;
+    border-top: 0;
+
+    ul { margin: 0; }
+
     li {
       padding: 10px;
       font-size: 1.1em;
@@ -230,13 +237,18 @@
     li:hover {
       padding: 10px;
       font-size: 1.1em;
-      background: #dddde9;
+      background: @light-blue;
       cursor: pointer;
     }
   }
-  p.course-title {
+  .course-full {
+    display: inline-block;
+    width: 105px;
+  }
+  .course-title {
+    display: block;
+    margin-top: -0.5rem;
     margin-bottom: 0em;
-    font-weight: bold;
     font-size: 0.9em;
   }
 }
@@ -244,3 +256,11 @@
   background: rgba( 255, 255, 255, 0.95);
 }
 
+@media @medium {
+  .results {
+    .course-title {
+      display: inline-block;
+      margin-top: 0;
+    }
+  }
+}

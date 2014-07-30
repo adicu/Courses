@@ -49,36 +49,41 @@
         </div>
         <div class="medium-8 large-9 columns">
           <input
+            class="search-input"
             type="text"
             id="searchInput"
             name="search_input"
             onsubmit="return false;"
             placeholder="Type a course title or call number to begin. Ex. COMS1004 or 71229"
           />
+          {{#if searchResults}}
+            <div class="results-wrapper">
+              <div class="results">
+                <ul class="no-bullet">
+                  {{#each searchResults}}
+                  {{#with
+                    result=.
+                    schedule=../schedule
+                  }}
+                    <li class="courseResultItem">
+                      <h6 class="course-full">
+                        {{result.CourseFull}}
+                      </h6>
+                      <p class="course-title">
+                        {{toTitleCase result.CourseTitle}}
+                      </p>
+                      <p class="description">
+                        {{result.Description}}
+                      </p>
+                    </li>
+                  {{/with}}
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          {{/if}}
         </div>
       </div>
     </form>
   </div>
-
-  {{#if searchResults}}
-    <div class="results">
-      <ul class="no-bullet">
-        {{#each searchResults}}
-        {{#with
-          result=.
-          schedule=../schedule
-        }}
-          <li class="courseResultItem">
-            <p class="course-title">
-              {{result.CourseFull}}: {{result.CourseTitle}}
-            </p>
-            <p class="description">
-              {{result.Description}}
-            </p>
-          </li>
-        {{/with}}
-        {{/each}}
-      </ul>
-    </div>
-  {{/if}}
 </template>
