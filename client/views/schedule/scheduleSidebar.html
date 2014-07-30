@@ -8,9 +8,8 @@
       </h5>
     {{else}}
       <h5
-        class="subheader">
-        <i class="fa fa-2x fa-meh-o"></i>
-        <br/> No Courses. Go add some!
+        class="subheader empty">
+        <br/>Add some courses and they'll appear here!
       </h5>
     {{/if}}
     <dl class="accordion">
@@ -28,9 +27,9 @@
   <dd class="accordionItem accordionItem-{{course.courseFull}}">
     <a href="#" onclick="return false;" data-coursefull="{{course.courseFull}}">
       <div class="courseItem {{getSidebarClasses}}">
-        <strong class="courseFull">
+        <h6 class="courseFull">
           {{course.courseFull}}
-        </strong>
+        </h6>
 
         <p class="courseTitle">
           {{toTitleCase course.courseTitle}}

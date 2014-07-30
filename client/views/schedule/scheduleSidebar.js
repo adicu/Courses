@@ -48,6 +48,12 @@ Template.scheduleSidebar.events({
     var item = e.currentTarget;
     var courseFull = $(item).data('coursefull');
     return Template.scheduleSidebar.toggleAccordion(courseFull);
+  },
+  'click .empty': function(e) {
+    var input = $('.search-input');
+    if(input){
+      input.focus();
+    }
   }
 });
 
