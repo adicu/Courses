@@ -59,7 +59,7 @@ Template.scheduleSidebar.events({
 
 
 
-var SECTIONS_LIMIT = 4;
+var SECTIONS_LIMIT = 200;
 Template.scheduleSidebarItem.getAbbrevSections = function() {
   return this.course.getSections({
     limit: SECTIONS_LIMIT
