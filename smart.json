@@ -1,7 +1,10 @@
 {
   "packages": {
     "zurb-foundation": {},
-    "iron-router": {},
+    "iron-router": {
+      "git": "https://github.com/EventedMind/iron-router.git",
+      "tag": "v0.7.1"
+    },
     "collection2": {},
     "accounts-guest": {},
     "collection-helpers": {},
