@@ -62,11 +62,11 @@ Courses.search = function(query) {
 }
 
 Courses.helpers({
-  // @return [Sections] The sections associated with this course
+  // @return Cursor The sections associated with this course
   // for the current semester
   getSections: function(options) {
     var query = {
-      courseFull: this.courseFull
+      course: this.course
     };
     if (Session && Session.get('currentSemester')) {
       query.term = Session.get('currentSemester');

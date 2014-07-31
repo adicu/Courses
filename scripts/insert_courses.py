@@ -139,6 +139,7 @@ def _special_treatment_section(doc):
         dict_pairs['instructors'].append(instructor)
 
     pairs = dict_pairs.items()
+    pairs.append(('Course', doc['Course'][:8]))
     pairs.append(('CourseFull', _format_course(doc['Course'])))
     pairs.append(('SectionFull', doc['Term'] + doc['Course']))
     return pairs

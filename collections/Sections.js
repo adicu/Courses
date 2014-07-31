@@ -12,6 +12,11 @@ var schema = new SimpleSchema({
     index: 1,
     unique: true
   },
+  course: {
+    type: String,
+    label: 'ex. COMS3203',
+    index: 1
+  },
   callNumber: {
     type: Number
   },
@@ -96,7 +101,6 @@ Sections.helpers({
     if (!this.getParentCourse)
       return;
     var location = "";
-    console.log(this);
     if (!this.building[0]) {
       location = "Location TBA";
     } else if (!this.room[0]) {

@@ -4,14 +4,17 @@ Meteor.publish('courses', function(courseFulls) {
   if (!_.isArray(courseFulls)) {
     courseFulls = [courseFulls];
   }
+  var courseIds = _.map(courseFulls, function(courseFull) {
+    return Co.courseHelper.courseFullToCourse(courseFull);
+  });
   return [
     Courses.find({
       courseFull: {
         $in: courseFulls
       }
     }), Sections.find({
-      courseFull: {
-        $in: courseFulls
+      course: {
+        $in: courseIds
       }
     })
   ];
@@ -24,7 +27,7 @@ Meteor.publish('sections', function(sectionFulls) {
     sectionFulls = [sectionFulls];
   }
   var courseFulls = _.map(sectionFulls, function(sectionFull) {
-    Co.courseHelper.sectionFulltoCourseFull(sectionFull);
+    return Co.courseHelper.sectionFulltoCourseFull(sectionFull);
   });
 
   return [
