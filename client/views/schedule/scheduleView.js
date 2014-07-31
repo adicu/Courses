@@ -144,6 +144,13 @@ Template.scheduleSearchArea.rendered = function() {
     e.preventDefault();
   };
 
+  var clickHandler = function(e) {
+    /**
+     * Clicking back into the search box to edit a query should not clear it
+     */
+    e.stopPropagation();
+  };
+
   Deps.autorun(function() {
     results = Session.get('coursesSearchResults');
 
@@ -161,13 +168,15 @@ Template.scheduleSearchArea.rendered = function() {
       // or 'blur's the input)
       $(document).bind('keydown', keydownHandler);
       $(document).bind('click', resetSearch);
-      $('.search input').bind('blur', resetSearch);
+      $('.search-input').bind('click', clickHandler);
+      $('.search-input').bind('blur', resetSearch);
 
     } else {
       // The search results are not being shown, unbind keydown, click, and blur
       $(document).unbind('keydown', keydownHandler);
       $(document).unbind('click', resetSearch);
-      $('.search input').unbind('blur', resetSearch);
+      $('.search-input').unbind('click', clickHandler);
+      $('.search-input').unbind('blur', resetSearch);
     }
   });
 };
