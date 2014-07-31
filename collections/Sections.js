@@ -96,7 +96,6 @@ Sections.helpers({
     if (!this.getParentCourse)
       return;
     var location = "";
-    console.log(this);
     if (!this.building[0]) {
       location = "Location TBA";
     } else if (!this.room[0]) {

@@ -233,12 +233,16 @@
         font-size: 0.8em;
         margin-bottom: 0em;
       }
-    }
-    li:hover {
-      padding: 10px;
-      font-size: 1.1em;
-      background: @light-blue;
-      cursor: pointer;
+
+      &.selected, &.selected:hover {
+        background-color: @light-blue;
+      }
+      &:hover {
+        padding: 10px;
+        font-size: 1.1em;
+        background: @foundation-gray;
+        cursor: pointer;
+      }
     }
   }
   .course-full {
