@@ -1,36 +1,49 @@
-// Use mongo --quiet --eval "load('./dbExport.js');exportCourses();" > courses.json
-// mongo --quiet --eval "load('./dbExport.js');exportSections();" > sections.json
+// Use mongo courses --quiet --eval "load('./dbExport.js');exportCourses();" > courses.json
+// mongo courses --quiet --eval "load('./dbExport.js');exportSections();" > sections.json
 // etc.
 //
 // Need to strip ObjectID from resulting json file
 
+var tryToPrintValidJSON = function (cursor) {
+  // lol mongo
+  print('[');
+  var doc;
+  while (cursor.hasNext()) {
+    doc = cursor.next();
+
+    // Make _id a string
+    doc._id = doc._id.valueOf();
+
+    printjsononeline(doc);
+    if (cursor.hasNext()) {
+      print(',');
+    }
+  }
+  print(']');
+};
+
 var exportSections = function() {
-  // Hack to read json files into shell
-  var courses = eval(cat('courses.json'));
+  var courses = exportCourses(true);
   var courseFulls = [];
   courses.forEach(function(course) {
     courseFulls.push(course.courseFull);
   });
 
-  var sections = [];
-  db.sections.find(
+  var cursor = db.sections.find(
     {courseFull:
       {$in: courseFulls}
     }
-  ).forEach(function(section) {
-    sections.push(section);
-  });
-
-  printjson(sections);
+  );
+  tryToPrintValidJSON(cursor);
 };
 
-var exportCourses = function() {
-  var courses = [];
-  db.courses.find({courseFull: /^COMSW/})
-    .limit(10)
-    .forEach(function(course) {
-      courses.push(course);
-    });
-
-  printjson(courses);
+// @param returnCursor whether to return the courses
+// cursor
+var exportCourses = function(returnCursor) {
+  var cursor = db.courses.find({courseFull: /^COMSW/});
+  if (returnCursor) {
+    return cursor;
+  } else {
+    tryToPrintValidJSON(cursor);
+  }
 };
