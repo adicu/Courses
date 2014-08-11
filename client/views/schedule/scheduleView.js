@@ -66,12 +66,16 @@ Template.scheduleSearchArea.rendered = function() {
      */
 
     var selectedResult = $('.courseResultItem.selected');
-    if (!selectedResult) { return 0; }
+    if (!selectedResult) {
+      return 0;
+    }
 
     var selectedCourseFull = selectedResult.data('course-full');
     var selectedIndex = results.map(function(r) {return r.CourseFull; })
                                .indexOf(selectedCourseFull);
-    if (selectedIndex === -1) { return 0; }
+    if (selectedIndex === -1) {
+      return 0;
+    }
     return selectedIndex;
   };
 
@@ -169,14 +173,12 @@ Template.scheduleSearchArea.rendered = function() {
       $(document).bind('keydown', keydownHandler);
       $(document).bind('click', resetSearch);
       $('.search-input').bind('click', clickHandler);
-      $('.search-input').bind('blur', resetSearch);
 
     } else {
       // The search results are not being shown, unbind keydown, click, and blur
       $(document).unbind('keydown', keydownHandler);
       $(document).unbind('click', resetSearch);
       $('.search-input').unbind('click', clickHandler);
-      $('.search-input').unbind('blur', resetSearch);
     }
   });
 };
@@ -192,6 +194,7 @@ Template.scheduleSearchArea.events({
     Router.go('scheduleView');
   },
   'click .courseResultItem': function(e) {
+    e.stopPropagation();
     var that = this;
     var schedule = createOrGetSchedule.call(this);
     schedule.addCourse(this.result.CourseFull, function(err) {
