@@ -3,7 +3,10 @@
   "dependencies": {
     "basePackages": {
       "zurb-foundation": {},
-      "iron-router": {},
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.7.1"
+      },
       "collection2": {},
       "accounts-guest": {},
       "collection-helpers": {},
@@ -20,8 +23,8 @@
     "packages": {
       "zurb-foundation": {
         "git": "https://github.com/MixinLabs/meteor-foundation.git",
-        "tag": "v5.3.0-0.1.0",
-        "commit": "dbab2c02a7c7e376c0fdddc1e699f2728d8e7b01"
+        "tag": "v5.3.3-0.1.0",
+        "commit": "f754d7758ae0a79e0573ddbf927382042f1a875c"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -30,8 +33,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.3",
-        "commit": "cb470de2cfeebeccbf76d4cc0a39ad4afc76d553"
+        "tag": "v0.4.6",
+        "commit": "80554182486be0d8e74f7ed02194a5649d712e27"
       },
       "accounts-guest": {
         "git": "https://github.com/artwells/meteor-accounts-guest.git",
@@ -40,13 +43,13 @@
       },
       "collection-helpers": {
         "git": "https://github.com/dburles/meteor-collection-helpers.git",
-        "tag": "v0.3.0",
-        "commit": "842bd9343b19c0e45ae20ac9c63c8c356889959a"
+        "tag": "v0.3.1",
+        "commit": "eff6c859cd91eae324f6c99ab755992d0f271d91"
       },
       "moment": {
         "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
+        "tag": "v2.8.1",
+        "commit": "722ea63783d594341023836b7d418ab2567dab8c"
       },
       "moment-range": {
         "git": "https://github.com/kevb/meteor-moment-range",
@@ -95,8 +98,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.6.0",
-        "commit": "418ec496612fb2afc853e342f0d2269b6674a2fe"
+        "tag": "v0.7.0",
+        "commit": "77d267aec4ba8a70f677e5d9ef9fb91fb0e3f0f6"
       },
       "log": {
         "git": "https://github.com/andrewreedy/meteor-log.git",
@@ -110,8 +113,8 @@
       },
       "velocity": {
         "git": "https://github.com/xolvio/velocity.git",
-        "tag": "v0.1.16",
-        "commit": "047ee02ce4e6340bbd6229b6bed9ff81940bc22b"
+        "tag": "v0.1.18",
+        "commit": "1958c117417e832c3e9025088cca845b4a82728f"
       },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",

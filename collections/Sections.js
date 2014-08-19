@@ -15,7 +15,8 @@ var schema = new SimpleSchema({
   course: {
     type: String,
     label: 'ex. COMS3203',
-    index: 1
+    index: 1,
+    optional: true
   },
   callNumber: {
     type: Number
