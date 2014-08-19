@@ -12,8 +12,6 @@ Template.scheduleView.shouldShowSearch = function() {
   }
 };
 
-
-
 Template.scheduleSearchArea.semesterClasses = function() {
   var selectedSemester = String(this);
   var currentSemester = Session.get('currentSemester');
@@ -36,7 +34,7 @@ var dirtyGetSchedule = function() {
   if (currentRouter.params._id) {
     return Schedules.findOne(currentRouter.params._id);
   }
-}
+};
 
 var createOrGetSchedule = function() {
   var semester = Session.get('currentSemester');
@@ -55,6 +53,136 @@ var createOrGetSchedule = function() {
   }
 };
 
+
+
+// Runs automatically when template is rendered
+Template.scheduleSearchArea.rendered = function() {
+  var results;
+
+  var currentIndex = function() {
+    /**
+     * Return the index of the selected search result in the list of course
+     * search results, or 0 if none are selected. It has the `selected` class.
+     */
+
+    var selectedResult = $('.courseResultItem.selected');
+    if (!selectedResult) {
+      return 0;
+    }
+
+    var selectedCourseFull = selectedResult.data('course-full');
+    var selectedIndex = results.map(function(r) {return r.CourseFull; })
+                               .indexOf(selectedCourseFull);
+    if (selectedIndex === -1) {
+      return 0;
+    }
+    return selectedIndex;
+  };
+
+  var selectResultAtIndex = function(index) {
+    /**
+     * Deselect the currently selected search result, and select the result at
+     * `index`.
+     */
+    $('.courseResultItem.selected').removeClass('selected');
+    courseFull = results[index].CourseFull;
+    $('.courseResultItem[data-course-full="' + courseFull +'"]').addClass('selected');
+  };
+
+  var up = function() {
+    /**
+     * Select the search result above, if there is one.
+     */
+    var idx = currentIndex();
+    if (idx > 0) {
+      selectResultAtIndex(idx - 1);
+    }
+  };
+
+  var down = function() {
+    /**
+     * Select the search result below, if there is one.
+     */
+    var idx = currentIndex();
+    if (idx + 1 < results.length){
+      selectResultAtIndex(idx + 1);
+    }
+  };
+
+  var keydownHandler = function(e) {
+    /**
+     * Handle keypresses while the search results are displayed like so:
+     *  - tab / shift+tab cycle up and down the results list
+     *  - up / down do the same
+     *  - enter adds the selected class
+     *  - esc clears the search
+     */
+    switch(e.which) {
+      case 9: //tab, shift+tab
+      if (e.shiftKey) {
+        up();
+      } else {
+        down();
+      }
+      break;
+
+      case 13: //enter
+      $('.courseResultItem.selected').click();
+      break;
+
+      case 27: //escape
+      resetSearch();
+      break;
+
+      case 38: //up
+      up();
+      break;
+
+      case 40: //down
+      down();
+      break;
+
+      default:
+      return;
+    }
+    e.preventDefault();
+  };
+
+  var clickHandler = function(e) {
+    /**
+     * Clicking back into the search box to edit a query should not clear it
+     */
+    e.stopPropagation();
+  };
+
+  Deps.autorun(function() {
+    results = Session.get('coursesSearchResults');
+
+    if (results.length > 0) {
+      // The results exist, but the DOM elements don't exist yet. Wait until
+      // they do, and then select the first one.
+      var checkExist = setInterval(function() {
+         if ($('.courseResultItem').length) {
+            clearInterval(checkExist);
+            selectResultAtIndex(0);
+         }
+      }, 50);
+
+      // bind keydown and click outside to reset, or press ESC (which defocuses
+      // or 'blur's the input)
+      $(document).bind('keydown', keydownHandler);
+      $(document).bind('click', resetSearch);
+      $('.search-input').bind('click', clickHandler);
+
+    } else {
+      // The search results are not being shown, unbind keydown, click, and blur
+      $(document).unbind('keydown', keydownHandler);
+      $(document).unbind('click', resetSearch);
+      $('.search-input').unbind('click', clickHandler);
+    }
+  });
+};
+
 var searchTimeout;
 Template.scheduleSearchArea.events({
   'click .semesterToggle': function(e) {
@@ -66,6 +194,7 @@ Template.scheduleSearchArea.events({
     Router.go('scheduleView');
   },
   'click .courseResultItem': function(e) {
+    e.stopPropagation();
     var that = this;
     var schedule = createOrGetSchedule.call(this);
     schedule.addCourse(this.result.CourseFull, function(err) {
