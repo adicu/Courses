@@ -6,8 +6,8 @@ var buildESQuery = function(query) {
   var match = '';
   var esQuery = ejs.BoolQuery().should(ejs.QueryStringQuery(query));
 
-  if (match = query.match(/^([A-Z]{4})[A-Z]?(\d{1,4})$/i)) {
-    // Match full course (ie COMSW1004)
+  if (match = query.match(/^([A-Z]{4})(\d{0,4})$/i)) {
+    // Match course (ie COMS1004)
     var department = match[1];
     var courseNumber = match[2];
     var courseSearch = department + courseNumber + '*';
@@ -18,11 +18,30 @@ var buildESQuery = function(query) {
         .fields('Course')
         .boost(3.0)
     );
-  } else if (match = query.match(/^[a-zA-Z]{4}$/i)) {
+  } else if (match = query.match(/^([A-Z]{5})(\d{0,4})$/i)) {
+    // Match course full (ie COMSW1004)
+    var departmentWithDepartmentSuffix = match[1];
+    var courseNumber = match[2];
+    var courseSearch = departmentWithDepartmentSuffix + courseNumber + '*';
+
+    esQuery.should(
+      ejs.QueryStringQuery(courseSearch)
+        .analyzeWildcard(true)
+        .fields('CourseFull')
+        .boost(3.0)
+    );
+  } else if (match = query.match(/^[A-Z]{4}$/i)) {
     // Match department (ie COMS)
     var department = match[0];
     esQuery.should(
       ejs.MatchQuery('DepartmentCode', department)
+        .boost(1.5)
+    );
+  } else if (match = query.match(/^\d{5}$/i)) {
+    // Match call number (ie 12345)
+    var callNumber = match[0];
+    esQuery.should(
+      ejs.MatchQuery('CallNumber', callNumber)
         .boost(1.5)
     );
   } else if (query.length > 3) {
