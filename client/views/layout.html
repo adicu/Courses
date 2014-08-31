@@ -5,6 +5,7 @@
   <div class="row">
     <div class="large-12 columns">
       <div id="app">
+        {{> notifications}}
         {{> yield}}
       </div>
       <noscript>
@@ -13,6 +14,17 @@
         </div>
       </noscript>
       {{> footer}}
+    </div>
+  </div>
+</template>
+
+<template name="notifications">
+  <div class="row">
+    <div class="large-12 columns">
+      <div data-alert class="alert-box">
+        <span><strong>New in Courses:</strong> Your schedule is automatically saved on this browser! Login to sync across devices.</span>
+        <a href="#" class="close">&times;</a>
+      </div>
     </div>
   </div>
 </template>
@@ -70,6 +82,9 @@
           <a href="#" class="facebook-auth">
             <i class="fa fa-facebook"></i>Login with Facebook
           </a>
+        </li>
+        <li>
+          <p class="help-text">Login to sync your schedule across devices!</p>
         </li>
       </ul>
     </li>
