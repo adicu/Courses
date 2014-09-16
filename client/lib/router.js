@@ -18,7 +18,10 @@ Router.map(function() {
     path: '/',
     onBeforeAction: function() {
       // Redirect to schedule by default
-      return Router.go('scheduleView');
+      Co.smartRedirect.call(this, 'scheduleView');
+    },
+    unload: function() {
+      Session.set('routerPrevPath', this.path);
     }
   });
 
