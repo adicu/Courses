@@ -22,12 +22,20 @@ ScheduleViewController = RouteController.extend({
 
       if (data.schedule._id !== this.params._id) {
         // Change to current schedule URL
-        Router.go('scheduleView', {_id: data.schedule._id});
+        Co.smartRedirect.call(
+          this,
+          'scheduleView',
+          {_id: data.schedule._id}
+        );
       }
     } else if (this.params._id && (!data || !data.schedule)) {
       // ID parameter, but no matching schedule exists
-      Router.go('scheduleView');
+      Co.smartRedirect.call(this, 'scheduleView');
     }
+  },
+
+  unload: function() {
+    Session.set('routerPrevPath', this.path);
   },
 
   waitOn: function() {
