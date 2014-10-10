@@ -19,7 +19,7 @@ describe('Courses', function() {
   });
 
   it('should get associated sections', function() {
-    var aCourse = Courses.findOne({'courseFull' : 'COMSW1004'});
+    var aCourse = Courses.findOne({'courseFull' : 'COMSW1007'});
     assert(aCourse, 'got some course');
 
     var sectionCount = aCourse.getSections().count();
