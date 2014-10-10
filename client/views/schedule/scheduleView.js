@@ -214,9 +214,13 @@ Template.scheduleSearchArea.events({
       Meteor.clearTimeout(searchTimeout);
     }
 
+    IronRouterProgress.start();
     searchTimeout = Meteor.setTimeout(function() {
       if (query) {
-        Courses.search(query);
+        //Pass termination of the progress bar to be called when search finishes
+        Courses.search(query, function(){
+          IronRouterProgress.done();
+        });
       } else {
         resetSearch();
       }
