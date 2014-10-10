@@ -40,12 +40,13 @@ Courses.SEARCH_LOADING_VAL = false;
 
 // Automatically performs the correct full text search for
 // query, setting Session variable coursesSearchResults
-Courses.search = function(query) {
+Courses.search = function(query, callback) {
   var currentSemester = Session.get('currentSemester');
   Session.set('coursesSearchResults', Courses.SEARCH_LOADING_VAL);
   Co.analytics.track('Courses/search', {
     query: query
   });
+
 
   // See server/CoursesSearch.js
   Meteor.call(
@@ -57,6 +58,9 @@ Courses.search = function(query) {
         return handleError(err);
       }
       Session.set('coursesSearchResults', result);
+      if(callback){
+        callback();
+      }
     }
   );
 }
