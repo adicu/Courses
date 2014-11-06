@@ -4,8 +4,9 @@ ScheduleViewController = RouteController.extend({
   onBeforeAction: function() {
     Session.set('coursesSearchResults', []);
     if (!Meteor.userId()) {
-      Meteor.loginVisitor();
+      Guests.add();
     }
+    this.next();
   },
 
   onStop: function() {

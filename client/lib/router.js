@@ -19,6 +19,7 @@ Router.map(function() {
     onBeforeAction: function() {
       // Redirect to schedule by default
       Co.smartRedirect.call(this, 'scheduleView');
+      this.next();
     },
     unload: function() {
       Session.set('routerPrevPath', this.path);
@@ -39,7 +40,7 @@ Router.map(function() {
 });
 
 // iron-router-progress config
-IronRouterProgress.configure({
+Router.configure({
   delay: 50,
   spinner: false
 });
