@@ -1,4 +1,5 @@
 @import (reference) "/client/stylesheets/colors.import.less";
+@import (reference) "/client/stylesheets/sizes.import.less";
 
 nav.top-bar {
   i.fa-facebook {
@@ -31,4 +32,10 @@ nav.top-bar {
     &:hover {
         background-color: @blue-dk;
     }
+}
+
+@media @small {
+  .search {
+    margin-bottom: 16px;
+  }
 }
