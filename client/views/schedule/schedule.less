@@ -1,9 +1,14 @@
 @import (reference) "/client/stylesheets/colors.import.less";
 @import (reference) "/client/stylesheets/sizes.import.less";
 
+.main-view {
+  overflow-x: scroll;
+}
+
 // Fullcalendar
 // scheduleWeekView
 #calendar {
+  min-width: 600px;
   // Hide today highlight
   .fc-state-highlight {
     background: inherit;
@@ -15,8 +20,13 @@
   table {
     border: none;
   }
+  .fc-view-agendaWeek {
+    overflow-x: scroll;
+  }
   // Override fullcalendar scrolling
   .fc-view-agendaWeek > div > div[style] {
+    // fixes the right border issue
+    width: 99% !important;
     overflow-y: hidden !important;
   }
   // Hide time info on events
@@ -257,6 +267,7 @@
     font-size: 0.9em;
   }
 }
+
 #browser .results ul, #browser .results p.clear_results {
   background: rgba( 255, 255, 255, 0.95);
 }
@@ -266,6 +277,19 @@
     .course-title {
       display: inline-block;
       margin-top: 0;
+    }
+  }
+}
+
+@media @small {
+  #calendar {
+    .fc-event-title {
+      padding: 0.4rem;
+      font-size: 0.75rem;
+      line-height: 0.9rem
+    }
+    .fc-widget-header {
+      font-size: 0.7rem;
     }
   }
 }
