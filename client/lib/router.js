@@ -21,7 +21,7 @@ Router.map(function() {
       Co.smartRedirect.call(this, 'scheduleView');
     },
     unload: function() {
-      Session.set('routerPrevPath', this.path);
+      Co.routerPrevPath = this.path;
     }
   });
 
