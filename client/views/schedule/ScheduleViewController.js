@@ -11,6 +11,7 @@ ScheduleViewController = RouteController.extend({
   onStop: function() {
     // Clear search results when leaving page
     Session.set('coursesSearchResults', []);
+    Co.routerPrevPath = this.path;
   },
 
   onData: function() {
@@ -32,10 +33,6 @@ ScheduleViewController = RouteController.extend({
       // ID parameter, but no matching schedule exists
       Co.smartRedirect.call(this, 'scheduleView');
     }
-  },
-
-  unload: function() {
-    Session.set('routerPrevPath', this.path);
   },
 
   waitOn: function() {
