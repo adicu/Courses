@@ -127,6 +127,15 @@ Template.scheduleSidebarSection.formatLocation = function() {
   return this.section.building[0] + " " + this.section.room[0];
 };
 
+Template.scheduleSidebarSection.formatCallNumber = function() {
+  if (!this.section.callNumber) {
+    return "Call number TBA";
+  }
+  else {
+    return "Call #" + " " + this.section.callNumber;
+  }
+};
+
 Template.scheduleSidebarSection.isDisabled = function() {
   if (!this.schedule.isMine()) {
     return 'disabled';
