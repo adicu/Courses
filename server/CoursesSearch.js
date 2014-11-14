@@ -1,5 +1,7 @@
 // Courses server-side search code
 
+var ejs = ES.queryDSL;
+
 // Adds additional options to elasticsearch queries
 // for a given query string
 var buildESQuery = function(query) {
@@ -63,19 +65,18 @@ var buildESFilter = function(query, semester) {
   }
 };
 
-var esSearch = Async.wrap(ES, 'search');
+var esSearch = Meteor.wrapAsync(ES.search, ES);
 
 Meteor.methods({
   'Courses/search': function(query, semester) {
     var esBody = ejs.Request()
       .query(buildESQuery(query))
-      .filter(buildESFilter(query, semester))
-      .toString();
+      .filter(buildESFilter(query, semester));
 
     var results = esSearch({
       index: 'data',
       type: 'courses',
-      body: esBody
+      body: JSON.stringify(esBody)
     });
     if (!results.hits.hits) {
       handleError(new Error('Data not received for query'), query);

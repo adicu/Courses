@@ -42,5 +42,5 @@ Router.map(function() {
 // iron-router-progress config
 Router.configure({
   delay: 50,
-  spinner: false
+  progressSpinner: false
 });

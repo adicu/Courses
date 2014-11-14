@@ -20,12 +20,9 @@ service-configuration
 aldeed:collection2
 nsmeta:zurb-foundation
 iron:router
-elasticsearch
-meteorhacks:npm
-npm-container
 rzymek:fullcalendar
 wenape:accounts-guest
 velocity:html-reporter
-multiply:iron-router-progress@1.0.0-pre3
+multiply:iron-router-progress@1.0.0
 mike:mocha@0.4.3
-
+brishin:meteor-elasticsearch
