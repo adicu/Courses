@@ -6,7 +6,7 @@ var sinon=function(){var samsam,formatio;(function(){function e(e,t,n){if(e=="sa
 
 stubMeteor = function() {
   var getStub = sinon.stub()
-    .withArgs('currentSemester').returns('20143');
+    .withArgs('currentSemester').returns('20151');
   Session = {
     get: getStub,
     set: sinon.stub()

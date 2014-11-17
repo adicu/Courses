@@ -7,7 +7,7 @@ describe('Courses', function() {
     Meteor.call(
       'Courses/search',
       'COMS',
-      '20143',
+      Session.get('currentSemester'),
       function(err, result) {
         if (err) {
           throw err;
@@ -19,10 +19,10 @@ describe('Courses', function() {
   });
 
   it('should get associated sections', function() {
-    var aCourse = Courses.findOne({'courseFull' : 'COMSW1007'});
+    var aCourse = Courses.findOne({'courseFull' : 'COMSW1004'});
     assert(aCourse, 'got some course');
 
     var sectionCount = aCourse.getSections().count();
-    assert(sectionCount, 'sections are returned');
+    assert(sectionCount > 0, 'sections are returned');
   });
 });
