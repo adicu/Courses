@@ -16,13 +16,13 @@ Router.onBeforeAction('loading');
 Router.map(function() {
   this.route('home', {
     path: '/',
-    onBeforeAction: function() {
+    onAfterAction: function() {
       // Redirect to schedule by default
       Co.smartRedirect.call(this, 'scheduleView');
       this.next();
     },
     unload: function() {
-      Session.set('routerPrevPath', this.path);
+      Co.routerPrevPath = this.path;
     }
   });
 
