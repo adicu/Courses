@@ -19,7 +19,6 @@ Router.map(function() {
     onAfterAction: function() {
       // Redirect to schedule by default
       Co.smartRedirect.call(this, 'scheduleView');
-      this.next();
     },
     unload: function() {
       Co.routerPrevPath = this.path;
