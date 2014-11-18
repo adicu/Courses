@@ -20,7 +20,7 @@ service-configuration
 aldeed:collection2
 nsmeta:zurb-foundation
 iron:router
-rzymek:fullcalendar
+jkatzen:fullcalendar2.0
 wenape:accounts-guest
 velocity:html-reporter
 multiply:iron-router-progress@1.0.0
