@@ -9,7 +9,7 @@ Meteor.publish('courses', function(courseFulls) {
   });
   return [
     Courses.find({
-      courseFull: {
+      course: {
         $in: courseFulls
       }
     }), Sections.find({

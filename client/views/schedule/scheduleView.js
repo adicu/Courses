@@ -197,11 +197,11 @@ Template.scheduleSearchArea.events({
     e.stopPropagation();
     var that = this;
     var schedule = createOrGetSchedule.call(this);
-    schedule.addCourse(this.result.CourseFull, function(err) {
+        schedule.addCourse(this.result.Course, function(err) {
       if (err) {
         handleError(err);
       }
-      Template.scheduleSidebar.openAccordion(that.result.CourseFull);
+      Template.scheduleSidebar.openAccordion(that.result.Course);
     });
     resetSearch();
   },

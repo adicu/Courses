@@ -76,8 +76,8 @@ Template.scheduleSidebarItem.helpers({
 
   getSidebarClasses: function() {
     var classes = [];
-    var color = this.schedule.getColor(this.course.courseFull);
-    var isInactive = this.schedule.getSectionsForCourse(this.course.courseFull).length === 0;
+    var color = this.schedule.getColor(this.course.course);
+    var isInactive = this.schedule.getSectionsForCourse(this.course.course).length === 0;
     if (isInactive) {
       classes.push('gray');
     } else {

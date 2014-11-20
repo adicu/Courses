@@ -49,7 +49,7 @@ Schedules.helpers({
     var that = this;
     Meteor.subscribe('courses', courseFull, function() {
       var course = Courses.findOne({
-        courseFull: courseFull
+        course: courseFull
       });
 
       if (!course) {
@@ -73,7 +73,7 @@ Schedules.helpers({
       });
 
       var sections = Sections.find({
-        courseFull: courseFull,
+        course: courseFull,
         term: Session.get('currentSemester')
       }).fetch();
       if (sections.length === 1) {
@@ -157,7 +157,7 @@ Schedules.helpers({
   getSectionsForCourse: function(courseFull) {
     var sections = this.getSections().fetch();
     return _.filter(sections, function(section) {
-      return section.courseFull === courseFull;
+      return section.course === courseFull;
     });
   },
 
