@@ -18,7 +18,7 @@ less
 accounts-facebook
 service-configuration
 aldeed:collection2
-nsmeta:zurb-foundation
+ewall:foundation
 iron:router
 jkatzen:fullcalendar2.0
 wenape:accounts-guest
@@ -28,4 +28,3 @@ brishin:meteor-elasticsearch
 # these don't work
 # velocity:html-reporter
 # mike:mocha@0.4.3
-
