@@ -1,13 +1,15 @@
-Template.navBarRightItems.isActive = function(pathName) {
-  var current = Router.current();
-  if (!current) {
-    return false;
+Template.navBarRightItems.helpers({
+  isActive: function(pathName) {
+    var current = Router.current();
+    if (!current) {
+      return false;
+    }
+    var path = Router.routes[pathName].path();
+    if (path === current.route.path()) {
+      return 'active';
+    }
   }
-  var path = Router.routes[pathName].originalPath;
-  if (path === current.route.originalPath) {
-    return 'active';
-  }
-};
+});
 
 Template.navBarRightItems.events({
   'click a.facebook-auth': function(e) {
@@ -20,4 +22,4 @@ Template.navBarRightItems.events({
 
 Template.analytics.created = function() {
   Co.analytics.start();
-}
+};
