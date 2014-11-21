@@ -201,7 +201,7 @@ Template.scheduleSearchArea.events({
       if (err) {
         handleError(err);
       }
-      Template.scheduleSidebar.openAccordion(that.result.Course);
+      $('.scheduleSidebar').trigger('toggleAccordion', that.result.CourseFull);
     });
     resetSearch();
   },

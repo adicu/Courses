@@ -9,33 +9,6 @@ Template.scheduleSidebar.helpers({
     }
   },
 
-  // Closes all accordions
-  closeAll: function() {
-    $('.scheduleSidebar .accordionItem.active').removeClass('active');
-    $('.scheduleSidebar .content.active').removeClass('active');
-  },
-
-  // Opens the accordion for the corresponding courseFull
-  openAccordion: function(courseFull) {
-    Template.scheduleSidebar.closeAll();
-
-    $('.scheduleSidebar .accordionItem-' + courseFull).addClass('active');
-    $('.scheduleSidebar .panel-' + courseFull).addClass('active');
-  },
-
-  isAccordionOpen: function(courseFull) {
-    var accordionItem = $('.scheduleSidebar .panel-' + courseFull);
-    return accordionItem.hasClass('active');
-  },
-
-  toggleAccordion: function(courseFull) {
-    if (Template.scheduleSidebar.isAccordionOpen(courseFull)) {
-      return Template.scheduleSidebar.closeAll();
-    } else {
-      return Template.scheduleSidebar.openAccordion(courseFull);
-    }
-  },
-
   getCourses: function() {
     if (!this.schedule) {
       return;
@@ -45,11 +18,38 @@ Template.scheduleSidebar.helpers({
   }
 });
 
+// Opens the accordion for the corresponding courseFull
+var openAccordion = function(courseFull) {
+    closeAll();
+    $('.scheduleSidebar .accordionItem-' + courseFull).addClass('active');
+    $('.scheduleSidebar .panel-' + courseFull).addClass('active');
+  };
+
+var isAccordionOpen = function(courseFull) {
+    var accordionItem = $('.scheduleSidebar .panel-' + courseFull);
+    return accordionItem.hasClass('active');
+  };
+
+  // Closes all accordions
+var closeAll = function() {
+
+    $('.scheduleSidebar .accordionItem.active').removeClass('active');
+    $('.scheduleSidebar .content.active').removeClass('active');
+  };
+
 Template.scheduleSidebar.events({
+  'toggleAccordion': function(e, templateInstance, courseFull) {
+    if (isAccordionOpen(courseFull)) {
+      return closeAll();
+    } else {
+      return openAccordion(courseFull);
+    }
+  
+  },
   'click .accordionItem > a': function(e) {
     var item = e.currentTarget;
     var courseFull = $(item).data('coursefull');
-    return Template.scheduleSidebar.toggleAccordion(courseFull);
+    $('.scheduleSidebar').trigger('toggleAccordion', courseFull);
   },
   'click .empty': function(e) {
     var input = $('.search-input');
