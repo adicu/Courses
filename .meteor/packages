@@ -22,7 +22,10 @@ nsmeta:zurb-foundation
 iron:router
 jkatzen:fullcalendar2.0
 wenape:accounts-guest
-velocity:html-reporter
 multiply:iron-router-progress@1.0.0
-mike:mocha@0.4.3
 brishin:meteor-elasticsearch
+
+# these don't work
+# velocity:html-reporter
+# mike:mocha@0.4.3
+
